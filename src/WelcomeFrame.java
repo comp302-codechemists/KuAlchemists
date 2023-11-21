@@ -39,7 +39,7 @@ public class WelcomeFrame extends JFrame {
         startButton = new JButton("Start Game");
         startButton.setHorizontalTextPosition(SwingConstants.CENTER);
         startButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        startButton.setBackground(new Color(0, 150, 136)); 
+        startButton.setBackground(Color.green); 
         startButton.setForeground(Color.WHITE); 
         startButton.setFont(new Font("Arial", Font.BOLD, 12)); 
 
