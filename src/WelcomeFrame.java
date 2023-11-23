@@ -22,7 +22,7 @@ public class WelcomeFrame extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
            
-                ImageIcon imageIcon = new ImageIcon("/Users/beyzaerdogan/Desktop/COMP302/KuAlchemists/src/bck.png");
+                ImageIcon imageIcon = new ImageIcon("C:\\KuAlchemists\\KuAlchemists\\src\\bck.png");
                 Image image = imageIcon.getImage();
 
                
