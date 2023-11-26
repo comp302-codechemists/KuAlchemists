@@ -10,6 +10,7 @@ public class Main {
                 new WelcomeFrame().setVisible(true);
             }
         });
+        
     }
 
 }
