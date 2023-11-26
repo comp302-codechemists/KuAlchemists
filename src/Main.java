@@ -8,7 +8,7 @@ public class Main {
             @Override
             public void run() {
                 new WelcomeFrame().setVisible(true);
-                System.out.println("Hello");
+                System.out.println("Hello12312");
             }
         });
     }
