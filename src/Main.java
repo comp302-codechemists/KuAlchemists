@@ -10,6 +10,7 @@ public class Main {
                 new WelcomeFrame().setVisible(true);
                 System.out.println("Hello12312");
                 System.out.println("Soon");
+                System.out.println("Last");
             }
         });
     }
