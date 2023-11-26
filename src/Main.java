@@ -9,6 +9,7 @@ public class Main {
             public void run() {
                 new WelcomeFrame().setVisible(true);
                 System.out.println("Hello12312");
+                System.out.println("Soon");
             }
         });
     }
