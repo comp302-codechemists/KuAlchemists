@@ -8,9 +8,9 @@ public class Main {
             @Override
             public void run() {
                 new WelcomeFrame().setVisible(true);
+                System.out.println("Hello");
             }
         });
-        
     }
 
 }
