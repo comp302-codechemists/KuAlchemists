@@ -1,7 +1,7 @@
 package Business;
 
 public class GoldBoosterArtifact extends Artifact {
-	public int boostAmount;
+    public int boostAmount;
     private String duration;
     
 
