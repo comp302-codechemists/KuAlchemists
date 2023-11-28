@@ -32,7 +32,6 @@ public class KUAlchemistsGame {
 		String playerAvatarOne;
 		String playerAvatarTwo;
 		
-		
 		Scanner playerScanner = new Scanner(System.in);
 		System.out.println("Enter player 1 username: ");
 		playerNameOne = playerScanner.next(); 		// input is a string ( one word )
