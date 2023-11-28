@@ -10,11 +10,11 @@ Kendi branchinize pushlayın kodlarınızı merge conflicten kafayı yemeyelim.
 Teşekkürler
 # KuAlchemists
 
-# Take the latest main__
-Go to main: git checkout main __
-Pull main: git pull origin main__
-Go to beyza: git checkout beyza__
-Then: git merge main __
+# Take the latest main <br/>
+Go to main: git checkout main <br/>
+Pull main: git pull origin main<br/>
+Go to beyza: git checkout beyza<br/>
+Then: git merge main <br/>
 
 # I did some change in Beyza branch. I would like to merge it with main;
 *I am in Beyza branch:* ;
