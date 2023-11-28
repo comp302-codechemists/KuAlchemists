@@ -17,11 +17,11 @@ Go to beyza: git checkout beyza<br/>
 Then: git merge main <br/>
 
 # I did some change in Beyza branch. I would like to merge it with main;
-*I am in Beyza branch:* ;
-Git add . ;
-Git commit -m “message” ;
-Git push ;
-*I go to main branch* ;
-Git checkout main ;
-Merge local beyza to local main: Git merge beyza ;
-Push local main to remote main: git push -u origin main ;
+*I am in Beyza branch:* <br/>
+Git add . <br/>
+Git commit -m “message” <br/>
+Git push <br/>
+*I go to main branch* <br/>
+Git checkout main <br/>
+Merge local beyza to local main: Git merge beyza <br/>
+Push local main to remote main: git push -u origin main <br/>
