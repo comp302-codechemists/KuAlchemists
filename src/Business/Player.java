@@ -11,6 +11,10 @@ public class Player {
 	private int reputationPoints;
 	private DeductionBoard deductionBoard;
 	
+	public Player(String userName, String avatarPath) {
+		this.userName = userName;
+		this.avatarPath = avatarPath;
+	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
 			int balance, int reputationPoints, DeductionBoard deductionBoard) {
