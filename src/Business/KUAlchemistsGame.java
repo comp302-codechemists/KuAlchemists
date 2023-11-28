@@ -6,11 +6,12 @@ import java.util.Scanner;
 
 public class KUAlchemistsGame {
 
+	int numberOfPlayers;
 	List<Player> players;
 	Player currentPlayer;
-	int numberOfPlayers;
-	int level;
-	boolean paused;
+	int level = 0;
+	boolean paused = false;
+	IngredientStorage ingredientStorage;
 	
 	public KUAlchemistsGame(int numberOfPlayers) {
 		
@@ -21,6 +22,7 @@ public class KUAlchemistsGame {
 		 * */
 		
 		this.numberOfPlayers = numberOfPlayers;
+		System.out.printf("The game is initialized with %d players.\n", numberOfPlayers);
 	
 		/*
 		 * We should handle input in a seperate class/interface
@@ -50,7 +52,6 @@ public class KUAlchemistsGame {
 		
 		startGame(players);
 		
-		System.out.printf("The game is initialized with %d players.\n", numberOfPlayers);
 	}
 	
 	
@@ -62,10 +63,12 @@ public class KUAlchemistsGame {
 	private void startGame(List<Player> players) {
 		this.players = players;
 		
-		System.out.println("The game has started.");
+		System.out.println("The game has started. Players are waiting to begin.");
 		for (Player player: players){
 			System.out.printf("Player One: %s %s\n", player.getUserName(), player.getAvatarPath());
 		}
+		
+		ingredientStorage = new IngredientStorage();
 		
 	}
 	
