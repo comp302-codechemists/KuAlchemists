@@ -21,6 +21,7 @@ public class Main {
     	
     	// We will ask user how many player will play the game, 
     	// but for now, initialize the game with 2 players
+    	// burak branch
     	KUAlchemistsGame game = new KUAlchemistsGame(2);
     }
 
