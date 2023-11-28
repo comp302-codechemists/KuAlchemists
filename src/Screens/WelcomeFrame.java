@@ -22,10 +22,8 @@ public class WelcomeFrame extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-           
-                ImageIcon imageIcon = new ImageIcon("C:\\KuAlchemists\\KuAlchemists\\src\\bck.png");
-                Image image = imageIcon.getImage();
-
+                
+                Image image = new ImageIcon(this.getClass().getResource("/Images/bck.png")).getImage();
                
                 int x = (getWidth() - image.getWidth(null)) / 2;
                 int y = (getHeight() - image.getHeight(null)) / 2;
@@ -76,6 +74,20 @@ public class WelcomeFrame extends JFrame {
         startButton.setVisible(false);
         loadingLabel.setVisible(true);
         progressBar.setVisible(true);
+        StartGameFrame start = new StartGameFrame();
+        start.setVisible(true);
+        
 
+    }
+    
+	
+    public static void main(String[] args) {
+        // Create and display the frame
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new WelcomeFrame().setVisible(true);
+            }
+        });
     }
 }
