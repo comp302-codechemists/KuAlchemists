@@ -1,7 +1,7 @@
 package Business;
 
 public class PotionEffectBoosterArtifact extends Artifact {
-    private int boostAmount;
+    public int boostAmount;
     public String whereToApply;
     private String duration;
 
@@ -34,4 +34,6 @@ public class PotionEffectBoosterArtifact extends Artifact {
     public void setWhereToApply(String whereToApply) {
         this.whereToApply = whereToApply;
     }
+
+	
 }

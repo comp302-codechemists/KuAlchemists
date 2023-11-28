@@ -27,4 +27,5 @@ public class GoldBoosterArtifact extends Artifact {
         this.boostAmount = boostAmount;
     }
 
+	
 }

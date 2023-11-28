@@ -1,8 +1,8 @@
 package Business;
 
 public class DiscountArtifact extends Artifact {
-    private int discountAmount;
-    private String whereToApply;
+    public int discountAmount;
+    public String whereToApply;
     private String duration;
 
     public DiscountArtifact(int discountAmount, String whereToApply, String duration) {
@@ -34,5 +34,5 @@ public class DiscountArtifact extends Artifact {
     public void setDuration(String duration) {
         this.duration = duration;
     }
-
+  
 }
