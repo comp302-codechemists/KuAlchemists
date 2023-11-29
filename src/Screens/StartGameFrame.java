@@ -7,12 +7,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StartGameFrame extends GeneralFrame {
+	
+	/*
+	 * Screen displayed after start game is clicked.
+	 * Lets the users enter names and avatar, then starts the game with the given info.
+	 */
     private JTextField secondUsernameField;
     private JTextField textField;
 
     public StartGameFrame() {
         JPanel backgroundPanel = new JPanel();
-        backgroundPanel.setLayout(null); // Set layout to null for manual component placement
+        backgroundPanel.setLayout(null); 
         backgroundPanel.setLocation(0, 0);
         backgroundPanel.setSize(new Dimension(1540, 820));
         getContentPane().add(backgroundPanel);
@@ -29,8 +34,7 @@ public class StartGameFrame extends GeneralFrame {
         exitGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add code to handle exiting the game
-                System.exit(0); // For simplicity, exiting the application
+                System.exit(0); 
             }
         });
         backgroundPanel.add(exitGameButton);
