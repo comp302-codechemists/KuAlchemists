@@ -57,7 +57,7 @@ public class Experiment {
 	}
 	
 	public void makeExperiment(Ingredient ing1, Ingredient ing2, String whereToTest) {
-		Potion potion = new Potion();
+		Potion potion = new Potion(ing1, ing2);
 	}
 	
 	public void testExperiment() {
