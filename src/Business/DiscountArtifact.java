@@ -5,11 +5,12 @@ public class DiscountArtifact extends Artifact {
     public String whereToApply;
     private String duration;
 
-    public DiscountArtifact(int discountAmount, String whereToApply, String duration) {
+    /*public DiscountArtifact(int discountAmount, String whereToApply, String duration) {
         this.discountAmount = discountAmount;
         this.whereToApply = whereToApply;
         this.duration = duration;
     }
+    these need to be determined*/ 
 
     public int getDiscountAmount() {
         return discountAmount;

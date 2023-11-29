@@ -4,12 +4,10 @@ public class GoldBoosterArtifact extends Artifact {
     public int boostAmount;
     private String duration;
     
-
-    
-    public GoldBoosterArtifact(String duration, int boostAmount) {
+    /*public GoldBoosterArtifact(String duration, int boostAmount) {
         this.duration = duration;
         this.boostAmount = boostAmount;
-    }
+    }*/
 
     public String getDuration() {
         return duration;

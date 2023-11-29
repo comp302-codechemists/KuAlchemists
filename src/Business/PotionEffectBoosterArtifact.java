@@ -5,11 +5,11 @@ public class PotionEffectBoosterArtifact extends Artifact {
     public String whereToApply;
     private String duration;
 
-    public PotionEffectBoosterArtifact(int boostAmount, String whereToApply, String duration) {
+   /* public PotionEffectBoosterArtifact(int boostAmount, String whereToApply, String duration) {
         this.boostAmount = boostAmount;
         this.whereToApply = whereToApply;
         this.duration = duration;
-    }
+    }*/
 
     public int getBoostAmount() {
         return boostAmount;

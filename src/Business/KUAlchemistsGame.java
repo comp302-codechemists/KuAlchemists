@@ -7,17 +7,52 @@ import java.util.Scanner;
 public class KUAlchemistsGame {
 
 	int numberOfPlayers;
-	List<Player> players;
+	IngredientStorage ingredientStorage;
+	ArtifactStorage artifactStorage;
+	List<Player> players = new ArrayList<Player>();
 	Player currentPlayer;
 	int level = 0;
 	boolean paused = false;
-	IngredientStorage ingredientStorage;
 	
 	public KUAlchemistsGame(int numberOfPlayers) 
 	{
 		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
+		
+		// create ingredientStorage
+		ingredientStorage = new IngredientStorage();
+				
+		// create artifactStorage
+		artifactStorage = new ArtifactStorage();
+				
+				
 		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
+	}
+	
+	public void play()
+	{
+		// take player information
+		setPlayers(numberOfPlayers);
+				
+		// start game
+		startGame();
+	}
+	
+	private void startGame() 
+	{			
+		// set current player
+		currentPlayer = players.get(0);
+		
+		// shuffle ingredients
+		ingredientStorage.shuffleIngredients();
+		
+		// shuffle artifacts
+		artifactStorage.shuffleArtifacts();
+		
+		System.out.println("The game has started. Players are waiting to begin.");
+		for (Player player: players){
+			System.out.printf("Player: %s %s\n", player.getUserName(), player.getAvatarPath());
+		}
 	}
 	
 	private void setPlayers(int numberOfPlayers){
@@ -40,34 +75,32 @@ public class KUAlchemistsGame {
 			System.out.println("Enter player avatar: ");
 			avatar = playerScanner.next();  	// input is an string
 			
-			// add new player
-			players.add(new Player(name, avatar));
+			// create new player
+			Player newPlayer = new Player(name, avatar);
+			
+			// set new player's balance
+			newPlayer.setBalance(+5);
+			
+			// deal 5 ingredientCards to newPlayer
+			for (int j = 0; j < 2; j++)
+			{
+				giveRandomIngredientCardToPlayer(newPlayer);
+			}
+			
+			// add newPlayer to players list
+			players.add(newPlayer);
+			
 		}
 		
+		System.out.println("The players have been set.");
 	}
 	
-	
-	public void play()
+	private void giveRandomIngredientCardToPlayer(Player player)
 	{
-		// take player information
-		setPlayers(numberOfPlayers);
-				
-		// start game
-		startGame(players);
+	    Ingredient ingredient = ingredientStorage.getRandomIngredient();
+		player.addIngredient(ingredient);
 	}
-	
-	private void startGame(List<Player> players) {
-		this.players = players;
 		
-		System.out.println("The game has started. Players are waiting to begin.");
-		for (Player player: players){
-			System.out.printf("Player One: %s %s\n", player.getUserName(), player.getAvatarPath());
-		}
-		
-		ingredientStorage = new IngredientStorage();
-		
-	}
-	
 	private void nextLevel()
 	{
 		/*
@@ -88,8 +121,7 @@ public class KUAlchemistsGame {
 		
 		this.players.add(player);
 	}
-	
-	
+		
 	public void finish() {
 		
 		/*

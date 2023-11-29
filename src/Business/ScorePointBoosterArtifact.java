@@ -4,10 +4,10 @@ public class ScorePointBoosterArtifact extends Artifact {
     public int boostAmount;
     private String duration;
 
-    public ScorePointBoosterArtifact(int boostAmount, String duration) {
+   /* public ScorePointBoosterArtifact(int boostAmount, String duration) {
         this.boostAmount = boostAmount;
         this.duration = duration;
-    }
+    }*/
 
     public int getBoostAmount() {
         return boostAmount;
