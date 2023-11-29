@@ -36,7 +36,7 @@ public class Ingredient {
 		this.name = name;
 	}
 	
-	public Token getToken(String ingredientName) {
+	public static Token getToken(String ingredientName) {
 		return Token.tokens.get(ingredientName);
 	}
 	
