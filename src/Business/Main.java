@@ -23,6 +23,7 @@ public class Main {
     	// but for now, initialize the game with 2 players
     	// burak branch
     	KUAlchemistsGame game = new KUAlchemistsGame(2);
+    	game.play();
     }
 
 }

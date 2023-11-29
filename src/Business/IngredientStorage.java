@@ -1,15 +1,15 @@
 package Business;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class IngredientStorage {
 	
-	List<Ingredient> ingredientList;
+	public List<Ingredient> ingredientList = new ArrayList<Ingredient>();
 	
 	public IngredientStorage() 
 	{
-		ingredientList = new ArrayList<Ingredient>();
 		initializeStorage();
 		
 		System.out.println("Ingredient storage has been created.");
@@ -30,12 +30,37 @@ public class IngredientStorage {
 		Token.initializeTokens();
 		
 		// initialize all ingredients
-		Ingredient.initializeIngredient();
+		Ingredient.initializeIngredients();
 		
-		System.out.println("Ingredient storage has been initialized.");
+		// At the beginning of the game
+		// The ingredient storage ingredientList
+		// will be full of all the ingredients
+		ingredientList.addAll(Ingredient.ingredients);
 		
+		System.out.println("Ingredient storage ingredient list has been initialized.");
+		for (Ingredient i: ingredientList)
+		{
+			System.out.println(i.name);
+		}
 	}
 
+	public Ingredient getRandomIngredient() {
+		
+		int max = ingredientList.size() - 1;
+		int min = 0;
+		
+		// Generate random int value from min to max
+	    int randomInt = (int)Math.floor(Math.random() * ( - min + 1) + max);
+	    
+	    return ingredientList.remove(randomInt);
+	}
+	
+	public void shuffleIngredients()
+	{
+		Collections.shuffle(ingredientList);
+        System.out.println("Ingredients have been shuffled.");
+	}
+	
 	public static void addToBottom(Ingredient ingredient) {
 		
 	}

@@ -7,9 +7,9 @@ public class Ingredient {
 	
 	String name;
 	
-	public static List<Ingredient> ingredients = new ArrayList<Ingredient>();
+	public static final List<Ingredient> ingredients = new ArrayList<Ingredient>();
 	
-	public static void initializeIngredient()
+	public static void initializeIngredients()
 	{
 		/*
     	 * This method will create existing ingredients in the game,
@@ -17,7 +17,7 @@ public class Ingredient {
     	 * This can be done in a different class, later.
     	 * */
 		
-		// Convert Set<String> to List<Ingredient>
+		// Create all ingredients
 	    List<Ingredient> ingredientList = new ArrayList<>();
 	    for (String name : Token.tokens.keySet()) {
 	        Ingredient ingredient = new Ingredient(name); 
@@ -27,7 +27,7 @@ public class Ingredient {
 	    // Add all ingredients to the existing list
 	    ingredients.addAll(ingredientList);
 	    
-	    System.out.println("Ingredient has been initialized.");
+	    System.out.println("All ingredients has been initialized in Ingredient class.");
 		
 	}
 	
@@ -36,7 +36,7 @@ public class Ingredient {
 		this.name = name;
 	}
 	
-	public Token getToken(String ingredientName) {
+	public static Token getToken(String ingredientName) {
 		return Token.tokens.get(ingredientName);
 	}
 	
