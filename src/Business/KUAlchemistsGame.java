@@ -13,51 +13,47 @@ public class KUAlchemistsGame {
 	boolean paused = false;
 	IngredientStorage ingredientStorage;
 	
-	public KUAlchemistsGame(int numberOfPlayers) {
-		
-		/*
-		 * The game will be initialized
-		 * after the user enter the 
-		 * number of players.
-		 * */
-		
+	public KUAlchemistsGame(int numberOfPlayers) 
+	{
+		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
-		System.out.printf("The game is initialized with %d players.\n", numberOfPlayers);
+		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
+	}
 	
+	private void setPlayers(int numberOfPlayers){
+		
 		/*
-		 * We should handle input in a seperate class/interface
+		 * We should handle input in a separate class/interface
 		 * But for now, let's do it here.
 		 * */
 		
-		String playerNameOne;
-		String playerNameTwo;
-		String playerAvatarOne;
-		String playerAvatarTwo;
-		
+		String name;
+		String avatar;
 		Scanner playerScanner = new Scanner(System.in);
-		System.out.println("Enter player 1 username: ");
-		playerNameOne = playerScanner.next(); 		// input is a string ( one word )
-		System.out.println("Enter player 1 avatar: ");
-		playerAvatarOne = playerScanner.next();  // input is an string
-		System.out.println("Enter player 2 username: ");
-		playerNameTwo = playerScanner.next(); 		// input is a string ( one word )
-		System.out.println("Enter player 2 avatar: ");
-		playerAvatarTwo = playerScanner.next();  // input is an string
 		
-		Player playerOne = new Player(playerNameOne, playerAvatarOne);
-		Player playerTwo = new Player(playerNameTwo, playerAvatarTwo);
-		List<Player> players = new ArrayList<Player>();
-		players.add(playerOne);
-		players.add(playerTwo);
-		
-		startGame(players);
+		for (int i = 0; i < numberOfPlayers; i++) 
+		{
+
+			// take player information
+			System.out.println("Enter player username: ");
+			name = playerScanner.next(); 		// input is a string ( one word )
+			System.out.println("Enter player avatar: ");
+			avatar = playerScanner.next();  	// input is an string
+			
+			// add new player
+			players.add(new Player(name, avatar));
+		}
 		
 	}
 	
 	
 	public void play()
 	{
-		
+		// take player information
+		setPlayers(numberOfPlayers);
+				
+		// start game
+		startGame(players);
 	}
 	
 	private void startGame(List<Player> players) {

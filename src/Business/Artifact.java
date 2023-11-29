@@ -1,5 +1,5 @@
 package Business;
 
- abstract class Artifact {
+abstract class Artifact {
 
 }

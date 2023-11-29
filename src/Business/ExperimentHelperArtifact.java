@@ -1,7 +1,8 @@
 package Business;
 
 public class ExperimentHelperArtifact extends Artifact {
-    private String duration;
+    
+	private String duration;
 
     public ExperimentHelperArtifact(String duration) {
         this.duration = duration;
