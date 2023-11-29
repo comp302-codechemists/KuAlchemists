@@ -65,5 +65,9 @@ public class Token {
 		
 		
 	}
+
+	public Aspect[] getTokenAspects() {
+		return tokenAspects;
+	}
 	
 }

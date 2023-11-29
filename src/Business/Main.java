@@ -4,7 +4,7 @@ import Screens.WelcomeFrame;
 
 public class Main {
 	
-	IngredientStorage ingredientStorage = new IngredientStorage();
+
 	
     public static void main(String[] args) {
        
