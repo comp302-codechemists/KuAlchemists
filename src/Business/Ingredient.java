@@ -36,6 +36,14 @@ public class Ingredient {
 		this.name = name;
 	}
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public static Token getToken(String ingredientName) {
 		return Token.tokens.get(ingredientName);
 	}

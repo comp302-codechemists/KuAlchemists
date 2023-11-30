@@ -6,11 +6,12 @@ import java.util.Scanner;
 
 public class KUAlchemistsGame {
 
+	public static Player currentPlayer;
+	
 	int numberOfPlayers;
 	IngredientStorage ingredientStorage;
 	ArtifactStorage artifactStorage;
 	List<Player> players = new ArrayList<Player>();
-	Player currentPlayer;
 	int level = 0;
 	boolean paused = false;
 	
@@ -20,7 +21,7 @@ public class KUAlchemistsGame {
 		this.numberOfPlayers = numberOfPlayers;
 		
 		// create ingredientStorage
-		ingredientStorage = new IngredientStorage();
+		ingredientStorage = IngredientStorage.getInstance();
 				
 		// create artifactStorage
 		artifactStorage = new ArtifactStorage();
