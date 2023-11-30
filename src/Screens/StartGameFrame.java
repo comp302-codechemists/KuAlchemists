@@ -155,6 +155,15 @@ public class StartGameFrame extends GeneralFrame {
                         btnHowToPlay.setFont(new Font("Tahoma", Font.PLAIN, 15));
                         btnHowToPlay.setBounds(1123, 566, 150, 30);
                         backgroundPanel.add(btnHowToPlay);
+                        btnHowToPlay.addActionListener(new ActionListener() {
+							
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								HowToPlayFrame frame = new HowToPlayFrame();
+								frame.setVisible(true);
+								
+							}
+						});
                         
                         JLabel lblNewLabel_2 = new JLabel("Welcome to KUAlchemist!");
                         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
