@@ -5,12 +5,6 @@ public class ReputationBoosterArtifact extends Artifact {
     public String whereToApply;
     private String duration;
 
-    /*public ReputationBoosterArtifact(int boostAmount, String whereToApply, String duration) {
-        this.boostAmount = boostAmount;
-        this.whereToApply = whereToApply;
-        this.duration = duration;
-    }*/
-
     public int getBoostAmount() {
         return boostAmount;
     }
