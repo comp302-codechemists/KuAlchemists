@@ -30,10 +30,10 @@ public class KUAlchemistsGame {
 		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
 	}
 	
-	public void play()
+	public void play(String p1name, String p2name, String avatar1, String avatar2)
 	{
 		// take player information
-		setPlayers(numberOfPlayers);
+		setPlayers(p1name, p2name, avatar1, avatar2);
 				
 		// start game
 		startGame();
@@ -56,7 +56,7 @@ public class KUAlchemistsGame {
 		}
 	}
 	
-	private void setPlayers(int numberOfPlayers){
+	private void setPlayers(String p1name, String p2name, String avatar1, String avatar2){
 		
 		/*
 		 * We should handle input in a separate class/interface
@@ -67,17 +67,19 @@ public class KUAlchemistsGame {
 		String avatar;
 		Scanner playerScanner = new Scanner(System.in);
 		
-		for (int i = 0; i < numberOfPlayers; i++) 
+		for (int i = 0; i < 2; i++) 
 		{
 
+			/*
 			// take player information
 			System.out.println("Enter player username: ");
 			name = playerScanner.next(); 		// input is a string ( one word )
 			System.out.println("Enter player avatar: ");
 			avatar = playerScanner.next();  	// input is an string
+			*/
 			
 			// create new player
-			Player newPlayer = new Player(name, avatar);
+			Player newPlayer = new Player(p1name, avatar1);
 			
 			// set new player's balance
 			newPlayer.setBalance(+5);
@@ -93,7 +95,7 @@ public class KUAlchemistsGame {
 			
 		}
 		
-		System.out.println("The players have been set.");
+		System.out.printf("The players have been set. Player 1: %s, Player 2: %s.\n", players.get(0).getUserName(), players.get(1).getUserName());
 	}
 	
 	private void giveRandomIngredientCardToPlayer(Player player)

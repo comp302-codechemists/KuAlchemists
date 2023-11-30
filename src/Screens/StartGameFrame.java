@@ -4,6 +4,7 @@ package Screens;
 import javax.swing.*;
 
 import Business.Player;
+import Controllers.StartGameController;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,8 +16,8 @@ public class StartGameFrame extends GeneralFrame {
 	 * Screen displayed after start game is clicked.
 	 * Lets the users enter names and avatar, then starts the game with the given info.
 	 */
-    private JTextField secondUsernameField;
-    private JTextField textField;
+    private JTextField player1name;
+    private JTextField player2name;
 
     public StartGameFrame() {
         JPanel backgroundPanel = new JPanel();
@@ -30,6 +31,8 @@ public class StartGameFrame extends GeneralFrame {
         startGameButton.setBounds(1123, 524, 150, 30);
 
         backgroundPanel.add(startGameButton);
+        
+
 
         JButton exitGameButton = new JButton("Exit Game");
         exitGameButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -53,10 +56,10 @@ public class StartGameFrame extends GeneralFrame {
                 panel.add(firstUserLabel);
                 firstUserLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
                 
-                        secondUsernameField = new JTextField();
-                        secondUsernameField.setBounds(43, 94, 200, 30);
-                        panel.add(secondUsernameField);
-                        secondUsernameField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+                        player1name = new JTextField();
+                        player1name.setBounds(43, 94, 200, 30);
+                        panel.add(player1name);
+                        player1name.setFont(new Font("Tahoma", Font.PLAIN, 15));
                         
                         JLabel lblNewLabel = new JLabel("Choose your avatar");
                         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -106,10 +109,10 @@ public class StartGameFrame extends GeneralFrame {
                         lblPlayer.setBounds(55, 54, 150, 30);
                         panel_2.add(lblPlayer);
                         
-                        textField = new JTextField();
-                        textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
-                        textField.setBounds(43, 94, 200, 30);
-                        panel_2.add(textField);
+                        player2name = new JTextField();
+                        player2name.setFont(new Font("Tahoma", Font.PLAIN, 15));
+                        player2name.setBounds(43, 94, 200, 30);
+                        panel_2.add(player2name);
                         
                         JLabel lblNewLabel_1 = new JLabel("Choose your avatar");
                         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -157,6 +160,17 @@ public class StartGameFrame extends GeneralFrame {
                         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
                         lblNewLabel_2.setBounds(470, 53, 277, 81);
                         backgroundPanel.add(lblNewLabel_2);
+                        
+                        startGameButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                 String p1name = player1name.getText();
+                                 String p2name = player2name.getText();
+                                 StartGameController sgc = new StartGameController();
+                                 sgc.handleStartGame(p1name, p2name, null, null);
+                                 
+                            }
+                        });
     }
     
     

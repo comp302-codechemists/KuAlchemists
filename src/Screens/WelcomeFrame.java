@@ -1,5 +1,8 @@
 package Screens;
 import javax.swing.*;
+
+import Controllers.StartGameController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
@@ -76,7 +79,7 @@ public class WelcomeFrame extends JFrame {
         progressBar.setVisible(true);
         StartGameFrame start = new StartGameFrame();
         start.setVisible(true);
-        
+
 
     }
     
