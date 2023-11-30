@@ -6,69 +6,101 @@ import java.util.Scanner;
 
 public class KUAlchemistsGame {
 
-	List<Player> players;
-	Player currentPlayer;
 	int numberOfPlayers;
-	int level;
-	boolean paused;
+	IngredientStorage ingredientStorage;
+	ArtifactStorage artifactStorage;
+	List<Player> players = new ArrayList<Player>();
+	Player currentPlayer;
+	int level = 0;
+	boolean paused = false;
 	
-	public KUAlchemistsGame(int numberOfPlayers) {
-		
-		/*
-		 * The game will be initialized
-		 * after the user enter the 
-		 * number of players.
-		 * */
-		
+	public KUAlchemistsGame(int numberOfPlayers) 
+	{
+		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
-	
-		/*
-		 * We should handle input in a seperate class/interface
-		 * But for now, let's do it here.
-		 * */
 		
-		String playerNameOne;
-		String playerNameTwo;
-		String playerAvatarOne;
-		String playerAvatarTwo;
-		
-		Scanner playerScanner = new Scanner(System.in);
-		System.out.println("Enter player 1 username: ");
-		playerNameOne = playerScanner.next(); 		// input is a string ( one word )
-		System.out.println("Enter player 1 avatar: ");
-		playerAvatarOne = playerScanner.next();  // input is an string
-		System.out.println("Enter player 2 username: ");
-		playerNameTwo = playerScanner.next(); 		// input is a string ( one word )
-		System.out.println("Enter player 2 avatar: ");
-		playerAvatarTwo = playerScanner.next();  // input is an string
-		
-		Player playerOne = new Player(playerNameOne, playerAvatarOne);
-		Player playerTwo = new Player(playerNameTwo, playerAvatarTwo);
-		List<Player> players = new ArrayList<Player>();
-		players.add(playerOne);
-		players.add(playerTwo);
-		
-		startGame(players);
-		
-		System.out.printf("The game is initialized with %d players.\n", numberOfPlayers);
+		// create ingredientStorage
+		ingredientStorage = new IngredientStorage();
+				
+		// create artifactStorage
+		artifactStorage = new ArtifactStorage();
+				
+				
+		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
 	}
-	
 	
 	public void play()
 	{
-		
+		// take player information
+		setPlayers(numberOfPlayers);
+				
+		// start game
+		startGame();
 	}
 	
-	private void startGame(List<Player> players) {
-		this.players = players;
+	private void startGame() 
+	{			
+		// set current player
+		currentPlayer = players.get(0);
 		
-		System.out.println("The game has started.");
+		// shuffle ingredients
+		ingredientStorage.shuffleIngredients();
+		
+		// shuffle artifacts
+		artifactStorage.shuffleArtifacts();
+		
+		System.out.println("The game has started. Players are waiting to begin.");
 		for (Player player: players){
-			System.out.printf("Player One: %s %s\n", player.getUserName(), player.getAvatarPath());
+			System.out.printf("Player: %s %s\n", player.getUserName(), player.getAvatarPath());
+		}
+	}
+	
+	private void setPlayers(int numberOfPlayers){
+		
+		/*
+		 * We should handle input in a separate class/interface
+		 * But for now, let's do it here.
+		 * */
+		
+		String name;
+		String avatar;
+		Scanner playerScanner = new Scanner(System.in);
+		
+		for (int i = 0; i < numberOfPlayers; i++) 
+		{
+
+			// take player information
+			System.out.println("Enter player username: ");
+			name = playerScanner.next(); 		// input is a string ( one word )
+			System.out.println("Enter player avatar: ");
+			avatar = playerScanner.next();  	// input is an string
+			
+			// create new player
+			Player newPlayer = new Player(name, avatar);
+			
+			// set new player's balance
+			newPlayer.setBalance(+5);
+			
+			// deal 5 ingredientCards to newPlayer
+			for (int j = 0; j < 2; j++)
+			{
+				giveRandomIngredientCardToPlayer(newPlayer);
+			}
+			
+			// add newPlayer to players list
+			players.add(newPlayer);
+			
 		}
 		
+		System.out.println("The players have been set.");
 	}
 	
+	private void giveRandomIngredientCardToPlayer(Player player)
+	{
+	    Ingredient ingredient = ingredientStorage.getRandomIngredient();
+		player.addIngredient(ingredient);
+	}
+		
 	private void nextLevel()
 	{
 		/*
@@ -89,8 +121,7 @@ public class KUAlchemistsGame {
 		
 		this.players.add(player);
 	}
-	
-	
+		
 	public void finish() {
 		
 		/*

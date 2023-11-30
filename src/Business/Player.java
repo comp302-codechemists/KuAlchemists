@@ -1,17 +1,19 @@
 package Business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
 	private String userName;
 	private String avatarPath;
-	private List<Ingredient> ingredients;
-	private List<Artifact> artifacts;
+	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+	private List<Artifact> artifacts = new ArrayList<Artifact>();
 	private int balance;
 	private int reputationPoints;
 	private DeductionBoard deductionBoard;
 	
 	public Player(String userName, String avatarPath) {
+		
 		this.userName = userName;
 		this.avatarPath = avatarPath;
 	}
@@ -27,6 +29,10 @@ public class Player {
 		this.deductionBoard = deductionBoard;
 	}
 	
+	public void addIngredient(Ingredient ingredient)
+	{
+		ingredients.add(ingredient);
+	}
 	
 
 
