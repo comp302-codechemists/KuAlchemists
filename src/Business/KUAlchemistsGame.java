@@ -30,10 +30,10 @@ public class KUAlchemistsGame {
 		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
 	}
 	
-	public void play(String p1name, String p2name, String avatar1, String avatar2)
+	public void play(List<String> nameList, List<String> avatarList)
 	{
 		// take player information
-		setPlayers(p1name, p2name, avatar1, avatar2);
+		setPlayers(nameList,avatarList);
 				
 		// start game
 		startGame();
@@ -56,16 +56,16 @@ public class KUAlchemistsGame {
 		}
 	}
 	
-	private void setPlayers(String p1name, String p2name, String avatar1, String avatar2){
+	private void setPlayers(List<String> nameList, List<String> avatarList){
 		
 		/*
 		 * We should handle input in a separate class/interface
 		 * But for now, let's do it here.
 		 * */
 		
-		String name;
+		/*String name;
 		String avatar;
-		Scanner playerScanner = new Scanner(System.in);
+		Scanner playerScanner = new Scanner(System.in);*/
 		
 		for (int i = 0; i < 2; i++) 
 		{
@@ -79,7 +79,7 @@ public class KUAlchemistsGame {
 			*/
 			
 			// create new player
-			Player newPlayer = new Player(p1name, avatar1);
+			Player newPlayer = new Player(nameList.get(i), avatarList.get(i));
 			
 			// set new player's balance
 			newPlayer.setBalance(+5);
