@@ -23,6 +23,11 @@ public class MainGameFrame extends GeneralFrame{
 	*progress during the game.
 	*/
 	
+	//TODO 
+	/*
+	 * What else do we put to the main game frame?
+	 */
+	
 	public MainGameFrame() {
 		getContentPane().setLayout(null);
 		
@@ -56,23 +61,33 @@ public class MainGameFrame extends GeneralFrame{
 		
 		JButton endGame = new JButton("End Game");
 		endGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		endGame.setBounds(174, 730, 100, 21);
+		endGame.setBounds(151, 729, 100, 21);
 		panel.add(endGame);
 		
 		JButton exitGame = new JButton("Exit Game");
 		exitGame.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		exitGame.setBounds(65, 730, 99, 21);
+		exitGame.setBounds(42, 729, 99, 21);
 		panel.add(exitGame);
 		
 		JButton howTo = new JButton("How to Play?");
 		howTo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		howTo.setBounds(63, 699, 101, 21);
+		howTo.setBounds(40, 698, 101, 21);
 		panel.add(howTo);
 		
 		JButton btnNewButton = new JButton("Pause Game");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		btnNewButton.setBounds(174, 699, 100, 21);
+		btnNewButton.setBounds(151, 698, 100, 21);
 		panel.add(btnNewButton);
+		
+		JLabel round = new JLabel("Round %d");
+		round.setFont(new Font("Tahoma", Font.BOLD, 12));
+		round.setBounds(33, 194, 92, 30);
+		panel.add(round);
+		
+		JLabel turn = new JLabel("%s's turn");
+		turn.setFont(new Font("Tahoma", Font.BOLD, 12));
+		turn.setBounds(151, 194, 100, 30);
+		panel.add(turn);
 		
 	}
 	

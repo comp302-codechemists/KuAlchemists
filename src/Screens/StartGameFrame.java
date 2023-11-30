@@ -2,6 +2,9 @@ package Screens;
 
 
 import javax.swing.*;
+
+import Business.Player;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -154,6 +157,13 @@ public class StartGameFrame extends GeneralFrame {
                         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
                         lblNewLabel_2.setBounds(470, 53, 277, 81);
                         backgroundPanel.add(lblNewLabel_2);
+    }
+    
+    
+    public static void main(String[] args) {
+        // Create and display the frame   
+    	//Player player = new Player("Simge", "Path", null, null, 10, 0, null);
+        new StartGameFrame().setVisible(true);
     }
 
 
