@@ -4,7 +4,7 @@ import Screens.WelcomeFrame;
 
 public class Main {
 	
-	IngredientStorage ingredientStorage = new IngredientStorage();
+
 	
     public static void main(String[] args) {
        
@@ -22,8 +22,10 @@ public class Main {
     	// We will ask user how many player will play the game, 
     	// but for now, initialize the game with 2 players
     	// burak branch
-    	KUAlchemistsGame game = new KUAlchemistsGame(2);
-    	game.play();
+    	
+    	// Put this in start game controller
+    	// KUAlchemistsGame game = new KUAlchemistsGame(2);
+    	// game.play();
     }
 
 }

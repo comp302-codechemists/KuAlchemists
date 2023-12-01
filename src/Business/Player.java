@@ -11,6 +11,7 @@ public class Player {
 	private int balance;
 	private int reputationPoints;
 	private DeductionBoard deductionBoard;
+	private int sicknessLevel;
 	
 	public Player(String userName, String avatarPath) {
 		
@@ -130,50 +131,94 @@ public class Player {
 	public void setDeductionBoard(DeductionBoard deductionBoard) {
 		this.deductionBoard = deductionBoard;
 	}
+	
+	
+	
+	public int getSicknessLevel() {
+		return sicknessLevel;
+	}
 
+	
+	
+	public void setSicknessLevel(int sicknessLevel) {
+		this.sicknessLevel = sicknessLevel;
+	}
+	
+	
 
-
-
-	private void updateBalance(int amount) {
+	public void makeExperiment(Player currentPlayer, Ingredient ingr1, Ingredient ingr2, String whereToTest) {
+		Experiment experiment = new Experiment(currentPlayer, ingr1, ingr2, whereToTest);
+		this.removeIngredientCard(ingr1);
+		this.removeIngredientCard(ingr2);
+		this.putTokenToResultsTriangle();
+	}
+	
+	
+	
+	public void updateBalance(int amount) {
 		setBalance(getBalance() + amount);
 	}
+	////////////////PRIVATE METHODS
+
+
 	
 	private void updateReputation(int amount) {
 		setReputationPoints(getReputationPoints() + amount);
 	}
 	
+	
+	
 	private void addIngredientCard(Ingredient ingredient) {
 		getIngredients().add(ingredient);
 	}
+	
+	
+	
 	
 	private boolean removeIngredientCard(Ingredient ingredient) {
 		return getIngredients().remove(ingredient);
 	}
 	
+	
+	
 	private void transmuteIngredient(Ingredient ingredient) {
 		if(removeIngredientCard(ingredient)) {
 			updateBalance(1);
-			IngredientStorage.addToBottom(ingredient);
+			IngredientStorage.getInstance().addToBottom(ingredient);
 		}
 		else {
 			throw new IllegalArgumentException();
 		}
 	}
 	
+	
+	
+	
 	private void forageForIngredient() {		
-		Ingredient foragedIngredient = IngredientStorage.removeFromTop();
+		Ingredient foragedIngredient = IngredientStorage.getInstance().removeFromTop();
 		if(foragedIngredient != null) {
 			addIngredientCard(foragedIngredient);
 		}
 	}
 	
+	
+	
+	
+	
 	private void addArtifact(Artifact artifact) {
 		getArtifacts().add(artifact);
 	}
 	
+	
+	
+	
+	
 	private void applyArtifact(Artifact artifact) {
 		
 	}
+	
+	
+	
 	
 	private void buyArtifact() {
 		if(getBalance() >= 3) {
@@ -189,27 +234,41 @@ public class Player {
 		}
 	}
 	
-	private void makeExperiment() {
-		
-	}
 	
+	
+	
+		
 	private void sellPotion() {
 		
 	}
+	
+	
 	
 	private void publishTheory() {
 		
 	}
 	
+	
+	
 	private void debunkTheory() {
 		
 	}
+	
+	
+	
 	
 	private void calculateScore() {
 		
 	}
 	
+	
+	
+	
 	private void putTokenToResultsTriangle() {
 		
 	}
+	
+	
+
+
 }
