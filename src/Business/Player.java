@@ -20,7 +20,7 @@ public class Player {
 	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
-			int balance, int reputationPoints, DeductionBoard deductionBoard) {
+		int balance, int reputationPoints, DeductionBoard deductionBoard) {
 		this.userName = userName;
 		this.avatarPath = avatarPath;
 		this.ingredients = ingredients;
@@ -158,6 +158,17 @@ public class Player {
 	public void updateBalance(int amount) {
 		setBalance(getBalance() + amount);
 	}
+	
+	
+	// I made it public so that I can use it in KUAlchGame to get the winner. And made it return float.
+	public float calculateScore() {
+		int score = 0;
+		score += getReputationPoints() * 10;
+		// 1 artifact -> 2 gold, 3 gold -> 1 score point => 1 artifact -> 2/3 score point.
+		score += getArtifacts().size() * 2 / 3; 
+		return score;
+	}
+	
 	////////////////PRIVATE METHODS
 
 
@@ -256,10 +267,7 @@ public class Player {
 	
 	
 	
-	
-	private void calculateScore() {
-		
-	}
+
 	
 	
 	
