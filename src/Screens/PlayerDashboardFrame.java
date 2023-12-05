@@ -20,6 +20,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	 * Offers interactive buttons for actions like collecting ingredients, brewing potions, and
 	 * submitting publications.
 	 */
+	
 	private JPanel upperBackground;
 	private JPanel bottomBackground;
 	private JPanel leftHandBackground;
@@ -33,6 +34,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private ButtonGroup leftButtonGroup;
 	
 	public PlayerDashboardFrame(Player player) {
+		super();
 		
 		setUpperDeductionBoard();
 

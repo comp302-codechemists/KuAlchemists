@@ -260,7 +260,7 @@ public class StartGameFrame extends GeneralFrame {
             }
         });    	
     }
-    
+
     
     
     private String getSelectedButtonText(ButtonGroup buttonGroup) {
