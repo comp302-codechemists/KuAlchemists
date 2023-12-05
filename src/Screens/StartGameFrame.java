@@ -261,9 +261,6 @@ public class StartGameFrame extends GeneralFrame {
         });    	
     }
     
-    private boolean checkStart() {
-    	
-    }
     
     
     private String getSelectedButtonText(ButtonGroup buttonGroup) {
