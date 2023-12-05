@@ -24,8 +24,11 @@ public class Main {
     	// burak branch
     	
     	// Put this in start game controller
+    	
     	// KUAlchemistsGame game = new KUAlchemistsGame(2);
     	// game.play();
+    	WelcomeFrame game = new WelcomeFrame();
+    	
     }
 
 }
