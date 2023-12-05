@@ -20,19 +20,42 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	 * Offers interactive buttons for actions like collecting ingredients, brewing potions, and
 	 * submitting publications.
 	 */
-	private JPanel backgroundPanel;
-	private JPanel bottom;
+	private JPanel upperBackground;
+	private JPanel bottomBackground;
+	private JPanel leftHandBackground;
+	private JPanel upperButtonPanel;
+	private JPanel leftButtonPanel;
+	
+	List<JRadioButton> leftButtons;
+	List<JRadioButton> triangleButtons;
+	
+	private ButtonGroup triangleButtonGroup;
+	private ButtonGroup leftButtonGroup;
 	
 	public PlayerDashboardFrame(Player player) {
 		
-    	backgroundPanel = new JPanel() {
+		setUpperDeductionBoard();
+
+		setUpperButtons();
+		
+		seBottomDeductionBoard();
+		
+		setLeftHand();
+		
+		setLeftHandButtons();
+
+    
+	}
+	
+	private void setUpperDeductionBoard() {
+		
+		upperBackground = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
 
                 Image originalImage = new ImageIcon(this.getClass().getResource("/Images/deduction_board_up.png")).getImage();
 
-                // Calculate the scaled width and height while maintaining the aspect ratio
                 int originalWidth = originalImage.getWidth(null);
                 int originalHeight = originalImage.getHeight(null);
                 int maxWidth = getWidth();
@@ -42,31 +65,29 @@ public class PlayerDashboardFrame extends GeneralFrame{
                 int scaledWidth = (int) (originalWidth * scale);
                 int scaledHeight = (int) (originalHeight * scale);
 
-                // Calculate the position to center the scaled image
                 int x = (getWidth() - scaledWidth) / 2;
                 int y = (getHeight() - scaledHeight) / 2;
-
-                // Draw the scaled image
                 g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
             }
     	};
     	
-        backgroundPanel.setLocation(10, 0);
-        backgroundPanel.setLayout(null);
-        backgroundPanel.setOpaque(false);
-        backgroundPanel.setSize(new Dimension(789, 466));       
-        getContentPane().add(backgroundPanel);
+        upperBackground.setLocation(10, 0);
+        upperBackground.setLayout(null);
+        upperBackground.setOpaque(false);
+        upperBackground.setSize(new Dimension(789, 466));       
+        getContentPane().add(upperBackground);
+	}
+	
+	
+	public void setUpperButtons() {
+		
+        upperButtonPanel = new JPanel();
+        upperButtonPanel.setOpaque(false);
+        upperButtonPanel.setLayout(null);
+        upperButtonPanel.setBounds(10, 10, 769, 456);
         
-        
-        
-        // Buttons for the deduction board:
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(null);
-        buttonPanel.setBounds(10, 10, 769, 456);
-        
-        ButtonGroup buttonGroup = new ButtonGroup();
-        List<JRadioButton> buttons = new ArrayList<JRadioButton>();
+        triangleButtonGroup = new ButtonGroup();
+        triangleButtons = new ArrayList<JRadioButton>();
 
         int rows = 7;
         int startX = 372;
@@ -75,49 +96,106 @@ public class PlayerDashboardFrame extends GeneralFrame{
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col <= row; col++) {
                 JRadioButton btn = new JRadioButton();
-                buttonGroup.add(btn);
-                buttons.add(btn);
+                triangleButtonGroup.add(btn);
+                triangleButtons.add(btn);
                 int x = startX - row * 65 / 2 + col * 65;
                 int y = startY + row * 57;
                 btn.setBounds(x, y, 20, 20);
-                buttonPanel.add(btn);
+                upperButtonPanel.add(btn);
             }
         }   
         
-        backgroundPanel.add(buttonPanel);
-    
-    
-    bottom = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            Image originalImage = new ImageIcon(this.getClass().getResource("/Images/deduction_board_bottom.png")).getImage();
-
-            // Calculate the scaled width and height while maintaining the aspect ratio
-            int originalWidth = originalImage.getWidth(null);
-            int originalHeight = originalImage.getHeight(null);
-            int maxWidth = getWidth();
-            int maxHeight = getHeight();
-
-            double scale = Math.min((double) maxWidth / originalWidth, (double) maxHeight / originalHeight);
-            int scaledWidth = (int) (originalWidth * scale);
-            int scaledHeight = (int) (originalHeight * scale);
-
-            // Calculate the position to center the scaled image
-            int x = (getWidth() - scaledWidth) / 2;
-            int y = (getHeight() - scaledHeight) / 2;
-
-            // Draw the scaled image
-            g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
-        }
-    };
-    bottom.setBounds(10, 476, 789, 297);
-    getContentPane().add(bottom);
-    bottom.setLayout(null);
-    bottom.setOpaque(false);
-	
+        upperBackground.add(upperButtonPanel);
 	}
+	
+	public void seBottomDeductionBoard() {
+	    bottomBackground = new JPanel() {
+	        @Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+
+	            Image originalImage = new ImageIcon(this.getClass().getResource("/Images/deduction_board_bottom.png")).getImage();
+
+	            // Calculate the scaled width and height while maintaining the aspect ratio
+	            int originalWidth = originalImage.getWidth(null);
+	            int originalHeight = originalImage.getHeight(null);
+	            int maxWidth = getWidth();
+	            int maxHeight = getHeight();
+
+	            double scale = Math.min((double) maxWidth / originalWidth, (double) maxHeight / originalHeight);
+	            int scaledWidth = (int) (originalWidth * scale);
+	            int scaledHeight = (int) (originalHeight * scale);
+
+	            // Calculate the position to center the scaled image
+	            int x = (getWidth() - scaledWidth) / 2;
+	            int y = (getHeight() - scaledHeight) / 2;
+
+	            // Draw the scaled image
+	            g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
+	        }
+	    };
+	    bottomBackground.setBounds(10, 476, 789, 297);
+	    getContentPane().add(bottomBackground);
+	    bottomBackground.setLayout(null);
+	    bottomBackground.setOpaque(false);
+	}
+	
+	private void setLeftHand() {
+		
+		leftHandBackground = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                Image originalImage = new ImageIcon(this.getClass().getResource("/Images/leftHand.png")).getImage();
+
+                int originalWidth = originalImage.getWidth(null);
+                int originalHeight = originalImage.getHeight(null);
+                int maxWidth = getWidth();
+                int maxHeight = getHeight();
+
+                double scale = Math.min((double) maxWidth / originalWidth, (double) maxHeight / originalHeight);
+                int scaledWidth = (int) (originalWidth * scale);
+                int scaledHeight = (int) (originalHeight * scale);
+
+                int x = (getWidth() - scaledWidth) / 2;
+                int y = (getHeight() - scaledHeight) / 2;
+                g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
+            }
+    	};
+    	
+        leftHandBackground.setLocation(10, 0);
+        leftHandBackground.setLayout(null);
+        leftHandBackground.setOpaque(false);
+        leftHandBackground.setSize(new Dimension(85, 466));       
+        getContentPane().add(leftHandBackground);
+		
+	}
+	
+	public void setLeftHandButtons() {
+		leftButtonPanel = new JPanel();
+        leftButtonPanel.setLocation(10, 50);
+        leftButtonPanel.setLayout(null);
+        leftButtonPanel.setOpaque(false);
+        leftButtonPanel.setSize(new Dimension(85, 466)); 
+        
+        int buttonCount = 7;
+        leftButtonGroup = new ButtonGroup();
+        leftButtons = new ArrayList<JRadioButton>();
+        
+        for (int i = 0; i < buttonCount; i++) {
+        	JRadioButton btn = new JRadioButton();
+        	leftButtonGroup.add(btn);
+        	leftButtons.add(btn);
+        	leftButtonPanel.add(btn);
+        	btn.setBounds(50, i*65, 20, 20);
+        	
+        }
+        leftHandBackground.add(leftButtonPanel);   
+		
+		
+	}
+
 	
     public static void main(String[] args) {
         // Create and display the frame   
