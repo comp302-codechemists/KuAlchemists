@@ -17,6 +17,8 @@ public class StartGameController {
 		avatarList.add(avatar1);
 		avatarList.add(avatar2);
 		
+		KUAlchemistsGame game = new KUAlchemistsGame(2);
+    	game.play(nameList,avatarList);
 
 	}
 

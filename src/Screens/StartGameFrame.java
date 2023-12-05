@@ -188,7 +188,6 @@ public class StartGameFrame extends GeneralFrame {
     
     public static void main(String[] args) {
         // Create and display the frame   
-    	//Player player = new Player("Simge", "Path", null, null, 10, 0, null);
         new StartGameFrame().setVisible(true);
     }
 
