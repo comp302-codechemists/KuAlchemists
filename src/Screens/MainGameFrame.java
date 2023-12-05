@@ -15,12 +15,13 @@ import java.awt.Font;
 import javax.swing.border.LineBorder;
 
 public class MainGameFrame extends GeneralFrame{
+	
 	private JTable table;
 	
 	/* Displays the entire game board, including all game objects (Board, Tokens,
-	*Ingredients, Potions, Publication Cards, and Deduction Board).
-	*Provides comprehensive information about each player's resources, scores, and
-	*progress during the game.
+	* ingredients, potions, Publication Cards, and Deduction Board).
+	* Provides comprehensive information about each player's resources, scores, and
+	* progress during the game.
 	*/
 	
 	//TODO 

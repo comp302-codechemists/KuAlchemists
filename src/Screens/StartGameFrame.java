@@ -53,7 +53,7 @@ public class StartGameFrame extends GeneralFrame {
     
     public StartGameFrame(KUAlchemistsGame game) {
     	
-    	this.setAppearance();
+    	super();
     	this.setBackground();
     	this.setPlayer1Components();
     	this.setPlayer2Components();
@@ -61,19 +61,6 @@ public class StartGameFrame extends GeneralFrame {
     	this.setHowToPlayButton();
     	this.setExitGameButton();
                         
-    }
-
-    private void setAppearance()
-    {
-    	// As soon as the constructor is called,
-    	// set visibility of the frame to true.
-    	this.setVisible(true);
-    	this.setResizable(false);
-    	this.setTitle("KUAlchemists");
-    	this.setSize(1540, 820);
-    	this.setLocationRelativeTo(null);
-    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	this.getContentPane().setLayout(null);
     }
     
     private void setBackground() {
