@@ -2,6 +2,7 @@ package Screens;
 import javax.swing.*;
 
 import Business.KUAlchemistsGame;
+import Controllers.PlayGameController;
 import Controllers.StartGameController;
 
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import java.awt.*;
 
 public class WelcomeFrame extends JFrame {
 
+	private PlayGameController playGameController;
 	private JPanel backgroundPanel;
     private JButton startButton;
     private JLabel loadingLabel;
@@ -121,8 +123,9 @@ public class WelcomeFrame extends JFrame {
     	 * the game instance is sent to the new frame
     	 * */
     	
-    	KUAlchemistsGame game = new KUAlchemistsGame(2);
-        StartGameFrame start = new StartGameFrame(game);
+    	playGameController = new PlayGameController();
+    	KUAlchemistsGame game = playGameController.playGame(2);
+        new StartGameFrame(game);
         this.dispose();
     }
     

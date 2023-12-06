@@ -203,7 +203,7 @@ public class KUAlchemistsGame {
 	}
 
 	public List<Player> getPlayers() {
-		return players;
+		return this.players;
 	}
 
 	public void setPlayers(List<Player> players) {
