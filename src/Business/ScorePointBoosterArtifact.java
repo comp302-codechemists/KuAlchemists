@@ -4,7 +4,13 @@ public class ScorePointBoosterArtifact extends Artifact {
     public int boostAmount;
     private String duration;
 
-    public int getBoostAmount() {
+    public ScorePointBoosterArtifact(String name, int boostAmount, String duration) {
+		super(name);
+		this.boostAmount = boostAmount;
+		this.duration = duration;
+	}
+
+	public int getBoostAmount() {
         return boostAmount;
     }
 
@@ -19,6 +25,12 @@ public class ScorePointBoosterArtifact extends Artifact {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+	@Override
+	public void applyArtifact() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 

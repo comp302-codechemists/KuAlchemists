@@ -316,13 +316,13 @@ public class StartGameFrame extends GeneralFrame {
     private void howToPlayButtonPressed()
     {
     	new HowToPlayFrame();
-    	this.dispose();
+    	//this.dispose();
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // Create and display the frame   
         new StartGameFrame(new KUAlchemistsGame(2));
-    }
+    }*/
 
 
 

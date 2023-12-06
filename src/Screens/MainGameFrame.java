@@ -44,6 +44,7 @@ public class MainGameFrame extends GeneralFrame{
 	private JButton exitGameButton;
 	private JButton howToPlayButton;
 	private JButton pauseGameButton;
+	private JButton takeTurnButton;
 	
 	public MainGameFrame(KUAlchemistsGame game) {
 		
@@ -154,6 +155,7 @@ public class MainGameFrame extends GeneralFrame{
 		 setPauseGameButton();
 		 setHowToPlayButton();
 		 setEndGameButton();
+		 setTakeTurnButton();
 	}
 	private void setStartGameButton() 
 	{
@@ -248,6 +250,7 @@ public class MainGameFrame extends GeneralFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 // Handle mouse click event if needed
+            	new HowToPlayFrame();
             }
 
             @Override
@@ -314,6 +317,50 @@ public class MainGameFrame extends GeneralFrame{
 	                // Restore button appearance on mouse exit
 	                pauseGameButton.setBorder(new LineBorder(Color.white, 2));
 	                pauseGameButton.setForeground(Color.white);
+	            }
+	        });
+	}
+	
+	private void setTakeTurnButton() 
+	{
+		
+		takeTurnButton = new JButton("Take Turn");
+		takeTurnButton.setBounds(1220, 620, 150, 30);
+		takeTurnButton.setForeground(Color.white);
+		takeTurnButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
+		takeTurnButton.setOpaque(false);
+		takeTurnButton.setBorder(new LineBorder(Color.white, 2));
+		backgroundPanel.add(takeTurnButton);
+		
+		takeTurnButton.addMouseListener(new MouseListener() {
+	            @Override
+	            public void mouseClicked(MouseEvent e) {
+	                // Handle mouse click event if needed
+	            	new PlayerDashboardFrame(KUAlchemistsGame.currentPlayer);
+	            }
+
+	            @Override
+	            public void mousePressed(MouseEvent e) {
+	                // Handle mouse press event if needed
+	            }
+
+	            @Override
+	            public void mouseReleased(MouseEvent e) {
+	                // Handle mouse release event if needed
+	            }
+
+	            @Override
+	            public void mouseEntered(MouseEvent e) {
+	                // Change button appearance on mouse enter (hover effect)
+	            	takeTurnButton.setBorder(new LineBorder(Color.yellow, 2));
+	            	takeTurnButton.setForeground(Color.yellow);
+	            }
+
+	            @Override
+	            public void mouseExited(MouseEvent e) {
+	                // Restore button appearance on mouse exit
+	            	takeTurnButton.setBorder(new LineBorder(Color.white, 2));
+	            	takeTurnButton.setForeground(Color.white);
 	            }
 	        });
 	}

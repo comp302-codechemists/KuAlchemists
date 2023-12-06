@@ -5,7 +5,15 @@ public class ReputationBoosterArtifact extends Artifact {
     public String whereToApply;
     private String duration;
 
-    public int getBoostAmount() {
+    
+    public ReputationBoosterArtifact(String name, int boostAmount, String whereToApply, String duration) {
+		super(name);
+		this.boostAmount = boostAmount;
+		this.whereToApply = whereToApply;
+		this.duration = duration;
+	}
+
+	public int getBoostAmount() {
         return boostAmount;
     }
 
@@ -28,6 +36,12 @@ public class ReputationBoosterArtifact extends Artifact {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+	@Override
+	public void applyArtifact() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 

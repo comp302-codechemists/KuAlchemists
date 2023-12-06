@@ -4,15 +4,15 @@ public class DiscountArtifact extends Artifact {
     public int discountAmount;
     public String whereToApply;
     private String duration;
+    
+    public DiscountArtifact(String name, int discountAmount, String whereToApply, String duration) {
+		super(name);
+		this.discountAmount = discountAmount;
+		this.whereToApply = whereToApply;
+		this.duration = duration;
+	}
 
-    /*public DiscountArtifact(int discountAmount, String whereToApply, String duration) {
-        this.discountAmount = discountAmount;
-        this.whereToApply = whereToApply;
-        this.duration = duration;
-    }
-    these need to be determined*/ 
-
-    public int getDiscountAmount() {
+	public int getDiscountAmount() {
         return discountAmount;
     }
 
@@ -35,5 +35,11 @@ public class DiscountArtifact extends Artifact {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+	@Override
+	public void applyArtifact() {
+		// TODO Auto-generated method stub
+		KUAlchemistsGame.currentPlayer.setGoldtToBePayedToArtifact(-1);
+	}
   
 }

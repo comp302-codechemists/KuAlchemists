@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Ingredient {
 	
+	
+
 	String name;
 	
 	public static final List<Ingredient> ingredients = new ArrayList<Ingredient>();
@@ -46,6 +48,11 @@ public class Ingredient {
 
 	public static Token getToken(String ingredientName) {
 		return Token.tokens.get(ingredientName);
+	}
+	
+	@Override
+	public String toString() {
+		return "Ingredient [name=" + name + "]";
 	}
 	
 	

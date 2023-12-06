@@ -7,7 +7,7 @@ public class PlayGameController {
 	KUAlchemistsGame game;
 	
 	public KUAlchemistsGame playGame(int numberOfPlayers) {
-		game = new KUAlchemistsGame(numberOfPlayers);
+		game = KUAlchemistsGame.getInstance(numberOfPlayers);
 		return game;
 	}
 	

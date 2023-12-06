@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class ArtifactStorage {
 	
-	public List<Artifact> artifactList = new ArrayList<Artifact>();;
+	public static List<Artifact> artifactList = new ArrayList<Artifact>();;
 	
 	public ArtifactStorage()
 	{
@@ -38,7 +39,7 @@ public class ArtifactStorage {
         System.out.println("Ingredients have been shuffled.");
 	}
 	
-	public Artifact getRandomArtifact() {
+	public static Artifact getRandomArtifact() {
 		
 		int max = artifactList.size() - 1;
 		int min = 0;
@@ -46,10 +47,15 @@ public class ArtifactStorage {
 		// Generate random int value from min to max
 	    int randomInt = (int)Math.floor(Math.random() * ( - min + 1) + max);
 	    
-	    return artifactList.remove(randomInt);
+	    //return artifactList.remove(randomInt); //will be uncommented just for trial
+	    Artifact artifactToReturn = null;
+	    for(Artifact artifact : artifactList) {
+	    	if(artifact.getName().equals("DiscountArtifact")) {
+	    		artifactToReturn = artifact;
+	    	}
+	    }
+	    return artifactToReturn;
+	    
 	}
 
-	public static Artifact removeRandomArtifact() {
-		return null;
-	}
 }
