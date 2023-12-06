@@ -30,7 +30,8 @@ public class MainGameFrame extends GeneralFrame{
 	 */
 	
 	public MainGameFrame() {
-		getContentPane().setLayout(null);
+		
+		super();
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);

@@ -202,6 +202,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
     public static void main(String[] args) {
         // Create and display the frame   
     	Player player = new Player("Simge", "Path", null, null, 10, 0, null);
-        new PlayerDashboardFrame(player).setVisible(true);
+        new PlayerDashboardFrame(player);
     }
 }
