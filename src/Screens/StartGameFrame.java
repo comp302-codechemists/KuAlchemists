@@ -11,6 +11,7 @@ import Controllers.StartGameController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 public class StartGameFrame extends GeneralFrame {
 
@@ -50,6 +51,8 @@ public class StartGameFrame extends GeneralFrame {
     
     String p1avatar;
     String p2avatar;
+    String p1name;
+    String p2name;
     
     public StartGameFrame(KUAlchemistsGame game) {
     	
@@ -223,63 +226,51 @@ public class StartGameFrame extends GeneralFrame {
     	startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                 String p1name = player1UsernameTexfField.getText();
-                 String p2name = player2UsernameTexfField.getText();
+            	
+                 p1name = player1UsernameTexfField.getText();
+                 p2name = player2UsernameTexfField.getText();
+                 p1avatar = getSelectedButtonText(player1avatarButtonGroup);
+                 p2avatar = getSelectedButtonText(player2avatarButtonGroup);
+                 boolean startOk = true;
                  
-                 player1Avatar1Button.addActionListener(a -> {
-                     if (player2Avatar1Button.isSelected()) {
-                    	 p1avatar = "avatar1";
-                     }
-                 });
-
-                 player1Avatar2Button.addActionListener(a -> {
-                     if (player2Avatar2Button.isSelected()) {
-                    	 p1avatar = "avatar2";
-                     }
-                 });
-
-                 player1Avatar3Button.addActionListener(a -> {
-                     if (player2Avatar3Button.isSelected()) {
-                    	 p1avatar = "avatar3";
-                     }
-                 });
-
-                 player1Avatar4Button.addActionListener(a -> {
-                     if (player2Avatar4Button.isSelected()) {
-                    	 p1avatar = "avatar4";
-                     }
-                 });
+                 if (p1avatar == null || p2avatar == null) {
+                	 JOptionPane.showMessageDialog(new JFrame(), "Please select avatars!",
+                             "Avatar Error", JOptionPane.ERROR_MESSAGE);
+                	 startOk = false;
+                 }
                  
-                 player2Avatar1Button.addActionListener(b -> {
-                     if (player2Avatar1Button.isSelected()) {
-                    	 p2avatar = "avatar1";
-                     }
-                 });
-
-                 player2Avatar2Button.addActionListener(b -> {
-                     if (player2Avatar2Button.isSelected()) {
-                    	 p2avatar = "avatar2";
-                     }
-                 });
-
-                 player2Avatar3Button.addActionListener(b -> {
-                     if (player2Avatar3Button.isSelected()) {
-                    	 p2avatar = "avatar3";
-                     }
-                 });
-
-                 player2Avatar4Button.addActionListener(b -> {
-                     if (player2Avatar4Button.isSelected()) {
-                    	 p2avatar = "avatar4";
-                     }
-                 });
+                 else if (p1avatar == p2avatar) {
+                	 JOptionPane.showMessageDialog(new JFrame(), "Please choose different avatars!",
+                             "Avatar Error", JOptionPane.ERROR_MESSAGE);
+                	 startOk = false;
+                 }
                  
-                 
-                 StartGameController sgc = new StartGameController();
-                 sgc.handleStartGame(p1name, p2name, p1avatar, p2avatar);
-                 startGamePressed();
+                 if ((p1name.isEmpty()) || p2name.isEmpty()) {
+                	 JOptionPane.showMessageDialog(new JFrame(), "Please enter usernames!",
+                             "Name Error", JOptionPane.ERROR_MESSAGE);
+                	 startOk = false;
+                 }    
+
+                 if (startOk) {
+                     StartGameController sgc = new StartGameController();
+                     sgc.handleStartGame(p1name, p2name, p1avatar, p2avatar);
+                     startGamePressed();
+                 }
+
             }
         });    	
+    }
+
+    
+    
+    private String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+        return null;
     }
     
     private void setHowToPlayButton()
