@@ -21,7 +21,7 @@ import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.ForageController;
 import Controllers.TransmuteController;
-import Controllers.BuyArtifactController;
+import Controllers.buyArtifactController;
 
 
 
@@ -361,7 +361,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        buyArtifactButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	BuyArtifactController controller = new BuyArtifactController();
+	            	buyArtifactController controller = new buyArtifactController();
 	                controller.buyArtifactHandler();
 	            }
 	        });
