@@ -1,31 +1,26 @@
 package Screens;
 
-import javax.swing.SwingUtilities;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-
-import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-
 import Business.KUAlchemistsGame;
-import Controllers.StartGameController;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 public class MainGameFrame extends GeneralFrame{
@@ -46,7 +41,8 @@ public class MainGameFrame extends GeneralFrame{
 	private JButton pauseGameButton;
 	private JButton takeTurnButton;
 	
-	public MainGameFrame(KUAlchemistsGame game) {
+	public MainGameFrame(KUAlchemistsGame game) 
+	{
 		
 		super();
 		this.game = game;
@@ -54,7 +50,78 @@ public class MainGameFrame extends GeneralFrame{
 		this.setBackground();
 		this.setPlayersInfoTable();
 		this.setButtons();
+		this.setIngredientPanel();
+		this.setArtifactPanel();
+		this.setGameLog();
 		
+	}
+	
+	private void setGameLog() {
+	    JTextArea gameLogArea = new JTextArea(10, 30);
+	    gameLogArea.setForeground(Color.white);
+	    gameLogArea.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	    gameLogArea.setEditable(false);
+	    gameLogArea.setBackground(new Color(0, 0, 0, 0)); 
+
+	    JScrollPane scrollPane = new JScrollPane(gameLogArea);
+	    scrollPane.setBounds(520, 490, 490, 230);
+	    scrollPane.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+	    scrollPane.setOpaque(false);
+	    scrollPane.getViewport().setOpaque(false); 
+
+	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+
+	    backgroundPanel.setOpaque(false); 
+
+	    gameLogArea.append("Game log entry 1\n");
+	    gameLogArea.append("Game log entry 2\n");
+
+	    backgroundPanel.add(scrollPane); 
+	}
+
+
+
+	private void setIngredientPanel() 
+	{
+	    JPanel ingredientPanel = new JPanel();
+	    ingredientPanel.setLayout(new GridLayout(2, 4, 5, 5));
+	    ingredientPanel.setBounds(25, 45, 420, 320);
+	    ingredientPanel.setOpaque(false);
+
+	    for (int i = 0; i < 8; i++) {
+	        JLabel ingredientLabel = new JLabel();
+	        ingredientLabel.setPreferredSize(new Dimension(100, 150));
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/ingredient" + (i + 1) + ".png"));
+	        Image image = imageIcon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+	        ingredientLabel.setIcon(new ImageIcon(image));
+	        ingredientPanel.add(ingredientLabel);
+	    }
+
+	    backgroundPanel.add(ingredientPanel);
+	}
+	
+
+	private void setArtifactPanel() {
+	    
+		JPanel artifactPanel = new JPanel();
+	    artifactPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
+	    artifactPanel.setBounds(55, 400, 440, 340);
+	    artifactPanel.setOpaque(false);
+
+	    // Create an EmptyBorder with desired spacing
+	    Border spacingBorder = BorderFactory.createEmptyBorder(2, 2, 2, 2);
+
+	    for (int i = 0; i < 8; i++) {
+	        JLabel artifactLabel = new JLabel();
+	        artifactLabel.setPreferredSize(new Dimension(140, 80));
+	        artifactLabel.setBorder(spacingBorder); // Apply the spacing border to each label
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/artifact" + (i + 1) + ".png"));
+	        Image image = imageIcon.getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH);
+	        artifactLabel.setIcon(new ImageIcon(image));
+	        artifactPanel.add(artifactLabel);
+	    }
+
+	    backgroundPanel.add(artifactPanel);
 	}
 	
 	private void setBackground() {
@@ -151,13 +218,13 @@ public class MainGameFrame extends GeneralFrame{
 	
 	private void setButtons()
 	{
-		 setStartGameButton();
+		 setExitGameButton();
 		 setPauseGameButton();
 		 setHowToPlayButton();
 		 setEndGameButton();
 		 setTakeTurnButton();
 	}
-	private void setStartGameButton() 
+	private void setExitGameButton() 
 	{
 		exitGameButton = new JButton("Exit Game");
 		exitGameButton.setBounds(1320, 500, 150, 30);
@@ -185,15 +252,15 @@ public class MainGameFrame extends GeneralFrame{
             @Override
             public void mouseEntered(MouseEvent e) {
                 // Change button appearance on mouse enter (hover effect)
-                pauseGameButton.setBorder(new LineBorder(Color.yellow, 2));
-                pauseGameButton.setForeground(Color.yellow);
+            	exitGameButton.setBorder(new LineBorder(Color.yellow, 2));
+            	exitGameButton.setForeground(Color.yellow);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 // Restore button appearance on mouse exit
-                pauseGameButton.setBorder(new LineBorder(Color.white, 2));
-                pauseGameButton.setForeground(Color.white);
+            	exitGameButton.setBorder(new LineBorder(Color.white, 2));
+                exitGameButton.setForeground(Color.white);
             }
         });
 	}
@@ -266,15 +333,15 @@ public class MainGameFrame extends GeneralFrame{
             @Override
             public void mouseEntered(MouseEvent e) {
                 // Change button appearance on mouse enter (hover effect)
-                pauseGameButton.setBorder(new LineBorder(Color.yellow, 2));
-                pauseGameButton.setForeground(Color.yellow);
+            	howToPlayButton.setBorder(new LineBorder(Color.yellow, 2));
+            	howToPlayButton.setForeground(Color.yellow);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
                 // Restore button appearance on mouse exit
-                pauseGameButton.setBorder(new LineBorder(Color.white, 2));
-                pauseGameButton.setForeground(Color.white);
+            	howToPlayButton.setBorder(new LineBorder(Color.white, 2));
+            	howToPlayButton.setForeground(Color.white);
             }
         });
 	}
@@ -289,7 +356,7 @@ public class MainGameFrame extends GeneralFrame{
 		endGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(endGameButton);
 		
-		 pauseGameButton.addMouseListener(new MouseListener() {
+		endGameButton.addMouseListener(new MouseListener() {
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
 	                // Handle mouse click event if needed
@@ -308,19 +375,18 @@ public class MainGameFrame extends GeneralFrame{
 	            @Override
 	            public void mouseEntered(MouseEvent e) {
 	                // Change button appearance on mouse enter (hover effect)
-	                pauseGameButton.setBorder(new LineBorder(Color.yellow, 2));
-	                pauseGameButton.setForeground(Color.yellow);
+	            	endGameButton.setBorder(new LineBorder(Color.yellow, 2));
+	            	endGameButton.setForeground(Color.yellow);
 	            }
 
 	            @Override
 	            public void mouseExited(MouseEvent e) {
 	                // Restore button appearance on mouse exit
-	                pauseGameButton.setBorder(new LineBorder(Color.white, 2));
-	                pauseGameButton.setForeground(Color.white);
+	            	endGameButton.setBorder(new LineBorder(Color.white, 2));
+	            	endGameButton.setForeground(Color.white);
 	            }
 	        });
 	}
-	
 	private void setTakeTurnButton() 
 	{
 		
@@ -331,12 +397,11 @@ public class MainGameFrame extends GeneralFrame{
 		takeTurnButton.setOpaque(false);
 		takeTurnButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(takeTurnButton);
-		
 		takeTurnButton.addMouseListener(new MouseListener() {
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
 	                // Handle mouse click event if needed
-	            	new PlayerDashboardFrame(KUAlchemistsGame.currentPlayer);
+	            	new PlayerDashboardFrame(game, KUAlchemistsGame.currentPlayer);
 	            }
 
 	            @Override
@@ -364,17 +429,6 @@ public class MainGameFrame extends GeneralFrame{
 	            }
 	        });
 	}
-
-	
-	/*
-    public static void main(String[] args) {
-        // Create and display the frame
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-            }
-        });
-    }*/
 }
 
 
