@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import Business.Player;
+import Controllers.ForageController;
+import Controllers.TransmuteController;
+import Controllers.BuyArtifactController;
 
 
 
@@ -221,7 +224,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		buyArtifactButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				buyArtifactController controller = new buyArtifactController();
+				BuyArtifactController controller = new BuyArtifactController();
 				controller.buyArtifactHandler();
 			}
 		});
@@ -255,6 +258,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TransmuteController controller = new TransmuteController();
+				//TODO Get text.
 				controller.handleTransmute("Terror Root");
 			}
 		});
@@ -262,14 +266,11 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		
 	}
 
-<<<<<<< HEAD
-
-=======
 	
     public static void main(String[] args) {
         // Create and display the frame   
     	Player player = new Player("Simge", "Path", null, null, 10, 0, null);
         new PlayerDashboardFrame(player);
     }
->>>>>>> main
+
 }

@@ -2,7 +2,7 @@ package Controllers;
 
 import Business.KUAlchemistsGame;
 
-public class buyArtifactController {
+public class BuyArtifactController {
 	
 	public void buyArtifactHandler() {
 		KUAlchemistsGame.currentPlayer.buyArtifact();

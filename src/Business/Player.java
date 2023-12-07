@@ -18,7 +18,7 @@ public class Player {
 		
 		this.userName = userName;
 		this.avatarPath = avatarPath;
-		this.goldtToBePayedToArtifact = -2;
+		this.goldtToBePayedToArtifact = -3;
 	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
@@ -30,7 +30,7 @@ public class Player {
 		this.balance = balance;
 		this.reputationPoints = reputationPoints;
 		this.deductionBoard = deductionBoard;
-		this.goldtToBePayedToArtifact = -2;
+		this.goldtToBePayedToArtifact = -3;
 	}
 	
 	public void addIngredient(Ingredient ingredient)
@@ -179,7 +179,8 @@ public class Player {
 		return score;
 	}
 	
-	public void forageForIngredient() {		
+	public void forageForIngredient() {
+		//TODO Random degil top kart.
 		Ingredient foragedIngredient = IngredientStorage.getInstance().getRandomIngredient();
 		if(foragedIngredient != null) {
 			System.out.println("Previous ingredients");
@@ -223,6 +224,7 @@ public class Player {
 	public void buyArtifact() {
 		
 		if(getBalance() >= 3) {
+			//TODO Random degil top kart.
 			Artifact artifact = ArtifactStorage.getRandomArtifact();
 			if(artifact != null) {
 				

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import Controllers.PauseController;
+
 public class KUAlchemistsGame {
 
 	public static Player currentPlayer;
@@ -17,6 +19,7 @@ public class KUAlchemistsGame {
 	boolean finished = false;
 
 	private KUAlchemistsGame(int numberOfPlayers) {
+		
 		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
 
@@ -141,9 +144,12 @@ public class KUAlchemistsGame {
 	}
 
 	public void pause() {
-
+		//TODO Implement pause/resume.
 		if (!isPaused()) {
 			setPaused(true);
+			PauseController pc = new PauseController();
+			pc.pauseHandler();
+			
 		}
 
 	}
