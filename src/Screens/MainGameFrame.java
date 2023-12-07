@@ -7,6 +7,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -21,6 +23,7 @@ import Controllers.StartGameController;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -60,14 +63,40 @@ public class MainGameFrame extends GeneralFrame{
 		this.setButtons();
 		this.setIngredientPanel();
 		this.setArtifactPanel();
+		this.setGameLog();
 		
 	}
 	
+	private void setGameLog() {
+	    JTextArea gameLogArea = new JTextArea(10, 30);
+	    gameLogArea.setForeground(Color.white);
+	    gameLogArea.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	    gameLogArea.setEditable(false);
+	    gameLogArea.setBackground(new Color(0, 0, 0, 0)); 
+
+	    JScrollPane scrollPane = new JScrollPane(gameLogArea);
+	    scrollPane.setBounds(520, 490, 490, 230);
+	    scrollPane.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+	    scrollPane.setOpaque(false);
+	    scrollPane.getViewport().setOpaque(false); 
+
+	    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
+
+	    backgroundPanel.setOpaque(false); 
+
+	    gameLogArea.append("Game log entry 1\n");
+	    gameLogArea.append("Game log entry 2\n");
+
+	    backgroundPanel.add(scrollPane); 
+	}
+
+
+
 	private void setIngredientPanel() 
 	{
 	    JPanel ingredientPanel = new JPanel();
-	    ingredientPanel.setLayout(new GridLayout(2, 4));
-	    ingredientPanel.setBounds(35, 45, 400, 300);
+	    ingredientPanel.setLayout(new GridLayout(2, 4, 5, 5));
+	    ingredientPanel.setBounds(25, 45, 420, 320);
 	    ingredientPanel.setOpaque(false);
 
 	    for (int i = 0; i < 8; i++) {
@@ -81,6 +110,7 @@ public class MainGameFrame extends GeneralFrame{
 
 	    backgroundPanel.add(ingredientPanel);
 	}
+	
 
 	private void setArtifactPanel() {
 	    
@@ -104,7 +134,6 @@ public class MainGameFrame extends GeneralFrame{
 
 	    backgroundPanel.add(artifactPanel);
 	}
-
 	
 	private void setBackground() {
     	
