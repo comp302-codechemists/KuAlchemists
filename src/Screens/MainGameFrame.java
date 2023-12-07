@@ -1,26 +1,15 @@
 package Screens;
 
-import javax.swing.SwingUtilities;
-import java.awt.BorderLayout;
-
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-
-import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-
 import Business.KUAlchemistsGame;
-import Controllers.StartGameController;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -31,7 +20,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -53,7 +41,8 @@ public class MainGameFrame extends GeneralFrame{
 	private JButton pauseGameButton;
 	private JButton takeTurnButton;
 	
-	public MainGameFrame(KUAlchemistsGame game) {
+	public MainGameFrame(KUAlchemistsGame game) 
+	{
 		
 		super();
 		this.game = game;
@@ -412,7 +401,7 @@ public class MainGameFrame extends GeneralFrame{
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
 	                // Handle mouse click event if needed
-	            	new PlayerDashboardFrame(KUAlchemistsGame.currentPlayer);
+	            	new PlayerDashboardFrame(game, KUAlchemistsGame.currentPlayer);
 	            }
 
 	            @Override
@@ -440,17 +429,6 @@ public class MainGameFrame extends GeneralFrame{
 	            }
 	        });
 	}
-
-	
-	/*
-    public static void main(String[] args) {
-        // Create and display the frame
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-            }
-        });
-    }*/
 }
 
 
