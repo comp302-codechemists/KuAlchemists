@@ -31,7 +31,6 @@ public class MainGameFrame extends GeneralFrame{
 	 * Provides comprehensive information about each player's resources, scores, and
 	 * progress during the game.
 	 */
-	
 	private KUAlchemistsGame game;
 	private JPanel backgroundPanel;
 	private JTable playersInfoTable;
@@ -233,6 +232,7 @@ public class MainGameFrame extends GeneralFrame{
 		exitGameButton.setOpaque(false);
 		exitGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(exitGameButton);
+		//addMouseListener is an example of Observer Pattern in GoF
 		exitGameButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
