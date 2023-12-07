@@ -48,7 +48,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton buyArtifactButton;
 	private JButton forageIngredientButton;
 	private JButton transmuteIngredientButton;
-	private JButton makePotionButton;
+	private JButton makeExperimentButton;
 	private JButton publishTheoryButton;
 	private JButton sellPotionButton;
 	private JButton debunkTheoryButton;
@@ -68,7 +68,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setBuyArtifactButton();
 		setForageIngredientButton();
 		setTransmuteIngredientButton();
-		setMakePotionButton();
+		setMakeExperimentButton();
 		setPublishTheoryButton();
 		setSellPotionButton();
 		setDebunkTheoryButton();
@@ -371,33 +371,33 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		}
 		
 
-		private void setMakePotionButton()
+		private void setMakeExperimentButton()
 		{
-			makePotionButton = new JButton();
-			makePotionButton.setBounds(1180, 240, 141, 160);
-			makePotionButton.setBorderPainted(false); // Remove border
-			makePotionButton.setContentAreaFilled(false); // Remove default background
+			makeExperimentButton = new JButton();
+			makeExperimentButton.setBounds(1180, 240, 141, 160);
+			makeExperimentButton.setBorderPainted(false); // Remove border
+			makeExperimentButton.setContentAreaFilled(false); // Remove default background
 
 	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/forage-ingredient.png"));
+	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/make-experiment.png"));
 	        Image originalImage = originalIcon.getImage();
 
 	        // Resize the image
 	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
 	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
 
-	        makePotionButton.setIcon(resizedIcon);
+	        makeExperimentButton.setIcon(resizedIcon);
 
-	        backgroundPanel.add(makePotionButton);
+	        backgroundPanel.add(makeExperimentButton);
 
-	        makePotionButton.addActionListener(new ActionListener() {
+	        makeExperimentButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                // TODO
 	            }
 	        });
 	        
-	        JLabel label = new JLabel("Make Potion");
+	        JLabel label = new JLabel("Make Experiment");
 	        label.setForeground(Color.WHITE); // Set text color to white
 	        label.setBounds(1330, 320, 200, 30); // Adjust the position as needed
 	        label.setOpaque(false); // Make the label transparent
