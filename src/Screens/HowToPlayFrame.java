@@ -21,8 +21,9 @@ public class HowToPlayFrame extends GeneralFrame {
 	private JPanel backgroundPanel;
 	
 	public HowToPlayFrame() {
-		
+				
 		super();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setBackground();
 		
 		txtgameOverview = new JTextArea("1. Game Overview:\r\n"

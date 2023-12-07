@@ -28,10 +28,17 @@ public class Main {
     	// Put this in start game controller
     	
     	// KUAlchemistsGame game = new KUAlchemistsGame(2);
+<<<<<<< HEAD
     	// game.play();
     	//WelcomeFrame game = new WelcomeFrame();
     	Player player = new Player("Simge", "Path", null, null, 10, 0, null);
         new PlayerDashboardFrame(player).setVisible(true);
+=======
+//    	 game.play();
+    	WelcomeFrame game = new WelcomeFrame();
+    	//Player player = new Player("Simge", "Path", null, null, 10, 0, null);
+        //new PlayerDashboardFrame(player);
+>>>>>>> main
     }
 
 }

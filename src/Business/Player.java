@@ -12,11 +12,13 @@ public class Player {
 	private int reputationPoints;
 	private DeductionBoard deductionBoard;
 	private int sicknessLevel;
+	private int goldtToBePayedToArtifact;
 	
 	public Player(String userName, String avatarPath) {
 		
 		this.userName = userName;
 		this.avatarPath = avatarPath;
+		this.goldtToBePayedToArtifact = -2;
 	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
@@ -28,6 +30,7 @@ public class Player {
 		this.balance = balance;
 		this.reputationPoints = reputationPoints;
 		this.deductionBoard = deductionBoard;
+		this.goldtToBePayedToArtifact = -2;
 	}
 	
 	public void addIngredient(Ingredient ingredient)
@@ -144,6 +147,13 @@ public class Player {
 		this.sicknessLevel = sicknessLevel;
 	}
 	
+	public int getGoldtToBePayedToArtifact() {
+		return goldtToBePayedToArtifact;
+	}
+
+	public void setGoldtToBePayedToArtifact(int goldtToBePayedToArtifact) {
+		this.goldtToBePayedToArtifact = goldtToBePayedToArtifact;
+	}
 	
 
 	public void makeExperiment(Player currentPlayer, Ingredient ingr1, Ingredient ingr2, String whereToTest) {
@@ -169,112 +179,126 @@ public class Player {
 		return score;
 	}
 	
+	public void forageForIngredient() {		
+		Ingredient foragedIngredient = IngredientStorage.getInstance().getRandomIngredient();
+		if(foragedIngredient != null) {
+			System.out.println("Previous ingredients");
+			getIngredients().forEach(System.out::println);
+			
+			addIngredientCard(foragedIngredient);
+			
+			System.out.println("New ingredients");
+			getIngredients().forEach(System.out::println);
+			
+			System.out.printf("Ingredient %s is added to the player's storage%n",foragedIngredient.getName());
+			
+		}
+		else {
+			System.out.println("Ingredient Storage is empty!");
+		}
+	}
+	
+	public void transmuteIngredient(Ingredient ingredient) {
+		
+		System.out.println("");
+		System.out.println("Previous ingredients");
+		getIngredients().forEach(System.out::println);
+	    System.out.printf("Old Balance: %d%n",getBalance());
+	    
+		if(removeIngredientCard(ingredient)) {									
+			updateBalance(1);
+			IngredientStorage.getInstance().addToBottom(ingredient);
+						
+		}
+		else {
+			throw new IllegalArgumentException();
+		}
+		
+		System.out.println("New ingredients");
+		getIngredients().forEach(System.out::println);
+		System.out.printf("New Balance: %d%n",getBalance());
+		System.out.printf("Ingredient %s is removed from the player's storage%n",ingredient.getName());
+	}
+	
+	public void buyArtifact() {
+		
+		if(getBalance() >= 3) {
+			Artifact artifact = ArtifactStorage.getRandomArtifact();
+			if(artifact != null) {
+				
+				System.out.println();
+				System.out.println("Previous artifacts");
+				getArtifacts().forEach(System.out::println);
+			    System.out.printf("Old Balance: %d%n",getBalance());
+			    
+				addArtifact(artifact);
+				updateBalance(getGoldtToBePayedToArtifact());
+				applyArtifact(artifact);
+				
+				System.out.println("New artifacts");
+				getArtifacts().forEach(System.out::println);
+				System.out.printf("New Balance: %d%n",getBalance());
+				System.out.printf("Artifact %s is added to the player's storage%n",artifact.getName());
+			}
+			else {
+				System.out.println("Artifact Storage is empty!");
+			}
+		}
+		else {
+			System.out.println("Balance is lower than 3, come back when you have more gold :D");
+		}
+		
+	}
+	
+
+	
+	public void applyArtifact(Artifact artifact) {
+		artifact.applyArtifact();
+	}
+	
 	////////////////PRIVATE METHODS
 
 
 	
 	private void updateReputation(int amount) {
 		setReputationPoints(getReputationPoints() + amount);
-	}
-	
-	
+	}	
 	
 	private void addIngredientCard(Ingredient ingredient) {
 		getIngredients().add(ingredient);
 	}
-	
-	
-	
+		
 	
 	private boolean removeIngredientCard(Ingredient ingredient) {
 		return getIngredients().remove(ingredient);
 	}
-	
-	
-	
-	private void transmuteIngredient(Ingredient ingredient) {
-		if(removeIngredientCard(ingredient)) {
-			updateBalance(1);
-			IngredientStorage.getInstance().addToBottom(ingredient);
-		}
-		else {
-			throw new IllegalArgumentException();
-		}
-	}
-	
-	
-	
-	
-	private void forageForIngredient() {		
-		Ingredient foragedIngredient = IngredientStorage.getInstance().removeFromTop();
-		if(foragedIngredient != null) {
-			addIngredientCard(foragedIngredient);
-		}
-	}
-	
-	
-	
-	
-	
+		
+		
 	private void addArtifact(Artifact artifact) {
 		getArtifacts().add(artifact);
 	}
-	
-	
-	
-	
-	
-	private void applyArtifact(Artifact artifact) {
-		
-	}
-	
-	
-	
-	
-	private void buyArtifact() {
-		if(getBalance() >= 3) {
-			Artifact artifact = ArtifactStorage.removeRandomArtifact();
-			if(artifact != null) {
-				addArtifact(artifact);
-				updateBalance(-2);
-				applyArtifact(artifact);
-			}
-			else {
-				throw new IllegalArgumentException();
-			}
-		}
-	}
-	
-	
-	
-	
+					
 		
 	private void sellPotion() {
 		
 	}
 	
-	
-	
+		
 	private void publishTheory() {
 		
 	}
-	
-	
+		
 	
 	private void debunkTheory() {
 		
 	}
 	
 	
-	
-
-	
-	
-	
-	
 	private void putTokenToResultsTriangle() {
 		
 	}
+
+	
 	
 	
 

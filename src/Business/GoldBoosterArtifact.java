@@ -1,10 +1,16 @@
 package Business;
 
 public class GoldBoosterArtifact extends Artifact {
-    public int boostAmount;
-    private String duration;
+    private int boostAmount;
+    private String duration;   
     
-    public String getDuration() {
+    public GoldBoosterArtifact(int boostAmount, String duration, String name) {
+		super(name);
+		this.boostAmount = boostAmount;
+		this.duration = duration;
+	}
+
+	public String getDuration() {
         return duration;
     }
 
@@ -19,6 +25,12 @@ public class GoldBoosterArtifact extends Artifact {
     public void setBoostAmount(int boostAmount) {
         this.boostAmount = boostAmount;
     }
+
+	@Override
+	public void applyArtifact() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }

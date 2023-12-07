@@ -4,13 +4,24 @@ public class ExperimentHelperArtifact extends Artifact {
     
 	private String duration;
 
-    public String getDuration() {
+    public ExperimentHelperArtifact(String name, String duration) {
+		super(name);
+		this.duration = duration;
+	}
+
+	public String getDuration() {
         return duration;
     }
 
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+	@Override
+	public void applyArtifact() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	
 }

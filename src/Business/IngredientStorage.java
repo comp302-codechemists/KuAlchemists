@@ -17,7 +17,7 @@ public class IngredientStorage {
 
 	public static IngredientStorage getInstance() {
 		if (instance == null) {
-			return new IngredientStorage();
+			instance = new IngredientStorage();
 		}
 		return instance;
 	}
@@ -51,6 +51,8 @@ public class IngredientStorage {
 
 	public Ingredient getRandomIngredient() {
 
+		if(ingredientList.isEmpty()) return null;
+					
 		int max = ingredientList.size() - 1;
 		int min = 0;
 
@@ -66,10 +68,8 @@ public class IngredientStorage {
 	}
 
 	public void addToBottom(Ingredient ingredient) {
-
+		ingredientList.add(ingredient);
 	}
 
-	public Ingredient removeFromTop() {
-		return null;
-	}
+
 }

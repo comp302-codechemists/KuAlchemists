@@ -57,6 +57,7 @@ public class StartGameFrame extends GeneralFrame {
     public StartGameFrame(KUAlchemistsGame game) {
     	
     	super();
+    	this.game = game;
     	this.setBackground();
     	this.setPlayer1Components();
     	this.setPlayer2Components();
@@ -249,15 +250,15 @@ public class StartGameFrame extends GeneralFrame {
                  }    
 
                  if (startOk) {
-                     StartGameController sgc = new StartGameController();
-                     sgc.handleStartGame(p1name, p2name, p1avatar, p2avatar);
+                     StartGameController startGameController = new StartGameController(game);
+                     startGameController.handleStartGame(p1name, p2name, p1avatar, p2avatar);
                      startGamePressed();
                  }
 
             }
         });    	
     }
-  
+
     
     
     private String getSelectedButtonText(ButtonGroup buttonGroup) {
@@ -305,20 +306,20 @@ public class StartGameFrame extends GeneralFrame {
     }
     
     private void startGamePressed() {
-    	new MainGameFrame();
+    	new MainGameFrame(this.game);
     	this.dispose();
     }
     
     private void howToPlayButtonPressed()
     {
     	new HowToPlayFrame();
-    	this.dispose();
+    	//this.dispose();
     }
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         // Create and display the frame   
         new StartGameFrame(new KUAlchemistsGame(2));
-    }
+    }*/
 
 
 

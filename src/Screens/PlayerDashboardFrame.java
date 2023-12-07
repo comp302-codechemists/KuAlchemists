@@ -3,15 +3,20 @@ package Screens;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import Business.Player;
+
+
 
 public class PlayerDashboardFrame extends GeneralFrame{
 	
@@ -20,6 +25,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	 * Offers interactive buttons for actions like collecting ingredients, brewing potions, and
 	 * submitting publications.
 	 */
+	private Player player;
 	private JPanel upperBackground;
 	private JPanel bottomBackground;
 	private JPanel leftHandBackground;
@@ -31,8 +37,12 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	
 	private ButtonGroup triangleButtonGroup;
 	private ButtonGroup leftButtonGroup;
+	private JButton buyArtifactButton;
+	private JButton forageIngredientButton;
+	private JButton transmuteIngredientButton;
 	
 	public PlayerDashboardFrame(Player player) {
+		super();
 		
 		setUpperDeductionBoard();
 
@@ -43,7 +53,14 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setLeftHand();
 		
 		setLeftHandButtons();
-
+		
+		setBuyArtifactButton();
+		
+		setForageIngredientButton();
+		
+		setTransmuteIngredientButton();
+		
+		this.player = player;
     
 	}
 	
@@ -194,6 +211,65 @@ public class PlayerDashboardFrame extends GeneralFrame{
         leftHandBackground.add(leftButtonPanel);   	
 		
 	}
+	
+	public void setBuyArtifactButton() {
+		buyArtifactButton = new JButton();
+		buyArtifactButton.setBounds(1000, 200, 200, 30);
+		buyArtifactButton.setText("Buy Artifact");
+		getContentPane().add(buyArtifactButton);
+		
+		buyArtifactButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				buyArtifactController controller = new buyArtifactController();
+				controller.buyArtifactHandler();
+			}
+		});
+		
+	}
+	
+	public void setForageIngredientButton() {
+		forageIngredientButton = new JButton();
+		forageIngredientButton.setBounds(1000, 250, 200, 30);
+		forageIngredientButton.setText("Forage Ingredient");;
+		getContentPane().add(forageIngredientButton);
+		
+		forageIngredientButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ForageController controller = new ForageController();
+				controller.handleForage();
+			}
+		});
+		
+		
+	}
+	
+	public void setTransmuteIngredientButton() {
+		transmuteIngredientButton = new JButton();
+		transmuteIngredientButton.setBounds(1000, 300, 200, 30);
+		transmuteIngredientButton.setText("Transmute Ingredient");
+		getContentPane().add(transmuteIngredientButton);
+		
+		transmuteIngredientButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TransmuteController controller = new TransmuteController();
+				controller.handleTransmute("Terror Root");
+			}
+		});
+		
+		
+	}
 
+<<<<<<< HEAD
 
+=======
+	
+    public static void main(String[] args) {
+        // Create and display the frame   
+    	Player player = new Player("Simge", "Path", null, null, 10, 0, null);
+        new PlayerDashboardFrame(player);
+    }
+>>>>>>> main
 }
