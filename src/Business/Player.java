@@ -180,8 +180,8 @@ public class Player {
 	}
 	
 	public void forageForIngredient() {
-		//TODO Random degil top kart.
-		Ingredient foragedIngredient = IngredientStorage.getInstance().getRandomIngredient();
+		
+		Ingredient foragedIngredient = IngredientStorage.getInstance().getIngredient();
 		if(foragedIngredient != null) {
 			System.out.println("Previous ingredients");
 			getIngredients().forEach(System.out::println);
@@ -224,8 +224,8 @@ public class Player {
 	public void buyArtifact() {
 		
 		if(getBalance() >= 3) {
-			//TODO Random degil top kart.
-			Artifact artifact = ArtifactStorage.getRandomArtifact();
+			
+			Artifact artifact = ArtifactStorage.getArtifact();
 			if(artifact != null) {
 				
 				System.out.println();

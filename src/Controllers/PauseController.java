@@ -1,15 +1,19 @@
 package Controllers;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import Business.KUAlchemistsGame;
+import Screens.PauseFrame;
 
 public class PauseController {
 	
-	public boolean pauseHandler() {
-		JOptionPane.showMessageDialog(new JFrame(), "Game is paused.", "Pause/Resume", JOptionPane.ERROR_MESSAGE);
+	public void pauseHandler() {
 		
-		return false;
-		//TODO
+		KUAlchemistsGame.instance.resume();
+	
+	}
+	
+	public void showPause() {
+		PauseFrame pauseFrame = new PauseFrame();
+		
 	}
 
 }

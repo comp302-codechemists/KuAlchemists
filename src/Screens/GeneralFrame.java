@@ -14,8 +14,7 @@ public abstract class GeneralFrame extends JFrame{
         // This is how to do relative path:
         Image img = new ImageIcon(this.getClass().getResource("/Images/bck.png")).getImage();
         
-        // This works only with absolute path:
-        //ImageIcon img = new ImageIcon("C:\\Users\\simge\\git\\KuAlchemists\\src\\bck.png");
+
         setIconImage(img);
        
 	}

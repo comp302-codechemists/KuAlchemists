@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import Business.KUAlchemistsGame;
+import Controllers.PauseController;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -18,6 +20,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.border.Border;
@@ -273,6 +277,14 @@ public class MainGameFrame extends GeneralFrame{
 		pauseGameButton.setOpaque(false);
 		pauseGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(pauseGameButton);
+        pauseGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KUAlchemistsGame.instance.pause();
+            }
+        });
+		
+		/*
 		pauseGameButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -303,6 +315,7 @@ public class MainGameFrame extends GeneralFrame{
                 pauseGameButton.setForeground(Color.white);
             }
         });
+        */
 	}
 	private void setHowToPlayButton()
 	{

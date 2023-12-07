@@ -2,14 +2,14 @@ package Business;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
 
 import Controllers.PauseController;
 
 public class KUAlchemistsGame {
 
 	public static Player currentPlayer;
-	private static KUAlchemistsGame instance;
+	public static KUAlchemistsGame instance;
 	int numberOfPlayers;
 	IngredientStorage ingredientStorage;
 	ArtifactStorage artifactStorage;
@@ -88,7 +88,7 @@ public class KUAlchemistsGame {
 	}
 
 	private void giveRandomIngredientCardToPlayer(Player player) {
-		Ingredient ingredient = ingredientStorage.getRandomIngredient();
+		Ingredient ingredient = ingredientStorage.getIngredient();
 		player.addIngredient(ingredient);
 	}
 
@@ -144,12 +144,11 @@ public class KUAlchemistsGame {
 	}
 
 	public void pause() {
-		//TODO Implement pause/resume.
+		
 		if (!isPaused()) {
 			setPaused(true);
 			PauseController pc = new PauseController();
-			pc.pauseHandler();
-			
+			pc.showPause();
 		}
 
 	}
