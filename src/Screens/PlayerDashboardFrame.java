@@ -323,7 +323,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                TransmuteController controller = new TransmuteController();
-	                controller.handleTransmute("");
+	                controller.handleTransmute("Terror Root");
 	            }
 	        });
 	        
