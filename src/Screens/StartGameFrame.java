@@ -219,9 +219,6 @@ public class StartGameFrame extends GeneralFrame {
     	startGameButton.setOpaque(false);
     	startGameButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
  
-    	/*
-    	 * We need to handle empty text field or radius button cases!!!!
-    	 * */
     	
     	startGameButton.addActionListener(new ActionListener() {
             @Override
@@ -245,7 +242,7 @@ public class StartGameFrame extends GeneralFrame {
                 	 startOk = false;
                  }
                  
-                 if ((p1name.isEmpty()) || p2name.isEmpty()) {
+                 else if ((p1name.isEmpty()) || p2name.isEmpty()) {
                 	 JOptionPane.showMessageDialog(new JFrame(), "Please enter usernames!",
                              "Name Error", JOptionPane.ERROR_MESSAGE);
                 	 startOk = false;

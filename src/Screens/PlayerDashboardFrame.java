@@ -191,15 +191,9 @@ public class PlayerDashboardFrame extends GeneralFrame{
         	btn.setBounds(50, i*65, 20, 20);
         	
         }
-        leftHandBackground.add(leftButtonPanel);   
-		
+        leftHandBackground.add(leftButtonPanel);   	
 		
 	}
 
-	
-    public static void main(String[] args) {
-        // Create and display the frame   
-    	Player player = new Player("Simge", "Path", null, null, 10, 0, null);
-        new PlayerDashboardFrame(player).setVisible(true);
-    }
+
 }

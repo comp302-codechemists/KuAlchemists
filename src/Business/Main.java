@@ -1,5 +1,7 @@
 package Business;
 import javax.swing.SwingUtilities;
+
+import Screens.PlayerDashboardFrame;
 import Screens.WelcomeFrame;
 
 public class Main {
@@ -27,8 +29,9 @@ public class Main {
     	
     	// KUAlchemistsGame game = new KUAlchemistsGame(2);
     	// game.play();
-    	WelcomeFrame game = new WelcomeFrame();
-    	
+    	//WelcomeFrame game = new WelcomeFrame();
+    	Player player = new Player("Simge", "Path", null, null, 10, 0, null);
+        new PlayerDashboardFrame(player).setVisible(true);
     }
 
 }
