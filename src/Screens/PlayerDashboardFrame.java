@@ -282,7 +282,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        forageIngredientButton.setIcon(resizedIcon);
 
 	        backgroundPanel.add(forageIngredientButton);
-
+	        
+			//addActionListener is an example of Observer Pattern in GoF
 	        forageIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
