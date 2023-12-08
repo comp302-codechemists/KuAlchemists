@@ -301,6 +301,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                new ForageIngredientFrame(game, player);
+	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });
 	        
@@ -335,6 +336,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	                new TransmuteIngredientFrame(game, player);
+	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });
 	        
@@ -371,6 +373,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            public void actionPerformed(ActionEvent e) {
 	            	
 	            	new BuyArtifactFrame(game, player);
+	            	PlayerDashboardFrame.this.dispose();
 	            }
 	        });
 	        

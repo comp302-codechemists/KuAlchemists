@@ -192,7 +192,6 @@ public class Player {
 			getIngredients().forEach(System.out::println);
 			
 			System.out.printf("Ingredient %s is added to the player's storage%n",foragedIngredient.getName());
-			
 			return foragedIngredient.getName();
 			
 		}

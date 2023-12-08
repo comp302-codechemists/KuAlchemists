@@ -58,6 +58,7 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    
 			    // Close the frame
 			    ForageIngredientFrame.this.dispose();
+			    new MainGameFrame(game);
 			}
 
 

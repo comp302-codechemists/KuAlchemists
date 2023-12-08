@@ -12,6 +12,8 @@ public class buyArtifactController {
 	}
 	
 	public String buyArtifactHandler() {
-		return game.currentPlayer.buyArtifact();
+		String boughtArtifact = game.currentPlayer.buyArtifact();
+		game.nextPlayer();
+		return boughtArtifact;
 	}
 }

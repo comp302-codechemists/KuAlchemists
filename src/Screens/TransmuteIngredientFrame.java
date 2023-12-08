@@ -102,6 +102,7 @@ public class TransmuteIngredientFrame extends FunctionalFrame{
 	    }
 	    
 	    // Close the frame
+	    new MainGameFrame(game);
 	    TransmuteIngredientFrame.this.dispose();
 	}
 

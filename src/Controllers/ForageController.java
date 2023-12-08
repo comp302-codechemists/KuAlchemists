@@ -13,6 +13,7 @@ public class ForageController {
 
 	public String handleForage() {
 		String foragedIngredient = game.currentPlayer.forageForIngredient();
+		game.nextPlayer();
 		return foragedIngredient;
 	}
 	

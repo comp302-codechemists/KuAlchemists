@@ -52,6 +52,7 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    
 			    // Close the frame
 			    BuyArtifactFrame.this.dispose();
+			    new MainGameFrame(game);
 			}
 
 

@@ -439,6 +439,7 @@ public class MainGameFrame extends GeneralFrame{
 	            public void mouseClicked(MouseEvent e) {
 	                // Handle mouse click event if needed
 	            	new PlayerDashboardFrame(game, game.currentPlayer);
+	            	MainGameFrame.this.dispose();
 	            }
 
 	            @Override
