@@ -277,18 +277,10 @@ public class MainGameFrame extends GeneralFrame{
 		pauseGameButton.setOpaque(false);
 		pauseGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(pauseGameButton);
-        pauseGameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                KUAlchemistsGame.instance.pause();
-            }
-        });
-		
-		/*
 		pauseGameButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Handle mouse click event if needed
+            	KUAlchemistsGame.instance.pause();
             }
 
             @Override
@@ -315,7 +307,6 @@ public class MainGameFrame extends GeneralFrame{
                 pauseGameButton.setForeground(Color.white);
             }
         });
-        */
 	}
 	private void setHowToPlayButton()
 	{
@@ -402,7 +393,7 @@ public class MainGameFrame extends GeneralFrame{
 	}
 	private void setTakeTurnButton() 
 	{
-		
+		/*
 		takeTurnButton = new JButton("Take Turn");
 		takeTurnButton.setBounds(1220, 620, 150, 30);
 		takeTurnButton.setForeground(Color.white);
@@ -441,6 +432,8 @@ public class MainGameFrame extends GeneralFrame{
 	            	takeTurnButton.setForeground(Color.white);
 	            }
 	        });
+	        */
+		
 	}
 }
 

@@ -49,9 +49,7 @@ public class IngredientStorage {
 		
 
 		System.out.println("Ingredient storage ingredient list has been initialized.");
-		for (Ingredient i : ingredientList) {
-			System.out.println(i.name);
-		}
+
 	}
 
 	public Ingredient getIngredient() {

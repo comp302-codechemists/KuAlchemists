@@ -29,10 +29,7 @@ public class ArtifactStorage {
 		artifactList.addAll(Artifact.artifacts);
 		
 		System.out.println("Artifact storage artifact list has been initialized.");
-		for (Artifact a: artifactList)
-		{
-			System.out.println(a.getClass().getCanonicalName());
-		}
+
 	}
 	
 	public void shuffleArtifacts()
