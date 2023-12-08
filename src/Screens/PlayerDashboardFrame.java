@@ -337,8 +337,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        transmuteIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                TransmuteController controller = new TransmuteController(game);
-	                controller.handleTransmute("Terror Root");
+	                new TransmuteIngredientFrame(game, player);
 	            }
 	        });
 	        

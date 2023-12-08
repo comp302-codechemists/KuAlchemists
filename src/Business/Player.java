@@ -202,7 +202,7 @@ public class Player {
 		}
 	}
 	
-	public void transmuteIngredient(Ingredient ingredient) {
+	public String transmuteIngredient(Ingredient ingredient) {
 		
 		System.out.println("");
 		System.out.println("Previous ingredients");
@@ -222,6 +222,8 @@ public class Player {
 		getIngredients().forEach(System.out::println);
 		System.out.printf("New Balance: %d%n",getBalance());
 		System.out.printf("Ingredient %s is removed from the player's storage%n",ingredient.getName());
+		
+		return ingredient.getName();
 	}
 	
 	public void buyArtifact() {

@@ -3,39 +3,42 @@ package Screens;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
-import Controllers.ForageController;
+import Controllers.TransmuteController;
 
-public class ForageIngredientFrame extends FunctionalFrame
-{
-	JPanel backgroundPanel;
-	JButton button;
-	
+public class TransmuteIngredientFrame extends FunctionalFrame{
 
-	public ForageIngredientFrame(KUAlchemistsGame game, Player player) {
+	public TransmuteIngredientFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
-		this.setBackground("forageIngredientBackground");
+		this.setBackground("transmuteIngredientBackground");
+		this.setIngredients();
 		this.setButton();
 	}
-
-                
 	
+	private void setIngredients() {
+	    TransmuteController controller = new TransmuteController(game);
+	    List<Ingredient> currentIngredients = controller.getPlayersCurrentIngredients();
+
+	    
+
+	}
+
 	private void setButton()
 	{
-		button = new JButton();
-		button.setText("Forage");
+		JButton button = new JButton();
+		button.setText("Transmute");
 		button.setBounds(500, 500, 150, 30);
 		button.setForeground(Color.white);
 		button.setFont(new Font("Tahoma", Font.ITALIC, 15));
@@ -45,12 +48,14 @@ public class ForageIngredientFrame extends FunctionalFrame
 		button.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-			    ForageController controller = new ForageController(game);
-			    String takenIngredient = controller.handleForage();
-			    if (takenIngredient != null)
+				
+				/*TransmuteController controller = new TransmuteController(game);
+                String transmutedIngredient = controller.handleTransmute("Terror Root");
+                
+			    if (transmutedIngredient != null)
 			    {
-			    	String message = "Ingredient taken: " + takenIngredient;
-				    JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.INFORMATION_MESSAGE);
+			    	String message = "Ingredient transmuted: " + transmutedIngredient;
+				    JOptionPane.showMessageDialog(null, message, "Ingredient Transmuted", JOptionPane.INFORMATION_MESSAGE);
 			    }
 			    else
 			    {
@@ -59,7 +64,7 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    }
 			    
 			    // Close the frame
-			    ForageIngredientFrame.this.dispose();
+			    TransmuteIngredientFrame.this.dispose();*/
 			}
 
 
@@ -90,6 +95,5 @@ public class ForageIngredientFrame extends FunctionalFrame
 		
 		backgroundPanel.add(button);
 	}
-
 
 }

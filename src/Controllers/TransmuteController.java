@@ -1,4 +1,7 @@
 package Controllers;
+import java.util.ArrayList;
+import java.util.List;
+
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.IngredientStorage;
@@ -12,22 +15,38 @@ public class TransmuteController {
 		this.game = game;
 	}
 
+	public List<Ingredient> getPlayersCurrentIngredients()
+	{
+		List<Ingredient> currentIngredientList = new ArrayList<>();
+		
+		for (Ingredient ingredient: game.currentPlayer.getIngredients())
+		{
+			if (!currentIngredientList.contains(ingredient))
+			{
+				currentIngredientList.add(ingredient);
+			}
+		}
+		
+		return currentIngredientList;
+	}
 	
 	
-	public void handleTransmute(String transmutedIngredientName) {
+	public String handleTransmute(String transmutedIngredientName) {
 		
 		boolean found = false;
 	
 		for(Ingredient ingredient: game.currentPlayer.getIngredients()) {
 			if(ingredient.getName().equals(transmutedIngredientName)) {
-				game.currentPlayer.transmuteIngredient(ingredient);
+				String transmutedIngredient = game.currentPlayer.transmuteIngredient(ingredient);
 				found = true;
-				break;
+				return transmutedIngredient;
 			}
 		}
 		
 		if(!found) {
 			System.out.printf("Ingredient %s is not found in the player's storage%n",transmutedIngredientName);
 		}
+		
+		return null;
 	}
 }
