@@ -277,9 +277,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		
 	}
 
-
-
-
 	 private void setForageIngredientButton() 
 	 {
 	        forageIngredientButton = new JButton("Forage for Ingredient");
@@ -372,8 +369,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        buyArtifactButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	buyArtifactController controller = new buyArtifactController(game);
-	                controller.buyArtifactHandler();
+	            	
+	            	new BuyArtifactFrame(game, player);
 	            }
 	        });
 	        

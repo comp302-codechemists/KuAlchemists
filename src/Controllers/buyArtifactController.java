@@ -11,7 +11,7 @@ public class buyArtifactController {
 		this.game = game;
 	}
 	
-	public void buyArtifactHandler() {
-		game.currentPlayer.buyArtifact();
+	public String buyArtifactHandler() {
+		return game.currentPlayer.buyArtifact();
 	}
 }

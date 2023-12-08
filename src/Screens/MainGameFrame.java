@@ -54,7 +54,7 @@ public class MainGameFrame extends GeneralFrame{
 		this.setPlayersInfoTable();
 		this.setButtons();
 		this.setIngredientPanel();
-		this.setArtifactPanel();
+		this.setTheoriesPanel();
 		this.setGameLog();
 		this.setDirections();
 		
@@ -138,27 +138,27 @@ public class MainGameFrame extends GeneralFrame{
 	}
 	
 
-	private void setArtifactPanel() {
+	private void setTheoriesPanel() {
 	    
-		JPanel artifactPanel = new JPanel();
-	    artifactPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
-	    artifactPanel.setBounds(55, 400, 440, 340);
-	    artifactPanel.setOpaque(false);
+		JPanel theoryPanel = new JPanel();
+		theoryPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
+		theoryPanel.setBounds(55, 400, 440, 340);
+	    theoryPanel.setOpaque(false);
 
 	    // Create an EmptyBorder with desired spacing
 	    Border spacingBorder = BorderFactory.createEmptyBorder(2, 2, 2, 2);
 
 	    for (int i = 0; i < 8; i++) {
-	        JLabel artifactLabel = new JLabel();
-	        artifactLabel.setPreferredSize(new Dimension(140, 80));
-	        artifactLabel.setBorder(spacingBorder); // Apply the spacing border to each label
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/artifact" + (i + 1) + ".png"));
+	        JLabel theoryLabel = new JLabel();
+	        theoryLabel.setPreferredSize(new Dimension(140, 80));
+	        theoryLabel.setBorder(spacingBorder); // Apply the spacing border to each label
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + (i + 1) + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH);
-	        artifactLabel.setIcon(new ImageIcon(image));
-	        artifactPanel.add(artifactLabel);
+	        theoryLabel.setIcon(new ImageIcon(image));
+	        theoryPanel.add(theoryLabel);
 	    }
 
-	    backgroundPanel.add(artifactPanel);
+	    backgroundPanel.add(theoryPanel);
 	}
 	
 	private void setBackground() {

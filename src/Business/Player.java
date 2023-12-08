@@ -226,7 +226,7 @@ public class Player {
 		return ingredient.getName();
 	}
 	
-	public void buyArtifact() {
+	public String buyArtifact() {
 		
 		if(getBalance() >= 3) {
 			
@@ -246,6 +246,8 @@ public class Player {
 				getArtifacts().forEach(System.out::println);
 				System.out.printf("New Balance: %d%n",getBalance());
 				System.out.printf("Artifact %s is added to the player's storage%n",artifact.getName());
+				
+				return artifact.getName();
 			}
 			else {
 				System.out.println("Artifact Storage is empty!");
@@ -255,6 +257,7 @@ public class Player {
 			System.out.println("Balance is lower than 3, come back when you have more gold :D");
 		}
 		
+		return null;
 	}
 	
 
