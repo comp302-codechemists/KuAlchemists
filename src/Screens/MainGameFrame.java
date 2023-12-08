@@ -56,6 +56,40 @@ public class MainGameFrame extends GeneralFrame{
 		this.setIngredientPanel();
 		this.setArtifactPanel();
 		this.setGameLog();
+		this.setDirections();
+		
+	}
+	
+	private void setDirections()
+	{
+		String enthusiastizmText = """
+					Welcome to the mesmerizing world of alchemy, 
+				where magic and science intertwine to create wonders beyond imagination! 
+				Prepare to embark on an enchanting journey where you'll concoct mystical 
+				potions, conduct daring experiments, and unveil the secrets of the arcane arts.
+
+					As an aspiring alchemist, the power of creation lies within your 
+				grasp. Blend rare ingredients, harness the elements, and stir the 
+				cauldron of possibility to produce potions of extraordinary effects. 
+				From elixirs that grant incredible strength to brews that bestow 
+				wisdom beyond measure, your mastery over alchemy knows no bounds.
+				""";
+		
+		JTextArea enthusiastizmTextArea = new JTextArea(enthusiastizmText);
+		enthusiastizmTextArea.setBounds(500, 80, 520, 200);
+		enthusiastizmTextArea.setForeground(Color.white);
+		enthusiastizmTextArea.setFont(new Font("Tahoma", Font.ITALIC, 15));
+		enthusiastizmTextArea.setOpaque(false);
+		backgroundPanel.add(enthusiastizmTextArea);
+		
+		String labelText = String.format("\n\tIt is %s's turn.", game.currentPlayer.getUserName());
+		JLabel directionsLabel = new JLabel(labelText);
+		directionsLabel.setBounds(650, 280, 330, 30);
+		directionsLabel.setForeground(Color.white);
+		directionsLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
+		directionsLabel.setOpaque(false);
+		setTakeTurnButton();
+		backgroundPanel.add(directionsLabel);
 		
 	}
 	
@@ -225,7 +259,6 @@ public class MainGameFrame extends GeneralFrame{
 		 setPauseGameButton();
 		 setHowToPlayButton();
 		 setEndGameButton();
-		 setTakeTurnButton();
 	}
 	private void setExitGameButton() 
 	{
@@ -393,9 +426,9 @@ public class MainGameFrame extends GeneralFrame{
 	}
 	private void setTakeTurnButton() 
 	{
-		/*
+		
 		takeTurnButton = new JButton("Take Turn");
-		takeTurnButton.setBounds(1220, 620, 150, 30);
+		takeTurnButton.setBounds(650, 330, 150, 30);
 		takeTurnButton.setForeground(Color.white);
 		takeTurnButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		takeTurnButton.setOpaque(false);
@@ -405,7 +438,7 @@ public class MainGameFrame extends GeneralFrame{
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
 	                // Handle mouse click event if needed
-	            	new PlayerDashboardFrame(game, KUAlchemistsGame.currentPlayer);
+	            	new PlayerDashboardFrame(game, game.currentPlayer);
 	            }
 
 	            @Override
@@ -432,7 +465,7 @@ public class MainGameFrame extends GeneralFrame{
 	            	takeTurnButton.setForeground(Color.white);
 	            }
 	        });
-	        */
+	        
 		
 	}
 }

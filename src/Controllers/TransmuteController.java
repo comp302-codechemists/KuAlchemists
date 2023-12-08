@@ -5,13 +5,22 @@ import Business.IngredientStorage;
 
 public class TransmuteController {
 	
+	private KUAlchemistsGame game;
+	
+	public TransmuteController(KUAlchemistsGame game)
+	{
+		this.game = game;
+	}
+
+	
+	
 	public void handleTransmute(String transmutedIngredientName) {
 		
 		boolean found = false;
 	
-		for(Ingredient ingredient: KUAlchemistsGame.currentPlayer.getIngredients()) {
+		for(Ingredient ingredient: game.currentPlayer.getIngredients()) {
 			if(ingredient.getName().equals(transmutedIngredientName)) {
-				KUAlchemistsGame.currentPlayer.transmuteIngredient(ingredient);
+				game.currentPlayer.transmuteIngredient(ingredient);
 				found = true;
 				break;
 			}

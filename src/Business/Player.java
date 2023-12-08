@@ -179,7 +179,7 @@ public class Player {
 		return score;
 	}
 	
-	public void forageForIngredient() {
+	public String forageForIngredient() {
 		
 		Ingredient foragedIngredient = IngredientStorage.getInstance().getIngredient();
 		if(foragedIngredient != null) {
@@ -193,9 +193,12 @@ public class Player {
 			
 			System.out.printf("Ingredient %s is added to the player's storage%n",foragedIngredient.getName());
 			
+			return foragedIngredient.getName();
+			
 		}
 		else {
 			System.out.println("Ingredient Storage is empty!");
+			return null;
 		}
 	}
 	
@@ -255,7 +258,7 @@ public class Player {
 
 	
 	public void applyArtifact(Artifact artifact) {
-		artifact.applyArtifact();
+		artifact.applyArtifact(this);
 	}
 	
 	////////////////PRIVATE METHODS

@@ -74,6 +74,18 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPublishTheoryButton();
 		setSellPotionButton();
 		setDebunkTheoryButton();
+		setPlayerNameLabel();
+	}
+	
+	private void setPlayerNameLabel()
+	{
+		System.out.println(game.currentPlayer.getUserName());
+		JLabel label = new JLabel(game.currentPlayer.getUserName());
+        label.setForeground(Color.WHITE); // Set text color to white
+        label.setBounds(1100, 40, 120, 30); // Adjust the position as needed
+        label.setOpaque(false); // Make the label transparent
+        label.setFont(new Font("Tahoma", Font.ITALIC, 35));
+        backgroundPanel.add(label);
 	}
 	
 	private void setBackground() {
@@ -291,8 +303,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        forageIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                ForageController controller = new ForageController();
-	                controller.handleForage();
+	                new ForageIngredientFrame(game, player);
 	            }
 	        });
 	        
@@ -326,7 +337,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        transmuteIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                TransmuteController controller = new TransmuteController();
+	                TransmuteController controller = new TransmuteController(game);
 	                controller.handleTransmute("Terror Root");
 	            }
 	        });
@@ -362,7 +373,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        buyArtifactButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	buyArtifactController controller = new buyArtifactController();
+	            	buyArtifactController controller = new buyArtifactController(game);
 	                controller.buyArtifactHandler();
 	            }
 	        });
