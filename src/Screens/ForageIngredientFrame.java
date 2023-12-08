@@ -1,5 +1,6 @@
 package Screens;
 
+import Business.Ingredient;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -48,7 +49,12 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    if (takenIngredient != null)
 			    {
 			    	String message = "Ingredient taken: " + takenIngredient;
-				    JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.INFORMATION_MESSAGE);
+			    	int index = Ingredient.getIngredientIndex(takenIngredient);
+			    	Image image = new ImageIcon(this.getClass().getResource("/Images/ingredient" + index + ".png")).getImage();
+			    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
+			    	ImageIcon icon = new ImageIcon(newImage);
+				    JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.INFORMATION_MESSAGE, icon);
+				    
 			    }
 			    else
 			    {

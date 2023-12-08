@@ -53,7 +53,6 @@ public class MainGameFrame extends GeneralFrame{
 		this.setBackground();
 		this.setPlayersInfoTable();
 		this.setButtons();
-		this.setIngredientPanel();
 		this.setTheoriesPanel();
 		this.setGameLog();
 		this.setDirections();
@@ -118,42 +117,24 @@ public class MainGameFrame extends GeneralFrame{
 
 
 
-	private void setIngredientPanel() 
-	{
-	    JPanel ingredientPanel = new JPanel();
-	    ingredientPanel.setLayout(new GridLayout(2, 4, 5, 5));
-	    ingredientPanel.setBounds(25, 45, 420, 320);
-	    ingredientPanel.setOpaque(false);
-
-	    for (int i = 0; i < 8; i++) {
-	        JLabel ingredientLabel = new JLabel();
-	        ingredientLabel.setPreferredSize(new Dimension(100, 150));
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/ingredient" + (i + 1) + ".png"));
-	        Image image = imageIcon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
-	        ingredientLabel.setIcon(new ImageIcon(image));
-	        ingredientPanel.add(ingredientLabel);
-	    }
-
-	    backgroundPanel.add(ingredientPanel);
-	}
 	
 
 	private void setTheoriesPanel() {
 	    
 		JPanel theoryPanel = new JPanel();
 		theoryPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
-		theoryPanel.setBounds(55, 400, 440, 340);
+		theoryPanel.setBounds(10, 42, 485, 698);
 	    theoryPanel.setOpaque(false);
 
 	    // Create an EmptyBorder with desired spacing
-	    Border spacingBorder = BorderFactory.createEmptyBorder(2, 2, 2, 2);
+	    Border spacingBorder = BorderFactory.createEmptyBorder(1,1,1,1);
 
 	    for (int i = 0; i < 8; i++) {
 	        JLabel theoryLabel = new JLabel();
-	        theoryLabel.setPreferredSize(new Dimension(140, 80));
+	        theoryLabel.setPreferredSize(new Dimension(200, 150));
 	        theoryLabel.setBorder(spacingBorder); // Apply the spacing border to each label
 	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + (i + 1) + ".png"));
-	        Image image = imageIcon.getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH);
+	        Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
 	        theoryLabel.setIcon(new ImageIcon(image));
 	        theoryPanel.add(theoryLabel);
 	    }

@@ -248,8 +248,8 @@ public class StartGameFrame extends GeneralFrame {
                              "Name Error", JOptionPane.ERROR_MESSAGE);
                 	 startOk = false;
                  }    
-
-                 if (startOk) {
+                 // if (startOk) {
+                 if (true) {
                      StartGameController startGameController = new StartGameController(game);
                      startGameController.handleStartGame(p1name, p2name, p1avatar, p2avatar);
                      startGamePressed();

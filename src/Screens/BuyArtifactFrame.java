@@ -2,13 +2,16 @@ package Screens;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 
+import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.buyArtifactController;
@@ -42,7 +45,10 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    if (boughtArtifact != null)
 			    {
 			    	String message = "Artifact bought: " + boughtArtifact;
-				    JOptionPane.showMessageDialog(null, message, "Artifact Bought", JOptionPane.INFORMATION_MESSAGE);
+			    	Image image = new ImageIcon(this.getClass().getResource("/Images/" + boughtArtifact +".png")).getImage();
+			    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
+			    	ImageIcon icon = new ImageIcon(newImage);
+				    JOptionPane.showMessageDialog(null, message, "Artifact Bought", JOptionPane.INFORMATION_MESSAGE, icon);
 			    }
 			    else
 			    {
