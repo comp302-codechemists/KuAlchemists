@@ -20,10 +20,8 @@ import Controllers.ForageController;
 
 public class ForageIngredientFrame extends FunctionalFrame
 {
-	JPanel backgroundPanel;
 	JButton button;
 	
-
 	public ForageIngredientFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
 		this.setBackground("forageIngredientBackground");
