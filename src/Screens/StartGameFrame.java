@@ -118,19 +118,19 @@ public class StartGameFrame extends GeneralFrame {
     private void getAvatarImages() {
         
         ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/avatar1.png"));
-        Image originalImage1 = originalIcon1.getImage().getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+        Image originalImage1 = originalIcon1.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         avatar1 = new ImageIcon(originalImage1);
         
         ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/Images/avatar2.png"));
-        Image originalImage2 = originalIcon2.getImage().getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+        Image originalImage2 = originalIcon2.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         avatar2 = new ImageIcon(originalImage2);
         
         ImageIcon originalIcon3 = new ImageIcon(getClass().getResource("/Images/avatar3.png"));
-        Image originalImage3 = originalIcon3.getImage().getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+        Image originalImage3 = originalIcon3.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         avatar3 = new ImageIcon(originalImage3);
         
         ImageIcon originalIcon4 = new ImageIcon(getClass().getResource("/Images/avatar4.png"));
-        Image originalImage4 = originalIcon4.getImage().getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+        Image originalImage4 = originalIcon4.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         avatar4 = new ImageIcon(originalImage4);
         
         
@@ -138,38 +138,38 @@ public class StartGameFrame extends GeneralFrame {
 
     private void setPlayer1Components()
     {
-    	player1Label.setBounds(284, 180, 120, 30);
+    	player1Label.setBounds(322, 180, 120, 30);
     	player1Label.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Label.setForeground(Color.white);
     	
     	usernameLabel = new JLabel("Enter a username.");
-    	usernameLabel.setBounds(214, 240, 200, 30);
+    	usernameLabel.setBounds(252, 240, 200, 30);
     	usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	usernameLabel.setForeground(Color.white);
     	
-    	player1UsernameTexfField.setBounds(214, 290, 200, 30);
+    	player1UsernameTexfField.setBounds(252, 290, 200, 30);
     	
     	avatarLabel = new JLabel("Select an avatar.");
-    	avatarLabel.setBounds(214, 350, 200, 30);
+    	avatarLabel.setBounds(252, 350, 200, 30);
     	avatarLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	avatarLabel.setForeground(Color.white);
     	
-    	player1Avatar1Button.setBounds(214, 400, 150, 128);
+    	player1Avatar1Button.setBounds(252, 421, 89, 89);
     	player1Avatar1Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar1Button.setForeground(Color.white);
     	player1Avatar1Button.setIcon(avatar1);
     	
-    	player1Avatar2Button.setBounds(394, 400, 150, 128);
+    	player1Avatar2Button.setBounds(366, 421, 89, 89);
     	player1Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar2Button.setForeground(Color.white);
     	player1Avatar2Button.setIcon(avatar2);
     	
-    	player1Avatar3Button.setBounds(214, 550, 150, 130);
+    	player1Avatar3Button.setBounds(252, 521, 89, 89);
     	player1Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar3Button.setForeground(Color.white);
     	player1Avatar3Button.setIcon(avatar3);
     	
-    	player1Avatar4Button.setBounds(394, 550, 150, 130);
+    	player1Avatar4Button.setBounds(366, 521, 89, 89);
     	player1Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar4Button.setForeground(Color.white);
     	player1Avatar4Button.setIcon(avatar4);
@@ -211,22 +211,22 @@ public class StartGameFrame extends GeneralFrame {
     	avatarLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	avatarLabel.setForeground(Color.white);
     	
-    	player2Avatar1Button.setBounds(941, 400, 150, 128);
+    	player2Avatar1Button.setBounds(944, 421, 89, 89);
     	player2Avatar1Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar1Button.setForeground(Color.white);
     	player2Avatar1Button.setIcon(avatar1);
     	
-    	player2Avatar2Button.setBounds(1121, 400, 150, 128);
+    	player2Avatar2Button.setBounds(1062, 421, 89, 89);
     	player2Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar2Button.setForeground(Color.white);
     	player2Avatar2Button.setIcon(avatar2);
     	
-    	player2Avatar3Button.setBounds(941, 550, 150, 130);
+    	player2Avatar3Button.setBounds(944, 521, 89, 89);
     	player2Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar3Button.setForeground(Color.white);
     	player2Avatar3Button.setIcon(avatar3);
     	
-    	player2Avatar4Button.setBounds(1121, 550, 150, 130);
+    	player2Avatar4Button.setBounds(1062, 521, 89, 89);
     	player2Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar4Button.setForeground(Color.white);
     	player2Avatar4Button.setIcon(avatar4);

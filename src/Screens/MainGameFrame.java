@@ -182,25 +182,37 @@ public class MainGameFrame extends GeneralFrame{
         backgroundPanel.setOpaque(false);
         getContentPane().add(backgroundPanel);
 	}
+	
+	      
 
 	private void setPlayersInfoTable()
 	{
 		playersInfoTable = new JTable();
-		DefaultTableModel model = new DefaultTableModel(4, 3);
+		DefaultTableModel model = new DefaultTableModel(5, 3);
 
 		model.setValueAt(" Information", 0, 0);
-		model.setValueAt(" Reputation Points", 1, 0);
-		model.setValueAt(" Ingredient Cards", 2, 0);
-		model.setValueAt(" Artifact Cards", 3, 0);
+		model.setValueAt(" Avatar", 1, 0);
+		model.setValueAt(" Reputation Points", 2, 0);
+		model.setValueAt(" Ingredient Cards", 3, 0);
+		model.setValueAt(" Artifact Cards", 4, 0);
 
 		for (int i = 0; i < this.game.getNumberOfPlayers(); i++) {
+	        String avatarPath = game.getPlayers().get(i).getAvatarPath();
+	        ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath + ".png"));
+	        Image originalImage1 = originalIcon1.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+	        ImageIcon avatar = new ImageIcon(originalImage1);
+			
 			model.setValueAt(this.game.getPlayers().get(i).getUserName(), 0, i+1);
-			model.setValueAt(this.game.getPlayers().get(i).getReputationPoints(), 1, i+1);
-			model.setValueAt(this.game.getPlayers().get(i).getIngredients().size(), 2, i+1);
-			model.setValueAt(this.game.getPlayers().get(i).getArtifacts().size(), 3, i+1);
+			model.setValueAt(avatar, 1, i + 1);
+			model.setValueAt(this.game.getPlayers().get(i).getReputationPoints(), 2, i+1);
+			model.setValueAt(this.game.getPlayers().get(i).getIngredients().size(), 3, i+1);
+			model.setValueAt(this.game.getPlayers().get(i).getArtifacts().size(), 4, i+1);
 		}
 		
 		playersInfoTable = new JTable(model);
+        
+
+		
 		playersInfoTable.setFont(new Font("Tahoma", Font.ITALIC, 17));
 		playersInfoTable.setForeground(Color.white);
 		playersInfoTable.setBorder(new LineBorder(Color.white, 2));
@@ -208,12 +220,13 @@ public class MainGameFrame extends GeneralFrame{
 		playersInfoTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		playersInfoTable.setRowHeight(50);
 		playersInfoTable.setSurrendersFocusOnKeystroke(true);
-		playersInfoTable.setBounds(1100, 85, 370, 200);
+		playersInfoTable.setBounds(1100, 85, 370, 255);
 		
 		// Set transparent background for the table and cells
         playersInfoTable.setOpaque(false);
         playersInfoTable.setBackground(new Color(0, 0, 0, 0)); // Transparent black (adjust alpha as needed)
-        playersInfoTable.setDefaultRenderer(Object.class, new TransparentTableCellRenderer());
+        playersInfoTable.getColumnModel().getColumn(1).setCellRenderer(new AvatarRenderer());
+        playersInfoTable.getColumnModel().getColumn(2).setCellRenderer(new AvatarRenderer());
 
         
 		backgroundPanel.add(playersInfoTable);
@@ -225,14 +238,26 @@ public class MainGameFrame extends GeneralFrame{
 		
 	}
 	
-	private class TransparentTableCellRenderer extends DefaultTableCellRenderer {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            c.setBackground(new Color(0, 0, 0, 0)); // Transparent black (adjust alpha as needed)
-            return c;
-        }
-    }
+	private static class AvatarRenderer extends DefaultTableCellRenderer {
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+	        if (value instanceof ImageIcon) {
+	            setIcon((ImageIcon) value);
+	            setText("");  // Set an empty string to avoid displaying text
+	            setHorizontalAlignment(CENTER);
+	            setVerticalAlignment(CENTER);
+	        } else {
+	            setIcon(null); // Clear the icon if the value is not an ImageIcon
+	            setText(value != null ? value.toString() : "");
+	            setHorizontalAlignment(LEFT);
+	            setVerticalAlignment(CENTER);
+	        }
+
+	        return component;
+	    }
+	}
 	
 	private void setButtons()
 	{

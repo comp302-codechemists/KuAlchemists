@@ -109,10 +109,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
         userAvatar = new JLabel();
         String avatarPath = game.currentPlayer.getAvatarPath();
         ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath + ".png"));
-        Image originalImage1 = originalIcon1.getImage().getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+        Image originalImage1 = originalIcon1.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
         ImageIcon avatar = new ImageIcon(originalImage1);
         userAvatar.setIcon(avatar);
-        userAvatar.setBounds(930, 20, 78, 92);
+        userAvatar.setBounds(912, 20, 95, 95);
         backgroundPanel.add(userAvatar);
         
         repPointsLabel = new JLabel("Reputation Points:");
