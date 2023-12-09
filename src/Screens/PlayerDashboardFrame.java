@@ -59,6 +59,11 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton publishTheoryButton;
 	private JButton sellPotionButton;
 	private JButton debunkTheoryButton;
+	private JLabel userGoldInfo;
+	private JLabel userAvatar;
+	private JLabel reputationLabel;
+	private JLabel repPointsLabel;
+	private JLabel balanceLabel;
 	
 	public PlayerDashboardFrame(KUAlchemistsGame game, Player player) 
 	{
@@ -80,21 +85,61 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setSellPotionButton();
 		setDebunkTheoryButton();
 		setPlayerNameLabel();
+		setPlayerInfo();
 		setPlayerArtifacts();
 		setPlayerIngredients();
-		//TODO add player avatar icon.
+		
 	}
 	
 	private void setPlayerNameLabel()
 	{
 		System.out.println(game.currentPlayer.getUserName());
-		JLabel label = new JLabel(game.currentPlayer.getUserName());
-        label.setForeground(Color.WHITE); // Set text color to white
-        label.setBounds(1094, 20, 120, 30); // Adjust the position as needed
-        label.setOpaque(false); // Make the label transparent
-        label.setFont(new Font("Tahoma", Font.ITALIC, 35));
-        backgroundPanel.add(label);
+		JLabel userNameLabel = new JLabel(game.currentPlayer.getUserName());
+        userNameLabel.setForeground(Color.WHITE); // Set text color to white
+        userNameLabel.setBounds(1033, 60, 187, 30); // Adjust the position as needed
+        userNameLabel.setOpaque(false); // Make the label transparent
+        userNameLabel.setFont(new Font("Tahoma", Font.ITALIC, 35));
+        backgroundPanel.add(userNameLabel);
         
+	}
+	
+	private void setPlayerInfo() {
+		
+        
+        userAvatar = new JLabel();
+        String avatarPath = game.currentPlayer.getAvatarPath();
+        ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath + ".png"));
+        Image originalImage1 = originalIcon1.getImage().getScaledInstance(60, 80, Image.SCALE_SMOOTH);
+        ImageIcon avatar = new ImageIcon(originalImage1);
+        userAvatar.setIcon(avatar);
+        userAvatar.setBounds(930, 20, 78, 92);
+        backgroundPanel.add(userAvatar);
+        
+        repPointsLabel = new JLabel("Reputation Points:");
+        repPointsLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
+        repPointsLabel.setForeground(Color.WHITE);
+        repPointsLabel.setBounds(1246, 42, 203, 30);
+        backgroundPanel.add(repPointsLabel);
+        
+        balanceLabel = new JLabel("Balance:");
+        balanceLabel.setForeground(Color.WHITE);
+        balanceLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
+        balanceLabel.setBounds(1246, 82, 203, 30);
+        backgroundPanel.add(balanceLabel);
+        
+        int repPoints = game.currentPlayer.getReputationPoints();
+        reputationLabel = new JLabel(Integer.toString(repPoints));
+        reputationLabel.setForeground(Color.WHITE);
+        reputationLabel.setFont(new Font("Tahoma", Font.ITALIC, 25));
+        reputationLabel.setBounds(1434, 34, 66, 42);
+        backgroundPanel.add(reputationLabel);
+        
+        int balance = game.currentPlayer.getBalance();
+        userGoldInfo = new JLabel(Integer.toString(balance));
+        userGoldInfo.setForeground(Color.WHITE);
+        userGoldInfo.setFont(new Font("Tahoma", Font.ITALIC, 25));
+        userGoldInfo.setBounds(1434, 70, 68, 42);
+        backgroundPanel.add(userGoldInfo);
 	}
 	
 	private void setBackground() {
@@ -142,7 +187,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		
 		JLabel label = new JLabel("Debunk Theory");
 		label.setForeground(Color.WHITE); // Set text color to white
-		label.setBounds(850, 729, 200, 30); // Adjust the position as needed
+		label.setBounds(849, 744, 200, 30); // Adjust the position as needed
 		label.setOpaque(false); // Make the label transparent
 		label.setFont(new Font("Tahoma", Font.ITALIC, 17));
 		backgroundPanel.add(label);
@@ -296,16 +341,18 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private void setPlayerIngredients() {
 		
         ingredientPannel = new JPanel();
-        ingredientPannel.setBounds(839, 77, 653, 123);
+        ingredientPannel.setBounds(839, 136, 653, 123);
         ingredientPannel.setOpaque(false);
         backgroundPanel.add(ingredientPannel);
         ingredientPannel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         
         JLabel ingredientsLabel = new JLabel("Ingredients:");
         ingredientsLabel.setForeground(Color.WHITE);
-        ingredientsLabel.setFont(new Font("Tahoma", Font.ITALIC, 12));
-        ingredientsLabel.setBounds(839, 59, 85, 13);
+        ingredientsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+        ingredientsLabel.setBounds(839, 125, 85, 13);
         backgroundPanel.add(ingredientsLabel);
+
+        
         
 
         for (Ingredient ingredient : player.getIngredients()) {
@@ -317,15 +364,13 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    	ingredientPannel.add(picLabel);
         }
         
-        
-
 		
 	}
 	
 	private void setPlayerArtifacts() {
 		
         artifactPannel = new JPanel();
-        artifactPannel.setBounds(839, 223, 653, 123);
+        artifactPannel.setBounds(839, 269, 653, 123);
         backgroundPanel.add(artifactPannel);
         artifactPannel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         artifactPannel.setOpaque(false);
@@ -333,8 +378,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
         
         JLabel artifactsLabel = new JLabel("Artifacts:");
         artifactsLabel.setForeground(Color.WHITE);
-        artifactsLabel.setFont(new Font("Tahoma", Font.ITALIC, 12));
-        artifactsLabel.setBounds(839, 210, 85, 13);
+        artifactsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+        artifactsLabel.setBounds(839, 256, 85, 13);
         backgroundPanel.add(artifactsLabel);
         
         for (Artifact artifact : player.getArtifacts()) {
@@ -346,11 +391,13 @@ public class PlayerDashboardFrame extends GeneralFrame{
         }
 		
 	}
+	
+
 
 	 private void setForageIngredientButton() 
 	 {
 	        forageIngredientButton = new JButton("Forage for Ingredient");
-	        forageIngredientButton.setBounds(925, 362, 141, 160);
+	        forageIngredientButton.setBounds(929, 391, 141, 160);
 	        forageIngredientButton.setBorderPainted(false); // Remove border
 	        forageIngredientButton.setContentAreaFilled(false); // Remove default background
 
@@ -377,7 +424,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        
 	        JLabel forageLabel = new JLabel("Forage for Ingredient");
 	        forageLabel.setForeground(Color.WHITE); // Set text color to white
-	        forageLabel.setBounds(884, 521, 200, 30); // Adjust the position as needed
+	        forageLabel.setBounds(901, 547, 200, 30); // Adjust the position as needed
 	        forageLabel.setOpaque(false); // Make the label transparent
 	        forageLabel.setFont(new Font("Tahoma", Font.ITALIC, 17));
 	        backgroundPanel.add(forageLabel);
@@ -386,7 +433,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	 private void setTransmuteIngredientButton() 
 	 {
 	        transmuteIngredientButton = new JButton();
-	        transmuteIngredientButton.setBounds(1281, 362, 141, 160);
+	        transmuteIngredientButton.setBounds(1285, 391, 141, 160);
 	        transmuteIngredientButton.setBorderPainted(false); // Remove border
 	        transmuteIngredientButton.setContentAreaFilled(false); // Remove default background
 
@@ -412,7 +459,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        
 	        JLabel label = new JLabel("Transmute Ingredient");
 	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1255, 521, 200, 30); // Adjust the position as needed
+	        label.setBounds(1262, 547, 200, 30); // Adjust the position as needed
 	        label.setOpaque(false); // Make the label transparent
 	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
 	        backgroundPanel.add(label);
@@ -422,7 +469,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		private void setBuyArtifactButton() 
 		{
 			buyArtifactButton = new JButton();
-			buyArtifactButton.setBounds(1360, 572, 141, 160);
+			buyArtifactButton.setBounds(1359, 587, 141, 160);
 			buyArtifactButton.setBorderPainted(false); // Remove border
 			buyArtifactButton.setContentAreaFilled(false); // Remove default background
 
@@ -449,7 +496,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        
 	        JLabel label = new JLabel("Buy Artifact");
 	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1381, 729, 200, 30); // Adjust the position as needed
+	        label.setBounds(1380, 744, 200, 30); // Adjust the position as needed
 	        label.setOpaque(false); // Make the label transparent
 	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
 	        backgroundPanel.add(label);
@@ -459,7 +506,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		private void setMakeExperimentButton()
 		{
 			makeExperimentButton = new JButton();
-			makeExperimentButton.setBounds(1094, 362, 141, 160);
+			makeExperimentButton.setBounds(1111, 391, 141, 160);
 			makeExperimentButton.setBorderPainted(false); // Remove border
 			makeExperimentButton.setContentAreaFilled(false); // Remove default background
 
@@ -484,7 +531,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        
 	        JLabel label = new JLabel("Make Experiment");
 	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1094, 521, 200, 30); // Adjust the position as needed
+	        label.setBounds(1103, 547, 200, 30); // Adjust the position as needed
 	        label.setOpaque(false); // Make the label transparent
 	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
 	        backgroundPanel.add(label);
@@ -493,7 +540,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		private void setPublishTheoryButton()
 		{
 			publishTheoryButton = new JButton();
-			publishTheoryButton.setBounds(1195, 572, 141, 160);
+			publishTheoryButton.setBounds(1194, 587, 141, 160);
 			publishTheoryButton.setBorderPainted(false); // Remove border
 			publishTheoryButton.setContentAreaFilled(false); // Remove default background
 
@@ -518,7 +565,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        
 	        JLabel label = new JLabel("Publish Theory");
 	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1205, 729, 200, 30); // Adjust the position as needed
+	        label.setBounds(1204, 744, 200, 30); // Adjust the position as needed
 	        label.setOpaque(false); // Make the label transparent
 	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
 	        backgroundPanel.add(label);
@@ -527,7 +574,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		private void setSellPotionButton()
 		{
 			sellPotionButton = new JButton();
-			sellPotionButton.setBounds(1012, 572, 141, 160);
+			sellPotionButton.setBounds(1011, 587, 141, 160);
 			sellPotionButton.setBorderPainted(false); // Remove border
 			sellPotionButton.setContentAreaFilled(false); // Remove default background
 
@@ -552,7 +599,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        
 	        JLabel label = new JLabel("Sell Potion");
 	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1034, 729, 200, 30); // Adjust the position as needed
+	        label.setBounds(1033, 744, 200, 30); // Adjust the position as needed
 	        label.setOpaque(false); // Make the label transparent
 	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
 	        backgroundPanel.add(label);
@@ -561,7 +608,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		private void setDebunkTheoryButton()
 		{
 			debunkTheoryButton = new JButton();
-			debunkTheoryButton.setBounds(850, 572, 141, 160);
+			debunkTheoryButton.setBounds(849, 587, 141, 160);
 			debunkTheoryButton.setBorderPainted(false); // Remove border
 			debunkTheoryButton.setContentAreaFilled(false); // Remove default background
 
