@@ -134,11 +134,11 @@ public class StartGameFrame extends GeneralFrame {
     	player1Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar2Button.setForeground(Color.white);
     	
-    	player1Avatar3Button.setBounds(270, 500, 150, 30);
+    	player1Avatar3Button.setBounds(270, 550, 150, 30);
     	player1Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar3Button.setForeground(Color.white);
     	
-    	player1Avatar4Button.setBounds(450, 500, 150, 30);
+    	player1Avatar4Button.setBounds(450, 550, 150, 30);
     	player1Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar4Button.setForeground(Color.white);
     	
@@ -147,6 +147,7 @@ public class StartGameFrame extends GeneralFrame {
     	player1avatarButtonGroup.add(player1Avatar2Button);
     	player1avatarButtonGroup.add(player1Avatar3Button);
     	player1avatarButtonGroup.add(player1Avatar4Button);
+    	//TODO add avatar icons.
     	
     	backgroundPanel.add(player1Label);
     	backgroundPanel.add(usernameLabel);
@@ -186,11 +187,11 @@ public class StartGameFrame extends GeneralFrame {
     	player2Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar2Button.setForeground(Color.white);
     	
-    	player2Avatar3Button.setBounds(950, 500, 150, 30);
+    	player2Avatar3Button.setBounds(950, 550, 150, 30);
     	player2Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar3Button.setForeground(Color.white);
     	
-    	player2Avatar4Button.setBounds(1130, 500, 150, 30);
+    	player2Avatar4Button.setBounds(1130, 550, 150, 30);
     	player2Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar4Button.setForeground(Color.white);
     	
@@ -248,8 +249,8 @@ public class StartGameFrame extends GeneralFrame {
                              "Name Error", JOptionPane.ERROR_MESSAGE);
                 	 startOk = false;
                  }    
-                 // if (startOk) {
-                 if (true) {
+                
+                 if (startOk) {
                      StartGameController startGameController = new StartGameController(game);
                      startGameController.handleStartGame(p1name, p2name, p1avatar, p2avatar);
                      startGamePressed();
@@ -296,6 +297,7 @@ public class StartGameFrame extends GeneralFrame {
     	exitGameButton.setForeground(Color.white);
     	exitGameButton.setOpaque(false);
     	exitGameButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+    	
 
     	exitGameButton.addActionListener(new ActionListener() {
             @Override
@@ -315,12 +317,4 @@ public class StartGameFrame extends GeneralFrame {
     	new HowToPlayFrame();
     	//this.dispose();
     }
-    
-    /*public static void main(String[] args) {
-        // Create and display the frame   
-        new StartGameFrame(new KUAlchemistsGame(2));
-    }*/
-
-
-
 }

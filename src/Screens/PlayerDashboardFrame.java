@@ -82,6 +82,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPlayerNameLabel();
 		setPlayerArtifacts();
 		setPlayerIngredients();
+		//TODO add player avatar icon.
 	}
 	
 	private void setPlayerNameLabel()
