@@ -52,8 +52,8 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    }
 			    else
 			    {
-			    	String message = "Artifact Storage is empty!";
-			    	JOptionPane.showMessageDialog(null, message, "Artifact Bought", JOptionPane.WARNING_MESSAGE);
+			    	String message = "Balance is unsufficient, come back when you have more gold :D";
+			    	JOptionPane.showMessageDialog(null, message, "Unsufficient Balance", JOptionPane.WARNING_MESSAGE);
 			    }
 			    
 			    // Close the frame

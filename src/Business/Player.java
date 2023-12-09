@@ -227,7 +227,7 @@ public class Player {
 	
 	public String buyArtifact() {
 		
-		if(getBalance() >= 3) {
+		if(getBalance() >= -getGoldtToBePayedToArtifact()) {
 			
 			Artifact artifact = ArtifactStorage.getArtifact();
 			if(artifact != null) {
@@ -253,7 +253,7 @@ public class Player {
 			}
 		}
 		else {
-			System.out.println("Balance is lower than 3, come back when you have more gold :D");
+			System.out.println("Balance is unsufficient, come back when you have more gold :D");
 		}
 		
 		return null;
