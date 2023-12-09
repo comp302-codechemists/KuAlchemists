@@ -39,7 +39,7 @@ public class DiscountArtifact extends Artifact {
 	@Override
 	public void applyArtifact(Player player) {
 		// TODO Auto-generated method stub
-		player.setGoldtToBePayedToArtifact(-1);
+		player.setGoldtToBePayedToArtifact(-2);
 	}
   
 }
