@@ -68,6 +68,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JLabel reputationLabel;
 	private JLabel repPointsLabel;
 	private JLabel balanceLabel;
+	private JButton testElixir;
 	
 	public PlayerDashboardFrame(KUAlchemistsGame game, Player player) 
 	{
@@ -93,6 +94,22 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPlayerArtifacts();
 		setPlayerIngredients();
 		
+		testElixir();
+		
+	}
+	
+	private void testElixir() {
+        testElixir = new JButton("Test Elixir of Insight");
+        testElixir.setBounds(816, 402, 123, 30);
+        backgroundPanel.add(testElixir);
+        
+        testElixir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ElixirOfInsightFrame(game, player);
+                PlayerDashboardFrame.this.dispose();
+            }
+        });
 	}
 	
 	private void setPlayerNameLabel()
@@ -313,6 +330,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         ingredientsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
         ingredientsLabel.setBounds(839, 125, 85, 13);
         backgroundPanel.add(ingredientsLabel);
+
 
         
         

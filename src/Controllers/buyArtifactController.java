@@ -16,4 +16,8 @@ public class buyArtifactController {
 		game.nextPlayer();
 		return boughtArtifact;
 	}
+	
+	public void ElixirOfInsightHandker() {
+		
+	}
 }

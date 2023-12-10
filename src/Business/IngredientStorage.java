@@ -67,5 +67,16 @@ public class IngredientStorage {
 		ingredientList.add(ingredient);
 	}
 
+	// Added getters and setter for elixir of insight.
+	public List<Ingredient> getIngredientList() {
+		return ingredientList;
+	}
+
+	public void setIngredientList(List<Ingredient> ingredientList) {
+		this.ingredientList = ingredientList;
+	}
+	
+	
+
 
 }
