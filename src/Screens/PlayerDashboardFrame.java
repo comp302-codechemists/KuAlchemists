@@ -24,6 +24,10 @@ import Business.Player;
 import Controllers.ForageController;
 import Controllers.TransmuteController;
 import Controllers.buyArtifactController;
+import DesignSystem.ArtisticButton;
+import DesignSystem.DashboardLabel;
+import DesignSystem.GameText;
+
 import java.awt.FlowLayout;
 
 
@@ -144,53 +148,11 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	
 	private void setBackground() {
     	
-    	backgroundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                
-           	 super.paintComponent(g);
-                
-                Image image = new ImageIcon(this.getClass().getResource("/Images/playerDashboardBackground.png")).getImage();
-                
-                // Calculate the scaled width and height to fit the panel
-                int panelWidth = getWidth();
-                int panelHeight = getHeight();
-                
-                double imageWidth = image.getWidth(null);
-                double imageHeight = image.getHeight(null);
-                
-                double scaleX = panelWidth / imageWidth;
-                double scaleY = panelHeight / imageHeight;
-                
-                double scale = Math.max(scaleX, scaleY);
-                
-                int scaledWidth = (int) (imageWidth * scale);
-                int scaledHeight = (int) (imageHeight * scale);
-                
-                // Calculate the x and y positions to center the image
-                int x = (panelWidth - scaledWidth) / 2;
-                int y = (panelHeight - scaledHeight) / 2;
-                
-                // Draw the scaled image
-                g.drawImage(image, x, y, scaledWidth, scaledHeight, this);
-            }
-        };
-        
-        backgroundPanel.setLocation(0, 0);
-        backgroundPanel.setSize(new Dimension(1540, 820));
-        backgroundPanel.setLayout(null);
-        backgroundPanel.setOpaque(false);
+		backgroundPanel = super.setBackground("/Images/playerDashboardBackground.png");
         getContentPane().add(backgroundPanel);
 	}
 	
 	private void setUpperDeductionBoard() {
-		
-		JLabel label = new JLabel("Debunk Theory");
-		label.setForeground(Color.WHITE); // Set text color to white
-		label.setBounds(849, 744, 200, 30); // Adjust the position as needed
-		label.setOpaque(false); // Make the label transparent
-		label.setFont(new Font("Tahoma", Font.ITALIC, 17));
-		backgroundPanel.add(label);
 		
 		upperBackground = new JPanel() {
             @Override
@@ -396,21 +358,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 
 	 private void setForageIngredientButton() 
 	 {
-	        forageIngredientButton = new JButton("Forage for Ingredient");
+	        forageIngredientButton = new ArtisticButton("/Images/forage-ingredient.png");
 	        forageIngredientButton.setBounds(929, 391, 141, 160);
-	        forageIngredientButton.setBorderPainted(false); // Remove border
-	        forageIngredientButton.setContentAreaFilled(false); // Remove default background
-
-	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/forage-ingredient.png"));
-	        Image originalImage = originalIcon.getImage();
-
-	        // Resize the image
-	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
-	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-	        forageIngredientButton.setIcon(resizedIcon);
-
 	        backgroundPanel.add(forageIngredientButton);
 	        
 			//addActionListener is an example of Observer Pattern in GoF
@@ -422,31 +371,14 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            }
 	        });
 	        
-	        JLabel forageLabel = new JLabel("Forage for Ingredient");
-	        forageLabel.setForeground(Color.WHITE); // Set text color to white
-	        forageLabel.setBounds(901, 547, 200, 30); // Adjust the position as needed
-	        forageLabel.setOpaque(false); // Make the label transparent
-	        forageLabel.setFont(new Font("Tahoma", Font.ITALIC, 17));
-	        backgroundPanel.add(forageLabel);
+	        JLabel forageLabel = new DashboardLabel("Forage for Ingredient");
+	        forageLabel.setBounds(901, 547, 200, 30);backgroundPanel.add(forageLabel);
 	    }
 	 
 	 private void setTransmuteIngredientButton() 
 	 {
-	        transmuteIngredientButton = new JButton();
+	        transmuteIngredientButton = new ArtisticButton("/Images/transmute-ingredient.png");
 	        transmuteIngredientButton.setBounds(1285, 391, 141, 160);
-	        transmuteIngredientButton.setBorderPainted(false); // Remove border
-	        transmuteIngredientButton.setContentAreaFilled(false); // Remove default background
-
-	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/transmute-ingredient.png"));
-	        Image originalImage = originalIcon.getImage();
-
-	        // Resize the image
-	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
-	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-	        transmuteIngredientButton.setIcon(resizedIcon);
-
 	        backgroundPanel.add(transmuteIngredientButton);
 
 	        transmuteIngredientButton.addActionListener(new ActionListener() {
@@ -457,32 +389,16 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            }
 	        });
 	        
-	        JLabel label = new JLabel("Transmute Ingredient");
-	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1262, 547, 200, 30); // Adjust the position as needed
-	        label.setOpaque(false); // Make the label transparent
-	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	        JLabel label = new DashboardLabel("Transmute Ingredient");
+	        label.setBounds(1272, 547, 200, 30); 
 	        backgroundPanel.add(label);
 	    }
 
 		
 		private void setBuyArtifactButton() 
 		{
-			buyArtifactButton = new JButton();
+			buyArtifactButton = new ArtisticButton("/Images/buy-artifact.png");
 			buyArtifactButton.setBounds(1359, 587, 141, 160);
-			buyArtifactButton.setBorderPainted(false); // Remove border
-			buyArtifactButton.setContentAreaFilled(false); // Remove default background
-
-	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/buy-artifact.png"));
-	        Image originalImage = originalIcon.getImage();
-
-	        // Resize the image
-	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
-	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-	        buyArtifactButton.setIcon(resizedIcon);
-
 	        backgroundPanel.add(buyArtifactButton);
 
 	        buyArtifactButton.addActionListener(new ActionListener() {
@@ -494,32 +410,16 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            }
 	        });
 	        
-	        JLabel label = new JLabel("Buy Artifact");
-	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1380, 744, 200, 30); // Adjust the position as needed
-	        label.setOpaque(false); // Make the label transparent
-	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	        JLabel label = new DashboardLabel("Buy Artifact");
+	        label.setBounds(1380, 744, 200, 30); 
 	        backgroundPanel.add(label);
 		}
 		
 
 		private void setMakeExperimentButton()
 		{
-			makeExperimentButton = new JButton();
+			makeExperimentButton = new ArtisticButton("/Images/make-experiment.png");
 			makeExperimentButton.setBounds(1111, 391, 141, 160);
-			makeExperimentButton.setBorderPainted(false); // Remove border
-			makeExperimentButton.setContentAreaFilled(false); // Remove default background
-
-	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/make-experiment.png"));
-	        Image originalImage = originalIcon.getImage();
-
-	        // Resize the image
-	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
-	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-	        makeExperimentButton.setIcon(resizedIcon);
-
 	        backgroundPanel.add(makeExperimentButton);
 
 	        makeExperimentButton.addActionListener(new ActionListener() {
@@ -529,31 +429,15 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            }
 	        });
 	        
-	        JLabel label = new JLabel("Make Experiment");
-	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1103, 547, 200, 30); // Adjust the position as needed
-	        label.setOpaque(false); // Make the label transparent
-	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	        JLabel label = new DashboardLabel("Make Experiment");
+	        label.setBounds(1103, 547, 200, 30); 
 	        backgroundPanel.add(label);
 		}
 
 		private void setPublishTheoryButton()
 		{
-			publishTheoryButton = new JButton();
+			publishTheoryButton = new ArtisticButton("/Images/publish-theory.png");
 			publishTheoryButton.setBounds(1194, 587, 141, 160);
-			publishTheoryButton.setBorderPainted(false); // Remove border
-			publishTheoryButton.setContentAreaFilled(false); // Remove default background
-
-	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/publish-theory.png"));
-	        Image originalImage = originalIcon.getImage();
-
-	        // Resize the image
-	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
-	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-	        publishTheoryButton.setIcon(resizedIcon);
-
 	        backgroundPanel.add(publishTheoryButton);
 
 	        publishTheoryButton.addActionListener(new ActionListener() {
@@ -563,31 +447,15 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            }
 	        });
 	        
-	        JLabel label = new JLabel("Publish Theory");
-	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1204, 744, 200, 30); // Adjust the position as needed
-	        label.setOpaque(false); // Make the label transparent
-	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	        JLabel label = new DashboardLabel("Publish Theory");
+	        label.setBounds(1204, 744, 200, 30); 
 	        backgroundPanel.add(label);
 		}
 		
 		private void setSellPotionButton()
 		{
-			sellPotionButton = new JButton();
+			sellPotionButton = new ArtisticButton("/Images/sell-potion.png");
 			sellPotionButton.setBounds(1011, 587, 141, 160);
-			sellPotionButton.setBorderPainted(false); // Remove border
-			sellPotionButton.setContentAreaFilled(false); // Remove default background
-
-	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/sell-potion.png"));
-	        Image originalImage = originalIcon.getImage();
-
-	        // Resize the image
-	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
-	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-	        sellPotionButton.setIcon(resizedIcon);
-
 	        backgroundPanel.add(sellPotionButton);
 
 	        sellPotionButton.addActionListener(new ActionListener() {
@@ -597,31 +465,15 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            }
 	        });
 	        
-	        JLabel label = new JLabel("Sell Potion");
-	        label.setForeground(Color.WHITE); // Set text color to white
-	        label.setBounds(1033, 744, 200, 30); // Adjust the position as needed
-	        label.setOpaque(false); // Make the label transparent
-	        label.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	        JLabel label = new DashboardLabel("Sell Potion");
+	        label.setBounds(1033, 744, 200, 30);
 	        backgroundPanel.add(label);
 		}
 		
 		private void setDebunkTheoryButton()
 		{
-			debunkTheoryButton = new JButton();
+			debunkTheoryButton = new ArtisticButton("/Images/debunk-theory.png");
 			debunkTheoryButton.setBounds(849, 587, 141, 160);
-			debunkTheoryButton.setBorderPainted(false); // Remove border
-			debunkTheoryButton.setContentAreaFilled(false); // Remove default background
-
-	        // Load the original image
-	        ImageIcon originalIcon = new ImageIcon(getClass().getResource("/Images/debunk-theory.png"));
-	        Image originalImage = originalIcon.getImage();
-
-	        // Resize the image
-	        Image resizedImage = originalImage.getScaledInstance(141, 160, Image.SCALE_SMOOTH);
-	        ImageIcon resizedIcon = new ImageIcon(resizedImage);
-
-	        debunkTheoryButton.setIcon(resizedIcon);
-
 	        backgroundPanel.add(debunkTheoryButton);
 
 	        debunkTheoryButton.addActionListener(new ActionListener() {
@@ -630,5 +482,14 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	                // TODO
 	            }
 	        });
+	        
+
+			JLabel label = new DashboardLabel("Debunk Theory");
+			label.setBounds(849, 744, 200, 30); // Adjust the position as needed
+			backgroundPanel.add(label);
+			
 		}
 }
+
+
+

@@ -10,7 +10,8 @@ import java.awt.Dimension;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import Business.KUAlchemistsGame;
-import Controllers.PauseController;
+import DesignSystem.GameButton;
+import DesignSystem.GameText;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -77,7 +78,7 @@ public class MainGameFrame extends GeneralFrame{
 		JTextArea enthusiastizmTextArea = new JTextArea(enthusiastizmText);
 		enthusiastizmTextArea.setBounds(500, 80, 520, 200);
 		enthusiastizmTextArea.setForeground(Color.white);
-		enthusiastizmTextArea.setFont(new Font("Tahoma", Font.ITALIC, 15));
+		enthusiastizmTextArea.setFont(GameText.normalText);
 		enthusiastizmTextArea.setOpaque(false);
 		backgroundPanel.add(enthusiastizmTextArea);
 		
@@ -85,7 +86,7 @@ public class MainGameFrame extends GeneralFrame{
 		JLabel directionsLabel = new JLabel(labelText);
 		directionsLabel.setBounds(650, 280, 330, 30);
 		directionsLabel.setForeground(Color.white);
-		directionsLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
+		directionsLabel.setFont(GameText.normalText);
 		directionsLabel.setOpaque(false);
 		setTakeTurnButton();
 		backgroundPanel.add(directionsLabel);
@@ -95,7 +96,7 @@ public class MainGameFrame extends GeneralFrame{
 	private void setGameLog() {
 	    JTextArea gameLogArea = new JTextArea(10, 30);
 	    gameLogArea.setForeground(Color.white);
-	    gameLogArea.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	    gameLogArea.setFont(GameText.normalText);
 	    gameLogArea.setEditable(false);
 	    gameLogArea.setBackground(new Color(0, 0, 0, 0)); 
 
@@ -268,211 +269,50 @@ public class MainGameFrame extends GeneralFrame{
 	}
 	private void setExitGameButton() 
 	{
-		exitGameButton = new JButton("Exit Game");
+		exitGameButton = new GameButton("Exit Game");
 		exitGameButton.setBounds(1320, 500, 150, 30);
-		exitGameButton.setForeground(Color.white);
-		exitGameButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		exitGameButton.setOpaque(false);
-		exitGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(exitGameButton);
-		//addMouseListener is an example of Observer Pattern in GoF
-		exitGameButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Handle mouse click event if needed
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Handle mouse press event if needed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                // Handle mouse release event if needed
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Change button appearance on mouse enter (hover effect)
-            	exitGameButton.setBorder(new LineBorder(Color.yellow, 2));
-            	exitGameButton.setForeground(Color.yellow);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restore button appearance on mouse exit
-            	exitGameButton.setBorder(new LineBorder(Color.white, 2));
-                exitGameButton.setForeground(Color.white);
-            }
-        });
 	}
 	private void setPauseGameButton() 
 	{
-		pauseGameButton = new JButton("Pause Game");
+		pauseGameButton = new GameButton("Pause Game");
 		pauseGameButton.setBounds(1320, 560, 150, 30);
-		pauseGameButton.setForeground(Color.white);
-		pauseGameButton.setFont(new Font("Tahoma",Font.ITALIC, 15));
-		pauseGameButton.setOpaque(false);
-		pauseGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(pauseGameButton);
-		pauseGameButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            	KUAlchemistsGame.instance.pause();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Handle mouse press event if needed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                // Handle mouse release event if needed
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Change button appearance on mouse enter (hover effect)
-                pauseGameButton.setBorder(new LineBorder(Color.yellow, 2));
-                pauseGameButton.setForeground(Color.yellow);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restore button appearance on mouse exit
-                pauseGameButton.setBorder(new LineBorder(Color.white, 2));
-                pauseGameButton.setForeground(Color.white);
-            }
-        });
 	}
 	private void setHowToPlayButton()
 	{
-		howToPlayButton = new JButton("How to Play?");
+		howToPlayButton = new GameButton("How to Play?");
 		howToPlayButton.setBounds(1100, 560, 150, 30);
-		howToPlayButton.setForeground(Color.white);
-		howToPlayButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		howToPlayButton.setOpaque(false);
-		howToPlayButton.setBorder(new LineBorder(Color.white, 2));
-		backgroundPanel.add(howToPlayButton);
-		howToPlayButton.addMouseListener(new MouseListener() {
+		howToPlayButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // Handle mouse click event if needed
-            	new HowToPlayFrame();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Handle mouse press event if needed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                // Handle mouse release event if needed
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Change button appearance on mouse enter (hover effect)
-            	howToPlayButton.setBorder(new LineBorder(Color.yellow, 2));
-            	howToPlayButton.setForeground(Color.yellow);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restore button appearance on mouse exit
-            	howToPlayButton.setBorder(new LineBorder(Color.white, 2));
-            	howToPlayButton.setForeground(Color.white);
+            public void actionPerformed(ActionEvent e) {
+               new HowToPlayFrame();
             }
         });
+		backgroundPanel.add(howToPlayButton);
+		
 	}
 	private void setEndGameButton() 
 	{
 		
-		endGameButton = new JButton("End Game");
+		endGameButton = new GameButton("End Game");
 		endGameButton.setBounds(1100, 500, 150, 30);
-		endGameButton.setForeground(Color.white);
-		endGameButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		endGameButton.setOpaque(false);
-		endGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(endGameButton);
-		
-		endGameButton.addMouseListener(new MouseListener() {
-	            @Override
-	            public void mouseClicked(MouseEvent e) {
-	                // Handle mouse click event if needed
-	            }
-
-	            @Override
-	            public void mousePressed(MouseEvent e) {
-	                // Handle mouse press event if needed
-	            }
-
-	            @Override
-	            public void mouseReleased(MouseEvent e) {
-	                // Handle mouse release event if needed
-	            }
-
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                // Change button appearance on mouse enter (hover effect)
-	            	endGameButton.setBorder(new LineBorder(Color.yellow, 2));
-	            	endGameButton.setForeground(Color.yellow);
-	            }
-
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                // Restore button appearance on mouse exit
-	            	endGameButton.setBorder(new LineBorder(Color.white, 2));
-	            	endGameButton.setForeground(Color.white);
-	            }
-	        });
+	
 	}
 	private void setTakeTurnButton() 
 	{
 		
-		takeTurnButton = new JButton("Take Turn");
+		takeTurnButton = new GameButton("Take Turn");
 		takeTurnButton.setBounds(650, 330, 150, 30);
-		takeTurnButton.setForeground(Color.white);
-		takeTurnButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		takeTurnButton.setOpaque(false);
-		takeTurnButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(takeTurnButton);
-		takeTurnButton.addMouseListener(new MouseListener() {
-	            @Override
-	            public void mouseClicked(MouseEvent e) {
-	                // Handle mouse click event if needed
-	            	new PlayerDashboardFrame(game, game.currentPlayer);
-	            	MainGameFrame.this.dispose();
-	            }
-
-	            @Override
-	            public void mousePressed(MouseEvent e) {
-	                // Handle mouse press event if needed
-	            }
-
-	            @Override
-	            public void mouseReleased(MouseEvent e) {
-	                // Handle mouse release event if needed
-	            }
-
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                // Change button appearance on mouse enter (hover effect)
-	            	takeTurnButton.setBorder(new LineBorder(Color.yellow, 2));
-	            	takeTurnButton.setForeground(Color.yellow);
-	            }
-
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                // Restore button appearance on mouse exit
-	            	takeTurnButton.setBorder(new LineBorder(Color.white, 2));
-	            	takeTurnButton.setForeground(Color.white);
-	            }
-	        });
-	        
+		takeTurnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	new PlayerDashboardFrame(game, game.currentPlayer);
+            	MainGameFrame.this.dispose();
+            }
+        });
 		
 	}
 }
