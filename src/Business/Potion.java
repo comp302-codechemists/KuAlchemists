@@ -7,7 +7,7 @@ public class Potion {
 	private Player owner;
 	private Ingredient ingredientOne;
 	private Ingredient ingredientTwo;
-	private Token token;
+	private Token resultToken;
 	private String promise;
 	private Aspect dominantAspect = null;	
 
@@ -48,11 +48,11 @@ public class Potion {
 	}
 
 	public Token getToken() {
-		return token;
+		return resultToken;
 	}
 
 	public void setToken(Token token) {
-		this.token = token;
+		this.resultToken = token;
 	}
 
 	public String getPromise() {

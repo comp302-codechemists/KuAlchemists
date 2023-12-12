@@ -76,7 +76,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		this.game = game;
 		this.player = player;
 		
-		this.setBackground();
+		setBackground();
 		setUpperDeductionBoard();
 		setUpperButtons();
 		seBottomDeductionBoard();
@@ -376,7 +376,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 
 	 private void setForageIngredientButton() 
 	 {
-	        forageIngredientButton = new ArtisticButton("/Images/forage-ingredient.png");
+	        forageIngredientButton = new ArtisticButton("/Images/forage-ingredient.png", 141, 160);
 	        forageIngredientButton.setBounds(929, 391, 141, 160);
 	        backgroundPanel.add(forageIngredientButton);
 	        
@@ -395,7 +395,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	 
 	 private void setTransmuteIngredientButton() 
 	 {
-	        transmuteIngredientButton = new ArtisticButton("/Images/transmute-ingredient.png");
+	        transmuteIngredientButton = new ArtisticButton("/Images/transmute-ingredient.png", 141, 160);
 	        transmuteIngredientButton.setBounds(1285, 391, 141, 160);
 	        backgroundPanel.add(transmuteIngredientButton);
 
@@ -415,7 +415,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		
 		private void setBuyArtifactButton() 
 		{
-			buyArtifactButton = new ArtisticButton("/Images/buy-artifact.png");
+			buyArtifactButton = new ArtisticButton("/Images/buy-artifact.png", 141, 160);
 			buyArtifactButton.setBounds(1359, 587, 141, 160);
 	        backgroundPanel.add(buyArtifactButton);
 
@@ -436,14 +436,15 @@ public class PlayerDashboardFrame extends GeneralFrame{
 
 		private void setMakeExperimentButton()
 		{
-			makeExperimentButton = new ArtisticButton("/Images/make-experiment.png");
+			makeExperimentButton = new ArtisticButton("/Images/make-experiment.png", 141, 160);
 			makeExperimentButton.setBounds(1111, 391, 141, 160);
 	        backgroundPanel.add(makeExperimentButton);
 
 	        makeExperimentButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                // TODO
+	                new MakeExperimentFrame(game, player);
+	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });
 	        
@@ -454,7 +455,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 
 		private void setPublishTheoryButton()
 		{
-			publishTheoryButton = new ArtisticButton("/Images/publish-theory.png");
+			publishTheoryButton = new ArtisticButton("/Images/publish-theory.png", 141, 160);
 			publishTheoryButton.setBounds(1194, 587, 141, 160);
 	        backgroundPanel.add(publishTheoryButton);
 
@@ -472,7 +473,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		
 		private void setSellPotionButton()
 		{
-			sellPotionButton = new ArtisticButton("/Images/sell-potion.png");
+			sellPotionButton = new ArtisticButton("/Images/sell-potion.png", 141, 160);
 			sellPotionButton.setBounds(1011, 587, 141, 160);
 	        backgroundPanel.add(sellPotionButton);
 
@@ -490,7 +491,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		
 		private void setDebunkTheoryButton()
 		{
-			debunkTheoryButton = new ArtisticButton("/Images/debunk-theory.png");
+			debunkTheoryButton = new ArtisticButton("/Images/debunk-theory.png", 141, 160);
 			debunkTheoryButton.setBounds(849, 587, 141, 160);
 	        backgroundPanel.add(debunkTheoryButton);
 

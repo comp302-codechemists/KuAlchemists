@@ -260,14 +260,9 @@ public class Player {
 	}
 	
 
-	
 	public void applyArtifact(Artifact artifact) {
 		artifact.applyArtifact(this);
 	}
-	
-	////////////////PRIVATE METHODS
-
-
 	
 	private void updateReputation(int amount) {
 		setReputationPoints(getReputationPoints() + amount);
