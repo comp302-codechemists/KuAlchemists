@@ -2,12 +2,15 @@ package Business;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+
+
+import Controllers.PauseController;
 
 public class KUAlchemistsGame {
 
-	public static Player currentPlayer;
-	private static KUAlchemistsGame instance;
+	private int currentPlayerIndex;
+	public Player currentPlayer;
+	public static KUAlchemistsGame instance;
 	int numberOfPlayers;
 	IngredientStorage ingredientStorage;
 	ArtifactStorage artifactStorage;
@@ -17,6 +20,7 @@ public class KUAlchemistsGame {
 	boolean finished = false;
 
 	private KUAlchemistsGame(int numberOfPlayers) {
+		
 		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
 
@@ -27,6 +31,19 @@ public class KUAlchemistsGame {
 		artifactStorage = new ArtifactStorage();
 
 		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
+	}
+	
+	public void nextPlayer()
+	{
+		/*
+		 * This method will handle player transitions.
+		 * It will return the current player.
+		 * Within any action in the game,
+		 * this method should be called.
+		 * */
+		
+		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+		currentPlayer = players.get(currentPlayerIndex);
 	}
 	
 	public static KUAlchemistsGame getInstance(int numberOfPlayers) {
@@ -46,7 +63,8 @@ public class KUAlchemistsGame {
 
 	private void startGame() {
 		// set current player
-		currentPlayer = players.get(0);
+		currentPlayerIndex = 0;
+		currentPlayer = players.get(currentPlayerIndex);
 
 		// shuffle ingredients
 		ingredientStorage.shuffleIngredients();
@@ -54,10 +72,7 @@ public class KUAlchemistsGame {
 		// shuffle artifacts
 		artifactStorage.shuffleArtifacts();
 
-		System.out.println("The game has started. Players are waiting to begin.");
-		for (Player player : players) {
-			System.out.printf("Player: %s %s\n", player.getUserName(), player.getAvatarPath());
-		}
+		System.out.println("KUAlchemistsGame: Game started. Players are waiting to begin.");
 	}
 
 	private void setPlayers(List<String> nameList, List<String> avatarList) {
@@ -76,16 +91,16 @@ public class KUAlchemistsGame {
 			}
 
 			// add newPlayer to players list
-			players.add(newPlayer);
+			addPlayer(newPlayer);
 
 		}
 
-		System.out.printf("The players have been set. Player 1: %s, Player 2: %s.\n", players.get(0).getUserName(),
+		System.out.printf("KUAlchemistsGame, Players set: Player 1: %s, Player 2: %s.\n", players.get(0).getUserName(),
 				players.get(1).getUserName());
 	}
 
 	private void giveRandomIngredientCardToPlayer(Player player) {
-		Ingredient ingredient = ingredientStorage.getRandomIngredient();
+		Ingredient ingredient = ingredientStorage.getIngredient();
 		player.addIngredient(ingredient);
 	}
 
@@ -96,6 +111,7 @@ public class KUAlchemistsGame {
 		if (getLevel() < 4) {
 			setLevel(getLevel() + 1);
 		}
+		System.out.println("KUAlchemistsGame: Next level. Level: " + this.level);
 	}
 
 	private void addPlayer(Player player) {
@@ -141,9 +157,11 @@ public class KUAlchemistsGame {
 	}
 
 	public void pause() {
-
+		
 		if (!isPaused()) {
 			setPaused(true);
+			PauseController pc = new PauseController();
+			pc.showPause();
 		}
 
 	}
@@ -158,12 +176,12 @@ public class KUAlchemistsGame {
 
 	// Getters and setters:
 
-	public static Player getCurrentPlayer() {
+	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
 
-	public static void setCurrentPlayer(Player currentPlayer) {
-		KUAlchemistsGame.currentPlayer = currentPlayer;
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
 	}
 
 	public int getNumberOfPlayers() {

@@ -36,14 +36,14 @@ public class StartGameFrame extends GeneralFrame {
     
     ButtonGroup player1avatarButtonGroup = new ButtonGroup();
     ButtonGroup player2avatarButtonGroup = new ButtonGroup();
-    private JRadioButton player1Avatar1Button = new JRadioButton("Avatar 1");
-    private JRadioButton player1Avatar2Button = new JRadioButton("Avatar 2");
-    private JRadioButton player1Avatar3Button = new JRadioButton("Avatar 3");
-    private JRadioButton player1Avatar4Button = new JRadioButton("Avatar 4");
-    private JRadioButton player2Avatar1Button = new JRadioButton("Avatar 1");
-    private JRadioButton player2Avatar2Button = new JRadioButton("Avatar 2");
-    private JRadioButton player2Avatar3Button = new JRadioButton("Avatar 3");
-    private JRadioButton player2Avatar4Button = new JRadioButton("Avatar 4");
+    private JRadioButton player1Avatar1Button = new JRadioButton("avatar1");
+    private JRadioButton player1Avatar2Button = new JRadioButton("avatar2");
+    private JRadioButton player1Avatar3Button = new JRadioButton("avatar3");
+    private JRadioButton player1Avatar4Button = new JRadioButton("avatar4");
+    private JRadioButton player2Avatar1Button = new JRadioButton("avatar1");
+    private JRadioButton player2Avatar2Button = new JRadioButton("avatar2");
+    private JRadioButton player2Avatar3Button = new JRadioButton("avatar3");
+    private JRadioButton player2Avatar4Button = new JRadioButton("avatar4");
     
     private JButton startGameButton = new JButton("Start Game");
     private JButton howToPlayButton = new JButton("How to Play");
@@ -54,16 +54,23 @@ public class StartGameFrame extends GeneralFrame {
     String p1name;
     String p2name;
     
+    ImageIcon avatar1;
+    ImageIcon avatar2;
+    ImageIcon avatar3;
+    ImageIcon avatar4;
+    
     public StartGameFrame(KUAlchemistsGame game) {
     	
     	super();
     	this.game = game;
+    	this.getAvatarImages();
     	this.setBackground();
     	this.setPlayer1Components();
     	this.setPlayer2Components();
     	this.setStartGameButton();
     	this.setHowToPlayButton();
     	this.setExitGameButton();
+    	
                         
     }
     
@@ -107,46 +114,72 @@ public class StartGameFrame extends GeneralFrame {
         backgroundPanel.setOpaque(false);
         getContentPane().add(backgroundPanel);
     }
+    
+    private void getAvatarImages() {
+        
+        ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/avatar1.png"));
+        Image originalImage1 = originalIcon1.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        avatar1 = new ImageIcon(originalImage1);
+        
+        ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/Images/avatar2.png"));
+        Image originalImage2 = originalIcon2.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        avatar2 = new ImageIcon(originalImage2);
+        
+        ImageIcon originalIcon3 = new ImageIcon(getClass().getResource("/Images/avatar3.png"));
+        Image originalImage3 = originalIcon3.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        avatar3 = new ImageIcon(originalImage3);
+        
+        ImageIcon originalIcon4 = new ImageIcon(getClass().getResource("/Images/avatar4.png"));
+        Image originalImage4 = originalIcon4.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        avatar4 = new ImageIcon(originalImage4);
+        
+        
+    }
 
     private void setPlayer1Components()
     {
-    	player1Label.setBounds(340, 180, 120, 30);
+    	player1Label.setBounds(322, 180, 120, 30);
     	player1Label.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Label.setForeground(Color.white);
     	
     	usernameLabel = new JLabel("Enter a username.");
-    	usernameLabel.setBounds(270, 240, 200, 30);
+    	usernameLabel.setBounds(252, 240, 200, 30);
     	usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	usernameLabel.setForeground(Color.white);
     	
-    	player1UsernameTexfField.setBounds(270, 290, 200, 30);
+    	player1UsernameTexfField.setBounds(252, 290, 200, 30);
     	
     	avatarLabel = new JLabel("Select an avatar.");
-    	avatarLabel.setBounds(270, 350, 200, 30);
+    	avatarLabel.setBounds(252, 350, 200, 30);
     	avatarLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	avatarLabel.setForeground(Color.white);
     	
-    	player1Avatar1Button.setBounds(270, 400, 150, 30);
+    	player1Avatar1Button.setBounds(252, 421, 89, 89);
     	player1Avatar1Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar1Button.setForeground(Color.white);
+    	player1Avatar1Button.setIcon(avatar1);
     	
-    	player1Avatar2Button.setBounds(450, 400, 150, 30);
+    	player1Avatar2Button.setBounds(366, 421, 89, 89);
     	player1Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar2Button.setForeground(Color.white);
+    	player1Avatar2Button.setIcon(avatar2);
     	
-    	player1Avatar3Button.setBounds(270, 500, 150, 30);
+    	player1Avatar3Button.setBounds(252, 521, 89, 89);
     	player1Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar3Button.setForeground(Color.white);
+    	player1Avatar3Button.setIcon(avatar3);
     	
-    	player1Avatar4Button.setBounds(450, 500, 150, 30);
+    	player1Avatar4Button.setBounds(366, 521, 89, 89);
     	player1Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar4Button.setForeground(Color.white);
+    	player1Avatar4Button.setIcon(avatar4);
     	
     	// Add the radio buttons to the ButtonGroup
     	player1avatarButtonGroup.add(player1Avatar1Button);
     	player1avatarButtonGroup.add(player1Avatar2Button);
     	player1avatarButtonGroup.add(player1Avatar3Button);
     	player1avatarButtonGroup.add(player1Avatar4Button);
+    	
     	
     	backgroundPanel.add(player1Label);
     	backgroundPanel.add(usernameLabel);
@@ -162,38 +195,41 @@ public class StartGameFrame extends GeneralFrame {
     
     private void setPlayer2Components()
     {
-    	player2Label.setBounds(1020, 180, 120, 30);
+    	player2Label.setBounds(1011, 180, 120, 30);
     	player2Label.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Label.setForeground(Color.white);
     	
     	usernameLabel = new JLabel("Enter a username.");
-    	usernameLabel.setBounds(950, 240, 200, 30);
+    	usernameLabel.setBounds(941, 240, 200, 30);
     	usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	usernameLabel.setForeground(Color.white);
     	
-    	player2UsernameTexfField.setBounds(950, 290, 200, 30);
+    	player2UsernameTexfField.setBounds(941, 290, 200, 30);
     	
     	avatarLabel = new JLabel("Select an avatar.");
-    	avatarLabel.setBounds(950, 350, 200, 30);
+    	avatarLabel.setBounds(941, 350, 200, 30);
     	avatarLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	avatarLabel.setForeground(Color.white);
     	
-    	player2Avatar1Button.setBounds(950, 400, 150, 30);
+    	player2Avatar1Button.setBounds(944, 421, 89, 89);
     	player2Avatar1Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar1Button.setForeground(Color.white);
+    	player2Avatar1Button.setIcon(avatar1);
     	
-    	player2Avatar2Button.setBounds(1130, 400, 150, 30);
+    	player2Avatar2Button.setBounds(1062, 421, 89, 89);
     	player2Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar2Button.setForeground(Color.white);
+    	player2Avatar2Button.setIcon(avatar2);
     	
-    	player2Avatar3Button.setBounds(950, 500, 150, 30);
+    	player2Avatar3Button.setBounds(944, 521, 89, 89);
     	player2Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar3Button.setForeground(Color.white);
+    	player2Avatar3Button.setIcon(avatar3);
     	
-    	player2Avatar4Button.setBounds(1130, 500, 150, 30);
+    	player2Avatar4Button.setBounds(1062, 521, 89, 89);
     	player2Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar4Button.setForeground(Color.white);
-    	
+    	player2Avatar4Button.setIcon(avatar4);
 
     	// Add the radio buttons to the ButtonGroup
     	player2avatarButtonGroup.add(player2Avatar1Button);
@@ -220,9 +256,6 @@ public class StartGameFrame extends GeneralFrame {
     	startGameButton.setOpaque(false);
     	startGameButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
  
-    	/*
-    	 * We need to handle empty text field or radius button cases!!!!
-    	 * */
     	
     	startGameButton.addActionListener(new ActionListener() {
             @Override
@@ -246,13 +279,14 @@ public class StartGameFrame extends GeneralFrame {
                 	 startOk = false;
                  }
                  
-                 if ((p1name.isEmpty()) || p2name.isEmpty()) {
+                 else if ((p1name.isEmpty()) || p2name.isEmpty()) {
                 	 JOptionPane.showMessageDialog(new JFrame(), "Please enter usernames!",
                              "Name Error", JOptionPane.ERROR_MESSAGE);
                 	 startOk = false;
                  }    
-
+                
                  if (startOk) {
+                	 System.out.printf("Avatar path: %s", p1avatar);
                      StartGameController startGameController = new StartGameController(game);
                      startGameController.handleStartGame(p1name, p2name, p1avatar, p2avatar);
                      startGamePressed();
@@ -299,6 +333,7 @@ public class StartGameFrame extends GeneralFrame {
     	exitGameButton.setForeground(Color.white);
     	exitGameButton.setOpaque(false);
     	exitGameButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+    	
 
     	exitGameButton.addActionListener(new ActionListener() {
             @Override
@@ -318,12 +353,4 @@ public class StartGameFrame extends GeneralFrame {
     	new HowToPlayFrame();
     	//this.dispose();
     }
-    
-    /*public static void main(String[] args) {
-        // Create and display the frame   
-        new StartGameFrame(new KUAlchemistsGame(2));
-    }*/
-
-
-
 }

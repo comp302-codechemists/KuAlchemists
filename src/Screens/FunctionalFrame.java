@@ -1,46 +1,38 @@
 package Screens;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public abstract class GeneralFrame extends JFrame{
+import Business.KUAlchemistsGame;
+import Business.Player;
+
+public abstract class FunctionalFrame extends JFrame{
 	
-	public GeneralFrame() {
+	public KUAlchemistsGame game;
+	public Player player;
+	
+	JPanel backgroundPanel;
+	
+	public FunctionalFrame(KUAlchemistsGame game, Player player) {
 		
+		this.game = game;
+		this.player = player;
 		this.setAppearance();
-      
-        // This is how to do relative path:
-        Image img = new ImageIcon(this.getClass().getResource("/Images/bck.png")).getImage();
-        
-
-        setIconImage(img);
-       
 	}
 	
-	private void setAppearance()
-    {
-    	// As soon as the constructor is called,
-    	// set visibility of the frame to true.
-    	this.setVisible(true);
-    	this.setResizable(false);
-    	this.setTitle("KU Alchemists Game");
-    	this.setSize(1540, 820);
-    	this.setLocationRelativeTo(null);
-    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	this.getContentPane().setLayout(null);
-    }
-
-	public JPanel setBackground(String backgroundImagePath)
-	{
-		JPanel backgroundPanel = new JPanel() {
+	protected void setBackground(String backgroundSource) {
+    	
+    	backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 
            	 super.paintComponent(g);
                 
-                Image image = new ImageIcon(this.getClass().getResource(backgroundImagePath)).getImage();
+                Image image = new ImageIcon(this.getClass().getResource("/Images/" + backgroundSource + ".png")).getImage();
                 
                 // Calculate the scaled width and height to fit the panel
                 int panelWidth = getWidth();
@@ -67,10 +59,25 @@ public abstract class GeneralFrame extends JFrame{
         };
         
         backgroundPanel.setLocation(0, 0);
-        backgroundPanel.setSize(new Dimension(1540, 820));
+        backgroundPanel.setSize(new Dimension(1200, 686));
         backgroundPanel.setLayout(null);
         backgroundPanel.setOpaque(false);
-        
-        return backgroundPanel;
+        getContentPane().add(backgroundPanel);
 	}
+	
+	
+	
+	private void setAppearance()
+    {
+    	// As soon as the constructor is called,
+    	// set visibility of the frame to true.
+    	this.setVisible(true);
+    	this.setResizable(false);
+    	this.setTitle("KU Alchemists Game");
+    	this.setSize(1200, 686);
+    	this.setLocationRelativeTo(null);
+    	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	this.getContentPane().setLayout(null);
+    }
+	
 }

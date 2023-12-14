@@ -37,9 +37,9 @@ public class DiscountArtifact extends Artifact {
     }
 
 	@Override
-	public void applyArtifact() {
+	public void applyArtifact(Player player) {
 		// TODO Auto-generated method stub
-		KUAlchemistsGame.currentPlayer.setGoldtToBePayedToArtifact(-1);
+		player.setGoldtToBePayedToArtifact(-2);
 	}
   
 }

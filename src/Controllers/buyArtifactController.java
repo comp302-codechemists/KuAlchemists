@@ -4,7 +4,20 @@ import Business.KUAlchemistsGame;
 
 public class buyArtifactController {
 	
-	public void buyArtifactHandler() {
-		KUAlchemistsGame.currentPlayer.buyArtifact();
+	private KUAlchemistsGame game;
+	
+	public buyArtifactController(KUAlchemistsGame game)
+	{
+		this.game = game;
+	}
+	
+	public String buyArtifactHandler() {
+		String boughtArtifact = game.currentPlayer.buyArtifact();
+		game.nextPlayer();
+		return boughtArtifact;
+	}
+	
+	public void ElixirOfInsightHandker() {
+		
 	}
 }

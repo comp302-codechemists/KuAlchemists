@@ -25,12 +25,11 @@ public class ArtifactStorage {
 		// the artifact storage will hold all the artifacts
 		// Add all artifacts to the existing list
 		artifactList.addAll(Artifact.artifacts);
+		artifactList.addAll(Artifact.artifacts);
+		artifactList.addAll(Artifact.artifacts);
 		
 		System.out.println("Artifact storage artifact list has been initialized.");
-		for (Artifact a: artifactList)
-		{
-			System.out.println(a.getClass().getCanonicalName());
-		}
+
 	}
 	
 	public void shuffleArtifacts()
@@ -39,9 +38,9 @@ public class ArtifactStorage {
         System.out.println("Ingredients have been shuffled.");
 	}
 	
-	public static Artifact getRandomArtifact() {
+	public static Artifact getArtifact() {
 		
-		int max = artifactList.size() - 1;
+		/*int max = artifactList.size() - 1;
 		int min = 0;
 		
 		// Generate random int value from min to max
@@ -54,8 +53,11 @@ public class ArtifactStorage {
 	    		artifactToReturn = artifact;
 	    	}
 	    }
-	    return artifactToReturn;
+	    return artifactToReturn;*/
 	    
+		//Remove and return top:
+		if(artifactList.isEmpty()) return null;
+		return artifactList.remove(0);
 	}
 
 }

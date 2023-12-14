@@ -10,7 +10,7 @@ public class Player {
 	private List<Artifact> artifacts = new ArrayList<Artifact>();
 	private int balance;
 	private int reputationPoints;
-	private DeductionBoard deductionBoard;
+	private DeductionBoard deductionBoard = new DeductionBoard();
 	private int sicknessLevel;
 	private int goldtToBePayedToArtifact;
 	
@@ -18,7 +18,7 @@ public class Player {
 		
 		this.userName = userName;
 		this.avatarPath = avatarPath;
-		this.goldtToBePayedToArtifact = -2;
+		this.goldtToBePayedToArtifact = -3;
 	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
@@ -30,7 +30,7 @@ public class Player {
 		this.balance = balance;
 		this.reputationPoints = reputationPoints;
 		this.deductionBoard = deductionBoard;
-		this.goldtToBePayedToArtifact = -2;
+		this.goldtToBePayedToArtifact = -3;
 	}
 	
 	public void addIngredient(Ingredient ingredient)
@@ -160,7 +160,6 @@ public class Player {
 		Experiment experiment = new Experiment(currentPlayer, ingr1, ingr2, whereToTest);
 		this.removeIngredientCard(ingr1);
 		this.removeIngredientCard(ingr2);
-		this.putTokenToResultsTriangle();
 	}
 	
 	
@@ -179,8 +178,9 @@ public class Player {
 		return score;
 	}
 	
-	public void forageForIngredient() {		
-		Ingredient foragedIngredient = IngredientStorage.getInstance().getRandomIngredient();
+	public String forageForIngredient() {
+		
+		Ingredient foragedIngredient = IngredientStorage.getInstance().getIngredient();
 		if(foragedIngredient != null) {
 			System.out.println("Previous ingredients");
 			getIngredients().forEach(System.out::println);
@@ -191,14 +191,16 @@ public class Player {
 			getIngredients().forEach(System.out::println);
 			
 			System.out.printf("Ingredient %s is added to the player's storage%n",foragedIngredient.getName());
+			return foragedIngredient.getName();
 			
 		}
 		else {
 			System.out.println("Ingredient Storage is empty!");
+			return null;
 		}
 	}
 	
-	public void transmuteIngredient(Ingredient ingredient) {
+	public String transmuteIngredient(Ingredient ingredient) {
 		
 		System.out.println("");
 		System.out.println("Previous ingredients");
@@ -218,12 +220,15 @@ public class Player {
 		getIngredients().forEach(System.out::println);
 		System.out.printf("New Balance: %d%n",getBalance());
 		System.out.printf("Ingredient %s is removed from the player's storage%n",ingredient.getName());
+		
+		return ingredient.getName();
 	}
 	
-	public void buyArtifact() {
+	public String buyArtifact() {
 		
-		if(getBalance() >= 3) {
-			Artifact artifact = ArtifactStorage.getRandomArtifact();
+		if(getBalance() >= -getGoldtToBePayedToArtifact()) {
+			
+			Artifact artifact = ArtifactStorage.getArtifact();
 			if(artifact != null) {
 				
 				System.out.println();
@@ -239,26 +244,38 @@ public class Player {
 				getArtifacts().forEach(System.out::println);
 				System.out.printf("New Balance: %d%n",getBalance());
 				System.out.printf("Artifact %s is added to the player's storage%n",artifact.getName());
+				
+				return artifact.getName();
 			}
 			else {
 				System.out.println("Artifact Storage is empty!");
 			}
 		}
 		else {
-			System.out.println("Balance is lower than 3, come back when you have more gold :D");
+			System.out.println("Balance is unsufficient, come back when you have more gold :D");
+		}
+		
+		return null;
+	}
+	
+
+	public void applyArtifact(Artifact artifact) {
+		artifact.applyArtifact(this);
+	}
+	
+	public void sellPotion(Ingredient ingr1, Ingredient ingr2, String promise) {
+		Potion potion = new Potion(ingr1,ingr2);
+		int enumeratedPotionResult = enumeratePotionResult(potion);
+		int enumeratedPromise = enumeratePromises(promise);
+		if(enumeratedPotionResult < enumeratedPromise ) {
+			System.out.println("Your promise does not satisfy potion result. Balance is unchanged.");
+		}
+		else {
+			updateBalance(enumeratedPromise);
+			System.out.printf("Your promise satisfied the potion result. You will be awarded by %d gold",enumeratedPromise);
 		}
 		
 	}
-	
-
-	
-	public void applyArtifact(Artifact artifact) {
-		artifact.applyArtifact();
-	}
-	
-	////////////////PRIVATE METHODS
-
-
 	
 	private void updateReputation(int amount) {
 		setReputationPoints(getReputationPoints() + amount);
@@ -277,11 +294,49 @@ public class Player {
 	private void addArtifact(Artifact artifact) {
 		getArtifacts().add(artifact);
 	}
+	
+	private int enumeratePromises(String promise) {
+		int return_val = 0;
+		
+		switch(promise) {
+		case "Positive":
+			return_val = 3;
+			break;
+		case "Positive or Neutral":
+			return_val = 2;
+			break;
+		case "Nothing":
+			return_val = 1;
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+		
+		return return_val;
+	}
+	
+	private int enumeratePotionResult(Potion potion) {
+		int return_val = 0;
+		
+		switch(potion.getDominantAspect().getSign()) {
+		case "positive":
+			return_val = 3;
+			break;
+		case "neutral":
+			return_val = 2;
+			break;
+		case "negative":
+			return_val = 1;
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+		
+		return return_val;
+	}
 					
 		
-	private void sellPotion() {
-		
-	}
+	
 	
 		
 	private void publishTheory() {
@@ -295,6 +350,7 @@ public class Player {
 	
 	
 	private void putTokenToResultsTriangle() {
+	
 		
 	}
 

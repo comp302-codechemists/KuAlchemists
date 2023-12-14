@@ -7,7 +7,7 @@ public class Potion {
 	private Player owner;
 	private Ingredient ingredientOne;
 	private Ingredient ingredientTwo;
-	private Token token;
+	private Token resultToken;
 	private String promise;
 	private Aspect dominantAspect = null;	
 
@@ -48,11 +48,11 @@ public class Potion {
 	}
 
 	public Token getToken() {
-		return token;
+		return resultToken;
 	}
 
 	public void setToken(Token token) {
-		this.token = token;
+		this.resultToken = token;
 	}
 
 	public String getPromise() {
@@ -80,15 +80,18 @@ public class Potion {
 			Aspect correspondingAspect = Arrays.stream(aspectsTwo)
 					.filter(p -> p.getColor().equals(currentAspect.getColor()) &&
 							p.getSign().equals(currentAspect.getSign()) &&
-							(currentAspect.getMagnitude().equals("Big") 
-									? p.getMagnitude().equals("Small") 
-									: p.getMagnitude().equals("Big"))
+							(currentAspect.getMagnitude().equals("big") 
+									? p.getMagnitude().equals("small") 
+									: p.getMagnitude().equals("big"))
 							)
 					.findFirst().orElse(null);
 			if(correspondingAspect != null) {
 				dominantAspect = correspondingAspect;
 				break;
 			}
+		}
+		if(dominantAspect == null) {
+			dominantAspect = new Aspect("neutral","neutral","neutral");
 		}
 	}
 	

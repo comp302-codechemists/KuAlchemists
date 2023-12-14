@@ -27,7 +27,7 @@ public class ScorePointBoosterArtifact extends Artifact {
     }
 
 	@Override
-	public void applyArtifact() {
+	public void applyArtifact(Player player) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -41,25 +41,21 @@ public class IngredientStorage {
 		// At the beginning of the game
 		// The ingredient storage ingredientList
 		// will be full of all the ingredients
+		// In the original game there is 4 of each ingredient card.
 		ingredientList.addAll(Ingredient.ingredients);
+		ingredientList.addAll(Ingredient.ingredients);
+		ingredientList.addAll(Ingredient.ingredients);
+		ingredientList.addAll(Ingredient.ingredients);
+		
 
 		System.out.println("Ingredient storage ingredient list has been initialized.");
-		for (Ingredient i : ingredientList) {
-			System.out.println(i.name);
-		}
+
 	}
 
-	public Ingredient getRandomIngredient() {
+	public Ingredient getIngredient() {
 
 		if(ingredientList.isEmpty()) return null;
-					
-		int max = ingredientList.size() - 1;
-		int min = 0;
-
-		// Generate random int value from min to max
-		int randomInt = (int) Math.floor(Math.random() * (-min + 1) + max);
-
-		return ingredientList.remove(randomInt);
+		return ingredientList.remove(0);
 	}
 
 	public void shuffleIngredients() {
@@ -70,6 +66,17 @@ public class IngredientStorage {
 	public void addToBottom(Ingredient ingredient) {
 		ingredientList.add(ingredient);
 	}
+
+	// Added getters and setter for elixir of insight.
+	public List<Ingredient> getIngredientList() {
+		return ingredientList;
+	}
+
+	public void setIngredientList(List<Ingredient> ingredientList) {
+		this.ingredientList = ingredientList;
+	}
+	
+	
 
 
 }

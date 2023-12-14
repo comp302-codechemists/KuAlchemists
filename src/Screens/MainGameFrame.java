@@ -10,6 +10,9 @@ import java.awt.Dimension;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import Business.KUAlchemistsGame;
+import DesignSystem.GameButton;
+import DesignSystem.GameText;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -18,6 +21,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.border.Border;
@@ -49,16 +54,49 @@ public class MainGameFrame extends GeneralFrame{
 		this.setBackground();
 		this.setPlayersInfoTable();
 		this.setButtons();
-		this.setIngredientPanel();
-		this.setArtifactPanel();
+		this.setTheoriesPanel();
 		this.setGameLog();
+		this.setDirections();
+		
+	}
+	
+	private void setDirections()
+	{
+		String enthusiastizmText = """
+					Welcome to the mesmerizing world of alchemy, 
+				where magic and science intertwine to create wonders beyond imagination! 
+				Prepare to embark on an enchanting journey where you'll concoct mystical 
+				potions, conduct daring experiments, and unveil the secrets of the arcane arts.
+
+					As an aspiring alchemist, the power of creation lies within your 
+				grasp. Blend rare ingredients, harness the elements, and stir the 
+				cauldron of possibility to produce potions of extraordinary effects. 
+				From elixirs that grant incredible strength to brews that bestow 
+				wisdom beyond measure, your mastery over alchemy knows no bounds.
+				""";
+		
+		JTextArea enthusiastizmTextArea = new JTextArea(enthusiastizmText);
+		enthusiastizmTextArea.setBounds(500, 80, 520, 200);
+		enthusiastizmTextArea.setForeground(Color.white);
+		enthusiastizmTextArea.setFont(GameText.normalText);
+		enthusiastizmTextArea.setOpaque(false);
+		backgroundPanel.add(enthusiastizmTextArea);
+		
+		String labelText = String.format("\n\tIt is %s's turn.", game.currentPlayer.getUserName());
+		JLabel directionsLabel = new JLabel(labelText);
+		directionsLabel.setBounds(650, 280, 330, 30);
+		directionsLabel.setForeground(Color.white);
+		directionsLabel.setFont(GameText.normalText);
+		directionsLabel.setOpaque(false);
+		setTakeTurnButton();
+		backgroundPanel.add(directionsLabel);
 		
 	}
 	
 	private void setGameLog() {
 	    JTextArea gameLogArea = new JTextArea(10, 30);
 	    gameLogArea.setForeground(Color.white);
-	    gameLogArea.setFont(new Font("Tahoma", Font.ITALIC, 17));
+	    gameLogArea.setFont(GameText.normalText);
 	    gameLogArea.setEditable(false);
 	    gameLogArea.setBackground(new Color(0, 0, 0, 0)); 
 
@@ -80,47 +118,29 @@ public class MainGameFrame extends GeneralFrame{
 
 
 
-	private void setIngredientPanel() 
-	{
-	    JPanel ingredientPanel = new JPanel();
-	    ingredientPanel.setLayout(new GridLayout(2, 4, 5, 5));
-	    ingredientPanel.setBounds(25, 45, 420, 320);
-	    ingredientPanel.setOpaque(false);
-
-	    for (int i = 0; i < 8; i++) {
-	        JLabel ingredientLabel = new JLabel();
-	        ingredientLabel.setPreferredSize(new Dimension(100, 150));
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/ingredient" + (i + 1) + ".png"));
-	        Image image = imageIcon.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
-	        ingredientLabel.setIcon(new ImageIcon(image));
-	        ingredientPanel.add(ingredientLabel);
-	    }
-
-	    backgroundPanel.add(ingredientPanel);
-	}
 	
 
-	private void setArtifactPanel() {
+	private void setTheoriesPanel() {
 	    
-		JPanel artifactPanel = new JPanel();
-	    artifactPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
-	    artifactPanel.setBounds(55, 400, 440, 340);
-	    artifactPanel.setOpaque(false);
+		JPanel theoryPanel = new JPanel();
+		theoryPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
+		theoryPanel.setBounds(10, 42, 485, 698);
+	    theoryPanel.setOpaque(false);
 
 	    // Create an EmptyBorder with desired spacing
-	    Border spacingBorder = BorderFactory.createEmptyBorder(2, 2, 2, 2);
+	    Border spacingBorder = BorderFactory.createEmptyBorder(1,1,1,1);
 
 	    for (int i = 0; i < 8; i++) {
-	        JLabel artifactLabel = new JLabel();
-	        artifactLabel.setPreferredSize(new Dimension(140, 80));
-	        artifactLabel.setBorder(spacingBorder); // Apply the spacing border to each label
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/artifact" + (i + 1) + ".png"));
-	        Image image = imageIcon.getImage().getScaledInstance(140, 80, Image.SCALE_SMOOTH);
-	        artifactLabel.setIcon(new ImageIcon(image));
-	        artifactPanel.add(artifactLabel);
+	        JLabel theoryLabel = new JLabel();
+	        theoryLabel.setPreferredSize(new Dimension(200, 150));
+	        theoryLabel.setBorder(spacingBorder); // Apply the spacing border to each label
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + (i + 1) + ".png"));
+	        Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+	        theoryLabel.setIcon(new ImageIcon(image));
+	        theoryPanel.add(theoryLabel);
 	    }
 
-	    backgroundPanel.add(artifactPanel);
+	    backgroundPanel.add(theoryPanel);
 	}
 	
 	private void setBackground() {
@@ -163,25 +183,37 @@ public class MainGameFrame extends GeneralFrame{
         backgroundPanel.setOpaque(false);
         getContentPane().add(backgroundPanel);
 	}
+	
+	      
 
 	private void setPlayersInfoTable()
 	{
 		playersInfoTable = new JTable();
-		DefaultTableModel model = new DefaultTableModel(4, 3);
+		DefaultTableModel model = new DefaultTableModel(5, 3);
 
 		model.setValueAt(" Information", 0, 0);
-		model.setValueAt(" Reputation Points", 1, 0);
-		model.setValueAt(" Ingredient Cards", 2, 0);
-		model.setValueAt(" Artifact Cards", 3, 0);
+		model.setValueAt(" Avatar", 1, 0);
+		model.setValueAt(" Reputation Points", 2, 0);
+		model.setValueAt(" Ingredient Cards", 3, 0);
+		model.setValueAt(" Artifact Cards", 4, 0);
 
 		for (int i = 0; i < this.game.getNumberOfPlayers(); i++) {
+	        String avatarPath = game.getPlayers().get(i).getAvatarPath();
+	        ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath + ".png"));
+	        Image originalImage1 = originalIcon1.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+	        ImageIcon avatar = new ImageIcon(originalImage1);
+			
 			model.setValueAt(this.game.getPlayers().get(i).getUserName(), 0, i+1);
-			model.setValueAt(this.game.getPlayers().get(i).getReputationPoints(), 1, i+1);
-			model.setValueAt(this.game.getPlayers().get(i).getIngredients().size(), 2, i+1);
-			model.setValueAt(this.game.getPlayers().get(i).getArtifacts().size(), 3, i+1);
+			model.setValueAt(avatar, 1, i + 1);
+			model.setValueAt(this.game.getPlayers().get(i).getReputationPoints(), 2, i+1);
+			model.setValueAt(this.game.getPlayers().get(i).getIngredients().size(), 3, i+1);
+			model.setValueAt(this.game.getPlayers().get(i).getArtifacts().size(), 4, i+1);
 		}
 		
 		playersInfoTable = new JTable(model);
+        
+
+		
 		playersInfoTable.setFont(new Font("Tahoma", Font.ITALIC, 17));
 		playersInfoTable.setForeground(Color.white);
 		playersInfoTable.setBorder(new LineBorder(Color.white, 2));
@@ -189,12 +221,13 @@ public class MainGameFrame extends GeneralFrame{
 		playersInfoTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		playersInfoTable.setRowHeight(50);
 		playersInfoTable.setSurrendersFocusOnKeystroke(true);
-		playersInfoTable.setBounds(1100, 85, 370, 200);
+		playersInfoTable.setBounds(1100, 85, 370, 255);
 		
 		// Set transparent background for the table and cells
         playersInfoTable.setOpaque(false);
         playersInfoTable.setBackground(new Color(0, 0, 0, 0)); // Transparent black (adjust alpha as needed)
-        playersInfoTable.setDefaultRenderer(Object.class, new TransparentTableCellRenderer());
+        playersInfoTable.getColumnModel().getColumn(1).setCellRenderer(new AvatarRenderer());
+        playersInfoTable.getColumnModel().getColumn(2).setCellRenderer(new AvatarRenderer());
 
         
 		backgroundPanel.add(playersInfoTable);
@@ -206,14 +239,26 @@ public class MainGameFrame extends GeneralFrame{
 		
 	}
 	
-	private class TransparentTableCellRenderer extends DefaultTableCellRenderer {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-            c.setBackground(new Color(0, 0, 0, 0)); // Transparent black (adjust alpha as needed)
-            return c;
-        }
-    }
+	private static class AvatarRenderer extends DefaultTableCellRenderer {
+	    @Override
+	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+	        if (value instanceof ImageIcon) {
+	            setIcon((ImageIcon) value);
+	            setText("");  // Set an empty string to avoid displaying text
+	            setHorizontalAlignment(CENTER);
+	            setVerticalAlignment(CENTER);
+	        } else {
+	            setIcon(null); // Clear the icon if the value is not an ImageIcon
+	            setText(value != null ? value.toString() : "");
+	            setHorizontalAlignment(LEFT);
+	            setVerticalAlignment(CENTER);
+	        }
+
+	        return component;
+	    }
+	}
 	
 	private void setButtons()
 	{
@@ -221,214 +266,56 @@ public class MainGameFrame extends GeneralFrame{
 		 setPauseGameButton();
 		 setHowToPlayButton();
 		 setEndGameButton();
-		 setTakeTurnButton();
 	}
 	private void setExitGameButton() 
 	{
-		exitGameButton = new JButton("Exit Game");
+		exitGameButton = new GameButton("Exit Game");
 		exitGameButton.setBounds(1320, 500, 150, 30);
-		exitGameButton.setForeground(Color.white);
-		exitGameButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		exitGameButton.setOpaque(false);
-		exitGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(exitGameButton);
-		//addMouseListener is an example of Observer Pattern in GoF
-		exitGameButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-            	
-            }
 
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Handle mouse press event if needed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                // Handle mouse release event if needed
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Change button appearance on mouse enter (hover effect)
-            	exitGameButton.setBorder(new LineBorder(Color.yellow, 2));
-            	exitGameButton.setForeground(Color.yellow);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restore button appearance on mouse exit
-            	exitGameButton.setBorder(new LineBorder(Color.white, 2));
-                exitGameButton.setForeground(Color.white);
-            }
-        });
 	}
 	private void setPauseGameButton() 
 	{
-		pauseGameButton = new JButton("Pause Game");
+		pauseGameButton = new GameButton("Pause Game");
 		pauseGameButton.setBounds(1320, 560, 150, 30);
-		pauseGameButton.setForeground(Color.white);
-		pauseGameButton.setFont(new Font("Tahoma",Font.ITALIC, 15));
-		pauseGameButton.setOpaque(false);
-		pauseGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(pauseGameButton);
-		pauseGameButton.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Handle mouse click event if needed
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Handle mouse press event if needed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                // Handle mouse release event if needed
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Change button appearance on mouse enter (hover effect)
-                pauseGameButton.setBorder(new LineBorder(Color.yellow, 2));
-                pauseGameButton.setForeground(Color.yellow);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restore button appearance on mouse exit
-                pauseGameButton.setBorder(new LineBorder(Color.white, 2));
-                pauseGameButton.setForeground(Color.white);
-            }
-        });
 	}
 	private void setHowToPlayButton()
 	{
-		howToPlayButton = new JButton("How to Play?");
+		howToPlayButton = new GameButton("How to Play?");
 		howToPlayButton.setBounds(1100, 560, 150, 30);
-		howToPlayButton.setForeground(Color.white);
-		howToPlayButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		howToPlayButton.setOpaque(false);
-		howToPlayButton.setBorder(new LineBorder(Color.white, 2));
-		backgroundPanel.add(howToPlayButton);
-		howToPlayButton.addMouseListener(new MouseListener() {
+		howToPlayButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                // Handle mouse click event if needed
-            	new HowToPlayFrame();
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                // Handle mouse press event if needed
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                // Handle mouse release event if needed
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                // Change button appearance on mouse enter (hover effect)
-            	howToPlayButton.setBorder(new LineBorder(Color.yellow, 2));
-            	howToPlayButton.setForeground(Color.yellow);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                // Restore button appearance on mouse exit
-            	howToPlayButton.setBorder(new LineBorder(Color.white, 2));
-            	howToPlayButton.setForeground(Color.white);
+            public void actionPerformed(ActionEvent e) {
+               new HowToPlayFrame();
             }
         });
+		backgroundPanel.add(howToPlayButton);
+		
 	}
 	private void setEndGameButton() 
 	{
 		
-		endGameButton = new JButton("End Game");
+		endGameButton = new GameButton("End Game");
 		endGameButton.setBounds(1100, 500, 150, 30);
-		endGameButton.setForeground(Color.white);
-		endGameButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		endGameButton.setOpaque(false);
-		endGameButton.setBorder(new LineBorder(Color.white, 2));
 		backgroundPanel.add(endGameButton);
-		
-		endGameButton.addMouseListener(new MouseListener() {
-	            @Override
-	            public void mouseClicked(MouseEvent e) {
-	                // Handle mouse click event if needed
-	            }
-
-	            @Override
-	            public void mousePressed(MouseEvent e) {
-	                // Handle mouse press event if needed
-	            }
-
-	            @Override
-	            public void mouseReleased(MouseEvent e) {
-	                // Handle mouse release event if needed
-	            }
-
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                // Change button appearance on mouse enter (hover effect)
-	            	endGameButton.setBorder(new LineBorder(Color.yellow, 2));
-	            	endGameButton.setForeground(Color.yellow);
-	            }
-
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                // Restore button appearance on mouse exit
-	            	endGameButton.setBorder(new LineBorder(Color.white, 2));
-	            	endGameButton.setForeground(Color.white);
-	            }
-	        });
+	
 	}
 
 	private void setTakeTurnButton() 
 	{
 		
-		takeTurnButton = new JButton("Take Turn");
-		takeTurnButton.setBounds(1220, 620, 150, 30);
-		takeTurnButton.setForeground(Color.white);
-		takeTurnButton.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		takeTurnButton.setOpaque(false);
-		takeTurnButton.setBorder(new LineBorder(Color.white, 2));
+		takeTurnButton = new GameButton("Take Turn");
+		takeTurnButton.setBounds(650, 330, 150, 30);
 		backgroundPanel.add(takeTurnButton);
-		takeTurnButton.addMouseListener(new MouseListener() {
-	            @Override
-	            public void mouseClicked(MouseEvent e) {
-	                // Handle mouse click event if needed
-	            	new PlayerDashboardFrame(game, KUAlchemistsGame.currentPlayer);
-	            }
-
-	            @Override
-	            public void mousePressed(MouseEvent e) {
-	                // Handle mouse press event if needed
-	            }
-
-	            @Override
-	            public void mouseReleased(MouseEvent e) {
-	                // Handle mouse release event if needed
-	            }
-
-	            @Override
-	            public void mouseEntered(MouseEvent e) {
-	                // Change button appearance on mouse enter (hover effect)
-	            	takeTurnButton.setBorder(new LineBorder(Color.yellow, 2));
-	            	takeTurnButton.setForeground(Color.yellow);
-	            }
-
-	            @Override
-	            public void mouseExited(MouseEvent e) {
-	                // Restore button appearance on mouse exit
-	            	takeTurnButton.setBorder(new LineBorder(Color.white, 2));
-	            	takeTurnButton.setForeground(Color.white);
-	            }
-	        });
+		takeTurnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	new PlayerDashboardFrame(game, game.currentPlayer);
+            	MainGameFrame.this.dispose();
+            }
+        });
+		
 	}
 }
 
