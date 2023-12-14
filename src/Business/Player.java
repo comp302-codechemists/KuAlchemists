@@ -160,7 +160,6 @@ public class Player {
 		Experiment experiment = new Experiment(currentPlayer, ingr1, ingr2, whereToTest);
 		this.removeIngredientCard(ingr1);
 		this.removeIngredientCard(ingr2);
-		this.putTokenToResultsTriangle();
 	}
 	
 	
@@ -299,6 +298,7 @@ public class Player {
 	
 	
 	private void putTokenToResultsTriangle() {
+	
 		
 	}
 

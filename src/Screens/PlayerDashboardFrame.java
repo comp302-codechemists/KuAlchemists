@@ -8,16 +8,21 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import Business.Artifact;
+import Business.DeductionBoard;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
@@ -51,8 +56,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JPanel artifactPannel;
 	private JPanel ingredientPannel;
 	
-	List<JRadioButton> leftButtons;
-	List<JRadioButton> triangleButtons;
 	
 	private ButtonGroup triangleButtonGroup;
 	private ButtonGroup leftButtonGroup;
@@ -69,6 +72,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JLabel repPointsLabel;
 	private JLabel balanceLabel;
 	private JButton testElixir;
+	private JButton clearBtn;
+	private JPanel deductionPanel;
 	
 	public PlayerDashboardFrame(KUAlchemistsGame game, Player player) 
 	{
@@ -79,20 +84,23 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setBackground();
 		setUpperDeductionBoard();
 		setUpperButtons();
-		seBottomDeductionBoard();
+		setBottomDeductionBoard();
 		setLeftHand();
 		setLeftHandButtons();
-		setBuyArtifactButton();
-		setForageIngredientButton();
-		setTransmuteIngredientButton();
-		setMakeExperimentButton();
-		setPublishTheoryButton();
-		setSellPotionButton();
-		setDebunkTheoryButton();
+		//setBuyArtifactButton();
+		//setForageIngredientButton();
+		//setTransmuteIngredientButton();
+		//setMakeExperimentButton();
+		//setPublishTheoryButton();
+		//setSellPotionButton();
+		//setDebunkTheoryButton();
 		setPlayerNameLabel();
 		setPlayerInfo();
 		setPlayerArtifacts();
 		setPlayerIngredients();
+		setDeduction();
+		setDeductionPanel();
+		setClearSelection();
 		
 		testElixir();
 		
@@ -169,6 +177,17 @@ public class PlayerDashboardFrame extends GeneralFrame{
         getContentPane().add(backgroundPanel);
 	}
 	
+	private void setDeductionPanel() {
+    
+    	deductionPanel = new JPanel();
+    	deductionPanel.setLayout(null);
+    	deductionPanel.setOpaque(false);
+    	deductionPanel.setBounds(135, 42, 614, 402);
+    	deductionPanel.setVisible(true);
+    	upperBackground.add(deductionPanel);
+
+        
+	}
 	private void setUpperDeductionBoard() {
 		
 		upperBackground = new JPanel() {
@@ -208,7 +227,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
         upperButtonPanel.setBounds(10, 10, 769, 456);
         
         triangleButtonGroup = new ButtonGroup();
-        triangleButtons = new ArrayList<JRadioButton>();
 
         int rows = 7;
         int startX = 372;
@@ -218,7 +236,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
             for (int col = 0; col <= row; col++) {
                 JRadioButton btn = new JRadioButton();
                 triangleButtonGroup.add(btn);
-                triangleButtons.add(btn);
                 int x = startX - row * 65 / 2 + col * 65;
                 int y = startY + row * 57;
                 btn.setBounds(x, y, 20, 20);
@@ -227,9 +244,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
         }   
         
         upperBackground.add(upperButtonPanel);
+        
 	}
 	
-	private void seBottomDeductionBoard() 
+	private void setBottomDeductionBoard() 
 	{
 	    bottomBackground = new JPanel() {
 	        @Override
@@ -260,6 +278,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    backgroundPanel.add(bottomBackground);
 	    bottomBackground.setLayout(null);
 	    bottomBackground.setOpaque(false);
+
 	}
 	
 	private void setLeftHand() 
@@ -303,18 +322,101 @@ public class PlayerDashboardFrame extends GeneralFrame{
         
         int buttonCount = 7;
         leftButtonGroup = new ButtonGroup();
-        leftButtons = new ArrayList<JRadioButton>();
         
         for (int i = 0; i < buttonCount; i++) {
         	JRadioButton btn = new JRadioButton();
         	leftButtonGroup.add(btn);
-        	leftButtons.add(btn);
         	leftButtonPanel.add(btn);
         	btn.setBounds(50, i*65, 20, 20);
         	
         }
         leftHandBackground.add(leftButtonPanel);   	
 		
+	}
+	
+	private void setClearSelection() {
+		
+    	clearBtn = new JButton("<html>\r\nClear<br> My<br> Selections\r\n</html>");
+    	clearBtn.setBounds(0, 128, 85, 68);
+    	bottomBackground.add(clearBtn);
+    	
+        clearBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	leftButtonGroup.clearSelection();
+                triangleButtonGroup.clearSelection();
+            }
+        });	
+	}
+	
+	private void setDeduction() {
+	    JButton submitBtn = new JButton("<html>Submit<br>   My<br>Deduction\r\n</html>");
+	    submitBtn.setBounds(0, 29, 85, 86);
+	    bottomBackground.add(submitBtn);
+
+        submitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	
+            	int selectedLeft = -1;
+            	Enumeration<AbstractButton> buttonsLeft = leftButtonGroup.getElements();
+            	int currentIndex = 0;
+            	while (buttonsLeft.hasMoreElements()) {
+            	    AbstractButton button1 = buttonsLeft.nextElement();
+            	    
+            	    if (button1.isSelected()) {
+            	        selectedLeft = currentIndex;
+            	        break;
+            	    }
+            	    
+            	    currentIndex++;
+            	}
+            	System.out.printf("Selected button index for left: %d\n", selectedLeft);
+            	
+            	int selectedTriangle = -1;
+            	Enumeration<AbstractButton> buttonsTriangle = triangleButtonGroup.getElements();
+            	int currentIndexT = 0;
+            	while (buttonsTriangle.hasMoreElements()) {
+            	    AbstractButton button2 = buttonsTriangle.nextElement();
+            	    
+            	    if (button2.isSelected()) {
+            	        selectedTriangle = currentIndexT;
+            	        break;
+            	    }
+            	    
+            	    currentIndexT++;
+            	}
+            	System.out.printf("Selected button index for triangle: %d\n", selectedTriangle);
+            	
+            	if (selectedTriangle == -1 || selectedLeft == -1) {
+               	 JOptionPane.showMessageDialog(new JFrame(), "Please mark your choices, action can't be submitted.",
+                         "Submit Error", JOptionPane.ERROR_MESSAGE);
+            		
+            	}
+            	
+            	else {
+            		player.getDeductionBoard().addDeduction(selectedTriangle, DeductionBoard.getName(selectedLeft));
+            	}
+            	
+            	
+            	//TODO This doesn't work!
+            	//TODO Also need to show the deduction board with tokens on it that was put before. 
+    	    	Image image = new ImageIcon(this.getClass().getResource("/Images/circle" + selectedLeft + ".png")).getImage();
+    	    	if (image == null) System.out.println("can't load image.\n");
+    	    	Image newImage = image.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+    	    	ImageIcon icon = new ImageIcon(newImage);
+    	    	JLabel circleLabel = new JLabel(icon);
+    	    	
+    	    	
+    	    	circleLabel.setBounds(100, 100, 50,50);
+    	    	deductionPanel.add(circleLabel);
+    	    	
+
+          
+            	
+            }
+        });
+	    
 	}
 	
 	private void setPlayerIngredients() {
