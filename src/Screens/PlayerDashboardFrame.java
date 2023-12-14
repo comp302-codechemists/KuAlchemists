@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -26,6 +27,7 @@ import Business.DeductionBoard;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Controllers.DeductionBoardController;
 import Controllers.ForageController;
 import Controllers.TransmuteController;
 import Controllers.buyArtifactController;
@@ -74,6 +76,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton testElixir;
 	private JButton clearBtn;
 	private JPanel deductionPanel;
+	
+	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
 	
 	public PlayerDashboardFrame(KUAlchemistsGame game, Player player) 
 	{
@@ -231,15 +235,40 @@ public class PlayerDashboardFrame extends GeneralFrame{
         int rows = 7;
         int startX = 372;
         int startY = 20; 
-
+        int index = 0;
+        
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col <= row; col++) {
                 JRadioButton btn = new JRadioButton();
                 triangleButtonGroup.add(btn);
                 int x = startX - row * 65 / 2 + col * 65;
                 int y = startY + row * 57;
-                btn.setBounds(x, y, 20, 20);
+                btn.setBounds(x, y, 24, 24);
+                /*Dimension largerSize = new Dimension(40, 40);
+                btn.setPreferredSize(largerSize);*/
+                
+                if(player.getDeductionBoard().getExistingItems().containsKey(index)) {
+                	
+                	int selectedLeft = player.getDeductionBoard().getExistingItems().get(index);
+                	
+                	Image image = new ImageIcon(this.getClass().getResource("/Images/circle" + selectedLeft + ".png")).getImage();
+        	    	if (image == null) System.out.println("can't load image.\n");
+        	    	Image newImage = image.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        	    	ImageIcon icon = new ImageIcon(newImage);
+        	    	
+        	    	Image scaledImage = icon.getImage().getScaledInstance(
+        	    			btn.getPreferredSize().width, 
+        	    			btn.getPreferredSize().height, 
+                            Image.SCALE_SMOOTH);
+        	    	btn.setIcon(new ImageIcon(scaledImage));
+        	    	
+                }
                 upperButtonPanel.add(btn);
+                deductionBoardButtons.add(btn);
+                
+                
+    	    	
+    	    	index++;
             }
         }   
         
@@ -395,7 +424,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
             	}
             	
             	else {
-            		player.getDeductionBoard().addDeduction(selectedTriangle, DeductionBoard.getName(selectedLeft));
+            		//player.getDeductionBoard().addDeduction(selectedTriangle, DeductionBoard.getName(selectedLeft));
+            		DeductionBoardController controller = new DeductionBoardController(game);
+            		controller.deductionBoardHandler(selectedTriangle, DeductionBoard.getName(selectedLeft),selectedLeft);
+            		
             	}
             	
             	
@@ -407,11 +439,18 @@ public class PlayerDashboardFrame extends GeneralFrame{
     	    	ImageIcon icon = new ImageIcon(newImage);
     	    	JLabel circleLabel = new JLabel(icon);
     	    	
+    	    	Image scaledImage = icon.getImage().getScaledInstance(
+    	    			deductionBoardButtons.get(selectedTriangle).getPreferredSize().width, 
+    	    			deductionBoardButtons.get(selectedTriangle).getPreferredSize().height, 
+                        Image.SCALE_SMOOTH);
+    	    	deductionBoardButtons.get(selectedTriangle).setIcon(new ImageIcon(scaledImage));
+                
+
     	    	
     	    	circleLabel.setBounds(100, 100, 50,50);
     	    	deductionPanel.add(circleLabel);
     	    	
-
+    	    	
           
             	
             }

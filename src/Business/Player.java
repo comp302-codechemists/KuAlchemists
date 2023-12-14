@@ -349,10 +349,14 @@ public class Player {
 	}
 	
 	
-	private void putTokenToResultsTriangle() {
-	
-		
+	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
+		deductionBoard.addDeduction(selectedTriangle, name);
+		deductionBoard.addExistingItem(selectedTriangle, selectedLeft);
 	}
+	
+	
+	
+	
 
 	
 	
