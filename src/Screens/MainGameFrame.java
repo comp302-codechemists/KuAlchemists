@@ -387,6 +387,7 @@ public class MainGameFrame extends GeneralFrame{
 	            }
 	        });
 	}
+
 	private void setTakeTurnButton() 
 	{
 		
