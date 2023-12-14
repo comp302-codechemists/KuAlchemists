@@ -263,6 +263,20 @@ public class Player {
 		artifact.applyArtifact(this);
 	}
 	
+	public void sellPotion(Ingredient ingr1, Ingredient ingr2, String promise) {
+		Potion potion = new Potion(ingr1,ingr2);
+		int enumeratedPotionResult = enumeratePotionResult(potion);
+		int enumeratedPromise = enumeratePromises(promise);
+		if(enumeratedPotionResult < enumeratedPromise ) {
+			System.out.println("Your promise does not satisfy potion result. Balance is unchanged.");
+		}
+		else {
+			updateBalance(enumeratedPromise);
+			System.out.printf("Your promise satisfied the potion result. You will be awarded by %d gold",enumeratedPromise);
+		}
+		
+	}
+	
 	private void updateReputation(int amount) {
 		setReputationPoints(getReputationPoints() + amount);
 	}	
@@ -280,11 +294,49 @@ public class Player {
 	private void addArtifact(Artifact artifact) {
 		getArtifacts().add(artifact);
 	}
+	
+	private int enumeratePromises(String promise) {
+		int return_val = 0;
+		
+		switch(promise) {
+		case "Positive":
+			return_val = 3;
+			break;
+		case "Positive or Neutral":
+			return_val = 2;
+			break;
+		case "Nothing":
+			return_val = 1;
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+		
+		return return_val;
+	}
+	
+	private int enumeratePotionResult(Potion potion) {
+		int return_val = 0;
+		
+		switch(potion.getDominantAspect().getSign()) {
+		case "positive":
+			return_val = 3;
+			break;
+		case "neutral":
+			return_val = 2;
+			break;
+		case "negative":
+			return_val = 1;
+			break;
+		default:
+			throw new IllegalArgumentException();
+		}
+		
+		return return_val;
+	}
 					
 		
-	private void sellPotion() {
-		
-	}
+	
 	
 		
 	private void publishTheory() {

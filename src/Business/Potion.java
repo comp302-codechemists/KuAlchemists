@@ -80,15 +80,18 @@ public class Potion {
 			Aspect correspondingAspect = Arrays.stream(aspectsTwo)
 					.filter(p -> p.getColor().equals(currentAspect.getColor()) &&
 							p.getSign().equals(currentAspect.getSign()) &&
-							(currentAspect.getMagnitude().equals("Big") 
-									? p.getMagnitude().equals("Small") 
-									: p.getMagnitude().equals("Big"))
+							(currentAspect.getMagnitude().equals("big") 
+									? p.getMagnitude().equals("small") 
+									: p.getMagnitude().equals("big"))
 							)
 					.findFirst().orElse(null);
 			if(correspondingAspect != null) {
 				dominantAspect = correspondingAspect;
 				break;
 			}
+		}
+		if(dominantAspect == null) {
+			dominantAspect = new Aspect("neutral","neutral","neutral");
 		}
 	}
 	
