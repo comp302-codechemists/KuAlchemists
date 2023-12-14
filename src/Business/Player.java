@@ -10,7 +10,7 @@ public class Player {
 	private List<Artifact> artifacts = new ArrayList<Artifact>();
 	private int balance;
 	private int reputationPoints;
-	private DeductionBoard deductionBoard;
+	private DeductionBoard deductionBoard = new DeductionBoard();
 	private int sicknessLevel;
 	private int goldtToBePayedToArtifact;
 	
