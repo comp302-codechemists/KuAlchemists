@@ -236,7 +236,7 @@ public class MainGameFrame extends GeneralFrame{
 		exitGameButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Handle mouse click event if needed
+            	
             }
 
             @Override
