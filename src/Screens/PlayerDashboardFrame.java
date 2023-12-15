@@ -585,7 +585,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        publishTheoryButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                // TODO
+	            	new PublishTheoryFrame(game, player);
+	            	PlayerDashboardFrame.this.dispose();
 	            }
 	        });
 	        

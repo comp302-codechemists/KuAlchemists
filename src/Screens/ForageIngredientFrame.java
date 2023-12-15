@@ -28,9 +28,6 @@ public class ForageIngredientFrame extends FunctionalFrame
 		this.setBackground("/FunctionalBackgroundImages/forageIngredientBackground.png");
 		this.setButton();
 	}
-
-                
-	
 	private void setButton()
 	{
 		button = new JButton();

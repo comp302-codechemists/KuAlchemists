@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Theory {
 	private Player owner;
-	private AlchemyMarker alchemyMarker;
+	private Token alchemyMarker;
 	private Ingredient ingredient;
 	//private List <Player> sealers; 
 	
-	public Theory(Player owner, AlchemyMarker alchemyMarker, Ingredient ingredient) {
+	public Theory(Player owner, Token alchemyMarker, Ingredient ingredient) {
 		this.owner = owner;
 		this.alchemyMarker = alchemyMarker;
 		this.ingredient = ingredient;
@@ -22,11 +22,11 @@ public class Theory {
 		this.owner = owner;
 	}
 
-	public AlchemyMarker getAlchemyMarker() {
+	public Token getAlchemyMarker() {
 		return alchemyMarker;
 	}
 
-	public void setAlchemyMarker(AlchemyMarker alchemyMarker) {
+	public void setAlchemyMarker(Token alchemyMarker) {
 		this.alchemyMarker = alchemyMarker;
 	}
 
