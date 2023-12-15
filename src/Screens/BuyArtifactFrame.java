@@ -22,7 +22,7 @@ public class BuyArtifactFrame extends FunctionalFrame{
 	
 	public BuyArtifactFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
-		this.setBackground("buyArtifactBackground");
+		this.setBackground("/FunctionalBackgroundImages/buyArtifactBackground.png");
 		this.setButton();
 	}
 	

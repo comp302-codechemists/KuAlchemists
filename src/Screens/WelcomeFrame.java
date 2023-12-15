@@ -43,7 +43,7 @@ public class WelcomeFrame extends JFrame {
     	this.setVisible(true);
     	this.setResizable(false);
     	this.setTitle("Welcome to the Game");
-    	this.setSize(600, 400);
+    	this.setSize(770, 410);
     	this.setLocationRelativeTo(null);
     	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	this.getContentPane().setLayout(null);
@@ -52,21 +52,39 @@ public class WelcomeFrame extends JFrame {
     private void setBackground() {
     	 
     	backgroundPanel = new JPanel() {
-             @Override
-             protected void paintComponent(Graphics g) {
-                 
-            	 super.paintComponent(g);
-                 
-                 Image image = new ImageIcon(this.getClass().getResource("/Images/bck.png")).getImage();
+            @Override
+            protected void paintComponent(Graphics g) {
                 
-                 int x = (getWidth() - image.getWidth(null)) / 2;
-                 int y = (getHeight() - image.getHeight(null)) / 2;
-                 g.drawImage(image, x, y, this);
-             }
-         };
+           	 super.paintComponent(g);
+                
+                Image image = new ImageIcon(this.getClass().getResource("/BackgroundImages/welcomeBackground.png")).getImage();
+                
+                // Calculate the scaled width and height to fit the panel
+                int panelWidth = getWidth();
+                int panelHeight = getHeight();
+                
+                double imageWidth = image.getWidth(null);
+                double imageHeight = image.getHeight(null);
+                
+                double scaleX = panelWidth / imageWidth;
+                double scaleY = panelHeight / imageHeight;
+                
+                double scale = Math.max(scaleX, scaleY);
+                
+                int scaledWidth = (int) (imageWidth * scale);
+                int scaledHeight = (int) (imageHeight * scale);
+                
+                // Calculate the x and y positions to center the image
+                int x = (panelWidth - scaledWidth) / 2;
+                int y = (panelHeight - scaledHeight) / 2;
+                
+                // Draw the scaled image
+                g.drawImage(image, x, y, scaledWidth, scaledHeight, this);
+            }
+        };
          
          backgroundPanel.setLocation(0, 0);
-         backgroundPanel.setSize(new Dimension(586, 363));
+         backgroundPanel.setSize(new Dimension(770, 410));
          backgroundPanel.setLayout(null);
          backgroundPanel.setOpaque(false);
          
@@ -85,7 +103,7 @@ public class WelcomeFrame extends JFrame {
         startButton.setBackground(Color.green); 
         startButton.setForeground(Color.WHITE); 
         startButton.setFont(new Font("Arial", Font.BOLD, 12)); 
-        startButton.setBounds(248, 200, 100, 30); 
+        startButton.setBounds(320, 230, 100, 30); 
 
         startButton.addActionListener(new ActionListener() {
             @Override

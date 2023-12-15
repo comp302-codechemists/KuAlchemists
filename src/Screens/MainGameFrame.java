@@ -151,7 +151,7 @@ public class MainGameFrame extends GeneralFrame{
                 
            	 super.paintComponent(g);
                 
-                Image image = new ImageIcon(this.getClass().getResource("/Images/mainGameFrame.png")).getImage();
+                Image image = new ImageIcon(this.getClass().getResource("/BackgroundImages/mainGameBackground.png")).getImage();
                 
                 // Calculate the scaled width and height to fit the panel
                 int panelWidth = getWidth();

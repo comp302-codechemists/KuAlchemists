@@ -32,7 +32,7 @@ public abstract class FunctionalFrame extends JFrame{
                 
            	 super.paintComponent(g);
                 
-                Image image = new ImageIcon(this.getClass().getResource("/Images/" + backgroundSource + ".png")).getImage();
+                Image image = new ImageIcon(this.getClass().getResource(backgroundSource)).getImage();
                 
                 // Calculate the scaled width and height to fit the panel
                 int panelWidth = getWidth();

@@ -7,10 +7,13 @@ import javax.swing.border.Border;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.StartGameController;
+import DesignSystem.GameButton;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 import java.util.Enumeration;
 
 public class StartGameFrame extends GeneralFrame {
@@ -45,9 +48,9 @@ public class StartGameFrame extends GeneralFrame {
     private JRadioButton player2Avatar3Button = new JRadioButton("avatar3");
     private JRadioButton player2Avatar4Button = new JRadioButton("avatar4");
     
-    private JButton startGameButton = new JButton("Start Game");
-    private JButton howToPlayButton = new JButton("How to Play");
-    private JButton exitGameButton = new JButton("Exit Game");
+    private JButton startGameButton;
+    private JButton howToPlayButton;
+    private JButton exitGameButton;
     
     String p1avatar;
     String p2avatar;
@@ -82,7 +85,7 @@ public class StartGameFrame extends GeneralFrame {
                 
            	 super.paintComponent(g);
                 
-                Image image = new ImageIcon(this.getClass().getResource("/Images/startGameBack.png")).getImage();
+                Image image = new ImageIcon(this.getClass().getResource("/BackgroundImages/startGameBackground.png")).getImage();
                 
                 // Calculate the scaled width and height to fit the panel
                 int panelWidth = getWidth();
@@ -115,61 +118,75 @@ public class StartGameFrame extends GeneralFrame {
         getContentPane().add(backgroundPanel);
     }
     
-    private void getAvatarImages() {
-        
+    private ImageIcon makeCircularAvatar(ImageIcon originalIcon) 
+    {
+        int diameter = Math.min(originalIcon.getIconWidth(), originalIcon.getIconHeight());
+        BufferedImage image = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = image.createGraphics();
+
+        // Create a circle and clip the original image to the circle
+        Ellipse2D.Double circle = new Ellipse2D.Double(0, 0, diameter, diameter);
+        g2.setClip(circle);
+        g2.drawImage(originalIcon.getImage(), 0, 0, diameter, diameter, null);
+        g2.dispose();
+
+        return new ImageIcon(image);
+    }
+
+    private void getAvatarImages() 
+    {
         ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/avatar1.png"));
         Image originalImage1 = originalIcon1.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-        avatar1 = new ImageIcon(originalImage1);
-        
+        avatar1 = makeCircularAvatar(new ImageIcon(originalImage1));
+
         ImageIcon originalIcon2 = new ImageIcon(getClass().getResource("/Images/avatar2.png"));
         Image originalImage2 = originalIcon2.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-        avatar2 = new ImageIcon(originalImage2);
-        
+        avatar2 = makeCircularAvatar(new ImageIcon(originalImage2));
+
         ImageIcon originalIcon3 = new ImageIcon(getClass().getResource("/Images/avatar3.png"));
         Image originalImage3 = originalIcon3.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-        avatar3 = new ImageIcon(originalImage3);
-        
+        avatar3 = makeCircularAvatar(new ImageIcon(originalImage3));
+
         ImageIcon originalIcon4 = new ImageIcon(getClass().getResource("/Images/avatar4.png"));
         Image originalImage4 = originalIcon4.getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-        avatar4 = new ImageIcon(originalImage4);
-        
-        
+        avatar4 = makeCircularAvatar(new ImageIcon(originalImage4));
     }
+
 
     private void setPlayer1Components()
     {
-    	player1Label.setBounds(322, 180, 120, 30);
+    	player1Label.setBounds(252, 180, 120, 30);
     	player1Label.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Label.setForeground(Color.white);
     	
     	usernameLabel = new JLabel("Enter a username.");
-    	usernameLabel.setBounds(252, 240, 200, 30);
+    	usernameLabel.setBounds(182, 240, 200, 30);
     	usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	usernameLabel.setForeground(Color.white);
     	
-    	player1UsernameTexfField.setBounds(252, 290, 200, 30);
+    	player1UsernameTexfField.setBounds(182, 290, 200, 30);
     	
     	avatarLabel = new JLabel("Select an avatar.");
-    	avatarLabel.setBounds(252, 350, 200, 30);
+    	avatarLabel.setBounds(182, 350, 200, 30);
     	avatarLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	avatarLabel.setForeground(Color.white);
     	
-    	player1Avatar1Button.setBounds(252, 421, 89, 89);
+    	player1Avatar1Button.setBounds(182, 421, 89, 89);
     	player1Avatar1Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar1Button.setForeground(Color.white);
     	player1Avatar1Button.setIcon(avatar1);
     	
-    	player1Avatar2Button.setBounds(366, 421, 89, 89);
+    	player1Avatar2Button.setBounds(296, 421, 89, 89);
     	player1Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar2Button.setForeground(Color.white);
     	player1Avatar2Button.setIcon(avatar2);
     	
-    	player1Avatar3Button.setBounds(252, 521, 89, 89);
+    	player1Avatar3Button.setBounds(182, 521, 89, 89);
     	player1Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar3Button.setForeground(Color.white);
     	player1Avatar3Button.setIcon(avatar3);
     	
-    	player1Avatar4Button.setBounds(366, 521, 89, 89);
+    	player1Avatar4Button.setBounds(296, 521, 89, 89);
     	player1Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player1Avatar4Button.setForeground(Color.white);
     	player1Avatar4Button.setIcon(avatar4);
@@ -195,38 +212,38 @@ public class StartGameFrame extends GeneralFrame {
     
     private void setPlayer2Components()
     {
-    	player2Label.setBounds(1011, 180, 120, 30);
+    	player2Label.setBounds(1211, 180, 120, 30);
     	player2Label.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Label.setForeground(Color.white);
     	
     	usernameLabel = new JLabel("Enter a username.");
-    	usernameLabel.setBounds(941, 240, 200, 30);
+    	usernameLabel.setBounds(1141, 240, 200, 30);
     	usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	usernameLabel.setForeground(Color.white);
     	
-    	player2UsernameTexfField.setBounds(941, 290, 200, 30);
+    	player2UsernameTexfField.setBounds(1141, 290, 200, 30);
     	
     	avatarLabel = new JLabel("Select an avatar.");
-    	avatarLabel.setBounds(941, 350, 200, 30);
+    	avatarLabel.setBounds(1141, 350, 200, 30);
     	avatarLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	avatarLabel.setForeground(Color.white);
     	
-    	player2Avatar1Button.setBounds(944, 421, 89, 89);
+    	player2Avatar1Button.setBounds(1144, 421, 89, 89);
     	player2Avatar1Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar1Button.setForeground(Color.white);
     	player2Avatar1Button.setIcon(avatar1);
     	
-    	player2Avatar2Button.setBounds(1062, 421, 89, 89);
+    	player2Avatar2Button.setBounds(1262, 421, 89, 89);
     	player2Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar2Button.setForeground(Color.white);
     	player2Avatar2Button.setIcon(avatar2);
     	
-    	player2Avatar3Button.setBounds(944, 521, 89, 89);
+    	player2Avatar3Button.setBounds(1144, 521, 89, 89);
     	player2Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar3Button.setForeground(Color.white);
     	player2Avatar3Button.setIcon(avatar3);
     	
-    	player2Avatar4Button.setBounds(1062, 521, 89, 89);
+    	player2Avatar4Button.setBounds(1262, 521, 89, 89);
     	player2Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player2Avatar4Button.setForeground(Color.white);
     	player2Avatar4Button.setIcon(avatar4);
@@ -249,14 +266,9 @@ public class StartGameFrame extends GeneralFrame {
   	
     private void setStartGameButton()
     {
+    	startGameButton = new GameButton("Start Game");
     	backgroundPanel.add(startGameButton);
     	startGameButton.setBounds(650, 550, 200, 30);
-    	startGameButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	startGameButton.setForeground(Color.white);
-    	startGameButton.setOpaque(false);
-    	startGameButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
- 
-    	
     	startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -310,13 +322,9 @@ public class StartGameFrame extends GeneralFrame {
     
     private void setHowToPlayButton()
     {
+    	howToPlayButton = new GameButton("How to Play?");
     	backgroundPanel.add(howToPlayButton);
     	howToPlayButton.setBounds(650, 600, 200, 30);
-    	howToPlayButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	howToPlayButton.setForeground(Color.white);
-    	howToPlayButton.setOpaque(false);
-    	howToPlayButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-
     	howToPlayButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -327,14 +335,9 @@ public class StartGameFrame extends GeneralFrame {
     
     private void setExitGameButton()
     {
+    	exitGameButton = new GameButton("Exit Game");
     	backgroundPanel.add(exitGameButton);
     	exitGameButton.setBounds(650, 650, 200, 30);
-    	exitGameButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	exitGameButton.setForeground(Color.white);
-    	exitGameButton.setOpaque(false);
-    	exitGameButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-    	
-
     	exitGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

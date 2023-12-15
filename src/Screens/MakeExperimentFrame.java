@@ -27,7 +27,7 @@ public class MakeExperimentFrame extends FunctionalFrame {
 
 	public MakeExperimentFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
-		this.setBackground("makeExperimentBackground");
+		this.setBackground("/FunctionalBackgroundImages/makeExperimentBackground.png");
 		this.setIngredients();
 		this.setWhereToTestButtons();
 	}
