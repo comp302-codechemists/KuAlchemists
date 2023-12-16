@@ -1,8 +1,10 @@
 package Business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Theory {
+	private static List<Theory> allTheories = new ArrayList<>();
 	private Player owner;
 	private Token alchemyMarker;
 	private Ingredient ingredient;
@@ -38,6 +40,14 @@ public class Theory {
 		this.ingredient = ingredient;
 	}
 	
+	public static List<Theory> getAllTheories() {
+		return allTheories;
+	}
+
+	public static void setAllTheories(List<Theory> allTheories) {
+		Theory.allTheories = allTheories;
+	}
+
 	public void showResult() {
 		
 		

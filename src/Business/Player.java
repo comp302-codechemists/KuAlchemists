@@ -341,6 +341,11 @@ public class Player {
 	
 		
 	private void publishTheory() {
+	
+		if (this.getBalance() < 1) {
+			System.out.println("Insufficient balance to publish a theory");
+		}
+		
 		
 	}
 		
