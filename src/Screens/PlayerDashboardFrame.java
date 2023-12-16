@@ -544,7 +544,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        debunkTheoryButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                // TODO
+	            	new DebunkTheoryFrame(game, player);
+	            	PlayerDashboardFrame.this.dispose();
 	            }
 	        });
 	        
