@@ -263,8 +263,8 @@ public class Player {
 		artifact.applyArtifact(this);
 	}
 	
-	public void sellPotion(Ingredient ingr1, Ingredient ingr2, String promise) {
-		Potion potion = new Potion(ingr1,ingr2);
+	public void sellPotion(String potionName) {
+		/*Potion potion = new Potion(potionName);
 		int enumeratedPotionResult = enumeratePotionResult(potion);
 		int enumeratedPromise = enumeratePromises(promise);
 		if(enumeratedPotionResult < enumeratedPromise ) {
@@ -274,6 +274,7 @@ public class Player {
 			updateBalance(enumeratedPromise);
 			System.out.printf("Your promise satisfied the potion result. You will be awarded by %d gold",enumeratedPromise);
 		}
+		*/
 		
 	}
 	
@@ -315,7 +316,7 @@ public class Player {
 		return return_val;
 	}
 	
-	private int enumeratePotionResult(Potion potion) {
+	/*private int enumeratePotionResult(Potion potion) {
 		int return_val = 0;
 		
 		switch(potion.getDominantAspect().getSign()) {
@@ -334,7 +335,7 @@ public class Player {
 		
 		return return_val;
 	}
-					
+		*/			
 		
 	
 	

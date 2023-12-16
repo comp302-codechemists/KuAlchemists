@@ -565,7 +565,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        sellPotionButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                // TODO
+	            	new SellPotionFrame(game, player);
+	            	PlayerDashboardFrame.this.dispose();
 	            }
 	        });
 	        

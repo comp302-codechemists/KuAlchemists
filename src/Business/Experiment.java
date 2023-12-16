@@ -56,9 +56,9 @@ public class Experiment {
 	}
 	
 	public void makeExperiment(Ingredient ing1, Ingredient ing2, String whereToTest) {
-		Potion potion = new Potion(ing1, ing2);
+		/*Potion potion = new Potion(ing1, ing2);
 		this.resultToken = potion.getDominantAspect();
-		testExperiment(resultToken);
+		testExperiment(resultToken);*/
 	}
 	
 	public void testExperiment(Aspect resultToken) {
