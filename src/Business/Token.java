@@ -16,6 +16,8 @@ public class Token {
 	 * */
 	
 	public static Map<String, Token> tokens = new HashMap<String, Token>();
+	public static final String[] markers = {"by+bk+bm+", "by+kk-km+","by-bk-bm-", "by-kk+km-", 
+											"ky+bk+km-", "ky+kk-bm-", "ky-bk-km+", "ky-kk+bm+"};
 	
 	public static void initializeTokens()
 	{
@@ -26,36 +28,38 @@ public class Token {
 		
 		tokens.put("Verdant Sprig", new Token("big-negative-red",
 											  "small-negative-green",
-											  "small-positive-blue"));
+											  "small-positive-blue", "ky-bk-km+"));
 		tokens.put("Essence of Stride", new Token("small-negative-red",
 												  "small-positive-green",
-												  "big-negative-blue"));
+												  "big-negative-blue", "ky+kk-bm-"));
 		tokens.put("Fungal Spore", new Token("big-positive-red",
 											  "small-positive-green",
-											  "small-negative-blue"));
+											  "small-negative-blue", "ky+bk+km-"));
 		tokens.put("Azure Blossom", new Token("big-negative-red",
 											  "big-negative-green",
-											  "big-negative-blue"));
+											  "big-negative-blue", "by-bk-bm-"));
 		tokens.put("Terror Root", new Token("small-positive-red",
 											 "big-negative-green",
-											 "small-negative-blue"));
+											 "small-negative-blue", "by-kk+km-"));
 		tokens.put("Venomous Stinger", new Token("small-negative-red",
 												 "big-positive-green",
-												 "small-positive-blue"));
+												 "small-positive-blue", "by+kk-km+"));
 		tokens.put("Amphibian Essence", new Token("small-positive-red",
 												  "small-negative-green",
-												  "big-positive-blue"));
+												  "big-positive-blue", "ky-kk+bm+"));
 		tokens.put("Avian Quill", new Token("big-positive-red",
 								   		    "big-positive-green",
-										    "big-positive-blue"));
+										    "big-positive-blue", "by+bk+bm+"));
 		
 		System.out.println("Tokens has been initialized.");
 	}
 	
 	
 	Aspect tokenAspects[] = new Aspect[3];
+	
+	private String name;
 
-	public Token(String aspectOne, String aspectTwo, String aspectThree) {
+	public Token(String aspectOne, String aspectTwo, String aspectThree, String name) {
 		
 		Map<String, Aspect> aspects = Aspect.aspectsDictionary;
 		
@@ -63,7 +67,7 @@ public class Token {
 		tokenAspects[1] = aspects.get(aspectTwo);
 		tokenAspects[2] = aspects.get(aspectThree);
 		
-		
+		this.name = name;
 	}
 
 	public Aspect[] getTokenAspects() {

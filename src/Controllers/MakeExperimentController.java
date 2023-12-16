@@ -31,9 +31,10 @@ public class MakeExperimentController {
 	}
 	
 	
-	public void handleExperiment() {
+	public String handleExperiment(List<String> ingredientList) {
 		
-
+// returns the name of the result
+		return "by-bk-bm-";
 	}
 	
 	

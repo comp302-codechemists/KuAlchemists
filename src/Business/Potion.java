@@ -1,9 +1,11 @@
 package Business;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Potion {
 	
+	/*
 	private Player owner;
 	private Ingredient ingredientOne;
 	private Ingredient ingredientTwo;
@@ -94,6 +96,25 @@ public class Potion {
 			dominantAspect = new Aspect("neutral","neutral","neutral");
 		}
 	}
+	*/
+	
+	public static final String[] potions = {"potion_blue_minus", "potion_blue_plus", "potion_green_minus",
+			"potion_green_plus", "potion_red_minus", "potion_red_plus", "potion_null"};
+	
+	private String name;
+
+	public Potion(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	
 	
 	

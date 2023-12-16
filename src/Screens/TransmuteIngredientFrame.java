@@ -22,7 +22,7 @@ public class TransmuteIngredientFrame extends FunctionalFrame{
 	
 	public TransmuteIngredientFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
-		this.setBackground("transmuteIngredientBackground");
+		this.setBackground("/FunctionalBackgroundImages/transmuteIngredientBackground.png");
 		this.setTransmuteLabel();
 		this.setIngredients();
 	}
