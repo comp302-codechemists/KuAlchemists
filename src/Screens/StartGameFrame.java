@@ -354,6 +354,5 @@ public class StartGameFrame extends GeneralFrame {
     private void howToPlayButtonPressed()
     {
     	new HowToPlayFrame();
-    	//this.dispose();
     }
 }

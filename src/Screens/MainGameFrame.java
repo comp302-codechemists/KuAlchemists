@@ -225,9 +225,7 @@ public class MainGameFrame extends GeneralFrame{
 		
 		// Set transparent background for the table and cells
         playersInfoTable.setOpaque(false);
-        playersInfoTable.setBackground(new Color(0, 0, 0, 0)); // Transparent black (adjust alpha as needed)
-        playersInfoTable.getColumnModel().getColumn(1).setCellRenderer(new AvatarRenderer());
-        playersInfoTable.getColumnModel().getColumn(2).setCellRenderer(new AvatarRenderer());
+        playersInfoTable.setBackground(new Color(0, 0, 0, 0)); // Transparent black (adjust alpha as needed);
 
         
 		backgroundPanel.add(playersInfoTable);
@@ -237,27 +235,6 @@ public class MainGameFrame extends GeneralFrame{
 		backgroundPanel.add(round);
 		backgroundPanel.add(turn);
 		
-	}
-	
-	private static class AvatarRenderer extends DefaultTableCellRenderer {
-	    @Override
-	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-	        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-	        if (value instanceof ImageIcon) {
-	            setIcon((ImageIcon) value);
-	            setText("");  // Set an empty string to avoid displaying text
-	            setHorizontalAlignment(CENTER);
-	            setVerticalAlignment(CENTER);
-	        } else {
-	            setIcon(null); // Clear the icon if the value is not an ImageIcon
-	            setText(value != null ? value.toString() : "");
-	            setHorizontalAlignment(LEFT);
-	            setVerticalAlignment(CENTER);
-	        }
-
-	        return component;
-	    }
 	}
 	
 	private void setButtons()
@@ -271,6 +248,12 @@ public class MainGameFrame extends GeneralFrame{
 	{
 		exitGameButton = new GameButton("Exit Game");
 		exitGameButton.setBounds(1320, 500, 150, 30);
+		exitGameButton.addActionListener(new ActionListener() {
+			@Override
+	        public void actionPerformed(ActionEvent e) {
+				MainGameFrame.this.dispose();
+			}
+		});
 		backgroundPanel.add(exitGameButton);
 
 	}
@@ -278,6 +261,12 @@ public class MainGameFrame extends GeneralFrame{
 	{
 		pauseGameButton = new GameButton("Pause Game");
 		pauseGameButton.setBounds(1320, 560, 150, 30);
+		pauseGameButton.addActionListener(new ActionListener() {
+			@Override
+	        public void actionPerformed(ActionEvent e) {
+				KUAlchemistsGame.instance.pause();
+			}
+		});
 		backgroundPanel.add(pauseGameButton);
 	}
 	private void setHowToPlayButton()

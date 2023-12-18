@@ -11,8 +11,6 @@ public class IngredientStorage {
 
 	private IngredientStorage() {
 		initializeStorage();
-
-		System.out.println("Ingredient storage has been created.");
 	}
 
 	public static IngredientStorage getInstance() {
@@ -32,9 +30,6 @@ public class IngredientStorage {
 		// initialize all aspects
 		Aspect.initializeAllAspects();
 
-		// initialize all tokens
-		Token.initializeTokens();
-
 		// initialize all ingredients
 		Ingredient.initializeIngredients();
 
@@ -48,7 +43,7 @@ public class IngredientStorage {
 		ingredientList.addAll(Ingredient.ingredients);
 		
 
-		System.out.println("Ingredient storage ingredient list has been initialized.");
+		System.out.println("Ingredient storage initialized.");
 
 	}
 
@@ -60,7 +55,7 @@ public class IngredientStorage {
 
 	public void shuffleIngredients() {
 		Collections.shuffle(ingredientList);
-		System.out.println("Ingredients have been shuffled.");
+		System.out.println("Ingredients  shuffled.");
 	}
 
 	public void addToBottom(Ingredient ingredient) {

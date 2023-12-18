@@ -92,7 +92,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
 	    int xOffset = 50;
 	    int yOffset = 20;
 
-	    String[] markers = Token.markers;
+	    String[] markers = Token.getTokenNames();
 	    for (int i = 0; i < markers.length; i++) {
 	    	
 	    	String markerName = markers[i];

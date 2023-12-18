@@ -412,6 +412,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         backgroundPanel.add(ingredientsLabel);
         
         for (Ingredient ingredient : player.getIngredients()) {
+        	System.out.println(ingredient.getName());
         	int index = Ingredient.getIngredientIndex(ingredient.getName());
 	    	Image image = new ImageIcon(this.getClass().getResource("/Images/ingredient" + index + ".png")).getImage();
 	    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);

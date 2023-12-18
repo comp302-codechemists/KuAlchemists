@@ -88,7 +88,7 @@ public class MakeExperimentFrame extends FunctionalFrame {
 				resultToken = controller.handleExperiment(selectedIngredients);
 			}
 
-		    String imagePath = "/Images/" + resultToken + ".png";
+		    String imagePath = "/potionImages/" + resultToken + ".png";
 
 		    ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
 		    JOptionPane.showMessageDialog(null, "", "Experiment Result", JOptionPane.INFORMATION_MESSAGE, icon);

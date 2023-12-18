@@ -1,105 +1,16 @@
 package Business;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+/*
+ * This class stores the possible potions,
+ * each potion has a name.
+ * There exists an image under potionImages folder
+ * with the same name of the potion. 
+ * */
 
 public class Potion {
 	
-	/*
-	private Player owner;
-	private Ingredient ingredientOne;
-	private Ingredient ingredientTwo;
-	private Token resultToken;
-	private String promise;
-	private Aspect dominantAspect = null;	
-
-	public Potion(Ingredient ingredientOne, Ingredient ingredientTwo) {
-		this.ingredientOne = ingredientOne;
-		this.ingredientTwo = ingredientTwo;
-		this.findDominantAspect();
-	}
-
-	public Potion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) {
-		this.ingredientOne = ingredientOne;
-		this.ingredientTwo = ingredientTwo;
-		this.promise = promise;
-	}
-
-	public Player getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Player owner) {
-		this.owner = owner;
-	}
-
-	public Ingredient getIngredientOne() {
-		return ingredientOne;
-	}
-
-	public void setIngredientOne(Ingredient ingredientOne) {
-		this.ingredientOne = ingredientOne;
-	}
-
-	public Ingredient getIngredientTwo() {
-		return ingredientTwo;
-	}
-
-	public void setIngredientTwo(Ingredient ingredientTwo) {
-		this.ingredientTwo = ingredientTwo;
-	}
-
-	public Token getToken() {
-		return resultToken;
-	}
-
-	public void setToken(Token token) {
-		this.resultToken = token;
-	}
-
-	public String getPromise() {
-		return promise;
-	}
-
-	public void setPromise(String promise) {
-		this.promise = promise;
-	}
-	
-	public Aspect getDominantAspect() {
-		return dominantAspect;
-	}
-	
-	private void findDominantAspect() {
-		
-		Token tokenOne = Ingredient.getToken(ingredientOne.getName());
-		Token tokenTwo = Ingredient.getToken(ingredientTwo.getName());
-		
-		Aspect[] aspectsOne = tokenOne.getTokenAspects();
-		Aspect[] aspectsTwo = tokenTwo.getTokenAspects();
-		
-		for(int i = 0; i < 3; i++) {
-			Aspect currentAspect = aspectsOne[i];
-			Aspect correspondingAspect = Arrays.stream(aspectsTwo)
-					.filter(p -> p.getColor().equals(currentAspect.getColor()) &&
-							p.getSign().equals(currentAspect.getSign()) &&
-							(currentAspect.getMagnitude().equals("big") 
-									? p.getMagnitude().equals("small") 
-									: p.getMagnitude().equals("big"))
-							)
-					.findFirst().orElse(null);
-			if(correspondingAspect != null) {
-				dominantAspect = correspondingAspect;
-				break;
-			}
-		}
-		if(dominantAspect == null) {
-			dominantAspect = new Aspect("neutral","neutral","neutral");
-		}
-	}
-	*/
-	
-	public static final String[] potions = {"potion_blue_minus", "potion_blue_plus", "potion_green_minus",
-			"potion_green_plus", "potion_red_minus", "potion_red_plus", "potion_null"};
+	public static final String[] potions = {"m-", "m+", "y-",
+			"y+", "k-", "k+", "0"};
 	
 	private String name;
 
@@ -115,8 +26,67 @@ public class Potion {
 		this.name = name;
 	}
 	
-	
-	
-	
-	
+	public static Potion makePotion(Ingredient ingredientOne, Ingredient ingredientTwo)
+	{
+		Potion potion = new Potion("0");
+		
+		for (Aspect ingredientOneAspect: ingredientOne.getToken().getTokenAspects())
+		{
+			for (Aspect ingredientTwoAspect: ingredientTwo.getToken().getTokenAspects())
+			{
+				// the same color
+				if (ingredientOneAspect.getColor().equals(ingredientTwoAspect.getColor()))
+				{
+					// the same sign
+					if (ingredientOneAspect.getSign().equals(ingredientTwoAspect.getSign()))
+					{
+						// the opposite magnitude
+						if (!ingredientOneAspect.getMagnitude().equals(ingredientTwoAspect.getMagnitude()))
+						{
+							System.out.println("Color: " + ingredientOneAspect.getColor() + " - " + ingredientTwoAspect.getColor());
+							System.out.println("Sign: " + ingredientOneAspect.getSign() + " - " + ingredientTwoAspect.getSign());
+							System.out.println("Size: " + ingredientOneAspect.getMagnitude() + " - " + ingredientTwoAspect.getMagnitude());
+
+							String potionName = ingredientOneAspect.getColor() + ingredientOneAspect.getSign();
+							potion = new Potion(potionName);
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+			return potion;
+	}
 }
+
+/*private void findDominantAspect() {
+	
+	Token tokenOne = Ingredient.getToken(ingredientOne.getName());
+	Token tokenTwo = Ingredient.getToken(ingredientTwo.getName());
+	
+	Aspect[] aspectsOne = tokenOne.getTokenAspects();
+	Aspect[] aspectsTwo = tokenTwo.getTokenAspects();
+	
+	for(int i = 0; i < 3; i++) {
+		Aspect currentAspect = aspectsOne[i];
+		Aspect correspondingAspect = Arrays.stream(aspectsTwo)
+				.filter(p -> p.getColor().equals(currentAspect.getColor()) &&
+						p.getSign().equals(currentAspect.getSign()) &&
+						(currentAspect.getMagnitude().equals("big") 
+								? p.getMagnitude().equals("small") 
+								: p.getMagnitude().equals("big"))
+						)
+				.findFirst().orElse(null);
+		if(correspondingAspect != null) {
+			dominantAspect = correspondingAspect;
+			break;
+		}
+	}
+	if(dominantAspect == null) {
+		dominantAspect = new Aspect("neutral","neutral","neutral");
+	}
+}*/
+
+
+
