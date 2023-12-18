@@ -1,6 +1,7 @@
 package Business;
 
-public class Experiment {
+public class Experiment 
+{
 	private Player owner;
 	private Ingredient ingredientOne;
 	private Ingredient ingredientTwo;
@@ -56,20 +57,20 @@ public class Experiment {
 	}
 	
 	public void makeExperiment(Ingredient ing1, Ingredient ing2, String whereToTest) {
-		Potion potion = new Potion(ing1, ing2);
+		/*Potion potion = new Potion(ing1, ing2);
 		this.resultToken = potion.getDominantAspect();
-		testExperiment(resultToken);
+		testExperiment(resultToken);*/
 	}
 	
 	public void testExperiment(Aspect resultToken) {
 		
-		if(resultToken.getSign().equals("Negative") && whereToTest.equals("Student")) {
+		if(resultToken.getSign().equals("-") && whereToTest.equals("Student")) {
 			owner.updateBalance(-1);
 		}
-		else if(resultToken.getSign().equals("Negative") && owner.getSicknessLevel() != 2) {
+		else if(resultToken.getSign().equals("-") && owner.getSicknessLevel() != 2) {
 			owner.setSicknessLevel(owner.getSicknessLevel() + 1);
 		}
-		else if(resultToken.getSign().equals("Negative") && owner.getSicknessLevel() == 2) {
+		else if(resultToken.getSign().equals("-") && owner.getSicknessLevel() == 2) {
 			owner.updateBalance(- owner.getBalance());
 		}
 		else {
@@ -77,6 +78,5 @@ public class Experiment {
 		}
 			
 	}
-	
 	
 }

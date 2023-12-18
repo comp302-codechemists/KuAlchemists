@@ -5,6 +5,7 @@ import java.util.List;
 
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
+import Business.Potion;
 
 public class MakeExperimentController {
 	
@@ -31,9 +32,14 @@ public class MakeExperimentController {
 	}
 	
 	
-	public void handleExperiment() {
+	public String handleExperiment(List<String> ingredientList) {
 		
+		Ingredient ingredientOne = Ingredient.getIngredient(ingredientList.get(0));
+		Ingredient ingredientTwo = Ingredient.getIngredient(ingredientList.get(1));
 
+		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
+		System.out.println("Potion: " + potion.getName());
+		return potion.getName();
 	}
 	
 	

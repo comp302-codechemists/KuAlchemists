@@ -33,7 +33,6 @@ public abstract class Artifact {
 
 	public abstract void applyArtifact(Player player);
 
-
 	public static final List<Artifact> artifacts = new ArrayList<Artifact>();
 
 	public static void initializeArtifacts()
@@ -54,7 +53,7 @@ public abstract class Artifact {
 		artifacts.add(experimentHelperArtifact);
 		artifacts.add(discountArtifact);
 
-		System.out.println("Artifact has been initialized.");
+		System.out.println("Artifacts initialized.");
 	}
 
 }

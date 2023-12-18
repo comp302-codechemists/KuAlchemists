@@ -25,12 +25,9 @@ public class ForageIngredientFrame extends FunctionalFrame
 	
 	public ForageIngredientFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
-		this.setBackground("forageIngredientBackground");
+		this.setBackground("/FunctionalBackgroundImages/forageIngredientBackground.png");
 		this.setButton();
 	}
-
-                
-	
 	private void setButton()
 	{
 		button = new JButton();

@@ -12,8 +12,6 @@ public class ArtifactStorage {
 	public ArtifactStorage()
 	{
 		initializeStorage();
-		
-		System.out.println("Artifact storage has been created.");
 	}
 	
 	private void initializeStorage()
@@ -28,14 +26,14 @@ public class ArtifactStorage {
 		artifactList.addAll(Artifact.artifacts);
 		artifactList.addAll(Artifact.artifacts);
 		
-		System.out.println("Artifact storage artifact list has been initialized.");
+		System.out.println("Artifact storage initialized.");
 
 	}
 	
 	public void shuffleArtifacts()
 	{
 		Collections.shuffle(artifactList);
-        System.out.println("Ingredients have been shuffled.");
+        System.out.println("Artifacts shuffled.");
 	}
 	
 	public static Artifact getArtifact() {

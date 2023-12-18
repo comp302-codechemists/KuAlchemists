@@ -14,7 +14,7 @@ public class SellPotionController {
 	
 	public void handleSellPotion(String firstIngredientName, String secondIngredientName, String promise ) throws Exception {
 		
-		if(firstIngredientName == null || secondIngredientName == null) {
+		/*if(firstIngredientName == null || secondIngredientName == null) {
 			throw new IllegalArgumentException("Please choose both ingredients");
 		}
 		
@@ -44,7 +44,7 @@ public class SellPotionController {
 		}
 		else {
 			throw new NotFoundInStorageException();
-		}
+		}*/
 	}
 
 }

@@ -7,7 +7,8 @@ import java.util.Map;
 
 public class Ingredient {
 
-	String name;
+	private String name;
+	private Token token;
 	
 	public static final List<Ingredient> ingredients = new ArrayList<Ingredient>();
 	
@@ -20,19 +21,26 @@ public class Ingredient {
     	 * */
 		
 		// Create all ingredients
-	    List<Ingredient> ingredientList = new ArrayList<>();
-	    for (String name : Token.tokens.keySet()) {
-	        Ingredient ingredient = new Ingredient(name); 
-	        ingredientList.add(ingredient);
-	    }
-
-	    // Add all ingredients to the existing list
-	    ingredients.addAll(ingredientList);
-	    
-	    System.out.println("All ingredients has been initialized in Ingredient class.");
+		ingredients.add(new Ingredient("Verdant Sprig", new Token(Aspect.getAspect("bk-"),
+				Aspect.getAspect("ky-"),Aspect.getAspect("km+"))));
+		ingredients.add(new Ingredient("Essence of Stride", new Token(Aspect.getAspect("kk-"),
+				Aspect.getAspect("ky+"),Aspect.getAspect("bm-"))));
+		ingredients.add(new Ingredient("Fungal Spore", new Token(Aspect.getAspect("ky+"),
+				Aspect.getAspect("bk+"),Aspect.getAspect("km-"))));
+		ingredients.add(new Ingredient("Azure Blossom", new Token(Aspect.getAspect("by-"), 
+				Aspect.getAspect("bk-"), Aspect.getAspect("bm-"))));
+		ingredients.add(new Ingredient("Terror Root", new Token(Aspect.getAspect("by-"),
+				Aspect.getAspect("kk+"), Aspect.getAspect("km-"))));
+		ingredients.add(new Ingredient("Venomous Stinger", new Token(Aspect.getAspect("by+"),
+				Aspect.getAspect("kk-"), Aspect.getAspect("km+"))));
+		ingredients.add(new Ingredient("Amphibian Essence", new Token(Aspect.getAspect("ky-"),
+				Aspect.getAspect("kk+"), Aspect.getAspect("bm+"))));
+		ingredients.add(new Ingredient("Avian Quill", new Token(Aspect.getAspect("by+"),
+				Aspect.getAspect("bk+"), Aspect.getAspect("bm+"))));
+			    
+	    System.out.println("Ingredients initialized.");
 		
 	}
-	
 	public static int getIngredientIndex(String name)
 	{
 		Map<String, Integer> map = new HashMap<>();
@@ -48,27 +56,45 @@ public class Ingredient {
 		return map.get(name);
 	}
 	
-	public Ingredient(String name) {
+	public Ingredient(String name, Token token) {
 		super();
 		this.name = name;
+		this.token = token;
 	}
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public static Token getToken(String ingredientName) {
-		return Token.tokens.get(ingredientName);
+	public static Ingredient getIngredient(String name)
+	{
+		for (Ingredient ingredient: ingredients)
+		{
+			if (ingredient.name.equals(name))
+			{
+				return ingredient;
+			}
+		}
+		
+		return null;
 	}
 	
 	@Override
 	public String toString() {
 		return "Ingredient [name=" + name + "]";
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Token getToken() {
+		return token;
+	}
+	public void setToken(Token token) {
+		this.token = token;
+	}
+	public static List<Ingredient> getIngredients() {
+		return ingredients;
+	}
+	
 	
 	
 }
