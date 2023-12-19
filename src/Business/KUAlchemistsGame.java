@@ -8,13 +8,20 @@ import Controllers.PauseController;
 
 public class KUAlchemistsGame {
 
+	public static KUAlchemistsGame instance;
+	
+	// player related
+	private List<Player> players = new ArrayList<Player>();
 	private int currentPlayerIndex;
 	public Player currentPlayer;
-	public static KUAlchemistsGame instance;
 	int numberOfPlayers;
-	IngredientStorage ingredientStorage;
-	ArtifactStorage artifactStorage;
-	List<Player> players = new ArrayList<Player>();
+	
+	// each game has an ingredient storage, an artifact storage and a publication board
+	private IngredientStorage ingredientStorage;
+	private ArtifactStorage artifactStorage;
+	private PublicationBoard publicationBoard;
+	
+	// game situation
 	int level = 1;
 	boolean paused = false;
 	boolean finished = false;
