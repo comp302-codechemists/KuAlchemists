@@ -1,12 +1,9 @@
 package Business;
 
-public class PublicationBoard {
-
-
+public class PublicationBoard 
+{
 	private static PublicationBoard instance;
-
-
-
+	
 	public static PublicationBoard getInstance() {
 		if (instance == null) {
 			instance = new PublicationBoard();

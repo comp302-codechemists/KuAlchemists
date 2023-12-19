@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Theory {
 	private static List<Theory> allTheories = new ArrayList<>();
+	private static List<String> availableIngredients = new ArrayList<>();
 	private Player owner;
 	private Token alchemyMarker;
 	private Ingredient ingredient;

@@ -93,7 +93,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	        aspectButton.setOpaque(false);
 	        aspectButton.setContentAreaFilled(false);
 	        aspectButton.setBorderPainted(false);
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/aspectImages/" + potion + ".png"));
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/potionImages/" + potion + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
 	        aspectButton.setIcon(new ImageIcon(image));
 
