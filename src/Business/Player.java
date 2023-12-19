@@ -303,6 +303,7 @@ public class Player {
 	public void publishTheory(String selectedMarker, String selectedTheory) {
 		
 		if (this.getBalance() < 1) {
+			
 			System.out.println("Insufficient balance to publish a theory");
 		}
 		else {
