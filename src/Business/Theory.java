@@ -14,6 +14,7 @@ public class Theory {
 		this.owner = owner;
 		this.alchemyMarker = alchemyMarker;
 		this.ingredient = ingredient;
+		allTheories.add(this);
 	}
 
 	public Player getOwner() {
@@ -36,6 +37,11 @@ public class Theory {
 		return ingredient;
 	}
 
+	@Override
+	public String toString() {
+		return "Theory [owner=" + owner + ", alchemyMarker=" + alchemyMarker + ", ingredient=" + ingredient + "]";
+	}
+
 	public void setIngredient(Ingredient ingredient) {
 		this.ingredient = ingredient;
 	}
@@ -46,6 +52,16 @@ public class Theory {
 
 	public static void setAllTheories(List<Theory> allTheories) {
 		Theory.allTheories = allTheories;
+	}
+	
+	public static Theory getTheory(String ingredientName) {
+		Theory theory = null;
+		for(Theory t: allTheories) {
+			if(ingredientName.equals(t.getIngredient().getName())) {
+				theory = t;
+			}
+		}
+		return theory;
 	}
 
 	public void showResult() {

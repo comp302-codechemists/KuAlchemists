@@ -8,6 +8,7 @@ public class Player {
 	private String avatarPath;
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 	private List<Artifact> artifacts = new ArrayList<Artifact>();
+	private List<Theory> theories = new ArrayList<Theory>();
 	private int balance;
 	private int reputationPoints;
 	private DeductionBoard deductionBoard = new DeductionBoard();
@@ -155,6 +156,14 @@ public class Player {
 		this.goldtToBePayedToArtifact = goldtToBePayedToArtifact;
 	}
 	
+	public List<Theory> getTheories() {
+		return theories;
+	}
+
+	public void setTheories(List<Theory> theories) {
+		this.theories = theories;
+	}
+	
 
 	public Potion makeExperiment(List<String> ingredientList, int whereToTest) {
 
@@ -291,6 +300,38 @@ public class Player {
 		
 	}
 	
+	public void publishTheory(String selectedMarker, String selectedTheory) {
+		
+		if (this.getBalance() < 1) {
+			System.out.println("Insufficient balance to publish a theory");
+		}
+		else {
+			PublicationBoard.getInstance().publishTheory(this, Token.getTokens().get(selectedMarker), Ingredient.getIngredient(selectedTheory));
+			System.out.println("Theories");
+			getTheories().forEach(System.out::println);
+		}
+	}
+	
+	public void debunkTheory(String selectedTheory,int selectedAspect) {
+		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
+		//Aspect aspect = Aspect.getAspect(selectedAspect);
+		if(theory == null) {
+			System.out.println("Theory not found");
+		}
+		else if(theory.getOwner().getUserName().equals(this.getUserName())) {
+			System.out.println("You cannot debunk your own theory");
+		}
+		else {
+			boolean result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Player [userName=" + userName + ", balance=" + balance + ", reputationPoints=" + reputationPoints
+				+ ", sicknessLevel=" + sicknessLevel + "]";
+	}
+
 	private void updateReputation(int amount) {
 		setReputationPoints(getReputationPoints() + amount);
 	}	
@@ -353,25 +394,22 @@ public class Player {
 	
 	
 		
-	private void publishTheory() {
 	
-		if (this.getBalance() < 1) {
-			System.out.println("Insufficient balance to publish a theory");
-		}
 		
-		
+	
+	
+	
+	
+	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
+		deductionBoard.addDeduction(selectedTriangle, name);
+		deductionBoard.addExistingItem(selectedTriangle, selectedLeft);
 	}
-		
-	
-	private void debunkTheory() {
-		
-	}
+
 	
 	
-	private void putTokenToResultsTriangle() {
 	
-		
-	}
+	
+	
 
 	
 	

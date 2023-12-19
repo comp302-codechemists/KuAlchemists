@@ -48,7 +48,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
     		try {
     			//TODO
     			controller = new DebunkTheoryController(game);
-				controller.handle();
+				//controller.handleDebunk(selectedTheory,selectedAspect);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

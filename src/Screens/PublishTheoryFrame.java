@@ -41,11 +41,16 @@ public class PublishTheoryFrame extends FunctionalFrame {
     	publishButton = new GameButton("Publish");
     	publishButton.setBounds(500, 470, 100, 30);
     	backgroundPanel.add(publishButton);
-    	
+    	publishButton.addActionListener(e -> handlePublishButton());    	
+    }
+    
+    private void handlePublishButton() {
     	if (selectedMarker != null && selectedTheory != null)
     	{
     		controller = new PublishTheoryController(game);
-    		controller.handle();
+    		controller.handlePublish(selectedMarker,selectedTheory);
+    		new MainGameFrame(game);
+    	    PublishTheoryFrame.this.dispose();
     	}
     }
     private void initializeSelectedMarkerLabel() 
@@ -138,6 +143,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
 	    
 	    for (int i = 0; i < Ingredient.ingredients.size(); i++) {
 	    	
+	    	String ingredientName = Ingredient.ingredients.get(i).getName();
 	    	int theoryNo = i + 1;
 	    	
 	        JToggleButton theoryButton = new JToggleButton(); 
@@ -154,17 +160,18 @@ public class PublishTheoryFrame extends FunctionalFrame {
 
 	        theoryGroup.add(theoryButton);
 	        theoryButton.setActionCommand(String.valueOf(theoryNo)); 
-	        theoryButton.addActionListener(e -> handleTheorySelection(String.valueOf(theoryNo))); 
+	        theoryButton.addActionListener(e -> handleTheorySelection(String.valueOf(theoryNo), String.valueOf(ingredientName))); 
 	    }
 
 	    backgroundPanel.setLayout(null);
 	    backgroundPanel.add(theoryPanel);
 	}
 	
-	private void handleTheorySelection(String selectedTheoryNo)
+	private void handleTheorySelection(String selectedTheoryNo, String ingredientName)
 	{
 		System.out.println(selectedTheoryNo);
 		if (selectedTheory == null || !selectedTheory.equals(selectedTheoryNo)) {
+			selectedTheory = ingredientName;
             // set selected marker image
             ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + selectedTheoryNo + ".png"));
         	Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);

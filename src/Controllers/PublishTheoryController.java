@@ -10,8 +10,9 @@ public class PublishTheoryController
 		this.game = game;
 	}
 	
-	public void handle()
+	public void handlePublish(String selectedMarker, String selectedTheory)
 	{
-		
+		game.currentPlayer.publishTheory(selectedMarker,selectedTheory);
+
 	}
 }
