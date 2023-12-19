@@ -26,6 +26,11 @@ public class Potion {
 		this.name = name;
 	}
 	
+	public boolean isPositive()
+	{
+		return name.contains("+");
+	}
+	
 	public static Potion makePotion(Ingredient ingredientOne, Ingredient ingredientTwo)
 	{
 		Potion potion = new Potion("0");
@@ -59,34 +64,6 @@ public class Potion {
 			return potion;
 	}
 }
-
-/*private void findDominantAspect() {
-	
-	Token tokenOne = Ingredient.getToken(ingredientOne.getName());
-	Token tokenTwo = Ingredient.getToken(ingredientTwo.getName());
-	
-	Aspect[] aspectsOne = tokenOne.getTokenAspects();
-	Aspect[] aspectsTwo = tokenTwo.getTokenAspects();
-	
-	for(int i = 0; i < 3; i++) {
-		Aspect currentAspect = aspectsOne[i];
-		Aspect correspondingAspect = Arrays.stream(aspectsTwo)
-				.filter(p -> p.getColor().equals(currentAspect.getColor()) &&
-						p.getSign().equals(currentAspect.getSign()) &&
-						(currentAspect.getMagnitude().equals("big") 
-								? p.getMagnitude().equals("small") 
-								: p.getMagnitude().equals("big"))
-						)
-				.findFirst().orElse(null);
-		if(correspondingAspect != null) {
-			dominantAspect = correspondingAspect;
-			break;
-		}
-	}
-	if(dominantAspect == null) {
-		dominantAspect = new Aspect("neutral","neutral","neutral");
-	}
-}*/
 
 
 

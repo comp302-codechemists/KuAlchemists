@@ -156,10 +156,23 @@ public class Player {
 	}
 	
 
-	public void makeExperiment(Player currentPlayer, Ingredient ingr1, Ingredient ingr2, String whereToTest) {
-		Experiment experiment = new Experiment(currentPlayer, ingr1, ingr2, whereToTest);
-		this.removeIngredientCard(ingr1);
-		this.removeIngredientCard(ingr2);
+	public Potion makeExperiment(List<String> ingredientList, int whereToTest) {
+
+		Ingredient ingredientOne = Ingredient.getIngredient(ingredientList.get(0));
+		Ingredient ingredientTwo = Ingredient.getIngredient(ingredientList.get(1));
+
+		// remove the ingredients from the user's ingredient list
+		removeIngredient(ingredientOne);
+		removeIngredient(ingredientTwo);
+		
+		// create an experiment, conduct it, test it
+		Experiment experiment = new Experiment(this, ingredientOne, 
+				ingredientTwo, whereToTest);
+			
+		// get the potion created
+		Potion potion = experiment.getResultPotion();
+		
+		return potion;
 	}
 	
 	
@@ -207,7 +220,7 @@ public class Player {
 		getIngredients().forEach(System.out::println);
 	    System.out.printf("Old Balance: %d%n",getBalance());
 	    
-		if(removeIngredientCard(ingredient)) {									
+		if(removeIngredient(ingredient)) {									
 			updateBalance(1);
 			IngredientStorage.getInstance().addToBottom(ingredient);
 						
@@ -287,7 +300,7 @@ public class Player {
 	}
 		
 	
-	private boolean removeIngredientCard(Ingredient ingredient) {
+	private boolean removeIngredient(Ingredient ingredient) {
 		return getIngredients().remove(ingredient);
 	}
 		

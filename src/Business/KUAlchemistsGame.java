@@ -30,7 +30,7 @@ public class KUAlchemistsGame {
 		// create artifactStorage
 		artifactStorage = new ArtifactStorage();
 
-		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
+		System.out.printf("The game started with %d players.\n", numberOfPlayers);
 	}
 	
 	public void nextPlayer()
