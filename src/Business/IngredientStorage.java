@@ -32,6 +32,9 @@ public class IngredientStorage {
 
 		// initialize all ingredients
 		Ingredient.initializeIngredients();
+		
+		// initialize all tokens
+		Token.initializeAllTokens();
 
 		// At the beginning of the game
 		// The ingredient storage ingredientList
