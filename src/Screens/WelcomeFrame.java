@@ -16,6 +16,7 @@ public class WelcomeFrame extends JFrame {
     private JButton startButton;
     private JLabel loadingLabel;
     private JProgressBar progressBar;
+    private JComboBox<String> playerCount;
 
     public WelcomeFrame() 
     {
@@ -33,6 +34,8 @@ public class WelcomeFrame extends JFrame {
     	
     	// create JPnale and set background 
     	this.setBackground();
+    	
+    	this.setPlayerCount();
     	
     }
     
@@ -93,6 +96,24 @@ public class WelcomeFrame extends JFrame {
          backgroundPanel.add(startButton);
          backgroundPanel.add(progressBar);
          getContentPane().add(backgroundPanel);
+         
+         JLabel introduction = new JLabel("Choose how many player will play and let's get started...");
+         introduction.setForeground(Color.WHITE);
+         introduction.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
+         introduction.setBounds(120, 110, 560, 66);
+         backgroundPanel.add(introduction);
+         
+
+    }
+    
+    private void setPlayerCount() {
+    	String[] options = {"2", "3", "4"};
+        playerCount = new JComboBox<String>(options);
+        playerCount.setMaximumRowCount(3);
+        playerCount.setSelectedIndex(0);
+        playerCount.setBounds(320, 273, 100, 30);
+        backgroundPanel.add(playerCount);
+      
     }
     
     private void setStartButton()
@@ -142,7 +163,8 @@ public class WelcomeFrame extends JFrame {
     	 * */
     	
     	playGameController = new PlayGameController();
-    	KUAlchemistsGame game = playGameController.playGame(2);
+    	int selected = Integer.parseInt((String) playerCount.getSelectedItem());
+    	KUAlchemistsGame game = playGameController.playGame(selected);
         new StartGameFrame(game);
         this.dispose();
     }

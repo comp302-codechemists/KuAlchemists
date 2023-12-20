@@ -200,7 +200,8 @@ public class MainGameFrame extends GeneralFrame{
 	private void setPlayersInfoTable()
 	{
 		playersInfoTable = new JTable();
-		DefaultTableModel model = new DefaultTableModel(5, 3);
+		int cols = game.getNumberOfPlayers() + 1;
+		DefaultTableModel model = new DefaultTableModel(5, cols);
 		model.setValueAt(" Information", 0, 0);
 		model.setValueAt(" Avatar", 1, 0);
 		model.setValueAt(" Reputation Points", 2, 0);
@@ -236,6 +237,12 @@ public class MainGameFrame extends GeneralFrame{
         playersInfoTable.setBackground(new Color(0, 0, 0, 0)); // Transparent black (adjust alpha as needed)
         playersInfoTable.getColumnModel().getColumn(1).setCellRenderer(new AvatarRenderer());
         playersInfoTable.getColumnModel().getColumn(2).setCellRenderer(new AvatarRenderer());
+        if (game.getNumberOfPlayers() > 2) {
+            playersInfoTable.getColumnModel().getColumn(3).setCellRenderer(new AvatarRenderer());
+            	if (game.getNumberOfPlayers() > 3) {
+                    playersInfoTable.getColumnModel().getColumn(4).setCellRenderer(new AvatarRenderer());
+            	}
+        }
         
 		backgroundPanel.add(playersInfoTable);
 		

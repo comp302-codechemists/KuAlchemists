@@ -104,22 +104,22 @@ public class ElixirOfInsightFrame extends JFrame {
 	}
 	
 	private void setReorderingLogic() {
-		String[] options = {"", "1", "2", "3"};
+		String[] options = {"1", "2", "3"};
 		 
 		order1 = new JComboBox<String>(options);
+		
 		order1.setMaximumRowCount(3);
 		order1.setBounds(270, 489, 120, 44);	
-		
 		getContentPane().add(order1);
 		
 		order2 = new JComboBox<String>(options);
-		order2.setSelectedIndex(1);
+		
 		order2.setMaximumRowCount(3);
 		order2.setBounds(476, 489, 120, 44);
 		getContentPane().add(order2);
 		
 		order3 = new JComboBox<String>(options);
-		order3.setSelectedIndex(2);
+		
 		order3.setMaximumRowCount(3);
 		order3.setBounds(675, 489, 120, 44);
 		getContentPane().add(order3);

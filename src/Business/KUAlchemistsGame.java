@@ -100,7 +100,7 @@ public class KUAlchemistsGame {
 
 	private void setPlayers(List<String> nameList, List<String> avatarList) {
 
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < numberOfPlayers; i++) {
 
 			// create new player
 			Player newPlayer = new Player(nameList.get(i), avatarList.get(i));
@@ -117,11 +117,8 @@ public class KUAlchemistsGame {
 
 			// add newPlayer to players list
 			addPlayer(newPlayer);
-
+			System.out.printf("Players set: Player %d: %s\n", i, players.get(i).getUserName());
 		}
-
-		System.out.printf("KUAlchemistsGame, Players set: Player 1: %s, Player 2: %s.\n", players.get(0).getUserName(),
-				players.get(1).getUserName());
 	}
 
 	private void giveRandomIngredientCardToPlayer(Player player) {
@@ -144,7 +141,6 @@ public class KUAlchemistsGame {
 		}
 		
 	}
-	
 	
 
 	private void addPlayer(Player player) {
