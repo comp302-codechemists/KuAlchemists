@@ -14,10 +14,8 @@ public class buyArtifactController {
 	public String buyArtifactHandler() {
 		String boughtArtifact = game.currentPlayer.buyArtifact();
 		game.nextPlayer();
+		
 		return boughtArtifact;
 	}
-	
-	public void ElixirOfInsightHandker() {
-		
-	}
+
 }

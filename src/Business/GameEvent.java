@@ -17,7 +17,8 @@ public class GameEvent {
 		BUY_ARTIFACT,
 		MAKE_EXPERIMENT,
 		PUBLISH_THEORY,
-		FINISH_GAME,		
+		FINISH_GAME,
+		START_GAME,
 	}
 	
 	private String eventTime;
@@ -90,7 +91,7 @@ public class GameEvent {
 				break;
 			
 			case LEVEL_UP:
-				s = String.format("%s: Level up! New level: %d", eventTime, game.getLevel());
+				s = String.format("%s: Level up! New level: %d", eventTime, game.getRound());
 				break;
 				
 			case FORAGE_INGREDIENT:
@@ -114,8 +115,13 @@ public class GameEvent {
 				break;
 				
 			case FINISH_GAME:
-				s = String.format("%s: Game finished.", eventTime);
-			
+				s = String.format("%s: Game finished. Winner: %s.", eventTime, player.getUserName());
+				break;
+				
+			case START_GAME:
+				s = "Game has started. Level: 1";
+				break;
+				
 			default:
 				s = "Unknown event.";
 			

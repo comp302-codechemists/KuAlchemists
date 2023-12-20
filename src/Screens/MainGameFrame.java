@@ -122,7 +122,7 @@ public class MainGameFrame extends GeneralFrame{
 	    for (GameEvent event : GameEvent.getEvents()) {
 	        Color color = event.getColor();
 	        String eventString = event.getEventString();
-	        gameLogArea.setForeground(color);       
+	        //gameLogArea.setForeground(color);       
 	        gameLogArea.append(eventString + "\n");
 	    }
 

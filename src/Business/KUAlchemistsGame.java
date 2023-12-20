@@ -22,9 +22,10 @@ public class KUAlchemistsGame {
 	private PublicationBoard publicationBoard;
 	
 	// game situation
-	int level = 1;
+	int round = 1;
 	boolean paused = false;
 	boolean finished = false;
+	int turns = 0;
 
 
 	private KUAlchemistsGame(int numberOfPlayers) {
@@ -55,6 +56,15 @@ public class KUAlchemistsGame {
 		
 		currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 		currentPlayer = players.get(currentPlayerIndex);
+		
+		// If each player took 3 turns go to the next round and reset the turns.
+		turns++;
+		if (turns == 3 * players.size()) {
+			nextRound();
+			turns = 0;
+		}
+		
+		
 	}
 	
 	public static KUAlchemistsGame getInstance(int numberOfPlayers) {
@@ -82,6 +92,8 @@ public class KUAlchemistsGame {
 
 		// shuffle artifacts
 		artifactStorage.shuffleArtifacts();
+		
+		GameEvent event = new GameEvent(this, null, GameEvent.EventID.START_GAME);
 
 		System.out.println("KUAlchemistsGame: Game started. Players are waiting to begin.");
 	}
@@ -95,7 +107,7 @@ public class KUAlchemistsGame {
 			GameEvent event = new GameEvent(this, newPlayer, GameEvent.EventID.JOIN_GAME);
 
 			// set new player's balance
-			newPlayer.setBalance(+5);
+			newPlayer.setBalance(+10);
 
 			// deal 5 ingredientCards to newPlayer
 			for (int j = 0; j < 2; j++) {
@@ -117,40 +129,38 @@ public class KUAlchemistsGame {
 		player.addIngredient(ingredient);
 	}
 
-	private void nextLevel() {
+	private void nextRound() {
 		/*
 		 * This method increases the level by one. Some verification may be added
 		 */
-		if (getLevel() < 4) {
-			setLevel(getLevel() + 1);
+		if (getRound() < 3) {
+			setRound(getRound() + 1);
+			System.out.println("KUAlchemistsGame: Next level. Level: " + getRound());
+			GameEvent event = new GameEvent(this, null, GameEvent.EventID.LEVEL_UP);
 		}
-		System.out.println("KUAlchemistsGame: Next level. Level: " + this.level);
-		GameEvent event = new GameEvent(this, null, GameEvent.EventID.LEVEL_UP);
+		
+		else {
+			finish();
+		}
+		
 	}
+	
+	
 
 	private void addPlayer(Player player) {
-
-		/*
-		 * This method will add a new player to the game's player list. Some
-		 * verification may be added
-		 */
 
 		this.players.add(player);
 	}
 
-	public void finish() {
+	private void finish() {
 
-		/*
-		 * This method will end the game. Some verification may be added
-		 */
-		if (level == 3 && !isFinished()) {
-			setFinished(true);
-			GameEvent events = new GameEvent(this, null, GameEvent.EventID.FINISH_GAME);
-		}
+		setFinished(true);
+		Player player = showWinner();
+		GameEvent events = new GameEvent(this, player, GameEvent.EventID.FINISH_GAME);
 
 	}
 
-	public Player showWinner() {
+	private Player showWinner() {
 		/*
 		 * This method will return the winner
 		 */
@@ -233,12 +243,12 @@ public class KUAlchemistsGame {
 		this.players = players;
 	}
 
-	public int getLevel() {
-		return level;
+	public int getRound() {
+		return round;
 	}
 
-	public void setLevel(int level) {
-		this.level = level;
+	public void setRound(int round) {
+		this.round = round;
 	}
 
 	public boolean isPaused() {
