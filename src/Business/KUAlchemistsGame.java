@@ -192,6 +192,7 @@ public class KUAlchemistsGame {
 
 		if (isPaused()) {
 			setPaused(false);
+			System.out.println("Game resumes.\n");
 			GameEvent event = new GameEvent(this, null, GameEvent.EventID.RESUME_GAME);
 		}
 
