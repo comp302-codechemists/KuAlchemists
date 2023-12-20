@@ -14,15 +14,18 @@ public class PublicationBoard
 	public Theory publishTheory(Player owner, Token alchemyMarker, Ingredient ingredient) {
 
 		if( owner.getBalance() >= 1) {
-			Theory theory = new Theory(owner, alchemyMarker, ingredient);
 			
 			if(Theory.getTheory(ingredient.getName()) != null) {
 				System.out.println("This ingredient already have a theory on it.");
 			}
 			else {
+				
+				// create theory if not already exist
+				Theory theory = new Theory(owner, alchemyMarker, ingredient);
+				
 				Theory.getAllTheories().add(theory);
 				owner.updateBalance(-1);
-				owner.setReputationPoints( owner.getReputationPoints() + 1);
+				owner.setReputationPoints(owner.getReputationPoints() + 1);
 				owner.getTheories().add(theory);
 				return theory;
 			}
