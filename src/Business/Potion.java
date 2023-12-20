@@ -13,10 +13,10 @@ public class Potion {
 			"y+", "k-", "k+", "0"};
 	
 	private String name;
-
+	
 	public Potion(String name) {
 		this.name = name;
-	}
+	};
 
 	public String getName() {
 		return name;
@@ -29,6 +29,20 @@ public class Potion {
 	public boolean isPositive()
 	{
 		return name.contains("+");
+	}
+	
+	public String getSign()
+	{
+		if (name.contains("+"))
+		{
+			return "+";
+		}
+		else if (name.contains("-"))
+		{
+			return "-";
+		}
+		
+		return "0";
 	}
 	
 	public static Potion makePotion(Ingredient ingredientOne, Ingredient ingredientTwo)

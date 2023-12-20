@@ -285,18 +285,39 @@ public class Player {
 		artifact.applyArtifact(this);
 	}
 	
-	public void sellPotion(String potionName) {
-		/*Potion potion = new Potion(potionName);
-		int enumeratedPotionResult = enumeratePotionResult(potion);
-		int enumeratedPromise = enumeratePromises(promise);
-		if(enumeratedPotionResult < enumeratedPromise ) {
-			System.out.println("Your promise does not satisfy potion result. Balance is unchanged.");
+	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) 
+	{
+		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
+
+		// remove the ingredients from the user's ingredient list
+		removeIngredient(ingredientOne);
+		removeIngredient(ingredientTwo);
+		
+		int payment;
+		
+		if (potion.getSign().equals(promise))
+		{
+			payment = 3;
 		}
-		else {
-			updateBalance(enumeratedPromise);
-			System.out.printf("Your promise satisfied the potion result. You will be awarded by %d gold",enumeratedPromise);
+		else if (potion.getSign().equals("+") &&
+				promise.equals("-"))
+		{
+			payment = 1;
 		}
-		*/
+		else if (potion.getSign().equals("-") &&
+				promise.equals("+"))
+		{
+			payment = 1;
+		}
+		else // (promise.equals("0")), but the potion is not neutral
+		{
+			payment = 2;
+		}
+		setBalance(payment);
+		
+		System.out.println(potion.getSign());
+		System.out.println(promise);
+		return payment;
 		
 	}
 	
@@ -351,14 +372,14 @@ public class Player {
 		getArtifacts().add(artifact);
 	}
 	
-	private int enumeratePromises(String promise) {
+	/*private int enumeratePromises(String promise) {
 		int return_val = 0;
 		
 		switch(promise) {
-		case "Positive":
+		case "+":
 			return_val = 3;
 			break;
-		case "Positive or Neutral":
+		case "+ or 0":
 			return_val = 2;
 			break;
 		case "Nothing":
@@ -371,7 +392,7 @@ public class Player {
 		return return_val;
 	}
 	
-	/*private int enumeratePotionResult(Potion potion) {
+	private int enumeratePotionResult(Potion potion) {
 		int return_val = 0;
 		
 		switch(potion.getDominantAspect().getSign()) {
@@ -390,9 +411,7 @@ public class Player {
 		
 		return return_val;
 	}
-		*/			
-		
-	
+	*/
 	
 		
 	

@@ -2,6 +2,8 @@ package Controllers;
 
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
+import Business.Potion;
+import Exceptions.IngredientNotFoundException;
 import Exceptions.NotFoundInStorageException;
 
 public class SellPotionController {
@@ -12,39 +14,32 @@ public class SellPotionController {
 		this.game = game;
 	}
 	
-	public void handleSellPotion(String firstIngredientName, String secondIngredientName, String promise ) throws Exception {
+	public int handleSellPotion(String firstIngredientName, String secondIngredientName, String promise ) throws IngredientNotFoundException 
+	{
+		Ingredient ingredientOne = Ingredient.getIngredient(firstIngredientName);
+		Ingredient ingredientTwo = Ingredient.getIngredient(secondIngredientName);
 		
-		/*if(firstIngredientName == null || secondIngredientName == null) {
-			throw new IllegalArgumentException("Please choose both ingredients");
+		if (ingredientOne == null || ingredientTwo == null)
+		{
+			throw new IngredientNotFoundException();
 		}
+		int payment;
 		
-		if(firstIngredientName.equals(secondIngredientName)) {
-			throw new UnsupportedOperationException("Please choose different ingredients");
+		if (promise.contains("+"))
+		{
+			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "+");
+
 		}
-		
-		boolean found = false;
-		Ingredient ingr1 = null;
-		Ingredient ingr2 = null;
-		
-		for(Ingredient ingredient: game.currentPlayer.getIngredients()) {
-			if(ingredient.getName().equals(firstIngredientName)) {
-				ingr1 = ingredient;
-			}
-			if(ingredient.getName().equals(secondIngredientName)) {
-				ingr2 = ingredient;
-			}
-			
-			if(ingr1 != null && ingr2 != null) {
-				found = true;
-			}
+		else if (promise.contains("-"))
+		{
+			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "-");
 		}
-		
-		if(found) {
-			game.currentPlayer.sellPotion(ingr1,ingr2,promise);
+		else
+		{
+			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "0");
 		}
-		else {
-			throw new NotFoundInStorageException();
-		}*/
+		game.nextPlayer();
+		return payment;
 	}
 
 }
