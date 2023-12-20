@@ -5,15 +5,21 @@ public class Experiment
 	private Player owner;
 	private Ingredient ingredientOne;
 	private Ingredient ingredientTwo;
-	private String whereToTest;
-	private Aspect resultToken;
+	private int whereToTest;
+	private Potion resultPotion;
 	
-	public Experiment(Player owner, Ingredient ingredientOne, Ingredient ingredientTwo, String whereToTest) {
+	public Potion getResultPotion() {
+		return resultPotion;
+	}
+
+	public Experiment(Player owner, Ingredient ingredientOne, Ingredient ingredientTwo, int whereToTest) {
+		
 		this.owner = owner;
 		this.ingredientOne = ingredientOne;
 		this.ingredientTwo = ingredientTwo;
 		this.whereToTest = whereToTest;
-		makeExperiment(ingredientOne, ingredientTwo, whereToTest);
+		
+		makeExperiment();
 	}
 
 	public Player getOwner() {
@@ -40,37 +46,35 @@ public class Experiment
 		this.ingredientTwo = ingredientTwo;
 	}
 
-	public String getWhereToTest() {
+	public int getWhereToTest() {
 		return whereToTest;
 	}
 
-	public void setWhereToTest(String whereToTest) {
+	public void setWhereToTest(int whereToTest) {
 		this.whereToTest = whereToTest;
 	}
 
-	public Aspect getResultToken() {
-		return resultToken;
-	}
+	public void makeExperiment() {
 
-	public void setResultToken(Aspect resultToken) {
-		this.resultToken = resultToken;
+		// make potion
+		this.resultPotion = Potion.makePotion(ingredientOne, ingredientTwo);
+
+		// test it
+		testExperiment();
 	}
 	
-	public void makeExperiment(Ingredient ing1, Ingredient ing2, String whereToTest) {
-		/*Potion potion = new Potion(ing1, ing2);
-		this.resultToken = potion.getDominantAspect();
-		testExperiment(resultToken);*/
-	}
-	
-	public void testExperiment(Aspect resultToken) {
+	public void testExperiment() {
 		
-		if(resultToken.getSign().equals("-") && whereToTest.equals("Student")) {
+		if(!resultPotion.isPositive() && whereToTest == 1) 
+		{
 			owner.updateBalance(-1);
 		}
-		else if(resultToken.getSign().equals("-") && owner.getSicknessLevel() != 2) {
+		else if(!resultPotion.isPositive() && owner.getSicknessLevel() != 2) 
+		{
 			owner.setSicknessLevel(owner.getSicknessLevel() + 1);
 		}
-		else if(resultToken.getSign().equals("-") && owner.getSicknessLevel() == 2) {
+		else if(!resultPotion.isPositive() && owner.getSicknessLevel() == 2) 
+		{
 			owner.updateBalance(- owner.getBalance());
 		}
 		else {

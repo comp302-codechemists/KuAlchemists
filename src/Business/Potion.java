@@ -13,10 +13,10 @@ public class Potion {
 			"y+", "k-", "k+", "0"};
 	
 	private String name;
-
+	
 	public Potion(String name) {
 		this.name = name;
-	}
+	};
 
 	public String getName() {
 		return name;
@@ -24,6 +24,25 @@ public class Potion {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean isPositive()
+	{
+		return name.contains("+");
+	}
+	
+	public String getSign()
+	{
+		if (name.contains("+"))
+		{
+			return "+";
+		}
+		else if (name.contains("-"))
+		{
+			return "-";
+		}
+		
+		return "0";
 	}
 	
 	public static Potion makePotion(Ingredient ingredientOne, Ingredient ingredientTwo)
@@ -59,34 +78,6 @@ public class Potion {
 			return potion;
 	}
 }
-
-/*private void findDominantAspect() {
-	
-	Token tokenOne = Ingredient.getToken(ingredientOne.getName());
-	Token tokenTwo = Ingredient.getToken(ingredientTwo.getName());
-	
-	Aspect[] aspectsOne = tokenOne.getTokenAspects();
-	Aspect[] aspectsTwo = tokenTwo.getTokenAspects();
-	
-	for(int i = 0; i < 3; i++) {
-		Aspect currentAspect = aspectsOne[i];
-		Aspect correspondingAspect = Arrays.stream(aspectsTwo)
-				.filter(p -> p.getColor().equals(currentAspect.getColor()) &&
-						p.getSign().equals(currentAspect.getSign()) &&
-						(currentAspect.getMagnitude().equals("big") 
-								? p.getMagnitude().equals("small") 
-								: p.getMagnitude().equals("big"))
-						)
-				.findFirst().orElse(null);
-		if(correspondingAspect != null) {
-			dominantAspect = correspondingAspect;
-			break;
-		}
-	}
-	if(dominantAspect == null) {
-		dominantAspect = new Aspect("neutral","neutral","neutral");
-	}
-}*/
 
 
 

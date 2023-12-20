@@ -8,6 +8,7 @@ public class Player {
 	private String avatarPath;
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
 	private List<Artifact> artifacts = new ArrayList<Artifact>();
+	private List<Theory> theories = new ArrayList<Theory>();
 	private int balance;
 	private int reputationPoints;
 	private DeductionBoard deductionBoard = new DeductionBoard();
@@ -155,12 +156,34 @@ public class Player {
 		this.goldtToBePayedToArtifact = goldtToBePayedToArtifact;
 	}
 	
+	public List<Theory> getTheories() {
+		return theories;
+	}
 
-	public void makeExperiment(Player currentPlayer, Ingredient ingr1, Ingredient ingr2, String whereToTest) {
-		Experiment experiment = new Experiment(currentPlayer, ingr1, ingr2, whereToTest);
-		this.removeIngredientCard(ingr1);
-		this.removeIngredientCard(ingr2);
-		GameEvent event = new GameEvent(null, this, GameEvent.EventID.MAKE_EXPERIMENT);
+
+	public void setTheories(List<Theory> theories) {
+		this.theories = theories;
+	}
+	
+
+	public Potion makeExperiment(List<String> ingredientList, int whereToTest) {
+
+		Ingredient ingredientOne = Ingredient.getIngredient(ingredientList.get(0));
+		Ingredient ingredientTwo = Ingredient.getIngredient(ingredientList.get(1));
+
+		// remove the ingredients from the user's ingredient list
+		removeIngredient(ingredientOne);
+		removeIngredient(ingredientTwo);
+		
+		// create an experiment, conduct it, test it
+		Experiment experiment = new Experiment(this, ingredientOne, 
+				ingredientTwo, whereToTest);
+			
+		// get the potion created
+		Potion potion = experiment.getResultPotion();
+		
+		return potion;
+
 	}
 	
 	
@@ -210,7 +233,7 @@ public class Player {
 		getIngredients().forEach(System.out::println);
 	    System.out.printf("Old Balance: %d%n",getBalance());
 	    
-		if(removeIngredientCard(ingredient)) {									
+		if(removeIngredient(ingredient)) {									
 			updateBalance(1);
 			IngredientStorage.getInstance().addToBottom(ingredient);
 						
@@ -268,21 +291,75 @@ public class Player {
 		artifact.applyArtifact(this);
 	}
 	
-	public void sellPotion(String potionName) {
-		/*Potion potion = new Potion(potionName);
-		int enumeratedPotionResult = enumeratePotionResult(potion);
-		int enumeratedPromise = enumeratePromises(promise);
-		if(enumeratedPotionResult < enumeratedPromise ) {
-			System.out.println("Your promise does not satisfy potion result. Balance is unchanged.");
+	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) 
+	{
+		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
+
+		// remove the ingredients from the user's ingredient list
+		removeIngredient(ingredientOne);
+		removeIngredient(ingredientTwo);
+		
+		int payment;
+		
+		if (potion.getSign().equals(promise))
+		{
+			payment = 3;
 		}
-		else {
-			updateBalance(enumeratedPromise);
-			System.out.printf("Your promise satisfied the potion result. You will be awarded by %d gold",enumeratedPromise);
+		else if (potion.getSign().equals("+") &&
+				promise.equals("-"))
+		{
+			payment = 1;
 		}
-		*/
+		else if (potion.getSign().equals("-") &&
+				promise.equals("+"))
+		{
+			payment = 1;
+		}
+		else // (promise.equals("0")), but the potion is not neutral
+		{
+			payment = 2;
+		}
+		setBalance(payment);
+		
+		System.out.println(potion.getSign());
+		System.out.println(promise);
+		return payment;
 		
 	}
 	
+	public void publishTheory(String selectedMarker, String selectedTheory) {
+		
+		if (this.getBalance() < 1) {
+			
+			System.out.println("Insufficient balance to publish a theory");
+		}
+		else {
+			PublicationBoard.getInstance().publishTheory(this, Token.getTokens().get(selectedMarker), Ingredient.getIngredient(selectedTheory));
+			System.out.println("Theories");
+			getTheories().forEach(System.out::println);
+		}
+	}
+	
+	public void debunkTheory(String selectedTheory,int selectedAspect) {
+		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
+		//Aspect aspect = Aspect.getAspect(selectedAspect);
+		if(theory == null) {
+			System.out.println("Theory not found");
+		}
+		else if(theory.getOwner().getUserName().equals(this.getUserName())) {
+			System.out.println("You cannot debunk your own theory");
+		}
+		else {
+			boolean result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Player [userName=" + userName + ", balance=" + balance + ", reputationPoints=" + reputationPoints
+				+ ", sicknessLevel=" + sicknessLevel + "]";
+	}
+
 	private void updateReputation(int amount) {
 		setReputationPoints(getReputationPoints() + amount);
 	}	
@@ -292,7 +369,7 @@ public class Player {
 	}
 		
 	
-	private boolean removeIngredientCard(Ingredient ingredient) {
+	private boolean removeIngredient(Ingredient ingredient) {
 		return getIngredients().remove(ingredient);
 	}
 		
@@ -301,14 +378,14 @@ public class Player {
 		getArtifacts().add(artifact);
 	}
 	
-	private int enumeratePromises(String promise) {
+	/*private int enumeratePromises(String promise) {
 		int return_val = 0;
 		
 		switch(promise) {
-		case "Positive":
+		case "+":
 			return_val = 3;
 			break;
-		case "Positive or Neutral":
+		case "+ or 0":
 			return_val = 2;
 			break;
 		case "Nothing":
@@ -321,7 +398,7 @@ public class Player {
 		return return_val;
 	}
 	
-	/*private int enumeratePotionResult(Potion potion) {
+	private int enumeratePotionResult(Potion potion) {
 		int return_val = 0;
 		
 		switch(potion.getDominantAspect().getSign()) {
@@ -340,30 +417,25 @@ public class Player {
 		
 		return return_val;
 	}
-		*/			
+	*/
+	
+		
+	
 		
 	
 	
-		
-	private void publishTheory() {
 	
-		if (this.getBalance() < 1) {
-			System.out.println("Insufficient balance to publish a theory");
-		}
-		
-		
+	
+	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
+		deductionBoard.addDeduction(selectedTriangle, name);
+		deductionBoard.addExistingItem(selectedTriangle, selectedLeft);
 	}
-		
-	
-	private void debunkTheory() {
-		
-	}
+
 	
 	
-	private void putTokenToResultsTriangle() {
 	
-		
-	}
+	
+	
 
 	
 	

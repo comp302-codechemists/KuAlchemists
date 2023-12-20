@@ -3,6 +3,7 @@ package Controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import Business.Experiment;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Potion;
@@ -32,13 +33,11 @@ public class MakeExperimentController {
 	}
 	
 	
-	public String handleExperiment(List<String> ingredientList) {
-		
-		Ingredient ingredientOne = Ingredient.getIngredient(ingredientList.get(0));
-		Ingredient ingredientTwo = Ingredient.getIngredient(ingredientList.get(1));
-
-		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
+	public String handleExperiment(List<String> ingredientList, int whereToTest) 
+	{
+		Potion potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest); 
 		System.out.println("Potion: " + potion.getName());
+		game.nextPlayer();
 		return potion.getName();
 	}
 	

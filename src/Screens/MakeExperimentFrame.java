@@ -81,11 +81,11 @@ public class MakeExperimentFrame extends FunctionalFrame {
 			// TODO there should be two handling method
 			if (selection == 1)
 			{
-				resultToken = controller.handleExperiment(selectedIngredients);
+				resultToken = controller.handleExperiment(selectedIngredients, 1);
 			}
 			else
 			{
-				resultToken = controller.handleExperiment(selectedIngredients);
+				resultToken = controller.handleExperiment(selectedIngredients, 2);
 			}
 
 		    String imagePath = "/potionImages/" + resultToken + ".png";

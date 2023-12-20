@@ -3,11 +3,15 @@ package Screens;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.border.LineBorder;
@@ -18,6 +22,7 @@ import Business.Player;
 import Business.Potion;
 import Controllers.SellPotionController;
 import DesignSystem.GameButton;
+import Exceptions.IngredientNotFoundException;
 
 public class SellPotionFrame extends FunctionalFrame{
 
@@ -42,16 +47,57 @@ public class SellPotionFrame extends FunctionalFrame{
     	sellButton.setBounds(550, 500, 100, 30);
     	backgroundPanel.add(sellButton);
     	
-    	if (selectedAspect != null && selectedIngredients.size() == 2)
-    	{
-    		try {
-    			//TODO
-    			controller = new SellPotionController(game);
-				controller.handleSellPotion("", "", "");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
+    	sellButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            	if (selectedAspect == null || selectedIngredients.size() != 2)
+            	{
+            		JOptionPane.showMessageDialog(new JFrame(), "Please select 2 ingredients and give promise!",
+    	                    "", JOptionPane.ERROR_MESSAGE);
+            	}
+            	
+            	else
+            	{
+            		controller = new SellPotionController(game);
+        			try {
+        				int payment = controller.handleSellPotion(selectedIngredients.get(0), selectedIngredients.get(1), selectedAspect);
+        				if (payment == 3)
+        				{
+        					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/correct.png"));				    
+        					JOptionPane.showMessageDialog(new JFrame(), "Correct",
+        		                    "", JOptionPane.ERROR_MESSAGE, icon);
+        					 // Close the frame
+        				    new MainGameFrame(game);
+        				    SellPotionFrame.this.dispose();
+        				}
+        				else if (payment == 2)
+        				{
+        					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/0.png"));				    
+        					JOptionPane.showMessageDialog(new JFrame(), "Neutral",
+        		                    "", JOptionPane.ERROR_MESSAGE, icon);
+        					 // Close the frame
+        				    new MainGameFrame(game);
+        				    SellPotionFrame.this.dispose();
+        				}
+        				else // payment == 1
+        				{
+        					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/incorrect.png"));				    
+        					JOptionPane.showMessageDialog(new JFrame(), "Incorrect",
+        		                    "", JOptionPane.ERROR_MESSAGE, icon);
+        					 // Close the frame
+        				    new MainGameFrame(game);
+        				    SellPotionFrame.this.dispose();
+        				}
+        			} 
+        			catch (IngredientNotFoundException x) 
+        			{
+        				JOptionPane.showMessageDialog(new JFrame(), "Please select 2 ingredients and give promise!",
+        	                    "", JOptionPane.ERROR_MESSAGE);
+        			}
+            	}
+            }
+        });    		
     }
 	
 	private void initializeSelectedAspectLabel()
@@ -84,7 +130,7 @@ public class SellPotionFrame extends FunctionalFrame{
 	        aspectButton.setOpaque(false);
 	        aspectButton.setContentAreaFilled(false);
 	        aspectButton.setBorderPainted(false);
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/aspectImages/" + potion + ".png"));
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/potionImages/" + potion + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
 	        aspectButton.setIcon(new ImageIcon(image));
 
@@ -107,7 +153,7 @@ public class SellPotionFrame extends FunctionalFrame{
 	{
 		if (selectedAspect == null || !selectedAspect.equals(aspect)) {
             selectedAspect = aspect;
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/aspectImages/" + selectedAspect + ".png"));
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/potionImages/" + selectedAspect + ".png"));
         	Image image = imageIcon.getImage().getScaledInstance(150, 170, Image.SCALE_SMOOTH);
         	selectedAspectLabel.setIcon(new ImageIcon(image));
             System.out.println(selectedAspect + " selected");

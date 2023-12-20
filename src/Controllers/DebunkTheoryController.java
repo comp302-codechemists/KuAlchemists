@@ -11,8 +11,8 @@ private KUAlchemistsGame game;
 		this.game = game;
 	}
 
-	public void handle()
+	public void handleDebunk(String selectedTheory, int selectedAspect)
 	{
-		// TODO
+		game.currentPlayer.debunkTheory(selectedTheory, selectedAspect);
 	}
 }
