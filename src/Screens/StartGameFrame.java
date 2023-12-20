@@ -298,7 +298,7 @@ public class StartGameFrame extends GeneralFrame {
                  }    
                 
                  if (startOk) {
-                	 System.out.printf("Avatar path: %s", p1avatar);
+                	 System.out.printf("Avatar path: %s", p1avatar);             	 
                      StartGameController startGameController = new StartGameController(game);
                      startGameController.handleStartGame(p1name, p2name, p1avatar, p2avatar);
                      startGamePressed();

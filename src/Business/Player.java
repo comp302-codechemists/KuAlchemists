@@ -160,6 +160,7 @@ public class Player {
 		Experiment experiment = new Experiment(currentPlayer, ingr1, ingr2, whereToTest);
 		this.removeIngredientCard(ingr1);
 		this.removeIngredientCard(ingr2);
+		GameEvent event = new GameEvent(null, this, GameEvent.EventID.MAKE_EXPERIMENT);
 	}
 	
 	
@@ -191,6 +192,8 @@ public class Player {
 			getIngredients().forEach(System.out::println);
 			
 			System.out.printf("Ingredient %s is added to the player's storage%n",foragedIngredient.getName());
+			GameEvent events = new GameEvent(null, this, GameEvent.EventID.FORAGE_INGREDIENT);
+			
 			return foragedIngredient.getName();
 			
 		}
@@ -220,6 +223,7 @@ public class Player {
 		getIngredients().forEach(System.out::println);
 		System.out.printf("New Balance: %d%n",getBalance());
 		System.out.printf("Ingredient %s is removed from the player's storage%n",ingredient.getName());
+		GameEvent events = new GameEvent(null, this, GameEvent.EventID.TRANSMUTE_INGREDIENT);
 		
 		return ingredient.getName();
 	}
@@ -244,6 +248,7 @@ public class Player {
 				getArtifacts().forEach(System.out::println);
 				System.out.printf("New Balance: %d%n",getBalance());
 				System.out.printf("Artifact %s is added to the player's storage%n",artifact.getName());
+				GameEvent events = new GameEvent(null, this, GameEvent.EventID.BUY_ARTIFACT);
 				
 				return artifact.getName();
 			}

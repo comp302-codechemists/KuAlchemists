@@ -19,6 +19,7 @@ public class KUAlchemistsGame {
 	boolean paused = false;
 	boolean finished = false;
 
+
 	private KUAlchemistsGame(int numberOfPlayers) {
 		
 		// set number of players
@@ -29,9 +30,10 @@ public class KUAlchemistsGame {
 
 		// create artifactStorage
 		artifactStorage = new ArtifactStorage();
-
+		
 		System.out.printf("The game is created with %d players.\n", numberOfPlayers);
 	}
+	
 	
 	public void nextPlayer()
 	{
@@ -81,6 +83,7 @@ public class KUAlchemistsGame {
 
 			// create new player
 			Player newPlayer = new Player(nameList.get(i), avatarList.get(i));
+			GameEvent event = new GameEvent(this, newPlayer, GameEvent.EventID.JOIN_GAME);
 
 			// set new player's balance
 			newPlayer.setBalance(+5);
@@ -88,6 +91,7 @@ public class KUAlchemistsGame {
 			// deal 5 ingredientCards to newPlayer
 			for (int j = 0; j < 2; j++) {
 				giveRandomIngredientCardToPlayer(newPlayer);
+				
 			}
 
 			// add newPlayer to players list
@@ -112,6 +116,7 @@ public class KUAlchemistsGame {
 			setLevel(getLevel() + 1);
 		}
 		System.out.println("KUAlchemistsGame: Next level. Level: " + this.level);
+		GameEvent event = new GameEvent(this, null, GameEvent.EventID.LEVEL_UP);
 	}
 
 	private void addPlayer(Player player) {
@@ -131,6 +136,7 @@ public class KUAlchemistsGame {
 		 */
 		if (level == 3 && !isFinished()) {
 			setFinished(true);
+			GameEvent events = new GameEvent(this, null, GameEvent.EventID.FINISH_GAME);
 		}
 
 	}
@@ -160,6 +166,7 @@ public class KUAlchemistsGame {
 		
 		if (!isPaused()) {
 			setPaused(true);
+			GameEvent event = new GameEvent(this, null, GameEvent.EventID.PAUSE_GAME);
 			PauseController pc = new PauseController();
 			pc.showPause();
 		}
@@ -170,6 +177,7 @@ public class KUAlchemistsGame {
 
 		if (isPaused()) {
 			setPaused(false);
+			GameEvent event = new GameEvent(this, null, GameEvent.EventID.RESUME_GAME);
 		}
 
 	}

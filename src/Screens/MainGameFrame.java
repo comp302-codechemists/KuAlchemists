@@ -1,5 +1,6 @@
 package Screens;
 
+import javax.print.attribute.AttributeSet;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -9,6 +10,11 @@ import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+
+import Business.GameEvent;
 import Business.KUAlchemistsGame;
 import DesignSystem.GameButton;
 import DesignSystem.GameText;
@@ -110,13 +116,18 @@ public class MainGameFrame extends GeneralFrame{
 
 	    backgroundPanel.setOpaque(false); 
 
-	    gameLogArea.append("Game log entry 1\n");
-	    gameLogArea.append("Game log entry 2\n");
+	    //TODO tek bir eventin rengini ayarlayamadim butun logun rengi degisiyor.
+	    // JTextArea yaratip setForeground diyip eklemek lazim her seferinde ama beceremedim.
+	    // BEYZA HELP!
+	    for (GameEvent event : GameEvent.getEvents()) {
+	        Color color = event.getColor();
+	        String eventString = event.getEventString();
+	        gameLogArea.setForeground(color);       
+	        gameLogArea.append(eventString + "\n");
+	    }
 
 	    backgroundPanel.add(scrollPane); 
 	}
-
-
 
 	
 
