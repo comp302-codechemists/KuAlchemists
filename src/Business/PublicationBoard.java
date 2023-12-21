@@ -36,12 +36,6 @@ public class PublicationBoard
 	}
 
 	public Theory chooseTheory(String ingredientName) {
-
-		/*if (!(t.getOwner().equals(owner)) && Theory.getAllTheories().contains(t)) {
-			return t;
-		}
-		
-		return null;*/
 		
 		Theory theory = null;
 		for(Theory t: Theory.getAllTheories()) {
