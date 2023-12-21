@@ -57,7 +57,7 @@ public class PublicationBoard
 		boolean comparaison = false;
 		String signOfAspectToDebunk = selectedTheory.getAlchemyMarker().getTokenAspects()[selectedAspect].getSign();
 		String actualSignOfAspect = selectedTheory.getIngredient().getToken().getTokenAspects()[selectedAspect].getSign();
-		
+		Theory.getAllTheories().remove(selectedTheory);
 		if(signOfAspectToDebunk.equals(actualSignOfAspect)) {
 			comparaison = true;
 		}
