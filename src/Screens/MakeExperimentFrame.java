@@ -29,6 +29,7 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	
 	private MakeExperimentController controller;
 	private ArrayList<String> selectedIngredients = new ArrayList<>();
+	private JButton returnBtn;
 	ArtisticButton testOnStudentButton;
 	ArtisticButton testOnYourselfButton;
 	
@@ -37,6 +38,22 @@ public class MakeExperimentFrame extends FunctionalFrame {
 		this.setBackground("/FunctionalBackgroundImages/makeExperimentBackground.png");
 		this.setIngredients();
 		this.setWhereToTestButtons();
+		this.setReturnBtn();
+	}
+	
+	private void setReturnBtn() {
+		
+		returnBtn = new ArtisticButton("/Images/return.png", 60, 60);	
+    	returnBtn.setBounds(1100, 30, 60, 60);
+		backgroundPanel.add(returnBtn);
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayerDashboardFrame(game, player);
+                MakeExperimentFrame.this.dispose();
+            }
+        });	
+		
 	}
 
 	

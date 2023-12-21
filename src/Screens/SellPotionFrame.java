@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,6 +22,7 @@ import Business.KUAlchemistsGame;
 import Business.Player;
 import Business.Potion;
 import Controllers.SellPotionController;
+import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
 import Exceptions.IngredientNotFoundException;
 
@@ -31,6 +33,7 @@ public class SellPotionFrame extends FunctionalFrame{
 	private String selectedAspect;
 	private ArrayList<String> selectedIngredients = new ArrayList<>();
 	private GameButton sellButton;
+	private JButton returnBtn;
 	
 	public SellPotionFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
@@ -39,6 +42,22 @@ public class SellPotionFrame extends FunctionalFrame{
 		setSellButton();
 		setAspects();
 		setIngredients();
+		setReturnBtn();
+	}
+	
+	private void setReturnBtn() {
+		
+		returnBtn = new ArtisticButton("/Images/return.png", 60, 60);	
+    	returnBtn.setBounds(1100, 30, 60, 60);
+		backgroundPanel.add(returnBtn);
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayerDashboardFrame(game, player);
+                SellPotionFrame.this.dispose();
+            }
+        });	
+		
 	}
 	
 	private void setSellButton()

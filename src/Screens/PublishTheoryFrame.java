@@ -3,9 +3,12 @@ package Screens;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -16,6 +19,7 @@ import Business.Player;
 import Business.Theory;
 import Business.Token;
 import Controllers.PublishTheoryController;
+import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
 
 public class PublishTheoryFrame extends FunctionalFrame {
@@ -26,6 +30,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
 	private JLabel selectedTheoryLabel;
 	private String selectedTheory;
 	private GameButton publishButton;
+	private JButton returnBtn;
 
     public PublishTheoryFrame(KUAlchemistsGame game, Player player) {
         super(game, player);
@@ -35,6 +40,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
         initializeSelectedMarkerLabel();
         initializeSelectedTheoryLabel();
         setPublishButton();
+        setReturnBtn();
     }
     //TODO
     private void setPublishButton()
@@ -44,6 +50,21 @@ public class PublishTheoryFrame extends FunctionalFrame {
     	backgroundPanel.add(publishButton);
     	publishButton.addActionListener(e -> handlePublishButton());    	
     }
+    
+	private void setReturnBtn() {
+		
+		returnBtn = new ArtisticButton("/Images/return.png", 60, 60);	
+    	returnBtn.setBounds(1100, 30, 60, 60);
+		backgroundPanel.add(returnBtn);
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayerDashboardFrame(game, player);
+                PublishTheoryFrame.this.dispose();
+            }
+        });	
+		
+	}
     
     private void handlePublishButton() {
     	if (selectedMarker != null && selectedTheory != null)
