@@ -6,6 +6,9 @@ import Business.GoldBoosterArtifact;
 import Business.PotionEffectBoosterArtifact;
 import Business.ReputationBoosterArtifact;
 import Business.ScorePointBoosterArtifact;
+import Business.magicMortarArtifact;
+import Business.printingPressArtifact;
+import Business.wisdomIdolArtifact;
 
 public class ArtifactFactory {
 	private Artifact artifact;
@@ -38,6 +41,18 @@ public class ArtifactFactory {
 		case "ScorePointBoosterArtifact":
 			artifact =  new ScorePointBoosterArtifact("ScorePointBoosterArtifact",1,"AllGame");
 			break;
+			
+		case "wisdomIdolArtifact":
+			artifact = new wisdomIdolArtifact("wisdomIdolArtifact");
+			break;
+			
+		case "printingPressArtifact":
+			artifact = new printingPressArtifact("printingPressArtifact");
+			break;
+			
+		case "magicMortarArtifact":
+			artifact = new magicMortarArtifact("magicMortarArtifact");
+			break;
 
 		default:
 			System.out.println("Something went wrong");
@@ -45,10 +60,10 @@ public class ArtifactFactory {
 
 
 		}
-		return artifact;
-
-	
+		return artifact;	
 	}
+	
+	
 	public static ArtifactFactory getInstance() {
 		if(artiFactory == null) {
 			artiFactory = new ArtifactFactory();

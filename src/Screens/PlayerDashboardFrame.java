@@ -475,7 +475,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         backgroundPanel.add(artifactsLabel);
         
         for (Artifact artifact : player.getArtifacts()) {
-	    	Image image = new ImageIcon(this.getClass().getResource("/Images/" + artifact.getName() + ".png")).getImage();
+	    	Image image = new ImageIcon(this.getClass().getResource("/artifactImages/" + artifact.getName() + ".png")).getImage();
 	    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
 	    	ImageIcon icon = new ImageIcon(newImage);
 	    	JLabel picLabel = new JLabel(icon);

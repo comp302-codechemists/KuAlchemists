@@ -66,7 +66,7 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    if (boughtArtifact != null)
 			    {
 			    	String message = "Artifact bought: " + boughtArtifact;
-			    	Image image = new ImageIcon(this.getClass().getResource("/Images/" + boughtArtifact +".png")).getImage();
+			    	Image image = new ImageIcon(this.getClass().getResource("/artifactImages/" + boughtArtifact +".png")).getImage();
 			    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
 			    	ImageIcon icon = new ImageIcon(newImage);
 				    JOptionPane.showMessageDialog(null, message, "Artifact Bought", JOptionPane.INFORMATION_MESSAGE, icon);
