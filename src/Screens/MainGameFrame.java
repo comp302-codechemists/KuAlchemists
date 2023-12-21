@@ -50,6 +50,7 @@ public class MainGameFrame extends GeneralFrame{
 	private JButton howToPlayButton;
 	private JButton pauseGameButton;
 	private JButton takeTurnButton;
+	private JTextArea gameLogArea;
 	
 	public MainGameFrame(KUAlchemistsGame game) 
 	{
@@ -100,7 +101,7 @@ public class MainGameFrame extends GeneralFrame{
 	}
 	
 	private void setGameLog() {
-	    JTextArea gameLogArea = new JTextArea(10, 30);
+	    gameLogArea = new JTextArea(10, 30);
 	    gameLogArea.setForeground(Color.white);
 	    gameLogArea.setFont(GameText.normalText);
 	    gameLogArea.setEditable(false);
@@ -300,6 +301,8 @@ public class MainGameFrame extends GeneralFrame{
 			@Override
 	        public void actionPerformed(ActionEvent e) {
 				KUAlchemistsGame.instance.pause();
+				gameLogArea.revalidate();
+				gameLogArea.repaint();
 			}
 		});
 		backgroundPanel.add(pauseGameButton);

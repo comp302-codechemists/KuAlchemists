@@ -335,6 +335,7 @@ public class Player {
 		}
 		else {
 			PublicationBoard.getInstance().publishTheory(this, Token.getTokens().get(selectedMarker), Ingredient.getIngredient(selectedTheory));
+			GameEvent event = new GameEvent(null, this, GameEvent.EventID.PUBLISH_THEORY);
 			System.out.println("Theories");
 			getTheories().forEach(System.out::println);
 		}
@@ -351,6 +352,7 @@ public class Player {
 		}
 		else {
 			boolean result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
+			GameEvent event = new GameEvent(null, this, GameEvent.EventID.DEBUNK_THEORY);
 		}
 	}
 	
