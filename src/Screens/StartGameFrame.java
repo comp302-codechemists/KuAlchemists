@@ -237,7 +237,7 @@ public class StartGameFrame extends GeneralFrame {
     	backgroundPanel.add(player1Avatar2Button);
     	backgroundPanel.add(player1Avatar3Button);
     	backgroundPanel.add(player1Avatar4Button);
-    	
+  
     	
     }
     
