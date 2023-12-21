@@ -19,6 +19,7 @@ public class GameEvent {
 		PUBLISH_THEORY,
 		FINISH_GAME,
 		START_GAME,
+		DEBUNK_THEORY
 	}
 	
 	private String eventTime;
@@ -120,6 +121,10 @@ public class GameEvent {
 				
 			case START_GAME:
 				s = "Game has started. Level: 1";
+				break;
+				
+			case DEBUNK_THEORY:
+				s = String.format("%s: %s debunked a theory.", eventTime, player.getUserName());
 				break;
 				
 			default:
