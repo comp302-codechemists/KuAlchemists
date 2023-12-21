@@ -181,6 +181,7 @@ public class KUAlchemistsGame {
 		
 		if (!isPaused()) {
 			setPaused(true);
+			System.out.println("Game paused.\n");
 			GameEvent event = new GameEvent(this, null, GameEvent.EventID.PAUSE_GAME);
 			PauseController pc = new PauseController();
 			pc.showPause();

@@ -84,8 +84,6 @@ public class GameEvent {
 				break;
 				
 			case PAUSE_GAME:
-				System.out.println("Game paused.\n");
-
 				s = String.format("%s: Game is paused.", eventTime);
 				break;
 				
