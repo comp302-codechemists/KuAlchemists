@@ -116,7 +116,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	{
 		if (selectedAspect == null || !selectedAspect.equals(aspect)) {
             selectedAspect = aspect;
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/aspectImages/" + selectedAspect + ".png"));
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/potionImages/" + selectedAspect + ".png"));
         	Image image = imageIcon.getImage().getScaledInstance(150, 170, Image.SCALE_SMOOTH);
         	selectedAspectLabel.setIcon(new ImageIcon(image));
             System.out.println(selectedAspect + " selected");
