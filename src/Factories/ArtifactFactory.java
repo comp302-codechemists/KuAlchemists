@@ -2,7 +2,6 @@ package Factories;
 
 import Business.Artifact;
 import Business.DiscountArtifact;
-import Business.ExperimentHelperArtifact;
 import Business.GoldBoosterArtifact;
 import Business.PotionEffectBoosterArtifact;
 import Business.ReputationBoosterArtifact;
@@ -23,10 +22,7 @@ public class ArtifactFactory {
 		case "DiscountArtifact":
 			artifact = new DiscountArtifact("DiscountArtifact",1,"Artifact","AllGame");
 			break;
-		case "ExperimentHelperArtifact":
-			artifact =  new ExperimentHelperArtifact("ExperimentHelperArtifact","AllGame");
-			break;
-
+			
 		case "GoldBoosterArtifact":
 			artifact = new GoldBoosterArtifact(1,"AllGame","GoldBoosterArtifact");
 			break;
@@ -34,7 +30,6 @@ public class ArtifactFactory {
 		case "PotionEffectBooster":
 			artifact =  new PotionEffectBoosterArtifact("PotionEffectBooster",1,"PositivePotion","AllGame");
 			break;
-
 
 		case "ReputationBoosterArtifact":
 			artifact =   new ReputationBoosterArtifact("ReputationBoosterArtifact",1,"PublishTheory","AllGame");

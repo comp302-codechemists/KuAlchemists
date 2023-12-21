@@ -44,6 +44,7 @@ public abstract class Artifact {
 		Artifact potionEffectBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("PotionEffectBooster");
 		Artifact reputationBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ReputationBoosterArtifact");
 		Artifact scorePointBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ScorePointBoosterArtifact");
+		Artifact printingPressArtifact = new printingPressArtifact("PrintingPressArtifact"); //will be changed accordingly to the factory pattern
 
 		artifacts.add(scorePointBoosterArtifact);
 		artifacts.add(reputationBoosterArtifact);
@@ -52,6 +53,7 @@ public abstract class Artifact {
 		artifacts.add(experimentHelperArtifact);
 		artifacts.add(experimentHelperArtifact);
 		artifacts.add(discountArtifact);
+		artifacts.add(printingPressArtifact);
 
 		System.out.println("Artifacts initialized.");
 	}

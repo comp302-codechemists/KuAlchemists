@@ -3,6 +3,8 @@ package Business;
 import java.util.ArrayList;
 import java.util.List;
 
+import Exceptions.NotFoundInStorageException;
+
 public class Player {
 	private String userName;
 	private String avatarPath;
@@ -14,12 +16,16 @@ public class Player {
 	private DeductionBoard deductionBoard = new DeductionBoard();
 	private int sicknessLevel;
 	private int goldtToBePayedToArtifact;
+	private int publishTheoryCharge;
+	private List<removeArtifactListener> removeArtifactListeners = new ArrayList<removeArtifactListener>();
 	
 	public Player(String userName, String avatarPath) {
 		
 		this.userName = userName;
 		this.avatarPath = avatarPath;
 		this.goldtToBePayedToArtifact = -3;
+		this.publishTheoryCharge = -1;
+		populateArtifactListeners();
 	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
@@ -32,6 +38,8 @@ public class Player {
 		this.reputationPoints = reputationPoints;
 		this.deductionBoard = deductionBoard;
 		this.goldtToBePayedToArtifact = -3;
+		this.publishTheoryCharge = -1;
+		populateArtifactListeners();
 	}
 	
 	public void addIngredient(Ingredient ingredient)
@@ -163,6 +171,14 @@ public class Player {
 
 	public void setTheories(List<Theory> theories) {
 		this.theories = theories;
+	}
+	
+	public List<removeArtifactListener> getRemoveArtifactListeners() {
+		return removeArtifactListeners;
+	}
+
+	public void setRemoveArtifactListeners(List<removeArtifactListener> removeArtifactListeners) {
+		this.removeArtifactListeners = removeArtifactListeners;
 	}
 	
 
@@ -356,6 +372,29 @@ public class Player {
 		}
 	}
 	
+	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
+		deductionBoard.addDeduction(selectedTriangle, name);
+		deductionBoard.addExistingItem(selectedTriangle, selectedLeft);
+	}
+
+	public int getPublishTheoryCharge() {
+		return publishTheoryCharge;
+	}
+
+	public void setPublishTheoryCharge(int publishTheoryCharge) {
+		this.publishTheoryCharge = publishTheoryCharge;
+	}
+	
+	public void removeArtifact(Artifact artifact) throws NotFoundInStorageException {
+		if(getArtifacts().contains(artifact)) {
+			getArtifacts().remove(artifact);
+			handleRemove();
+		}
+		else {
+			throw new NotFoundInStorageException("Artifact is not found in the storage");
+		}
+		
+	}
 	@Override
 	public String toString() {
 		return "Player [userName=" + userName + ", balance=" + balance + ", reputationPoints=" + reputationPoints
@@ -377,8 +416,25 @@ public class Player {
 		
 		
 	private void addArtifact(Artifact artifact) {
-		getArtifacts().add(artifact);
+		getArtifacts().add(artifact);		
 	}
+	
+	private void populateArtifactListeners() {
+		getRemoveArtifactListeners().add(new DiscountArtifact("DiscountArtifact",1,"Artifact","AllGame")) ;
+		getRemoveArtifactListeners().add(new GoldBoosterArtifact(1,"AllGame","GoldBoosterArtifact")) ;
+		getRemoveArtifactListeners().add(new PotionEffectBoosterArtifact("PotionEffectBooster",1,"PositivePotion","AllGame")) ;
+		getRemoveArtifactListeners().add(new ReputationBoosterArtifact("ReputationBoosterArtifact",1,"PublishTheory","AllGame")) ;
+		getRemoveArtifactListeners().add(new ScorePointBoosterArtifact("ScorePointBoosterArtifact",1,"AllGame")) ;
+		getRemoveArtifactListeners().add(new printingPressArtifact("PrintingPressArtifact")) ;
+	}
+	
+	private void handleRemove() {
+		for(removeArtifactListener ral: getRemoveArtifactListeners()) {
+			ral.handleRemove(this);
+		}
+	}
+
+	
 	
 	/*private int enumeratePromises(String promise) {
 		int return_val = 0;
@@ -428,10 +484,7 @@ public class Player {
 	
 	
 	
-	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
-		deductionBoard.addDeduction(selectedTriangle, name);
-		deductionBoard.addExistingItem(selectedTriangle, selectedLeft);
-	}
+	
 
 	
 	

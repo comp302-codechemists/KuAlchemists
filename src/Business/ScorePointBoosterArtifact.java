@@ -1,6 +1,6 @@
 package Business;
 
-public class ScorePointBoosterArtifact extends Artifact {
+public class ScorePointBoosterArtifact extends Artifact implements removeArtifactListener {
     public int boostAmount;
     private String duration;
 
@@ -28,6 +28,12 @@ public class ScorePointBoosterArtifact extends Artifact {
 
 	@Override
 	public void applyArtifact(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleRemove(Player player) {
 		// TODO Auto-generated method stub
 		
 	}
