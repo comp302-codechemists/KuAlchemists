@@ -14,7 +14,10 @@ public class Aspect {
 	
     private String size;
     private String sign;
-    private String color;
+    
+    
+
+	private String color;
     
     public Aspect(String size, String color, String sign) {
         this.color = color;
@@ -74,6 +77,11 @@ public class Aspect {
     public void setMagnitude(String magnitude) {
         this.size = magnitude;
     }
+    
+    @Override
+	public String toString() {
+		return size+color+sign;
+	}
 
 }
 

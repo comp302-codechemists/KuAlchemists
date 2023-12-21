@@ -13,6 +13,7 @@ import javax.swing.JToggleButton;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Business.Theory;
 import Business.Token;
 import Controllers.PublishTheoryController;
 import DesignSystem.GameButton;
@@ -39,7 +40,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
     private void setPublishButton()
     {
     	publishButton = new GameButton("Publish");
-    	publishButton.setBounds(500, 470, 100, 30);
+    	publishButton.setBounds(500, 500, 100, 30);
     	backgroundPanel.add(publishButton);
     	publishButton.addActionListener(e -> handlePublishButton());    	
     }
@@ -56,13 +57,13 @@ public class PublishTheoryFrame extends FunctionalFrame {
     private void initializeSelectedMarkerLabel() 
     {
         selectedMarkerLabel = new JLabel();
-        selectedMarkerLabel.setBounds(250, 450, 150, 170);
+        selectedMarkerLabel.setBounds(250, 470, 150, 170);
         backgroundPanel.add(selectedMarkerLabel);
     }
     private void initializeSelectedTheoryLabel() 
     {
     	selectedTheoryLabel = new JLabel();
-    	selectedTheoryLabel.setBounds(750, 450, 200, 150);
+    	selectedTheoryLabel.setBounds(750, 470, 200, 150);
         backgroundPanel.add(selectedTheoryLabel);
     }
     private void handleMarkerSelection(JToggleButton selectedMarkerButton) 
@@ -135,45 +136,47 @@ public class PublishTheoryFrame extends FunctionalFrame {
 
 	    ButtonGroup theoryGroup = new ButtonGroup(); // Create a button group
 
-	    int buttonWidth = 100;
-	    int buttonHeight = 75;
-	    int xOffset = 20;
-	    int yOffset = 20;
+	    int buttonWidth = 66;
+	    int buttonHeight = 100;
+	    int xOffset = 50;
+	    int yOffset = 25;
 
-	    
-	    for (int i = 0; i < Ingredient.ingredients.size(); i++) {
-	    	
-	    	String ingredientName = Ingredient.ingredients.get(i).getName();
-	    	int theoryNo = i + 1;
-	    	
-	        JToggleButton theoryButton = new JToggleButton(); 
-	        theoryButton.setBackground(null);
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + theoryNo + ".png"));
-	        Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
-	        theoryButton.setIcon(new ImageIcon(image));
-
-	        int xPosition = (buttonWidth + xOffset) * (i % 8);
-	        int yPosition = (buttonHeight + yOffset) * (i / 8);
-
-	        theoryButton.setBounds(xPosition, yPosition, buttonWidth, buttonHeight);
-	        theoryPanel.add(theoryButton);
-
-	        theoryGroup.add(theoryButton);
-	        theoryButton.setActionCommand(String.valueOf(theoryNo)); 
-	        theoryButton.addActionListener(e -> handleTheorySelection(String.valueOf(theoryNo), String.valueOf(ingredientName))); 
+	   // If there is no theory on that ingredient
+	   // show it on the screen
+	    int i = 0;
+	    for (Ingredient ingredient: Ingredient.ingredients)
+	    {
+		  if (!Theory.getUnavailableIngredients().contains(ingredient.getName()))
+		  {
+		   		JToggleButton theoryButton = new JToggleButton(); 
+		   		theoryButton.setBackground(null);
+	    		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/ingredientImages/" + ingredient.getName() + ".png"));
+	    		Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);		    		theoryButton.setIcon(new ImageIcon(image));
+	
+		    	int xPosition = (buttonWidth + xOffset) * (i % 8);
+		   		int yPosition = (buttonHeight + yOffset) * (i / 8);
+	
+		   		theoryButton.setBounds(xPosition, yPosition, buttonWidth, buttonHeight);
+		   		theoryPanel.add(theoryButton);
+	
+		 
+		   		theoryGroup.add(theoryButton);
+		    	theoryButton.setActionCommand(String.valueOf(ingredient.getName())); 
+		   		theoryButton.addActionListener(e -> handleTheorySelection(String.valueOf(ingredient.getName()))); 
+		   	}
+	    	i += 1;
 	    }
 
 	    backgroundPanel.setLayout(null);
 	    backgroundPanel.add(theoryPanel);
 	}
 	
-	private void handleTheorySelection(String selectedTheoryNo, String ingredientName)
+	private void handleTheorySelection(String ingredientName)
 	{
-		System.out.println(selectedTheoryNo);
-		if (selectedTheory == null || !selectedTheory.equals(selectedTheoryNo)) {
+		if (selectedTheory == null || !selectedTheory.equals(ingredientName)) {
 			selectedTheory = ingredientName;
             // set selected marker image
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + selectedTheoryNo + ".png"));
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/theoryImages/" + ingredientName + ".png"));
         	Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
             selectedTheoryLabel.setIcon(new ImageIcon(image));
             System.out.println(selectedTheory + " selected");

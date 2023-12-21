@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Theory {
 	private static List<Theory> allTheories = new ArrayList<>();
-	private static List<String> availableIngredients = new ArrayList<>();
+	private static List<String> unavailableIngredients = new ArrayList<>();
 	private Player owner;
 	private Token alchemyMarker;
 	private Ingredient ingredient;
@@ -16,8 +16,14 @@ public class Theory {
 		this.alchemyMarker = alchemyMarker;
 		this.ingredient = ingredient;
 		allTheories.add(this);
+		unavailableIngredients.add(ingredient.getName());
 	}
 
+	public static List<String> getUnavailableIngredients()
+	{
+		return unavailableIngredients;
+	}
+	
 	public Player getOwner() {
 		return owner;
 	}
@@ -63,15 +69,6 @@ public class Theory {
 			}
 		}
 		return theory;
-	}
-
-	public void showResult() {
-		
-		
-	}
-	
-	public void chooseAspectToDebunk(Aspect asp) {
-		
 	}
 	
 	

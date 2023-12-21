@@ -13,6 +13,7 @@ import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Business.Potion;
+import Business.Theory;
 import Controllers.DebunkTheoryController;
 import Controllers.SellPotionController;
 import DesignSystem.GameButton;
@@ -116,7 +117,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	{
 		if (selectedAspect == null || !selectedAspect.equals(aspect)) {
             selectedAspect = aspect;
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/aspectImages/" + selectedAspect + ".png"));
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/potionImages/" + selectedAspect + ".png"));
         	Image image = imageIcon.getImage().getScaledInstance(150, 170, Image.SCALE_SMOOTH);
         	selectedAspectLabel.setIcon(new ImageIcon(image));
             System.out.println(selectedAspect + " selected");
@@ -144,13 +145,13 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	    
 	    // this will iterate over existing theories
 	    // TODO do not forget to change
-	    for (int i = 0; i < Ingredient.ingredients.size(); i++) {
+	    for (int i = 0; i < Theory.getAllTheories().size(); i++) {
 	    	
-	    	int theoryNo = i + 1;
+	    	Theory theory = Theory.getAllTheories().get(i);
 	    	
 	        JToggleButton theoryButton = new JToggleButton(); 
 	        theoryButton.setBackground(null);
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + theoryNo + ".png"));
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/theoryImages/" + theory.getIngredient().getName() + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
 	        theoryButton.setIcon(new ImageIcon(image));
 
@@ -161,20 +162,19 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	        theoryPanel.add(theoryButton);
 
 	        theoryGroup.add(theoryButton);
-	        theoryButton.setActionCommand(String.valueOf(theoryNo)); 
-	        theoryButton.addActionListener(e -> handleTheorySelection(String.valueOf(theoryNo))); 
+	        theoryButton.setActionCommand(String.valueOf(theory.getIngredient().getName())); 
+	        theoryButton.addActionListener(e -> handleTheorySelection(String.valueOf(theory.getIngredient().getName()))); 
 	    }
 
 	    backgroundPanel.setLayout(null);
 	    backgroundPanel.add(theoryPanel);
 	}
 	
-	private void handleTheorySelection(String selectedTheoryNo)
+	private void handleTheorySelection(String selectedTheory)
 	{
-		System.out.println(selectedTheoryNo);
-		if (selectedTheory == null || !selectedTheory.equals(selectedTheoryNo)) {
+		if (selectedTheory == null || !selectedTheory.equals(selectedTheory)) {
             // set selected marker image
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + selectedTheoryNo + ".png"));
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/theoryImages/" + selectedTheory + ".png"));
         	Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
             selectedTheoryLabel.setIcon(new ImageIcon(image));
             System.out.println(selectedTheory + " selected");

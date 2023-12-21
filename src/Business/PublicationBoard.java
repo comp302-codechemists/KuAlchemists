@@ -36,12 +36,6 @@ public class PublicationBoard
 	}
 
 	public Theory chooseTheory(String ingredientName) {
-
-		/*if (!(t.getOwner().equals(owner)) && Theory.getAllTheories().contains(t)) {
-			return t;
-		}
-		
-		return null;*/
 		
 		Theory theory = null;
 		for(Theory t: Theory.getAllTheories()) {
@@ -57,7 +51,7 @@ public class PublicationBoard
 		boolean comparaison = false;
 		String signOfAspectToDebunk = selectedTheory.getAlchemyMarker().getTokenAspects()[selectedAspect].getSign();
 		String actualSignOfAspect = selectedTheory.getIngredient().getToken().getTokenAspects()[selectedAspect].getSign();
-		
+		Theory.getAllTheories().remove(selectedTheory);
 		if(signOfAspectToDebunk.equals(actualSignOfAspect)) {
 			comparaison = true;
 		}
