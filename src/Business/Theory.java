@@ -64,15 +64,6 @@ public class Theory {
 		}
 		return theory;
 	}
-
-	public void showResult() {
-		
-		
-	}
-	
-	public void chooseAspectToDebunk(Aspect asp) {
-		
-	}
 	
 	
 }
