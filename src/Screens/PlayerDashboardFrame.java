@@ -616,15 +616,15 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        sellPotionButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	if (game.getRound() < 2) {
-	                  	 JOptionPane.showMessageDialog(new JFrame(), "You can sell potions after the second round. "
-	                  	 		+ "Please wait for round 2 for this action.",
-	                             "Action Denied", JOptionPane.ERROR_MESSAGE);
-	            	}
-	            	else {
+//	            	if (game.getRound() < 2) {
+//	                  	 JOptionPane.showMessageDialog(new JFrame(), "You can sell potions after the second round. "
+//	                  	 		+ "Please wait for round 2 for this action.",
+//	                             "Action Denied", JOptionPane.ERROR_MESSAGE);
+//	            	}
+//	            	else {
 		            	new SellPotionFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
-	            	}
+//	            	}
 
 	            }
 	        });

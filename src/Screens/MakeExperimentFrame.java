@@ -118,14 +118,13 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	    for (int i = 0; i < currentIngredients.size(); i++) {
 	    	
 	    	Ingredient ingredient = currentIngredients.get(i);
-	    	int ingredientIndex = Ingredient.getIngredientIndex(ingredient.getName());
 	    	
 	        JToggleButton ingredientButton = new JToggleButton(); // Use JToggleButton for radio button behavior
 	        ingredientButton.setBackground(null);
 	        ingredientButton.setOpaque(false);
 	        ingredientButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
 
-	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/ingredient" + ingredientIndex + ".png"));
+	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/ingredientImages/" + ingredient.getName() + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
 	        ingredientButton.setIcon(new ImageIcon(image));
 
