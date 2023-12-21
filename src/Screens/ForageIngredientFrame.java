@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,15 +20,34 @@ import javax.swing.border.LineBorder;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.ForageController;
+import DesignSystem.ArtisticButton;
 
 public class ForageIngredientFrame extends FunctionalFrame
 {
 	JButton button;
+	JButton returnBtn;
 	
 	public ForageIngredientFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
 		this.setBackground("/FunctionalBackgroundImages/forageIngredientBackground.png");
 		this.setButton();
+		this.setReturnBtn();
+	}
+	
+	
+	private void setReturnBtn() {
+		
+		returnBtn = new ArtisticButton("/Images/return.png", 60, 60);	
+    	returnBtn.setBounds(1100, 30, 60, 60);
+		backgroundPanel.add(returnBtn);
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayerDashboardFrame(game, player);
+                ForageIngredientFrame.this.dispose();
+            }
+        });	
+		
 	}
 	private void setButton()
 	{
@@ -92,6 +113,4 @@ public class ForageIngredientFrame extends FunctionalFrame
 		
 		backgroundPanel.add(button);
 	}
-
-
 }

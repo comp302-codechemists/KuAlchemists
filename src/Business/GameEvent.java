@@ -79,6 +79,7 @@ public class GameEvent {
 	public String getEventString() {
 		String s = "";
 		switch (eventID) {
+		
 			case JOIN_GAME:
 				s = String.format("%s: %s joined the game!", eventTime, player.getUserName());
 				break;

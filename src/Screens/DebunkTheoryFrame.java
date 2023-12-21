@@ -1,10 +1,13 @@
 package Screens;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -16,6 +19,7 @@ import Business.Potion;
 import Business.Theory;
 import Controllers.DebunkTheoryController;
 import Controllers.SellPotionController;
+import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
 
 public class DebunkTheoryFrame extends FunctionalFrame{
@@ -26,6 +30,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	private JLabel selectedTheoryLabel;
 	private String selectedTheory;
 	private GameButton debunkButton;
+	private JButton returnBtn;
 
 	
 	public DebunkTheoryFrame(KUAlchemistsGame game, Player player) {
@@ -36,6 +41,22 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 		setDebunkButton();
 		setAspects();
 		setTheoryCards();
+		setReturnBtn();
+	}
+	
+	private void setReturnBtn() {
+		
+		returnBtn = new ArtisticButton("/Images/return.png", 60, 60);	
+    	returnBtn.setBounds(1100, 30, 60, 60);
+		backgroundPanel.add(returnBtn);
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayerDashboardFrame(game, player);
+                DebunkTheoryFrame.this.dispose();
+            }
+        });	
+		
 	}
 	
 	private void setDebunkButton()
