@@ -84,14 +84,14 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		this.player = player;
 		
 		setBackground();
-		/*setUpperDeductionBoard();
+		setUpperDeductionBoard();
 		setUpperButtons();
 		setBottomDeductionBoard();
 		setLeftHand();
 		setLeftHandButtons();
 		setDeduction();
 		setDeductionPanel();
-		setClearSelection();*/
+		setClearSelection();
 		setBuyArtifactButton();
 		setForageIngredientButton();
 		setTransmuteIngredientButton();
@@ -200,10 +200,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
             }
     	};
     	
-        upperBackground.setLocation(40, 20);
+        upperBackground.setLocation(350, 50);
         upperBackground.setLayout(null);
         upperBackground.setOpaque(false);
-        upperBackground.setSize(new Dimension(789, 466));       
+        upperBackground.setSize(new Dimension(400, 240));       
         backgroundPanel.add(upperBackground);
 	}	
 	private void setUpperButtons() {
@@ -216,16 +216,16 @@ public class PlayerDashboardFrame extends GeneralFrame{
         triangleButtonGroup = new ButtonGroup();
 
         int rows = 7;
-        int startX = 372;
-        int startY = 20; 
+        int startX = 176;
+        int startY = 0; 
         int index = 0;
         
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col <= row; col++) {
                 JRadioButton btn = new JRadioButton();
                 triangleButtonGroup.add(btn);
-                int x = startX - row * 65 / 2 + col * 65;
-                int y = startY + row * 57;
+                int x = startX - row * 32 / 2 + col * 32;
+                int y = startY + row * 29;
                 btn.setBounds(x, y, 24, 24);
                 /*Dimension largerSize = new Dimension(40, 40);
                 btn.setPreferredSize(largerSize);*/
@@ -285,7 +285,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
 	        }
 	    };
-	    bottomBackground.setBounds(40, 490, 789, 297);
+	    bottomBackground.setBounds(300, 300, 500, 200);
 	    backgroundPanel.add(bottomBackground);
 	    bottomBackground.setLayout(null);
 	    bottomBackground.setOpaque(false);
@@ -315,19 +315,20 @@ public class PlayerDashboardFrame extends GeneralFrame{
             }
     	};
     	
-        leftHandBackground.setLocation(40, 20);
+        leftHandBackground.setLocation(750, 50);
         leftHandBackground.setLayout(null);
         leftHandBackground.setOpaque(false);
-        leftHandBackground.setSize(new Dimension(85, 466));       
+        leftHandBackground.setSize(new Dimension(43, 230));       
         backgroundPanel.add(leftHandBackground);
 		
 	}
+	
 	private void setLeftHandButtons() {
 		leftButtonPanel = new JPanel();
-        leftButtonPanel.setLocation(10, 50);
+        leftButtonPanel.setLocation(5, 0);
         leftButtonPanel.setLayout(null);
         leftButtonPanel.setOpaque(false);
-        leftButtonPanel.setSize(new Dimension(85, 466)); 
+        leftButtonPanel.setSize(new Dimension(20, 230)); 
         
         int buttonCount = 7;
         leftButtonGroup = new ButtonGroup();
@@ -336,16 +337,17 @@ public class PlayerDashboardFrame extends GeneralFrame{
         	JRadioButton btn = new JRadioButton();
         	leftButtonGroup.add(btn);
         	leftButtonPanel.add(btn);
-        	btn.setBounds(50, i*65, 20, 20);
+        	btn.setBounds(0, i*32, 50, 40);
         	
         }
         leftHandBackground.add(leftButtonPanel);   	
 		
 	}
+	
 	private void setClearSelection() {
 		
     	clearBtn = new JButton("<html>\r\nClear<br> My<br> Selections\r\n</html>");
-    	clearBtn.setBounds(0, 128, 85, 68);
+    	clearBtn.setBounds(450, 50, 40, 30);
     	bottomBackground.add(clearBtn);
     	
         clearBtn.addActionListener(new ActionListener() {
@@ -356,9 +358,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
             }
         });	
 	}
+	
 	private void setDeduction() {
 	    JButton submitBtn = new JButton("<html>Submit<br>   My<br>Deduction\r\n</html>");
-	    submitBtn.setBounds(0, 29, 85, 86);
+	    submitBtn.setBounds(450, 90, 40, 30);
 	    bottomBackground.add(submitBtn);
 
         submitBtn.addActionListener(new ActionListener() {
@@ -436,7 +439,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private void setPlayerIngredients() {
 		
         ingredientPannel = new JPanel();
-        ingredientPannel.setBounds(70, 420, 653, 123);
+        ingredientPannel.setBounds(70, 500, 653, 123);
         ingredientPannel.setOpaque(false);
         backgroundPanel.add(ingredientPannel);
         ingredientPannel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
@@ -444,7 +447,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         JLabel ingredientsLabel = new JLabel("Ingredients:");
         ingredientsLabel.setForeground(Color.WHITE);
         ingredientsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-        ingredientsLabel.setBounds(70, 400, 85, 13);
+        ingredientsLabel.setBounds(70, 480, 85, 13);
         backgroundPanel.add(ingredientsLabel);
         
         for (Ingredient ingredient : player.getIngredients()) {
@@ -463,7 +466,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private void setPlayerArtifacts() {
 		
         artifactPannel = new JPanel();
-        artifactPannel.setBounds(70, 570, 653, 123);
+        artifactPannel.setBounds(70, 650, 653, 123);
         backgroundPanel.add(artifactPannel);
         artifactPannel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
         artifactPannel.setOpaque(false);
@@ -471,7 +474,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         JLabel artifactsLabel = new JLabel("Artifacts:");
         artifactsLabel.setForeground(Color.WHITE);
         artifactsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-        artifactsLabel.setBounds(70, 550, 85, 13);
+        artifactsLabel.setBounds(70, 630, 85, 13);
         backgroundPanel.add(artifactsLabel);
         
         for (Artifact artifact : player.getArtifacts()) {
