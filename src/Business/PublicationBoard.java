@@ -22,8 +22,6 @@ public class PublicationBoard
 				
 				// create theory if not already exist
 				Theory theory = new Theory(owner, alchemyMarker, ingredient);
-				
-				Theory.getAllTheories().add(theory);
 				owner.updateBalance(owner.getPublishTheoryCharge());
 				owner.setReputationPoints(owner.getReputationPoints() + 1);
 				owner.getTheories().add(theory);

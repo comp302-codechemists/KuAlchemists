@@ -70,7 +70,10 @@ public class DebunkTheoryFrame extends FunctionalFrame{
     		try {
     			//TODO
     			controller = new DebunkTheoryController(game);
-				//controller.handleDebunk(selectedTheory,selectedAspect);
+    			System.out.println(selectedTheory);
+    			System.out.println(selectedAspect);
+
+    			// controller.handleDebunk(selectedTheory, selectedAspect);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -193,17 +196,18 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	
 	private void handleTheorySelection(String selectedTheory)
 	{
-		if (selectedTheory == null || !selectedTheory.equals(selectedTheory)) {
+		if (this.selectedTheory == null || !this.selectedTheory.equals(selectedTheory)) {
             // set selected marker image
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/theoryImages/" + selectedTheory + ".png"));
+			this.selectedTheory = selectedTheory;
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("/theoryImages/" + this.selectedTheory + ".png"));
         	Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
             selectedTheoryLabel.setIcon(new ImageIcon(image));
             System.out.println(selectedTheory + " selected");
         } 
         else 
         {
-            System.out.println(selectedTheory + " unselected");
-            selectedTheory = null;
+            System.out.println(this.selectedTheory + " unselected");
+            this.selectedTheory = null;
             selectedTheoryLabel.setText("Selected Theory: "); 
         }
 	}
