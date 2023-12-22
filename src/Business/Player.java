@@ -2,6 +2,10 @@ package Business;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import Exceptions.NotFoundInStorageException;
+import Factories.ArtifactFactory;
 
 public class Player {
 	private String userName;
@@ -14,12 +18,15 @@ public class Player {
 	private DeductionBoard deductionBoard = new DeductionBoard();
 	private int sicknessLevel;
 	private int goldtToBePayedToArtifact;
+	private int publishTheoryCharge;
+	private List<removeArtifactListener> removeArtifactListeners = new ArrayList<removeArtifactListener>();
 	
 	public Player(String userName, String avatarPath) {
 		
 		this.userName = userName;
 		this.avatarPath = avatarPath;
 		this.goldtToBePayedToArtifact = -3;
+		this.publishTheoryCharge = -1;
 	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
@@ -32,6 +39,7 @@ public class Player {
 		this.reputationPoints = reputationPoints;
 		this.deductionBoard = deductionBoard;
 		this.goldtToBePayedToArtifact = -3;
+		this.publishTheoryCharge = -1;
 	}
 	
 	public void addIngredient(Ingredient ingredient)
@@ -165,6 +173,7 @@ public class Player {
 		this.theories = theories;
 	}
 	
+	
 
 	public Potion makeExperiment(List<String> ingredientList, int whereToTest) {
 
@@ -182,6 +191,10 @@ public class Player {
 		// get the potion created
 		Potion potion = experiment.getResultPotion();
 		
+		populateArtifactListeners("experiment");
+		handleRemove();
+		
+
 		return potion;
 
 	}
@@ -257,21 +270,31 @@ public class Player {
 			
 			Artifact artifact = ArtifactStorage.getArtifact();
 			if(artifact != null) {
-				
+							
 				System.out.println();
 				System.out.println("Previous artifacts");
 				getArtifacts().forEach(System.out::println);
-			    System.out.printf("Old Balance: %d%n",getBalance());
+				int oldBalance = getBalance();
+			    System.out.printf("Old Balance: %d%n",oldBalance);
 			    
 				addArtifact(artifact);
 				updateBalance(getGoldtToBePayedToArtifact());
 				applyArtifact(artifact);
 				
+				
+				int newBalance = getBalance();
+				if(oldBalance - newBalance == 2) {
+					populateArtifactListeners("buy artifact");
+					handleRemove();
+				}
+				
 				System.out.println("New artifacts");
-				getArtifacts().forEach(System.out::println);
-				System.out.printf("New Balance: %d%n",getBalance());
+				getArtifacts().forEach(System.out::println);				
+				System.out.printf("New Balance: %d%n",newBalance);
 				System.out.printf("Artifact %s is added to the player's storage%n",artifact.getName());
+				
 				GameEvent events = new GameEvent(null, this, GameEvent.EventID.BUY_ARTIFACT);
+
 				
 				return artifact.getName();
 			}
@@ -356,6 +379,28 @@ public class Player {
 		}
 	}
 	
+	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
+		deductionBoard.addDeduction(selectedTriangle, name);
+		deductionBoard.addExistingItem(selectedTriangle, selectedLeft);
+	}
+
+	public int getPublishTheoryCharge() {
+		return publishTheoryCharge;
+	}
+
+	public void setPublishTheoryCharge(int publishTheoryCharge) {
+		this.publishTheoryCharge = publishTheoryCharge;
+	}
+	
+	/*public void removeArtifact(Artifact artifact) throws NotFoundInStorageException {
+		if(getArtifacts().contains(artifact)) {
+			getArtifacts().remove(artifact);
+		}
+		else {
+			throw new NotFoundInStorageException("Artifact is not found in the storage");
+		}
+		
+	}*/
 	@Override
 	public String toString() {
 		return "Player [userName=" + userName + ", balance=" + balance + ", reputationPoints=" + reputationPoints
@@ -377,8 +422,50 @@ public class Player {
 		
 		
 	private void addArtifact(Artifact artifact) {
-		getArtifacts().add(artifact);
+		getArtifacts().add(artifact);		
 	}
+	
+	private void populateArtifactListeners(String source) {
+		
+		this.removeArtifactListeners = new ArrayList<removeArtifactListener>();
+		
+		Artifact discountArtifact = ArtifactFactory.getInstance().getArtifacts("DiscountArtifact");
+		Artifact goldBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("GoldBoosterArtifact");
+		Artifact potionEffectBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("PotionEffectBooster");
+		Artifact reputationBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ReputationBoosterArtifact");
+		Artifact scorePointBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ScorePointBoosterArtifact");
+		Artifact printingPressArtifact = ArtifactFactory.getInstance().getArtifacts("printingPressArtifact");
+		Artifact wisdomIdolArtifact = ArtifactFactory.getInstance().getArtifacts("wisdomIdolArtifact");
+		Artifact magicMortarArtifact = ArtifactFactory.getInstance().getArtifacts("magicMortarArtifact");
+		
+		switch(source) {
+			
+			case "experiment":
+				this.removeArtifactListeners.add((removeArtifactListener) magicMortarArtifact);
+				this.removeArtifactListeners.add((removeArtifactListener) potionEffectBoosterArtifact);
+				break;
+			case "publish":
+				this.removeArtifactListeners.add((removeArtifactListener) printingPressArtifact);//to be added all the artifacts
+			case "buy artifact":
+				this.removeArtifactListeners.add((removeArtifactListener) discountArtifact);
+			default:
+				break;
+		}
+	}
+	
+	private void handleRemove() {
+		
+		for(removeArtifactListener ral : removeArtifactListeners) {
+			Optional<Artifact> wanted_artifact = getArtifacts().stream().filter(artifact -> artifact.getName().equals(((Artifact)ral).getName())).findFirst();
+			if(wanted_artifact.isPresent()) {
+				getArtifacts().remove(wanted_artifact.get());
+				ral.handleRemove(this);
+			}
+
+		}
+	}
+
+	
 	
 	/*private int enumeratePromises(String promise) {
 		int return_val = 0;
@@ -428,10 +515,7 @@ public class Player {
 	
 	
 	
-	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
-		deductionBoard.addDeduction(selectedTriangle, name);
-		deductionBoard.addExistingItem(selectedTriangle, selectedLeft);
-	}
+	
 
 	
 	

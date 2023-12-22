@@ -1,6 +1,6 @@
 package Business;
 
-public class PotionEffectBoosterArtifact extends Artifact {
+public class PotionEffectBoosterArtifact extends Artifact implements removeArtifactListener {
     public int boostAmount;
     public String whereToApply;
     private String duration;
@@ -38,6 +38,12 @@ public class PotionEffectBoosterArtifact extends Artifact {
 
 	@Override
 	public void applyArtifact(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void handleRemove(Player player) {
 		// TODO Auto-generated method stub
 		
 	}

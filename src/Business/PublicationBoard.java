@@ -24,7 +24,7 @@ public class PublicationBoard
 				Theory theory = new Theory(owner, alchemyMarker, ingredient);
 				
 				Theory.getAllTheories().add(theory);
-				owner.updateBalance(-1);
+				owner.updateBalance(owner.getPublishTheoryCharge());
 				owner.setReputationPoints(owner.getReputationPoints() + 1);
 				owner.getTheories().add(theory);
 				return theory;

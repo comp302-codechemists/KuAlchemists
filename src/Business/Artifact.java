@@ -39,19 +39,22 @@ public abstract class Artifact {
 	{
 		// Create all the artifacts
 		Artifact discountArtifact = ArtifactFactory.getInstance().getArtifacts("DiscountArtifact");
-		Artifact experimentHelperArtifact = ArtifactFactory.getInstance().getArtifacts("ExperimentHelperArtifact");
 		Artifact goldBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("GoldBoosterArtifact");
 		Artifact potionEffectBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("PotionEffectBooster");
 		Artifact reputationBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ReputationBoosterArtifact");
 		Artifact scorePointBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ScorePointBoosterArtifact");
-
+		Artifact printingPressArtifact = ArtifactFactory.getInstance().getArtifacts("printingPressArtifact");
+		Artifact wisdomIdolArtifact = ArtifactFactory.getInstance().getArtifacts("wisdomIdolArtifact");
+		Artifact magicMortarArtifact = ArtifactFactory.getInstance().getArtifacts("magicMortarArtifact");
+		
 		artifacts.add(scorePointBoosterArtifact);
 		artifacts.add(reputationBoosterArtifact);
 		artifacts.add(potionEffectBoosterArtifact);
 		artifacts.add(goldBoosterArtifact);
-		artifacts.add(experimentHelperArtifact);
-		artifacts.add(experimentHelperArtifact);
 		artifacts.add(discountArtifact);
+		artifacts.add(printingPressArtifact);
+		artifacts.add(magicMortarArtifact);
+		artifacts.add(wisdomIdolArtifact);
 
 		System.out.println("Artifacts initialized.");
 	}

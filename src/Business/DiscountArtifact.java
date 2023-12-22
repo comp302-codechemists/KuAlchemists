@@ -1,6 +1,6 @@
 package Business;
 
-public class DiscountArtifact extends Artifact {
+public class DiscountArtifact extends Artifact implements removeArtifactListener {
     public int discountAmount;
     public String whereToApply;
     private String duration;
@@ -40,6 +40,13 @@ public class DiscountArtifact extends Artifact {
 	public void applyArtifact(Player player) {
 		// TODO Auto-generated method stub
 		player.setGoldtToBePayedToArtifact(-2);
+	}
+
+	@Override
+	public void handleRemove(Player player) {
+		// TODO Auto-generated method stub
+		
+		player.setGoldtToBePayedToArtifact(-3);
 	}
   
 }
