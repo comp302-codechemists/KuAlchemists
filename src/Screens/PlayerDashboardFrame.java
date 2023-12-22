@@ -402,15 +402,12 @@ public class PlayerDashboardFrame extends GeneralFrame{
             	}
             	
             	else {
-            		//player.getDeductionBoard().addDeduction(selectedTriangle, DeductionBoard.getName(selectedLeft));
             		DeductionBoardController controller = new DeductionBoardController(game);
             		controller.deductionBoardHandler(selectedTriangle, DeductionBoard.getName(selectedLeft),selectedLeft);
             		
             	}
             	
-            	
-            	//TODO This doesn't work!
-            	//TODO Also need to show the deduction board with tokens on it that was put before. 
+
     	    	Image image = new ImageIcon(this.getClass().getResource("/Images/circle" + selectedLeft + ".png")).getImage();
     	    	if (image == null) System.out.println("can't load image.\n");
     	    	Image newImage = image.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -478,7 +475,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         backgroundPanel.add(artifactsLabel);
         
         for (Artifact artifact : player.getArtifacts()) {
-	    	Image image = new ImageIcon(this.getClass().getResource("/Images/" + artifact.getName() + ".png")).getImage();
+	    	Image image = new ImageIcon(this.getClass().getResource("/artifactImages/" + artifact.getName() + ".png")).getImage();
 	    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
 	    	ImageIcon icon = new ImageIcon(newImage);
 	    	JLabel picLabel = new JLabel(icon);

@@ -4,10 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,14 +20,33 @@ import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.TransmuteController;
+import DesignSystem.ArtisticButton;
 
 public class TransmuteIngredientFrame extends FunctionalFrame{
+	
+	private JButton returnBtn;
 	
 	public TransmuteIngredientFrame(KUAlchemistsGame game, Player player) {
 		super(game, player);
 		this.setBackground("/FunctionalBackgroundImages/transmuteIngredientBackground.png");
 		this.setTransmuteLabel();
 		this.setIngredients();
+		this.setReturnBtn();
+	}
+	
+	private void setReturnBtn() {
+		
+		returnBtn = new ArtisticButton("/Images/return.png", 60, 60);	
+    	returnBtn.setBounds(1100, 30, 60, 60);
+		backgroundPanel.add(returnBtn);
+        returnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlayerDashboardFrame(game, player);
+                TransmuteIngredientFrame.this.dispose();
+            }
+        });	
+		
 	}
 	
 	private void setTransmuteLabel()

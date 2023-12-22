@@ -32,7 +32,7 @@ public class Token {
 		tokenDictionary.put("ky+bk+km-", new Token(Aspect.getAspect("ky+"),
 				Aspect.getAspect("bk+"),Aspect.getAspect("km-")));
 		tokenDictionary.put("ky+kk-bm-", new Token(Aspect.getAspect("ky+"),
-				Aspect.getAspect("kyk-"),Aspect.getAspect("bm-")));
+				Aspect.getAspect("kk-"),Aspect.getAspect("bm-")));
 		tokenDictionary.put("ky-bk-km+", new Token(Aspect.getAspect("ky-"),
 				Aspect.getAspect("bk-"),Aspect.getAspect("km+")));
 		tokenDictionary.put("ky-kk+bm+", new Token(Aspect.getAspect("ky-"),
@@ -48,7 +48,7 @@ public class Token {
 		tokenAspects[1] = aspectTwo;
 		tokenAspects[2] = aspectThree;
 		
-		this.name = aspectOne.getMagnitude() + aspectOne.getColor() + aspectOne.getSign();
+		this.name = aspectOne.toString() + aspectTwo.toString() + aspectThree.toString();
 	}
 
 	public static String[] getTokenNames()
