@@ -297,45 +297,56 @@ public class StartGameFrame extends GeneralFrame {
     
     private void setPlayer3Components() {
     	
-    	player3Label.setBounds(579, 180, 120, 30);
+    	int x;
+    	
+    	if (game.getNumberOfPlayers() == 3)
+    	{
+    		 x = 730;
+    	}
+    	else // 4
+    	{
+    		 x = 580;
+    	}
+    	
+    	player3Label.setBounds(x, 180, 120, 30);
     	player3Label.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	player3Label.setForeground(Color.WHITE);
     	
     	usernameLabel = new JLabel("Enter a username.");
-    	usernameLabel.setBounds(509, 240, 200, 30);
+    	usernameLabel.setBounds(x - 70, 240, 200, 30);
     	usernameLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
     	usernameLabel.setForeground(Color.WHITE);    	
 
-    	player3UsernameTextField.setBounds(509, 290, 200, 30);
+    	player3UsernameTextField.setBounds(x - 70, 290, 200, 30);
     		
     	avatarLabel = new JLabel("Select an avatar.");
     	avatarLabel.setForeground(Color.WHITE);
     	avatarLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	avatarLabel.setBounds(509, 350, 200, 30);  	
+    	avatarLabel.setBounds(x - 70, 350, 200, 30);  	
     	
     	player3Avatar1Button = new JRadioButton("avatar1");
     	player3Avatar1Button.setForeground(Color.WHITE);
     	player3Avatar1Button.setIcon(avatar1);
     	player3Avatar1Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	player3Avatar1Button.setBounds(509, 421, 89, 89);
+    	player3Avatar1Button.setBounds(x - 70, 421, 89, 89);
     	
     	player3Avatar2Button = new JRadioButton("avatar2");
     	player3Avatar2Button.setForeground(Color.WHITE);
     	player3Avatar2Button.setIcon(avatar2);
     	player3Avatar2Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	player3Avatar2Button.setBounds(623, 421, 89, 89);
+    	player3Avatar2Button.setBounds(x + 43, 421, 89, 89);
     	
     	player3Avatar3Button = new JRadioButton("avatar3");
     	player3Avatar3Button.setForeground(Color.WHITE);
     	player3Avatar3Button.setIcon(avatar3);
     	player3Avatar3Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	player3Avatar3Button.setBounds(509, 521, 89, 89);
+    	player3Avatar3Button.setBounds(x - 70, 521, 89, 89);
     	
     	player3Avatar4Button = new JRadioButton("avatar4");
     	player3Avatar4Button.setForeground(Color.WHITE);
     	player3Avatar4Button.setIcon(avatar4);
     	player3Avatar4Button.setFont(new Font("Tahoma", Font.PLAIN, 20));
-    	player3Avatar4Button.setBounds(623, 521, 89, 89);
+    	player3Avatar4Button.setBounds(x + 43, 521, 89, 89);
     	
     	player3avatarButtonGroup.add(player3Avatar1Button);
     	player3avatarButtonGroup.add(player3Avatar2Button);
