@@ -41,5 +41,19 @@ public class MakeExperimentController {
 		return potion.getName();
 	}
 	
+	public int getNumberOfIngredientsToBeRemoved() {
+		return game.currentPlayer.getNumberOfIngreientToBeRemovedWhileExperimenting();
+	}
+	
+	public String handleExperiment(List<String> ingredientList, int whereToTest, String keptIngredient) 
+	{
+		Potion potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest, keptIngredient); 
+		System.out.println("Potion: " + potion.getName());
+		game.nextPlayer();
+		return potion.getName();
+	}
+	
+	
+	
 	
 }

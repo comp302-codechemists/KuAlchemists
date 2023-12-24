@@ -10,13 +10,13 @@ public class magicMortarArtifact extends Artifact implements removeArtifactListe
 	@Override
 	public void applyArtifact(Player player) {
 		// TODO Auto-generated method stub
-		
+		player.setNumberOfIngreientToBeRemovedWhileExperimenting(1);
 	}
 
 	@Override
 	public void handleRemove(Player player) {
 		// TODO Auto-generated method stub
-		
+		player.setNumberOfIngreientToBeRemovedWhileExperimenting(2);
 	}
 
 }

@@ -40,13 +40,13 @@ public class ReputationBoosterArtifact extends Artifact implements removeArtifac
 	@Override
 	public void applyArtifact(Player player) {
 		// TODO Auto-generated method stub
-		
+		player.setGainedReputationPointWhilePublishing(2);
 	}
 
 	@Override
 	public void handleRemove(Player player) {
 		// TODO Auto-generated method stub
-		
+		player.setGainedReputationPointWhilePublishing(1);
 	}
 
 	

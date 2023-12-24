@@ -15,7 +15,7 @@ public class printingPressArtifact extends Artifact implements removeArtifactLis
 	@Override
 	public void handleRemove(Player player) {
 		// TODO Auto-generated method stub
-		
+		player.setPublishTheoryCharge(-1);
 	}
 	
 }
