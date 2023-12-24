@@ -19,6 +19,8 @@ public class Player {
 	private int sicknessLevel;
 	private int goldtToBePayedToArtifact;
 	private int publishTheoryCharge;
+	private int gainedReputationPointWhilePublishing;
+	private int numberOfIngreientToBeRemovedWhileExperimenting;
 	private List<removeArtifactListener> removeArtifactListeners = new ArrayList<removeArtifactListener>();
 	
 	public Player(String userName, String avatarPath) {
@@ -27,6 +29,8 @@ public class Player {
 		this.avatarPath = avatarPath;
 		this.goldtToBePayedToArtifact = -3;
 		this.publishTheoryCharge = -1;
+		this.gainedReputationPointWhilePublishing = 1;
+		this.numberOfIngreientToBeRemovedWhileExperimenting = 2;
 	}
 	
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
@@ -40,6 +44,8 @@ public class Player {
 		this.deductionBoard = deductionBoard;
 		this.goldtToBePayedToArtifact = -3;
 		this.publishTheoryCharge = -1;
+		this.gainedReputationPointWhilePublishing = 1;
+		this.numberOfIngreientToBeRemovedWhileExperimenting = 2;
 	}
 	
 	public void addIngredient(Ingredient ingredient)
@@ -173,6 +179,21 @@ public class Player {
 		this.theories = theories;
 	}
 	
+	public int getGainedReputationPointWhilePublishing() {
+		return gainedReputationPointWhilePublishing;
+	}
+
+	public void setGainedReputationPointWhilePublishing(int gainedReputationPointWhilePublishing) {
+		this.gainedReputationPointWhilePublishing = gainedReputationPointWhilePublishing;
+	}
+	
+	public int getNumberOfIngreientToBeRemovedWhileExperimenting() {
+		return numberOfIngreientToBeRemovedWhileExperimenting;
+	}
+
+	public void setNumberOfIngreientToBeRemovedWhileExperimenting(int numberOfIngreientToBeRemovedWhileExperimenting) {
+		this.numberOfIngreientToBeRemovedWhileExperimenting = numberOfIngreientToBeRemovedWhileExperimenting;
+	}
 	
 
 	public Potion makeExperiment(List<String> ingredientList, int whereToTest) {
@@ -183,6 +204,29 @@ public class Player {
 		// remove the ingredients from the user's ingredient list
 		removeIngredient(ingredientOne);
 		removeIngredient(ingredientTwo);
+		
+		// create an experiment, conduct it, test it
+		Experiment experiment = new Experiment(this, ingredientOne, 
+				ingredientTwo, whereToTest);
+			
+		// get the potion created
+		Potion potion = experiment.getResultPotion();
+		
+		populateArtifactListeners("experiment");
+		handleRemove();
+		
+
+		return potion;
+
+	}
+	
+	public Potion makeExperiment(List<String> ingredientList, int whereToTest, String keptIngredient) {
+
+		Ingredient ingredientOne = Ingredient.getIngredient(ingredientList.get(0));
+		Ingredient ingredientTwo = Ingredient.getIngredient(ingredientList.get(1));
+		
+		// remove the ingredients from the user's ingredient list
+		removeIngredient((ingredientOne.getName().equals(keptIngredient) ? ingredientTwo : ingredientOne));
 		
 		// create an experiment, conduct it, test it
 		Experiment experiment = new Experiment(this, ingredientOne, 
@@ -358,6 +402,8 @@ public class Player {
 		}
 		else {
 			PublicationBoard.getInstance().publishTheory(this, Token.getTokens().get(selectedMarker), Ingredient.getIngredient(selectedTheory));
+			populateArtifactListeners("publish");
+			handleRemove();
 			GameEvent event = new GameEvent(null, this, GameEvent.EventID.PUBLISH_THEORY);
 			System.out.println("Theories");
 			getTheories().forEach(System.out::println);
@@ -445,7 +491,8 @@ public class Player {
 				this.removeArtifactListeners.add((removeArtifactListener) potionEffectBoosterArtifact);
 				break;
 			case "publish":
-				this.removeArtifactListeners.add((removeArtifactListener) printingPressArtifact);//to be added all the artifacts
+				this.removeArtifactListeners.add((removeArtifactListener) printingPressArtifact);
+				this.removeArtifactListeners.add((removeArtifactListener) reputationBoosterArtifact);
 			case "buy artifact":
 				this.removeArtifactListeners.add((removeArtifactListener) discountArtifact);
 			default:
@@ -464,6 +511,10 @@ public class Player {
 
 		}
 	}
+
+	
+
+
 
 	
 	
