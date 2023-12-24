@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -75,6 +76,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton clearBtn;
 	private JPanel deductionPanel;
 	
+	
+	
 	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
 	
 	public PlayerDashboardFrame(KUAlchemistsGame game, Player player) 
@@ -103,6 +106,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPlayerArtifacts();
 		setPlayerIngredients();
 		
+		setBottomCrosses();
 		
 		testElixir();
 		
@@ -285,11 +289,46 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
 	        }
 	    };
-	    bottomBackground.setBounds(300, 300, 500, 200);
+	    bottomBackground.setBounds(360, 300, 422, 200);
 	    backgroundPanel.add(bottomBackground);
 	    bottomBackground.setLayout(null);
 	    bottomBackground.setOpaque(false);
 
+	}
+	
+	private void setBottomCrosses() {
+	    int labelSize = 20; // Increased the label size
+	    int gapX = 25; // Added a gap between buttons
+	    int gapY = 5;
+	    int startX = 53; // Starting x-coordinate index
+	    int startY = 3;
+	    DeductionBoard db = player.getDeductionBoard();
+	    Map<Integer, Integer> locations = db.getExistingItems();
+	    List<JLabel> labels = new ArrayList<>();
+	    
+    	Image image = new ImageIcon(this.getClass().getResource("/Images/cross.png")).getImage();
+    	Image newImage = image.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+    	ImageIcon icon = new ImageIcon(newImage);
+	    
+	    for (int row = 0; row < 8; row++) {
+	        for (int col = 0; col < 8; col++) {
+	    
+	            int x = startX + col * (labelSize + gapX);
+	            int y = startY + row * (labelSize + gapY);
+		    	JLabel cross = new JLabel(icon);
+		    	cross.setBounds(x, y, labelSize, labelSize);
+		    	//cross.setVisible(false);
+		    	labels.add(cross);
+	         
+	            bottomBackground.add(cross);
+	        }
+	    }
+	    
+	    if (locations.get(0) != null) {
+	    	//TODO My brain is not enough for this.
+	    }
+	    
+	    
 	}
 	private void setLeftHand() 
 	{
@@ -358,7 +397,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
             }
         });	
 	}
-	
 	private void setDeduction() {
 	    JButton submitBtn = new JButton("<html>Submit<br>   My<br>Deduction\r\n</html>");
 	    submitBtn.setBounds(450, 90, 40, 30);
@@ -435,6 +473,9 @@ public class PlayerDashboardFrame extends GeneralFrame{
         });
 	    
 	}
+   
+            		
+
 	
 	private void setPlayerIngredients() {
 		
