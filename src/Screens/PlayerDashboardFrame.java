@@ -535,16 +535,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
     	    	Image newImage = image.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
     	    	ImageIcon icon = new ImageIcon(newImage);
     	    	JLabel circleLabel = new JLabel(icon);
-    	    	/*
-    	    	Image scaledImage = icon.getImage().getScaledInstance(
-    	    			deductionBoardButtons.get(selectedTriangle).getPreferredSize().width, 
-    	    			deductionBoardButtons.get(selectedTriangle).getPreferredSize().height, 
-                        Image.SCALE_SMOOTH);
-                        */
-    	    	deductionBoardButtons.get(selectedTriangle).setIcon(new ImageIcon(newImage));
-                
-
-    	    	
+    	    	deductionBoardButtons.get(selectedTriangle).setIcon(new ImageIcon(newImage));    	
     	    	circleLabel.setBounds(100, 100, 30, 30);
     	    	deductionPanel.add(circleLabel);
     	    	
