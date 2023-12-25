@@ -14,6 +14,12 @@ private KUAlchemistsGame game;
 		game.currentPlayer.putTokenToResultsTriangle(selectedTriangle,name, selectedLeft);
 	}
 	
+	public void removeTokenHandler(int selectedTriangle) {
+		game.currentPlayer.getDeductionBoard().getTriangle().remove(selectedTriangle);
+		game.currentPlayer.getDeductionBoard().getExistingItems().remove(selectedTriangle);
+
+	}
+	
 	public void existingMarkersHandler(int selectedTriangle, int selectedLeft) {
 		
 	}

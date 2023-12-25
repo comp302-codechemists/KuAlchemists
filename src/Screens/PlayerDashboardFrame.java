@@ -60,7 +60,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JPanel bottomBackground;
 	private JPanel leftHandBackground;
 	private JPanel upperButtonPanel;
-	private JPanel leftButtonPanel;
 	private JPanel artifactPannel;
 	private JPanel ingredientPannel;
 	private ButtonGroup triangleButtonGroup;
@@ -79,6 +78,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JLabel balanceLabel;
 	private JButton testElixir;
 	private JButton clearBtn;
+	private JButton removeDeduction;
 	private JPanel deductionPanel;
 	
 	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
@@ -109,7 +109,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPlayerIngredients();
 		
 		setBottomCrosses();
-		
+		setRemoveDeductionButton();
 		
 		testElixir();
 		
@@ -234,8 +234,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
                 int x = startX - row * 46 / 2 + col * 46;
                 int y = startY + row * 40;
                 btn.setBounds(x, y, 35, 35);
-                /*Dimension largerSize = new Dimension(40, 40);
-                btn.setPreferredSize(largerSize);*/
                 
                 if(player.getDeductionBoard().getExistingItems().containsKey(index)) {
                 	
@@ -243,14 +241,9 @@ public class PlayerDashboardFrame extends GeneralFrame{
                 	
                 	Image image = new ImageIcon(this.getClass().getResource("/Images/circle" + selectedLeft + ".png")).getImage();
         	    	if (image == null) System.out.println("can't load image.\n");
-        	    	Image newImage = image.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        	    	Image newImage = image.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         	    	ImageIcon icon = new ImageIcon(newImage);
-        	    	
-        	    	Image scaledImage = icon.getImage().getScaledInstance(
-        	    			btn.getPreferredSize().width, 
-        	    			btn.getPreferredSize().height, 
-                            Image.SCALE_SMOOTH);
-        	    	btn.setIcon(new ImageIcon(scaledImage));
+        	    	btn.setIcon(new ImageIcon(newImage));
         	    	
                 }
             	
@@ -435,13 +428,41 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		
 	}
 	
+	private void setRemoveDeductionButton() {
+			
+    	removeDeduction = new GameButton("<html>Remove<br>Deduction</html>");
+    	removeDeduction.setBounds(445, 130, 55, 44);
+		removeDeduction.setBackground(Color.LIGHT_GRAY);
+		removeDeduction.setFont(new Font("Tahoma", Font.ITALIC, 8));
+    	bottomBackground.add(removeDeduction);
+    	
+        removeDeduction.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	int i = -1;
+            	for (i = 0; i < deductionBoardButtons.size(); i++) {
+            		if (deductionBoardButtons.get(i).isSelected()) {
+            			break;
+            		}
+            	}
+            	if (i != -1) {
+            		deductionBoardButtons.get(i).setIcon(null);
+            		DeductionBoardController controller = new DeductionBoardController(game);
+            		controller.removeTokenHandler(i);
+            	}
+                
+            }
+        });
+    	
+	}
+
+	
 	
 	private void setClearSelection() {
-		clearBtn = new GameButton("Clear Selection");
+		clearBtn = new GameButton("<html>Clear<br>Selection</html>");
 		clearBtn.setBackground(Color.LIGHT_GRAY);
-		clearBtn.setText("<html>Clear<br>Selection\r\n</html>");
 		clearBtn.setFont(new Font("Tahoma", Font.ITALIC, 8));
-    	clearBtn.setBounds(445, 52, 55, 44);
+    	clearBtn.setBounds(445, 22, 55, 44);
     	
     	bottomBackground.add(clearBtn);
     	
@@ -455,10 +476,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	}
 	
 	private void setDeduction() {
-	    JButton submitBtn = new GameButton("<html>Submit<br>Deduction\r\n</html>");
+	    JButton submitBtn = new GameButton("<html>Submit<br>Deduction</html>");
 	    submitBtn.setBackground(Color.LIGHT_GRAY);
 	    submitBtn.setFont(new Font("Tahoma", Font.ITALIC, 8));
-	    submitBtn.setBounds(445, 116, 55, 44);
+	    submitBtn.setBounds(445, 76, 55, 44);
 	    bottomBackground.add(submitBtn);
 
         submitBtn.addActionListener(new ActionListener() {
