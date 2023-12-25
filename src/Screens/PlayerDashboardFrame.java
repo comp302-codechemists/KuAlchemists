@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +35,7 @@ import Controllers.TransmuteController;
 import Controllers.buyArtifactController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.DashboardLabel;
+import DesignSystem.GameButton;
 import DesignSystem.GameText;
 
 import java.awt.FlowLayout;
@@ -76,8 +78,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton clearBtn;
 	private JPanel deductionPanel;
 	
-	
-	
 	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
 	
 	public PlayerDashboardFrame(KUAlchemistsGame game, Player player) 
@@ -107,6 +107,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPlayerIngredients();
 		
 		setBottomCrosses();
+		
 		
 		testElixir();
 		
@@ -204,10 +205,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
             }
     	};
     	
-        upperBackground.setLocation(350, 50);
+        upperBackground.setLocation(339, 57);
         upperBackground.setLayout(null);
         upperBackground.setOpaque(false);
-        upperBackground.setSize(new Dimension(400, 240));       
+        upperBackground.setSize(new Dimension(454, 323));       
         backgroundPanel.add(upperBackground);
 	}	
 	private void setUpperButtons() {
@@ -220,7 +221,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         triangleButtonGroup = new ButtonGroup();
 
         int rows = 7;
-        int startX = 176;
+        int startX = 199;
         int startY = 0; 
         int index = 0;
         
@@ -228,9 +229,9 @@ public class PlayerDashboardFrame extends GeneralFrame{
             for (int col = 0; col <= row; col++) {
                 JRadioButton btn = new JRadioButton();
                 triangleButtonGroup.add(btn);
-                int x = startX - row * 32 / 2 + col * 32;
-                int y = startY + row * 29;
-                btn.setBounds(x, y, 24, 24);
+                int x = startX - row * 46 / 2 + col * 46;
+                int y = startY + row * 40;
+                btn.setBounds(x, y, 35, 35);
                 /*Dimension largerSize = new Dimension(40, 40);
                 btn.setPreferredSize(largerSize);*/
                 
@@ -250,11 +251,12 @@ public class PlayerDashboardFrame extends GeneralFrame{
         	    	btn.setIcon(new ImageIcon(scaledImage));
         	    	
                 }
+            	
+        	    btn.setOpaque(false);
+        	    btn.setContentAreaFilled(false);
+        	    btn.setBorderPainted(false);
                 upperButtonPanel.add(btn);
-                deductionBoardButtons.add(btn);
-                
-                
-    	    	
+                deductionBoardButtons.add(btn);  	
     	    	index++;
             }
         }   
@@ -289,21 +291,46 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
 	        }
 	    };
-	    bottomBackground.setBounds(360, 300, 422, 200);
+	    bottomBackground.setBounds(313, 380, 500, 200);
 	    backgroundPanel.add(bottomBackground);
 	    bottomBackground.setLayout(null);
 	    bottomBackground.setOpaque(false);
 
 	}
 	
+	// Helper functions for the crosses on the deduction board.
+	private static List<Integer> generateSequenceLeft() {
+        List<Integer> sequence = new ArrayList<>();
+        for (int row = 0; row <= 7; row++) {
+            for (int value = 0; value <= row; value++) {
+                sequence.add(value);
+            }
+        }
+        return sequence;
+    }
+	
+	private static List<Integer> generateSequenceRight() {
+        List<Integer> sequence = new ArrayList<>();
+
+        int max = 7;
+        int min = 0;
+        while (max >= min) {
+            for (int i = max; i >= min; i--) {
+            	sequence.add(i);
+            }
+            min++;
+        }
+        Collections.reverse(sequence);
+        return sequence;
+    }
+	
 	private void setBottomCrosses() {
-	    int labelSize = 20; // Increased the label size
-	    int gapX = 25; // Added a gap between buttons
+	    int labelSize = 20;
+	    int gapX = 25;
 	    int gapY = 5;
-	    int startX = 53; // Starting x-coordinate index
+	    int startX = 93;
 	    int startY = 3;
-	    DeductionBoard db = player.getDeductionBoard();
-	    Map<Integer, Integer> locations = db.getExistingItems();
+	    
 	    List<JLabel> labels = new ArrayList<>();
 	    
     	Image image = new ImageIcon(this.getClass().getResource("/Images/cross.png")).getImage();
@@ -317,16 +344,60 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            int y = startY + row * (labelSize + gapY);
 		    	JLabel cross = new JLabel(icon);
 		    	cross.setBounds(x, y, labelSize, labelSize);
-		    	//cross.setVisible(false);
+		    	cross.setVisible(false);
 		    	labels.add(cross);
 	         
 	            bottomBackground.add(cross);
 	        }
 	    }
+	    	    
+	    DeductionBoard db = player.getDeductionBoard();
+	    Map<Integer, Integer> locations = db.getExistingItems();
+	    List<Integer> leftIndex = generateSequenceLeft();
+	    List<Integer> rightIndex = generateSequenceRight();
 	    
-	    if (locations.get(0) != null) {
-	    	//TODO My brain is not enough for this.
+	    
+	    // Matrix for marking the table
+	    //TODO the order is different on the UI!!! which one to change??
+	    int[][] matrix = new int[][] {
+	    	{1, 7},
+	    	{0, 6},
+	    	{3, 7},
+	    	{2, 6},
+	    	{5, 7},
+	    	{4, 6}
+	    };
+	    
+	    // Marking the table with the indices.
+	    for (int i = 0; i < 28; i++) {
+	    	int left = leftIndex.get(i);
+	    	int right = rightIndex.get(i);
+	    	
+	    	Integer value = locations.get(i);
+    	
+	    	if (value == null) {
+	    		continue;
+	    	}
+	    	
+	    	for (int j = 0; j < 8; j++) {
+	    		if (value == j) {
+	    			int index1 = left  + 8 * matrix[j][0];
+	    			int index2 = right + 8 * matrix[j][0];
+		    		int index3 = left  + 8 * matrix[j][1];
+		    		int index4 = right + 8 * matrix[j][1];
+		    		labels.get(index1).setVisible(true);
+		    		labels.get(index2).setVisible(true);
+		    		labels.get(index3).setVisible(true);
+		    		labels.get(index4).setVisible(true);
+
+
+		    		System.out.printf("Indicies: %d %d %d %d.\n", index1, index2, index3, index4);
+	    		}	
+	    	}	
 	    }
+	    
+		bottomBackground.revalidate();
+		bottomBackground.repaint();
 	    
 	    
 	}
@@ -354,10 +425,10 @@ public class PlayerDashboardFrame extends GeneralFrame{
             }
     	};
     	
-        leftHandBackground.setLocation(750, 50);
+        leftHandBackground.setLocation(777, 57);
         leftHandBackground.setLayout(null);
         leftHandBackground.setOpaque(false);
-        leftHandBackground.setSize(new Dimension(43, 230));       
+        leftHandBackground.setSize(new Dimension(75, 230));       
         backgroundPanel.add(leftHandBackground);
 		
 	}
@@ -377,6 +448,9 @@ public class PlayerDashboardFrame extends GeneralFrame{
         	leftButtonGroup.add(btn);
         	leftButtonPanel.add(btn);
         	btn.setBounds(0, i*32, 50, 40);
+    	    btn.setOpaque(false);
+    	    btn.setContentAreaFilled(false);
+    	    btn.setBorderPainted(false);
         	
         }
         leftHandBackground.add(leftButtonPanel);   	
@@ -384,9 +458,12 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	}
 	
 	private void setClearSelection() {
-		
-    	clearBtn = new JButton("<html>\r\nClear<br> My<br> Selections\r\n</html>");
-    	clearBtn.setBounds(450, 50, 40, 30);
+		clearBtn = new GameButton("Clear Selection");
+		clearBtn.setBackground(Color.LIGHT_GRAY);
+		clearBtn.setText("<html>Clear<br>Selection\r\n</html>");
+		clearBtn.setFont(new Font("Tahoma", Font.ITALIC, 8));
+    	clearBtn.setBounds(445, 52, 55, 44);
+    	
     	bottomBackground.add(clearBtn);
     	
         clearBtn.addActionListener(new ActionListener() {
@@ -397,9 +474,12 @@ public class PlayerDashboardFrame extends GeneralFrame{
             }
         });	
 	}
+	
 	private void setDeduction() {
-	    JButton submitBtn = new JButton("<html>Submit<br>   My<br>Deduction\r\n</html>");
-	    submitBtn.setBounds(450, 90, 40, 30);
+	    JButton submitBtn = new GameButton("<html>Submit<br>Deduction\r\n</html>");
+	    submitBtn.setBackground(Color.LIGHT_GRAY);
+	    submitBtn.setFont(new Font("Tahoma", Font.ITALIC, 8));
+	    submitBtn.setBounds(445, 116, 55, 44);
 	    bottomBackground.add(submitBtn);
 
         submitBtn.addActionListener(new ActionListener() {
@@ -418,6 +498,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
             	    }
             	    
             	    currentIndex++;
+
             	}
             	System.out.printf("Selected button index for left: %d\n", selectedLeft);
             	
@@ -451,19 +532,20 @@ public class PlayerDashboardFrame extends GeneralFrame{
 
     	    	Image image = new ImageIcon(this.getClass().getResource("/Images/circle" + selectedLeft + ".png")).getImage();
     	    	if (image == null) System.out.println("can't load image.\n");
-    	    	Image newImage = image.getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+    	    	Image newImage = image.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
     	    	ImageIcon icon = new ImageIcon(newImage);
     	    	JLabel circleLabel = new JLabel(icon);
-    	    	
+    	    	/*
     	    	Image scaledImage = icon.getImage().getScaledInstance(
     	    			deductionBoardButtons.get(selectedTriangle).getPreferredSize().width, 
     	    			deductionBoardButtons.get(selectedTriangle).getPreferredSize().height, 
                         Image.SCALE_SMOOTH);
-    	    	deductionBoardButtons.get(selectedTriangle).setIcon(new ImageIcon(scaledImage));
+                        */
+    	    	deductionBoardButtons.get(selectedTriangle).setIcon(new ImageIcon(newImage));
                 
 
     	    	
-    	    	circleLabel.setBounds(100, 100, 50,50);
+    	    	circleLabel.setBounds(100, 100, 30, 30);
     	    	deductionPanel.add(circleLabel);
     	    	
     	    	
@@ -473,9 +555,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
         });
 	    
 	}
-   
-            		
-
 	
 	private void setPlayerIngredients() {
 		
@@ -724,6 +803,3 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        });
 		}
 }
-
-
-
