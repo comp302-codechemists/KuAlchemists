@@ -1,10 +1,13 @@
 package Screens;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -91,7 +94,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setUpperButtons();
 		setBottomDeductionBoard();
 		setLeftHand();
-		setLeftHandButtons();
 		setDeduction();
 		setDeductionPanel();
 		setClearSelection();
@@ -403,59 +405,36 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	}
 	private void setLeftHand() 
 	{
-		leftHandBackground = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-
-                Image originalImage = new ImageIcon(this.getClass().getResource("/Images/leftHand.png")).getImage();
-
-                int originalWidth = originalImage.getWidth(null);
-                int originalHeight = originalImage.getHeight(null);
-                int maxWidth = getWidth();
-                int maxHeight = getHeight();
-
-                double scale = Math.min((double) maxWidth / originalWidth, (double) maxHeight / originalHeight);
-                int scaledWidth = (int) (originalWidth * scale);
-                int scaledHeight = (int) (originalHeight * scale);
-
-                int x = (getWidth() - scaledWidth) / 2;
-                int y = (getHeight() - scaledHeight) / 2;
-                g.drawImage(originalImage, x, y, scaledWidth, scaledHeight, this);
-            }
-    	};
-    	
-        leftHandBackground.setLocation(777, 57);
-        leftHandBackground.setLayout(null);
-        leftHandBackground.setOpaque(false);
-        leftHandBackground.setSize(new Dimension(75, 230));       
-        backgroundPanel.add(leftHandBackground);
+		leftHandBackground = new JPanel();
 		
-	}
-	
-	private void setLeftHandButtons() {
-		leftButtonPanel = new JPanel();
-        leftButtonPanel.setLocation(5, 0);
-        leftButtonPanel.setLayout(null);
-        leftButtonPanel.setOpaque(false);
-        leftButtonPanel.setSize(new Dimension(20, 230)); 
-        
-        int buttonCount = 7;
-        leftButtonGroup = new ButtonGroup();
-        
-        for (int i = 0; i < buttonCount; i++) {
+		leftHandBackground.setLayout(new FlowLayout());
+		leftButtonGroup = new ButtonGroup();
+		
+		for (int i = 0; i < 7; i++) {
+	    	Image image = new ImageIcon(this.getClass().getResource("/Images/circle" + i + ".png")).getImage();
+	    	if (image == null) System.out.println("can't load image.\n");
+	    	Image newImage = image.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+	    	ImageIcon icon = new ImageIcon(newImage);
+	    	JLabel circleLabel = new JLabel(icon);
+	    	circleLabel.setVisible(true);
+	    	leftHandBackground.add(circleLabel);
         	JRadioButton btn = new JRadioButton();
         	leftButtonGroup.add(btn);
-        	leftButtonPanel.add(btn);
+        	leftHandBackground.add(btn);
         	btn.setBounds(0, i*32, 50, 40);
     	    btn.setOpaque(false);
     	    btn.setContentAreaFilled(false);
     	    btn.setBorderPainted(false);
-        	
-        }
-        leftHandBackground.add(leftButtonPanel);   	
+		}
+
+    	
+        leftHandBackground.setLocation(758, 57);
+        leftHandBackground.setOpaque(false);
+        leftHandBackground.setSize(new Dimension(94, 313));       
+        backgroundPanel.add(leftHandBackground);
 		
 	}
+	
 	
 	private void setClearSelection() {
 		clearBtn = new GameButton("Clear Selection");
