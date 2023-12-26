@@ -3,6 +3,7 @@ package Factories;
 import Business.Artifact;
 import Business.DiscountArtifact;
 import Business.GoldBoosterArtifact;
+import Business.MagicMortarArtifact;
 import Business.PotionEffectBoosterArtifact;
 import Business.ReputationBoosterArtifact;
 import Business.ScorePointBoosterArtifact;
@@ -51,7 +52,7 @@ public class ArtifactFactory {
 			break;
 			
 		case "magicMortarArtifact":
-			artifact = new magicMortarArtifact("magicMortarArtifact");
+			artifact = new MagicMortarArtifact("magicMortarArtifact");
 			break;
 
 		default:

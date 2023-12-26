@@ -1,8 +1,8 @@
 package Business;
 
-public class magicMortarArtifact extends Artifact implements removeArtifactListener{
+public class MagicMortarArtifact extends Artifact implements removeArtifactListener{
 
-	public magicMortarArtifact(String name) {
+	public MagicMortarArtifact(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	} 
