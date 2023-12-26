@@ -7,10 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
 import Business.Ingredient;
@@ -18,6 +22,8 @@ import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.buyArtifactController;
 import DesignSystem.ArtisticButton;
+import artifactScreens.ArtifactFrame;
+
 import javax.swing.JLabel;
 
 public class BuyArtifactFrame extends FunctionalFrame{
@@ -65,21 +71,37 @@ public class BuyArtifactFrame extends FunctionalFrame{
                 
 			    if (boughtArtifact != null)
 			    {
-			    	String message = "Artifact bought: " + boughtArtifact;
-			    	Image image = new ImageIcon(this.getClass().getResource("/artifactImages/" + boughtArtifact +".png")).getImage();
-			    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
-			    	ImageIcon icon = new ImageIcon(newImage);
-				    JOptionPane.showMessageDialog(null, message, "Artifact Bought", JOptionPane.INFORMATION_MESSAGE, icon);
+			    	ArtifactFrame artifactFrame = controller.getArtifactFrame(boughtArtifact);
+
+			    	artifactFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set close operation
+
+			    	artifactFrame.addWindowListener(new WindowAdapter() {
+			    	    @Override
+			    	    public void windowClosing(WindowEvent e) {
+			    	        // Perform actions when the window is closing
+			    	        // You can choose to hide the frame instead of disposing it
+			    	        artifactFrame.setVisible(false); // Hide the frame
+			    	        // Close the frame
+						    BuyArtifactFrame.this.dispose();
+						    new MainGameFrame(game);
+			    	    }
+			    	});
+
+			    	SwingUtilities.invokeLater(() -> {
+			    	    artifactFrame.setVisible(true);
+			    	    artifactFrame.toFront();
+			    	    artifactFrame.requestFocus();
+			    	});
+
 			    }
 			    else
 			    {
 			    	String message = "Balance is unsufficient, come back when you have more gold :D";
 			    	JOptionPane.showMessageDialog(null, message, "Unsufficient Balance", JOptionPane.WARNING_MESSAGE);
+			    	 // Close the frame
+				    BuyArtifactFrame.this.dispose();
+				    new MainGameFrame(game);
 			    }
-			    
-			    // Close the frame
-			    BuyArtifactFrame.this.dispose();
-			    new MainGameFrame(game);
 			}
 
 
