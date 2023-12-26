@@ -337,11 +337,9 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    
 	            int x = startX + col * (labelSize + gapX);
 	            int y = startY + row * (labelSize + gapY);
-		    	JLabel cross = new JLabel(icon);
+		    	JLabel cross = new JLabel();
 		    	cross.setBounds(x, y, labelSize, labelSize);
-		    	cross.setVisible(false);
 		    	labels.add(cross);
-	         
 	            bottomBackground.add(cross);
 	        }
 	    }
@@ -353,7 +351,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    
 	    
 	    // Matrix for marking the table
-	    //TODO the order is different on the UI!!! which one to change??
 	    int[][] matrix = new int[][] {
 	    	{1, 7},
 	    	{0, 6},
@@ -362,7 +359,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    	{5, 7},
 	    	{4, 6}
 	    };
-	    
+
 	    // Marking the table with the indices.
 	    for (int i = 0; i < 28; i++) {
 	    	int left = leftIndex.get(i);
@@ -380,12 +377,13 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    			int index2 = right + 8 * matrix[j][0];
 		    		int index3 = left  + 8 * matrix[j][1];
 		    		int index4 = right + 8 * matrix[j][1];
-		    		labels.get(index1).setVisible(true);
-		    		labels.get(index2).setVisible(true);
-		    		labels.get(index3).setVisible(true);
-		    		labels.get(index4).setVisible(true);
+		    		
+		    		labels.get(index1).setIcon(icon);
+		    		labels.get(index2).setIcon(icon);
+		    		labels.get(index3).setIcon(icon);
+		    		labels.get(index4).setIcon(icon);
 
-
+		    		
 		    		System.out.printf("Indicies: %d %d %d %d.\n", index1, index2, index3, index4);
 	    		}	
 	    	}	
@@ -527,6 +525,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
             		DeductionBoardController controller = new DeductionBoardController(game);
             		controller.deductionBoardHandler(selectedTriangle, DeductionBoard.getName(selectedLeft),selectedLeft);
             		
+            		
             	}
             	
 
@@ -538,9 +537,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
     	    	deductionBoardButtons.get(selectedTriangle).setIcon(new ImageIcon(newImage));    	
     	    	circleLabel.setBounds(100, 100, 30, 30);
     	    	deductionPanel.add(circleLabel);
-    	    	
-    	    	
-          
+    	    	setBottomCrosses();
             	
             }
         });
