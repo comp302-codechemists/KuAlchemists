@@ -40,6 +40,7 @@ import DesignSystem.ArtisticButton;
 import DesignSystem.DashboardLabel;
 import DesignSystem.GameButton;
 import DesignSystem.GameText;
+import artifactScreens.ElixirOfInsightFrame;
 
 import java.awt.FlowLayout;
 

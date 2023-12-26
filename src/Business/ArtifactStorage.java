@@ -56,7 +56,7 @@ public class ArtifactStorage {
 		//return new DiscountArtifact("DiscountArtifact",1,"Artifact","AllGame");
 		
 		//Remove and return top:
-		if(artifactList.isEmpty()) return null;
+		if(artifactList.isEmpty()) return null; // throw exception
 		return artifactList.remove(0);
 	}
 
