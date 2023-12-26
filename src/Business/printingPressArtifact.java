@@ -1,8 +1,8 @@
 package Business;
 
-public class printingPressArtifact extends Artifact implements removeArtifactListener{
+public class PrintingPressArtifact extends Artifact implements removeArtifactListener{
 
-	public printingPressArtifact(String name) {
+	public PrintingPressArtifact(String name) {
 		super(name);
 	}
 

@@ -1,8 +1,8 @@
 package Business;
 
-public class wisdomIdolArtifact extends Artifact implements removeArtifactListener {
+public class WisdomIdolArtifact extends Artifact implements removeArtifactListener {
 
-	public wisdomIdolArtifact(String name) {
+	public WisdomIdolArtifact(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
