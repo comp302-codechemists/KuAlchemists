@@ -2,12 +2,7 @@ package Factories;
 
 import Business.Artifact;
 import Business.DiscountArtifact;
-<<<<<<< HEAD
-import Business.GoldBoosterArtifact;
 import Business.MagicMortarArtifact;
-import Business.PotionEffectBoosterArtifact;
-=======
->>>>>>> beyza
 import Business.ReputationBoosterArtifact;
 import Business.MagicMortarArtifact;
 import Business.PrintingPressArtifact;
@@ -33,15 +28,15 @@ public class ArtifactFactory {
 			artifact =   new ReputationBoosterArtifact("ReputationBoosterArtifact",1,"PublishTheory","AllGame");
 			break;
 			
-		case "wisdomIdolArtifact":
+		case "WisdomIdolArtifact":
 			artifact = new WisdomIdolArtifact("WisdomIdolArtifact");
 			break;
 			
-		case "printingPressArtifact":
+		case "PrintingPressArtifact":
 			artifact = new PrintingPressArtifact("PrintingPressArtifact");
 			break;
 			
-		case "magicMortarArtifact":
+		case "MagicMortarArtifact":
 			artifact = new MagicMortarArtifact("MagicMortarArtifact");
 			break;
 
