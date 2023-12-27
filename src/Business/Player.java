@@ -386,7 +386,7 @@ public class Player {
 		{
 			payment = 2;
 		}
-		setBalance(payment);
+		updateBalance(payment);
 		
 		System.out.println(potion.getSign());
 		System.out.println(promise);
