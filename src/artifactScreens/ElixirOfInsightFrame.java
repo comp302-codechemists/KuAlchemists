@@ -25,9 +25,6 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 public class ElixirOfInsightFrame extends ArtifactFrame {
-
-	public KUAlchemistsGame game;
-	public Player player;
 		
 	private JComboBox<String> order1;
 	private JComboBox<String> order2;
@@ -39,21 +36,12 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
 	private Ingredient ing3;
 	
 	
-	public ElixirOfInsightFrame() {
+	public ElixirOfInsightFrame(KUAlchemistsGame game) {
+		super(game);
 		setBackground("/artifactBackgrounds/ElixirOfInsightArtifact.png");
-
-	};
-	public ElixirOfInsightFrame(KUAlchemistsGame game, Player player) {
-		
-		this.game = game;
-		this.player = player;		
-		setBackground("/artifactBackgrounds/ElixirOfInsightArtifact.png");
-
 		setIngredientImages();
 		setReorderingLogic();
 		setButton();
-		
-
 	}
 	
 	private void setIngredientImages() {

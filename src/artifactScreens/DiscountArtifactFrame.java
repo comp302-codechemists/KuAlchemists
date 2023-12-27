@@ -1,16 +1,12 @@
 package artifactScreens;
 
-public class DiscountArtifactFrame extends ArtifactFrame {
+import Business.KUAlchemistsGame;
 
-	public DiscountArtifactFrame()
+public class DiscountArtifactFrame extends ArtifactFrame
+{
+	public DiscountArtifactFrame(KUAlchemistsGame game)
 	{
+		super(game);
 		setBackground("/artifactBackgrounds/DiscountArtifact.png");
 	}
-	
-
-	public static void main(String[] args)
-	{
-		new DiscountArtifactFrame();
-	}
-	
 }

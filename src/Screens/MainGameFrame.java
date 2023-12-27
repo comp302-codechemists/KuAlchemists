@@ -42,8 +42,6 @@ public class MainGameFrame extends GeneralFrame{
 	 * Provides comprehensive information about each player's resources, scores, and
 	 * progress during the game.
 	 */
-	private KUAlchemistsGame game;
-	private JPanel backgroundPanel;
 	private JTable playersInfoTable;
 	private JButton endGameButton;
 	private JButton exitGameButton;
@@ -54,11 +52,8 @@ public class MainGameFrame extends GeneralFrame{
 	
 	public MainGameFrame(KUAlchemistsGame game) 
 	{
-		
-		super();
-		this.game = game;
-		
-		this.setBackground();
+		super(game);
+		setBackground("/BackgroundImages/mainGameBackground.png");
 		this.setPlayersInfoTable();
 		this.setButtons();
 		this.setTheoriesPanel();
@@ -154,49 +149,7 @@ public class MainGameFrame extends GeneralFrame{
 
 	    backgroundPanel.add(theoryPanel);
 	}
-	
-	private void setBackground() {
-    	
-    	backgroundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                
-           	 super.paintComponent(g);
-                
-                Image image = new ImageIcon(this.getClass().getResource("/BackgroundImages/mainGameBackground.png")).getImage();
-                
-                // Calculate the scaled width and height to fit the panel
-                int panelWidth = getWidth();
-                int panelHeight = getHeight();
-                
-                double imageWidth = image.getWidth(null);
-                double imageHeight = image.getHeight(null);
-                
-                double scaleX = panelWidth / imageWidth;
-                double scaleY = panelHeight / imageHeight;
-                
-                double scale = Math.max(scaleX, scaleY);
-                
-                int scaledWidth = (int) (imageWidth * scale);
-                int scaledHeight = (int) (imageHeight * scale);
-                
-                // Calculate the x and y positions to center the image
-                int x = (panelWidth - scaledWidth) / 2;
-                int y = (panelHeight - scaledHeight) / 2;
-                
-                // Draw the scaled image
-                g.drawImage(image, x, y, scaledWidth, scaledHeight, this);
-            }
-        };
-        
-        backgroundPanel.setLocation(0, 0);
-        backgroundPanel.setSize(new Dimension(1540, 820));
-        backgroundPanel.setLayout(null);
-        backgroundPanel.setOpaque(false);
-        getContentPane().add(backgroundPanel);
-	}
-	
-	      
+
 
 	private void setPlayersInfoTable()
 	{
@@ -314,7 +267,7 @@ public class MainGameFrame extends GeneralFrame{
 		howToPlayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new HowToPlayFrame();
+               new HowToPlayFrame(game);
             }
         });
 		backgroundPanel.add(howToPlayButton);
@@ -338,7 +291,7 @@ public class MainGameFrame extends GeneralFrame{
 		takeTurnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	new PlayerDashboardFrame(game, game.currentPlayer);
+            	new PlayerDashboardFrame(game);
             	MainGameFrame.this.dispose();
             }
         });

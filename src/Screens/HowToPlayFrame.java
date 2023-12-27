@@ -1,30 +1,17 @@
 package Screens;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JPanel;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 
-import javax.swing.ScrollPaneConstants;
+import Business.KUAlchemistsGame;
 
 public class HowToPlayFrame extends GeneralFrame {
 	
-	private JTextArea txtgameOverview;
-	private JPanel backgroundPanel;
-	
-	public HowToPlayFrame() {
+	private JTextArea txtgameOverview;	
+	public HowToPlayFrame(KUAlchemistsGame game) {
 				
-		super();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setBackground();
+		super(game);
+		setBackground("/BackgroundImages/howToPlayBackground.png");
 		
 		txtgameOverview = new JTextArea("1. Game Overview:\r\n"
 				+ "   - KU Alchemist is a 2-player card game centered around brewing potions, testing, selling, and utilizing artifacts. Players forage ingredients, \ntransmute cards for gold, and experiment with unique potion combinations.\r\n"
@@ -57,54 +44,7 @@ public class HowToPlayFrame extends GeneralFrame {
 		txtgameOverview.setBounds(200, 120, 1120, 600);
 		txtgameOverview.setFont(new Font("MV Boli", Font.PLAIN, 15));
 		txtgameOverview.setForeground(Color.white);
-		
 		backgroundPanel.add(txtgameOverview);
 	}
-	
-	private void setBackground()
-	{
-		backgroundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                
-           	 super.paintComponent(g);
-                
-                Image image = new ImageIcon(this.getClass().getResource("/BackgroundImages/howToPlayBackground.png")).getImage();
-                
-                // Calculate the scaled width and height to fit the panel
-                int panelWidth = getWidth();
-                int panelHeight = getHeight();
-                
-                double imageWidth = image.getWidth(null);
-                double imageHeight = image.getHeight(null);
-                
-                double scaleX = panelWidth / imageWidth;
-                double scaleY = panelHeight / imageHeight;
-                
-                double scale = Math.max(scaleX, scaleY);
-                
-                int scaledWidth = (int) (imageWidth * scale);
-                int scaledHeight = (int) (imageHeight * scale);
-                
-                // Calculate the x and y positions to center the image
-                int x = (panelWidth - scaledWidth) / 2;
-                int y = (panelHeight - scaledHeight) / 2;
-                
-                // Draw the scaled image
-                g.drawImage(image, x, y, scaledWidth, scaledHeight, this);
-            }
-        };
-        
-        backgroundPanel.setLocation(0, 0);
-        backgroundPanel.setSize(new Dimension(1540, 820));
-        backgroundPanel.setLayout(null);
-        backgroundPanel.setOpaque(false);
-        getContentPane().add(backgroundPanel);
-	}
-	
-    public static void main(String[] args) {
-        // Create and display the frame   
-    	//Player player = new Player("Simge", "Path", null, null, 10, 0, null);
-        new HowToPlayFrame();
-    }
+
 }

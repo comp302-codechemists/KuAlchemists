@@ -53,10 +53,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	 * Offers interactive buttons for actions like collecting ingredients, brewing potions, and
 	 * submitting publications.
 	 */
-	private KUAlchemistsGame game;
-	private Player player;
-
-	private JPanel backgroundPanel;
+	
 	private JPanel upperBackground;
 	private JPanel bottomBackground;
 	private JPanel leftHandBackground;
@@ -84,13 +81,11 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	
 	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
 	
-	public PlayerDashboardFrame(KUAlchemistsGame game, Player player) 
+	public PlayerDashboardFrame(KUAlchemistsGame game) 
 	{
-		super();
-		this.game = game;
-		this.player = player;
+		super(game);
+		setBackground("/BackgroundImages/playerDashboardBackground.png");
 		
-		setBackground();
 		setUpperDeductionBoard();
 		setUpperButtons();
 		setBottomDeductionBoard();
@@ -108,15 +103,12 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPlayerInfo();
 		setPlayerArtifacts();
 		setPlayerIngredients();
-		
 		setBottomCrosses();
 		setRemoveDeductionButton();
 		
 		testElixir();
 		
 	}
-	
-
 	
 	private void setPlayerInfo() {
 		
@@ -165,12 +157,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
         userGoldInfo.setFont(new Font("Tahoma", Font.ITALIC, 25));
         userGoldInfo.setBounds(300, 350, 68, 42);
         backgroundPanel.add(userGoldInfo);
-	}
-	
-	private void setBackground() {
-    	
-		backgroundPanel = super.setBackground("/BackgroundImages/playerDashboardBackground.png");
-        getContentPane().add(backgroundPanel);
 	}
 	
 	private void setDeductionPanel() {
@@ -236,9 +222,9 @@ public class PlayerDashboardFrame extends GeneralFrame{
                 int y = startY + row * 40;
                 btn.setBounds(x, y, 35, 35);
                 
-                if(player.getDeductionBoard().getExistingItems().containsKey(index)) {
+                if(game.currentPlayer.getDeductionBoard().getExistingItems().containsKey(index)) {
                 	
-                	int selectedLeft = player.getDeductionBoard().getExistingItems().get(index);
+                	int selectedLeft = game.currentPlayer.getDeductionBoard().getExistingItems().get(index);
                 	
                 	Image image = new ImageIcon(this.getClass().getResource("/Images/circle" + selectedLeft + ".png")).getImage();
         	    	if (image == null) System.out.println("can't load image.\n");
@@ -345,7 +331,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        }
 	    }
 	    	    
-	    DeductionBoard db = player.getDeductionBoard();
+	    DeductionBoard db = game.currentPlayer.getDeductionBoard();
 	    Map<Integer, Integer> locations = db.getExistingItems();
 	    List<Integer> leftIndex = generateSequenceLeft();
 	    List<Integer> rightIndex = generateSequenceRight();
@@ -559,7 +545,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         ingredientsLabel.setBounds(70, 480, 85, 13);
         backgroundPanel.add(ingredientsLabel);
         
-        for (Ingredient ingredient : player.getIngredients()) {
+        for (Ingredient ingredient : game.currentPlayer.getIngredients()) {
         	System.out.println(ingredient.getName());
         	int index = Ingredient.getIngredientIndex(ingredient.getName());
 	    	Image image = new ImageIcon(this.getClass().getResource("/Images/ingredient" + index + ".png")).getImage();
@@ -586,7 +572,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         artifactsLabel.setBounds(70, 630, 85, 13);
         backgroundPanel.add(artifactsLabel);
         
-        for (Artifact artifact : player.getArtifacts()) {
+        for (Artifact artifact : game.currentPlayer.getArtifacts()) {
 	    	Image image = new ImageIcon(this.getClass().getResource("/artifactImages/" + artifact.getName() + ".png")).getImage();
 	    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
 	    	ImageIcon icon = new ImageIcon(newImage);
@@ -608,7 +594,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        forageIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                new ForageIngredientFrame(game, player);
+	                new ForageIngredientFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });
@@ -628,7 +614,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        makeExperimentButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                new MakeExperimentFrame(game, player);
+	                new MakeExperimentFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });
@@ -648,7 +634,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        transmuteIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                new TransmuteIngredientFrame(game, player);
+	                new TransmuteIngredientFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });
@@ -671,7 +657,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 	            	
-	            	new BuyArtifactFrame(game, player);
+	            	new BuyArtifactFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	            }
 	        });
@@ -703,7 +689,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new DebunkTheoryFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
-	            	new DebunkTheoryFrame(game, player);
+	            	new DebunkTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	            }
 	        });
@@ -736,7 +722,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
 	            	
-	            	new SellPotionFrame(game, player);
+	            	new SellPotionFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 
 	            }
@@ -767,7 +753,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new PublishTheoryFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
-	            	new PublishTheoryFrame(game, player);
+	            	new PublishTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	
 	            }
@@ -786,7 +772,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        testElixir.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	                new ElixirOfInsightFrame(game, player);
+	                new ElixirOfInsightFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });

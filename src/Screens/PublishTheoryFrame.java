@@ -32,8 +32,8 @@ public class PublishTheoryFrame extends FunctionalFrame {
 	private GameButton publishButton;
 	private JButton returnBtn;
 
-    public PublishTheoryFrame(KUAlchemistsGame game, Player player) {
-        super(game, player);
+    public PublishTheoryFrame(KUAlchemistsGame game) {
+        super(game);
         super.setBackground("/FunctionalBackgroundImages/publishTheoryBackground.png");
         setMarkers();
         setTheoryCards();
@@ -59,7 +59,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PlayerDashboardFrame(game, player);
+                new PlayerDashboardFrame(game);
                 PublishTheoryFrame.this.dispose();
             }
         });	

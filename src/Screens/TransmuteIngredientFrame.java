@@ -26,8 +26,8 @@ public class TransmuteIngredientFrame extends FunctionalFrame{
 	
 	private JButton returnBtn;
 	
-	public TransmuteIngredientFrame(KUAlchemistsGame game, Player player) {
-		super(game, player);
+	public TransmuteIngredientFrame(KUAlchemistsGame game) {
+		super(game);
 		this.setBackground("/FunctionalBackgroundImages/transmuteIngredientBackground.png");
 		this.setTransmuteLabel();
 		this.setIngredients();
@@ -42,7 +42,7 @@ public class TransmuteIngredientFrame extends FunctionalFrame{
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PlayerDashboardFrame(game, player);
+                new PlayerDashboardFrame(game);
                 TransmuteIngredientFrame.this.dispose();
             }
         });	

@@ -33,8 +33,8 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	ArtisticButton testOnStudentButton;
 	ArtisticButton testOnYourselfButton;
 	
-	public MakeExperimentFrame(KUAlchemistsGame game, Player player) {
-		super(game, player);
+	public MakeExperimentFrame(KUAlchemistsGame game) {
+		super(game);
 		this.setBackground("/FunctionalBackgroundImages/makeExperimentBackground.png");
 		this.setIngredients();
 		this.setWhereToTestButtons();
@@ -49,7 +49,7 @@ public class MakeExperimentFrame extends FunctionalFrame {
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PlayerDashboardFrame(game, player);
+                new PlayerDashboardFrame(game);
                 MakeExperimentFrame.this.dispose();
             }
         });	
