@@ -1,9 +1,13 @@
 package artifactScreens;
 
-public class PrintingPressArtifactFrame extends ArtifactFrame{
+import Business.KUAlchemistsGame;
 
-	public PrintingPressArtifactFrame()
+public class PrintingPressArtifactFrame extends ArtifactFrame
+{
+
+	public PrintingPressArtifactFrame(KUAlchemistsGame game)
 	{
+		super(game);
 		setBackground("/artifactBackgrounds/PrintingPressArtifact.png");
 	}
 }

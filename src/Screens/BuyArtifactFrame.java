@@ -31,8 +31,8 @@ public class BuyArtifactFrame extends FunctionalFrame{
 	JButton button;
 	private JButton returnBtn;
 	
-	public BuyArtifactFrame(KUAlchemistsGame game, Player player) {
-		super(game, player);
+	public BuyArtifactFrame(KUAlchemistsGame game) {
+		super(game);
 		this.setBackground("/FunctionalBackgroundImages/buyArtifactBackground.png");
 		this.setButton();
 		this.setReturnBtn();
@@ -46,7 +46,7 @@ public class BuyArtifactFrame extends FunctionalFrame{
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PlayerDashboardFrame(game, player);
+                new PlayerDashboardFrame(game);
                 BuyArtifactFrame.this.dispose();
             }
         });	

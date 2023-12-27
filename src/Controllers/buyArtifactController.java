@@ -28,18 +28,17 @@ public class buyArtifactController {
 	{
 		switch(artifactName) {
 		case "DiscountArtifact":
-			return new DiscountArtifactFrame();
-		
+			return new DiscountArtifactFrame(game);
 		case "ReputationBoosterArtifact":
-			return new ReputationBoosterArtifactFrame();
+			return new ReputationBoosterArtifactFrame(game);
 		case "PrintingPressArtifact":
-			return new PrintingPressArtifactFrame();
+			return new PrintingPressArtifactFrame(game);
 		case "WisdomIdolArtifact":
-			return new WisdomIdolArtifactFrame();
+			return new WisdomIdolArtifactFrame(game);
 		case "MagicMortarArtifact":
-			return new MagicMortarArtifactFrame();
+			return new MagicMortarArtifactFrame(game);
 		case "ElixirOfInsight":
-			return new ElixirOfInsightFrame();
+			return new ElixirOfInsightFrame(game);
 		default:
 			return null;
 		}

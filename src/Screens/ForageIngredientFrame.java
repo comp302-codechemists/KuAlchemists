@@ -27,8 +27,8 @@ public class ForageIngredientFrame extends FunctionalFrame
 	JButton button;
 	JButton returnBtn;
 	
-	public ForageIngredientFrame(KUAlchemistsGame game, Player player) {
-		super(game, player);
+	public ForageIngredientFrame(KUAlchemistsGame game) {
+		super(game);
 		this.setBackground("/FunctionalBackgroundImages/forageIngredientBackground.png");
 		this.setButton();
 		this.setReturnBtn();
@@ -43,7 +43,7 @@ public class ForageIngredientFrame extends FunctionalFrame
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PlayerDashboardFrame(game, player);
+                new PlayerDashboardFrame(game);
                 ForageIngredientFrame.this.dispose();
             }
         });	

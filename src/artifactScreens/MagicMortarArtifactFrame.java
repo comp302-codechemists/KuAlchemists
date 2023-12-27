@@ -1,9 +1,13 @@
 package artifactScreens;
 
-public class MagicMortarArtifactFrame extends ArtifactFrame{
+import Business.KUAlchemistsGame;
 
-	public MagicMortarArtifactFrame()
+public class MagicMortarArtifactFrame extends ArtifactFrame
+{
+
+	public MagicMortarArtifactFrame(KUAlchemistsGame game)
 	{
+		super(game);
 		setBackground("/artifactBackgrounds/MagicMortarArtifact.png");
 	}
 }

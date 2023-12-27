@@ -33,8 +33,8 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	private JButton returnBtn;
 
 	
-	public DebunkTheoryFrame(KUAlchemistsGame game, Player player) {
-		super(game, player);
+	public DebunkTheoryFrame(KUAlchemistsGame game) {
+		super(game);
 		setBackground("/FunctionalBackgroundImages/debunkTheoryBackground.png");
 		initializeSelectedAspectLabel();
 		initializeSelectedTheoryLabel();
@@ -52,7 +52,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PlayerDashboardFrame(game, player);
+                new PlayerDashboardFrame(game);
                 DebunkTheoryFrame.this.dispose();
             }
         });	

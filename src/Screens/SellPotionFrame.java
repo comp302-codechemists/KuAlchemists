@@ -35,8 +35,8 @@ public class SellPotionFrame extends FunctionalFrame{
 	private GameButton sellButton;
 	private JButton returnBtn;
 	
-	public SellPotionFrame(KUAlchemistsGame game, Player player) {
-		super(game, player);
+	public SellPotionFrame(KUAlchemistsGame game) {
+		super(game);
 		setBackground("/FunctionalBackgroundImages/sellPotionBackground.png");
 		initializeSelectedAspectLabel();
 		setSellButton();
@@ -53,7 +53,7 @@ public class SellPotionFrame extends FunctionalFrame{
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new PlayerDashboardFrame(game, player);
+                new PlayerDashboardFrame(game);
                 SellPotionFrame.this.dispose();
             }
         });	
