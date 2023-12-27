@@ -1,6 +1,13 @@
 package Controllers;
 
 import Business.KUAlchemistsGame;
+import artifactScreens.ArtifactFrame;
+import artifactScreens.DiscountArtifactFrame;
+import artifactScreens.ElixirOfInsightFrame;
+import artifactScreens.MagicMortarArtifactFrame;
+import artifactScreens.PrintingPressArtifactFrame;
+import artifactScreens.ReputationBoosterArtifactFrame;
+import artifactScreens.WisdomIdolArtifactFrame;
 
 public class buyArtifactController {
 	
@@ -14,8 +21,29 @@ public class buyArtifactController {
 	public String buyArtifactHandler() {
 		String boughtArtifact = game.currentPlayer.buyArtifact();
 		game.nextPlayer();
-		
 		return boughtArtifact;
+	}
+	
+	public ArtifactFrame getArtifactFrame(String artifactName)
+	{
+		switch(artifactName) {
+		case "DiscountArtifact":
+			return new DiscountArtifactFrame(game);
+		case "ReputationBoosterArtifact":
+			return new ReputationBoosterArtifactFrame(game);
+		case "PrintingPressArtifact":
+			return new PrintingPressArtifactFrame(game);
+		case "WisdomIdolArtifact":
+			return new WisdomIdolArtifactFrame(game);
+		case "MagicMortarArtifact":
+			return new MagicMortarArtifactFrame(game);
+		case "ElixirOfInsight":
+			return new ElixirOfInsightFrame(game);
+		default:
+			return null;
+		}
+		
+			
 	}
 
 }

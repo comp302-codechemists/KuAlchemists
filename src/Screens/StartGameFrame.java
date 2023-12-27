@@ -2,10 +2,8 @@ package Screens;
 
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import Business.KUAlchemistsGame;
-import Business.Player;
 import Controllers.StartGameController;
 import DesignSystem.GameButton;
 
@@ -24,10 +22,6 @@ public class StartGameFrame extends GeneralFrame {
 	 * then starts the game with the given info.
 	 * It takes a game instance as a parameter.
 	 */
-	
-	private KUAlchemistsGame game;
-    private JPanel backgroundPanel;
-    
     private JLabel usernameLabel;
     private JLabel avatarLabel;
     
@@ -85,10 +79,10 @@ public class StartGameFrame extends GeneralFrame {
     
     public StartGameFrame(KUAlchemistsGame game) {
     	
-    	super();
-    	this.game = game;
+    	super(game);
+    	setBackground("/BackgroundImages/startGameBackground.png");
+
     	this.getAvatarImages();
-    	this.setBackground();
     	this.setPlayer1Components();
     	this.setPlayer2Components();
 
@@ -106,47 +100,6 @@ public class StartGameFrame extends GeneralFrame {
     	}
     	
                         
-    }
-    
-    private void setBackground() {
-    	
-    	backgroundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                
-           	 super.paintComponent(g);
-                
-                Image image = new ImageIcon(this.getClass().getResource("/BackgroundImages/startGameBackground.png")).getImage();
-                
-                // Calculate the scaled width and height to fit the panel
-                int panelWidth = getWidth();
-                int panelHeight = getHeight();
-                
-                double imageWidth = image.getWidth(null);
-                double imageHeight = image.getHeight(null);
-                
-                double scaleX = panelWidth / imageWidth;
-                double scaleY = panelHeight / imageHeight;
-                
-                double scale = Math.max(scaleX, scaleY);
-                
-                int scaledWidth = (int) (imageWidth * scale);
-                int scaledHeight = (int) (imageHeight * scale);
-                
-                // Calculate the x and y positions to center the image
-                int x = (panelWidth - scaledWidth) / 2;
-                int y = (panelHeight - scaledHeight) / 2;
-                
-                // Draw the scaled image
-                g.drawImage(image, x, y, scaledWidth, scaledHeight, this);
-            }
-        };
-        
-        backgroundPanel.setLocation(0, 0);
-        backgroundPanel.setSize(new Dimension(1540, 820));
-        backgroundPanel.setLayout(null);
-        backgroundPanel.setOpaque(false);
-        getContentPane().add(backgroundPanel);
     }
     
     private ImageIcon makeCircularAvatar(ImageIcon originalIcon) 
@@ -583,6 +536,6 @@ public class StartGameFrame extends GeneralFrame {
     
     private void howToPlayButtonPressed()
     {
-    	new HowToPlayFrame();
+    	new HowToPlayFrame(game);
     }
 }
