@@ -6,9 +6,9 @@ import Business.GoldBoosterArtifact;
 import Business.PotionEffectBoosterArtifact;
 import Business.ReputationBoosterArtifact;
 import Business.ScorePointBoosterArtifact;
-import Business.magicMortarArtifact;
-import Business.printingPressArtifact;
-import Business.wisdomIdolArtifact;
+import Business.MagicMortarArtifact;
+import Business.PrintingPressArtifact;
+import Business.WisdomIdolArtifact;
 
 public class ArtifactFactory {
 	private Artifact artifact;
@@ -43,15 +43,15 @@ public class ArtifactFactory {
 			break;
 			
 		case "wisdomIdolArtifact":
-			artifact = new wisdomIdolArtifact("wisdomIdolArtifact");
+			artifact = new WisdomIdolArtifact("wisdomIdolArtifact");
 			break;
 			
 		case "printingPressArtifact":
-			artifact = new printingPressArtifact("printingPressArtifact");
+			artifact = new PrintingPressArtifact("printingPressArtifact");
 			break;
 			
 		case "magicMortarArtifact":
-			artifact = new magicMortarArtifact("magicMortarArtifact");
+			artifact = new MagicMortarArtifact("magicMortarArtifact");
 			break;
 
 		default:
