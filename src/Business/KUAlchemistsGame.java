@@ -23,7 +23,7 @@ public class KUAlchemistsGame {
 	
 	// game situation
 	int round = 1;
-	boolean paused = false;
+	private State state;
 	boolean finished = false;
 	int turns = 0;
 
@@ -39,7 +39,8 @@ public class KUAlchemistsGame {
 		// create artifactStorage
 		artifactStorage = new ArtifactStorage();
 
-
+		// set game state
+		this.state = new ResumeState(this);
 		System.out.printf("The game started with %d players.\n", numberOfPlayers);
 
 	}
@@ -139,7 +140,6 @@ public class KUAlchemistsGame {
 		else {
 			finish();
 		}
-		
 	}
 	
 
@@ -174,29 +174,16 @@ public class KUAlchemistsGame {
 			}
 		}
 		return winner;
-
 	}
 
-	public void pause() {
-		
-		if (!isPaused()) {
-			setPaused(true);
-			System.out.println("Game paused.\n");
-			GameEvent event = new GameEvent(this, null, GameEvent.EventID.PAUSE_GAME);
-			PauseController pc = new PauseController();
-			pc.showPause();
-		}
-
+	public void pause() 
+	{
+		state.pause();
 	}
 
-	public void resume() {
-
-		if (isPaused()) {
-			setPaused(false);
-			System.out.println("Game resumes.\n");
-			GameEvent event = new GameEvent(this, null, GameEvent.EventID.RESUME_GAME);
-		}
-
+	public void resume() 
+	{
+		state.resume();
 	}
 
 	// Getters and setters:
@@ -248,14 +235,10 @@ public class KUAlchemistsGame {
 	public void setRound(int round) {
 		this.round = round;
 	}
-
-	public boolean isPaused() {
-		return paused;
-	}
-
-	public void setPaused(boolean paused) {
-		this.paused = paused;
-	}
+	
+	public void setState(State state) {
+        this.state = state;
+    }
 
 	public boolean isFinished() {
 		return finished;
