@@ -112,8 +112,10 @@ public class MainGameFrame extends GeneralFrame{
 
 	    backgroundPanel.setOpaque(false); 
 
-	    //TODO tek bir eventin rengini ayarlayamadim butun logun rengi degisiyor.
-	    // JTextArea yaratip setForeground diyip eklemek lazim her seferinde ama beceremedim.
+	    //TODO 
+	    /*
+	     * I can't set game log colors separately. They all change color once I set it.
+	     */
 	    // BEYZA HELP!
 	    for (GameEvent event : GameEvent.getEvents()) {
 	        Color color = event.getColor();
@@ -155,12 +157,15 @@ public class MainGameFrame extends GeneralFrame{
 	{
 		playersInfoTable = new JTable();
 		int cols = game.getNumberOfPlayers() + 1;
-		DefaultTableModel model = new DefaultTableModel(5, cols);
+		DefaultTableModel model = new DefaultTableModel(6, cols);
+		
 		model.setValueAt(" Information", 0, 0);
 		model.setValueAt(" Avatar", 1, 0);
 		model.setValueAt(" Reputation Points", 2, 0);
 		model.setValueAt(" Ingredient Cards", 3, 0);
 		model.setValueAt(" Artifact Cards", 4, 0);
+		model.setValueAt(" Sickness Level", 5, 0);
+		
 		for (int i = 0; i < this.game.getNumberOfPlayers(); i++) {
 	        String avatarPath = game.getPlayers().get(i).getAvatarPath();
 	        ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath + ".png"));
@@ -172,6 +177,7 @@ public class MainGameFrame extends GeneralFrame{
 			model.setValueAt(this.game.getPlayers().get(i).getReputationPoints(), 2, i+1);
 			model.setValueAt(this.game.getPlayers().get(i).getIngredients().size(), 3, i+1);
 			model.setValueAt(this.game.getPlayers().get(i).getArtifacts().size(), 4, i+1);
+			model.setValueAt(this.game.getPlayers().get(i).getSicknessLevel(), 5, i + 1);
 		}
 		
 		playersInfoTable = new JTable(model);
@@ -184,7 +190,7 @@ public class MainGameFrame extends GeneralFrame{
 		playersInfoTable.getColumnModel().getColumn(0).setPreferredWidth(200);
 		playersInfoTable.setRowHeight(50);
 		playersInfoTable.setSurrendersFocusOnKeystroke(true);
-		playersInfoTable.setBounds(1100, 85, 370, 255);
+		playersInfoTable.setBounds(1100, 85, 370, 300);
 		
 		// Set transparent background for the table and cells
         playersInfoTable.setOpaque(false);

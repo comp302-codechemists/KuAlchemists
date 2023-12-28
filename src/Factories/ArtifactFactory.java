@@ -4,7 +4,6 @@ import Business.Artifact;
 import Business.DiscountArtifact;
 import Business.MagicMortarArtifact;
 import Business.ReputationBoosterArtifact;
-import Business.MagicMortarArtifact;
 import Business.PrintingPressArtifact;
 import Business.WisdomIdolArtifact;
 
@@ -38,6 +37,18 @@ public class ArtifactFactory {
 			
 		case "MagicMortarArtifact":
 			artifact = new MagicMortarArtifact("MagicMortarArtifact");
+			break;
+			
+		case "wisdomIdolArtifact":
+			artifact = new WisdomIdolArtifact("wisdomIdolArtifact");
+			break;
+			
+		case "printingPressArtifact":
+			artifact = new PrintingPressArtifact("printingPressArtifact");
+			break;
+			
+		case "magicMortarArtifact":
+			artifact = new MagicMortarArtifact("magicMortarArtifact");
 			break;
 
 //		case "ElixirOfInsight":

@@ -74,6 +74,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JLabel reputationLabel;
 	private JLabel repPointsLabel;
 	private JLabel balanceLabel;
+	private JLabel sickInfo;
+	private JLabel sickLabel;
 	private JButton testElixir;
 	private JButton clearBtn;
 	private JButton removeDeduction;
@@ -148,15 +150,30 @@ public class PlayerDashboardFrame extends GeneralFrame{
         reputationLabel = new JLabel(Integer.toString(repPoints));
         reputationLabel.setForeground(Color.WHITE);
         reputationLabel.setFont(new Font("Tahoma", Font.ITALIC, 25));
-        reputationLabel.setBounds(300, 320, 66, 42);
+        reputationLabel.setBounds(300, 320, 60, 40);
         backgroundPanel.add(reputationLabel);
         
         int balance = game.currentPlayer.getBalance();
         userGoldInfo = new JLabel(Integer.toString(balance));
         userGoldInfo.setForeground(Color.WHITE);
         userGoldInfo.setFont(new Font("Tahoma", Font.ITALIC, 25));
-        userGoldInfo.setBounds(300, 350, 68, 42);
+        userGoldInfo.setBounds(300, 350, 60, 40);
         backgroundPanel.add(userGoldInfo);
+        
+        //Sickness Level
+        int sicknessLvl = game.currentPlayer.getSicknessLevel();
+        sickInfo = new JLabel(Integer.toString(sicknessLvl));
+        sickInfo.setBounds(300, 380, 60, 40);
+        backgroundPanel.add(sickInfo);
+        sickInfo.setForeground(Color.WHITE);
+        sickInfo.setFont(new Font("Tahoma", Font.ITALIC, 25));
+    	
+        sickLabel = new JLabel("Sickness Level:");
+        sickLabel.setForeground(Color.WHITE);
+        sickLabel.setFont(new Font("Tahoma", Font.ITALIC, 20));
+        sickLabel.setBounds(70, 380, 200, 30);
+        backgroundPanel.add(sickLabel);
+        
 	}
 	
 	private void setDeductionPanel() {
@@ -420,6 +437,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		removeDeduction.setBackground(Color.LIGHT_GRAY);
 		removeDeduction.setFont(new Font("Tahoma", Font.ITALIC, 8));
     	bottomBackground.add(removeDeduction);
+    
     	
         removeDeduction.addActionListener(new ActionListener() {
             @Override
