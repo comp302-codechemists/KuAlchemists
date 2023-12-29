@@ -65,21 +65,25 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 		debunkButton.setBounds(550, 500, 100, 30);
     	backgroundPanel.add(debunkButton);
     	
-    	if (selectedAspect != null && selectedTheory != null)
+    	controller = new DebunkTheoryController(game);
+    	System.out.println(selectedTheory);
+   		System.out.println(selectedAspect);
+    		
+    	debunkButton.addActionListener(new ActionListener() 
     	{
-    		try {
-    			//TODO
-    			controller = new DebunkTheoryController(game);
-    			System.out.println(selectedTheory);
-    			System.out.println(selectedAspect);
-
-    			// controller.handleDebunk(selectedTheory, selectedAspect);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	if (selectedAspect != null && selectedTheory != null)
+            	{
+            		controller.handleDebunk(selectedTheory, selectedAspect);
+                	
+                  	 new PlayerDashboardFrame(game);
+                  	 DebunkTheoryFrame.this.dispose();	
+            	}
+            }
+        });
+    	
     }
-	
 	
 	private void initializeSelectedAspectLabel()
 	{

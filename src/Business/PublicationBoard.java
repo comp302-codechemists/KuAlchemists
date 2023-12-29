@@ -45,15 +45,26 @@ public class PublicationBoard
 
 	}
 	
-	public boolean debunkTheory(Theory selectedTheory, int selectedAspect) {
-		boolean comparaison = false;
-		String signOfAspectToDebunk = selectedTheory.getAlchemyMarker().getTokenAspects()[selectedAspect].getSign();
-		String actualSignOfAspect = selectedTheory.getIngredient().getToken().getTokenAspects()[selectedAspect].getSign();
-		Theory.getAllTheories().remove(selectedTheory);
-		if(signOfAspectToDebunk.equals(actualSignOfAspect)) {
-			comparaison = true;
+	public boolean debunkTheory(Theory selectedTheory, String selectedAspect) {
+		
+		if (selectedTheory == null || selectedAspect == null)
+		{
+			return false;
 		}
 		
+		boolean comparaison = false;
+		
+		Token alchemyMarker = selectedTheory.getAlchemyMarker();
+		Aspect[] aspects = alchemyMarker.getTokenAspects();
+		
+		for (Aspect a: aspects)
+		{
+			if (a.toString().contains(selectedAspect))
+			{
+				Theory.getAllTheories().remove(selectedTheory);
+				comparaison = true;
+			}
+		}
 		return comparaison;
 		
 	}

@@ -14,9 +14,6 @@ public class Aspect {
 	
     private String size;
     private String sign;
-    
-    
-
 	private String color;
     
     public Aspect(String size, String color, String sign) {
