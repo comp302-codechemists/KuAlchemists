@@ -410,7 +410,7 @@ public class Player {
 		}
 	}
 	
-	public void debunkTheory(String selectedTheory,int selectedAspect) {
+	public void debunkTheory(String selectedTheory, String selectedAspect) {
 		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
 		//Aspect aspect = Aspect.getAspect(selectedAspect);
 		if(theory == null) {
