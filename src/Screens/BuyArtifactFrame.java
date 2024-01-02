@@ -23,6 +23,7 @@ import Business.Player;
 import Controllers.buyArtifactController;
 import DesignSystem.ArtisticButton;
 import artifactScreens.ArtifactFrame;
+import soundEffects.PlaySong;
 
 import javax.swing.JLabel;
 
@@ -68,6 +69,7 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			public void mouseClicked(MouseEvent e) {
 				buyArtifactController controller = new buyArtifactController(game);
                 String boughtArtifact = controller.buyArtifactHandler();
+                PlaySong.play("DrawCard");
                 
 			    if (boughtArtifact != null)
 			    {

@@ -25,6 +25,7 @@ import Controllers.SellPotionController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
 import Exceptions.IngredientNotFoundException;
+import soundEffects.PlaySong;
 
 public class SellPotionFrame extends FunctionalFrame{
 
@@ -69,6 +70,8 @@ public class SellPotionFrame extends FunctionalFrame{
     	sellButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	
+            	
 
             	if (selectedAspect == null || selectedIngredients.size() != 2)
             	{
@@ -78,6 +81,7 @@ public class SellPotionFrame extends FunctionalFrame{
             	
             	else
             	{
+            		PlaySong.play("MakePotion");
             		controller = new SellPotionController(game);
         			try {
         				int payment = controller.handleSellPotion(selectedIngredients.get(0), selectedIngredients.get(1), selectedAspect);

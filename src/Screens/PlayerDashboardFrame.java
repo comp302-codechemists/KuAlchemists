@@ -41,6 +41,7 @@ import DesignSystem.DashboardLabel;
 import DesignSystem.GameButton;
 import DesignSystem.GameText;
 import artifactScreens.ElixirOfInsightFrame;
+import soundEffects.PlaySong;
 
 import java.awt.FlowLayout;
 
@@ -236,6 +237,13 @@ public class PlayerDashboardFrame extends GeneralFrame{
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col <= row; col++) {
                 JRadioButton btn = new JRadioButton();
+    	    	btn.addActionListener(new ActionListener() 
+    	    	{
+    	            @Override
+    	            public void actionPerformed(ActionEvent e) {	            		
+    	                	 PlaySong.play("ButtonClick");                      	
+    	            }
+    	        });
                 triangleButtonGroup.add(btn);
                 int x = startX - row * 46 / 2 + col * 46;
                 int y = startY + row * 40;
@@ -420,6 +428,13 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    	circleLabel.setVisible(true);
 	    	leftHandBackground.add(circleLabel);
         	JRadioButton btn = new JRadioButton();
+	    	btn.addActionListener(new ActionListener() 
+	    	{
+	            @Override
+	            public void actionPerformed(ActionEvent e) {	            		
+	                	 PlaySong.play("ButtonClick");                      	
+	            }
+	        });
         	leftButtonGroup.add(btn);
         	leftHandBackground.add(btn);
         	btn.setBounds(0, i*32, 50, 40);
@@ -448,6 +463,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
         removeDeduction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+           	 	PlaySong.play("ButtonClick");                      	
+
             	int i = -1;
             	for (i = 0; i < deductionBoardButtons.size(); i++) {
             		if (deductionBoardButtons.get(i).isSelected()) {
@@ -485,6 +502,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
         clearBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+           	 	PlaySong.play("ButtonClick");                      	
+
             	leftButtonGroup.clearSelection();
                 triangleButtonGroup.clearSelection();
             }
@@ -501,6 +520,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+           	 	PlaySong.play("ButtonClick");                      	
             	
             	int selectedLeft = -1;
             	Enumeration<AbstractButton> buttonsLeft = leftButtonGroup.getElements();
@@ -625,6 +645,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        forageIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
+	            	PlaySong.play("ButtonClick");                      	
+
 	                new ForageIngredientFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
@@ -645,6 +667,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        makeExperimentButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
+	            	PlaySong.play("ButtonClick");                      	
+
 	                new MakeExperimentFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
@@ -665,6 +689,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        transmuteIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
+	            	PlaySong.play("ButtonClick");                      	
+
 	                new TransmuteIngredientFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
@@ -687,7 +713,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        buyArtifactButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	
+	            	PlaySong.play("ButtonClick");                      	
+
 	            	new BuyArtifactFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	            }
@@ -720,6 +747,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new DebunkTheoryFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
+	            	PlaySong.play("ButtonClick");                      	
+
 	            	new DebunkTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	            }
@@ -752,6 +781,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new SellPotionFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
+	            	PlaySong.play("ButtonClick");                      	
 	            	
 	            	new SellPotionFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
@@ -784,6 +814,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new PublishTheoryFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
+	            	PlaySong.play("ButtonClick");                      	
+
 	            	new PublishTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	

@@ -18,6 +18,7 @@ import Business.GameEvent;
 import Business.KUAlchemistsGame;
 import DesignSystem.GameButton;
 import DesignSystem.GameText;
+import soundEffects.PlaySong;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -246,6 +247,7 @@ public class MainGameFrame extends GeneralFrame{
 		exitGameButton.addActionListener(new ActionListener() {
 			@Override
 	        public void actionPerformed(ActionEvent e) {
+                PlaySong.play("ButtonClick");
 				MainGameFrame.this.dispose();
 			}
 		});
@@ -259,6 +261,7 @@ public class MainGameFrame extends GeneralFrame{
 		pauseGameButton.addActionListener(new ActionListener() {
 			@Override
 	        public void actionPerformed(ActionEvent e) {
+                PlaySong.play("ButtonClick");
 				KUAlchemistsGame.instance.pause();
 				gameLogArea.revalidate();
 				gameLogArea.repaint();
@@ -273,7 +276,8 @@ public class MainGameFrame extends GeneralFrame{
 		howToPlayButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               new HowToPlayFrame(game);
+                PlaySong.play("ButtonClick");
+                new HowToPlayFrame(game);
             }
         });
 		backgroundPanel.add(howToPlayButton);
@@ -297,6 +301,7 @@ public class MainGameFrame extends GeneralFrame{
 		takeTurnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                PlaySong.play("ButtonClick");
             	new PlayerDashboardFrame(game);
             	MainGameFrame.this.dispose();
             }

@@ -4,6 +4,7 @@ import javax.swing.*;
 import Business.KUAlchemistsGame;
 import Controllers.PlayGameController;
 import DesignSystem.GameFrame;
+import soundEffects.PlaySong;
 import uiHelpers.MagicFrame;
 
 import java.awt.event.ActionEvent;
@@ -107,6 +108,7 @@ public class WelcomeFrame extends MagicFrame {
     	 * the game instance is sent to the new frame
     	 * */
     	
+    	PlaySong.play("ButtonClick");
     	playGameController = new PlayGameController();
     	int selected = Integer.parseInt((String) playerCount.getSelectedItem());
     	KUAlchemistsGame game = playGameController.playGame(selected);
