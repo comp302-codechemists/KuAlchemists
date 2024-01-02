@@ -21,6 +21,7 @@ import DesignSystem.GameText;
 import soundEffects.PlaySong;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -248,7 +249,18 @@ public class MainGameFrame extends GeneralFrame{
 			@Override
 	        public void actionPerformed(ActionEvent e) {
                 PlaySong.play("ButtonClick");
-				MainGameFrame.this.dispose();
+                int choice = JOptionPane.showOptionDialog(
+                        null,
+                        "Are you sure you want to exit the game?",
+                        "Exit Confirmation",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        new Object[]{"Yes", "No"},
+                        "No");
+                if (choice == JOptionPane.YES_OPTION) {
+                	MainGameFrame.this.dispose();
+                }	
 			}
 		});
 		backgroundPanel.add(exitGameButton);
@@ -288,6 +300,26 @@ public class MainGameFrame extends GeneralFrame{
 		
 		endGameButton = new GameButton("End Game");
 		endGameButton.setBounds(1100, 500, 150, 30);
+		endGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PlaySong.play("ButtonClick");
+                int choice = JOptionPane.showOptionDialog(
+                        null,
+                        "Are you sure you want to end the current game?",
+                        "Exit Confirmation",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE,
+                        null,
+                        new Object[]{"Yes", "No"},
+                        "No");
+                if (choice == JOptionPane.YES_OPTION) {
+                	MainGameFrame.this.dispose();
+                	new WelcomeFrame();
+                } 
+            }
+        });
+
 		backgroundPanel.add(endGameButton);
 	
 	}
