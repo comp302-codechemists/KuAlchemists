@@ -14,11 +14,10 @@ import java.awt.*;
 public class WelcomeFrame extends MagicFrame {
 
 	private PlayGameController playGameController;
-    private JButton startButton;
+    private JButton hostButton;
+    private JButton joinButton;
     private JLabel loadingLabel;
     private JProgressBar progressBar;
-    private JComboBox<String> playerCount;
-
     public WelcomeFrame()
     {
     	this(null); 
@@ -34,12 +33,12 @@ public class WelcomeFrame extends MagicFrame {
     	this.setLoadingLabel();
     	
     	// set start button
-    	this.setStartButton();
+    	this.setHostButton();
+    	this.setJoinButton();
     	
     	// set progress bar
     	this.setProgressBar();
     	
-    	this.setPlayerCount();
     	
         
         JLabel introduction = new JLabel("Choose how many player will play and let's get started...");
@@ -49,35 +48,56 @@ public class WelcomeFrame extends MagicFrame {
         backgroundPanel.add(introduction);
      }
     
-    private void setPlayerCount() {
-    	String[] options = {"2", "3", "4"};
-        playerCount = new JComboBox<String>(options);
-        playerCount.setMaximumRowCount(3);
-        playerCount.setSelectedIndex(0);
-        playerCount.setBounds(320, 273, 100, 30);
-        backgroundPanel.add(playerCount);
-    }
+ 
     
-    private void setStartButton()
+    private void setHostButton()
     {
-    	startButton = new JButton("Start Game");
-        startButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        startButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        startButton.setBackground(Color.green); 
-        startButton.setForeground(Color.WHITE); 
-        startButton.setFont(new Font("Arial", Font.BOLD, 12)); 
-        startButton.setBounds(320, 230, 100, 30); 
+    	hostButton = new JButton("Host Game");
+    	hostButton.setHorizontalTextPosition(SwingConstants.CENTER);
+    	hostButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	hostButton.setBackground(Color.green); 
+    	hostButton.setForeground(Color.WHITE); 
+    	hostButton.setFont(new Font("Arial", Font.BOLD, 12)); 
+    	hostButton.setBounds(220, 230, 100, 30);
 
-        startButton.addActionListener(new ActionListener() {
+
+    	hostButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                startButtonClicked();
+                hostButtonClicked();
             }
         });
         
-        backgroundPanel.add(startButton);
+        backgroundPanel.add(hostButton);
         
     }
+    
+    
+    private void setJoinButton()
+    {
+    	joinButton = new JButton("Join Game");
+    	joinButton.setHorizontalTextPosition(SwingConstants.CENTER);
+    	joinButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	joinButton.setBackground(Color.green); 
+    	joinButton.setForeground(Color.WHITE); 
+    	joinButton.setFont(new Font("Arial", Font.BOLD, 12)); 
+    	joinButton.setBounds(420, 230, 100, 30);
+    	
+    	
+
+
+    	joinButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	joinButtonClicked();
+            }
+        });
+        
+        backgroundPanel.add(joinButton);
+        
+    }
+    
+    
     
     private void setLoadingLabel()
     {
@@ -100,19 +120,21 @@ public class WelcomeFrame extends MagicFrame {
          backgroundPanel.add(progressBar);
     }
     
-    private void startButtonClicked() {
+    private void hostButtonClicked() {
     	
-    	/*
-    	 * When the user clicks on the start button 
-    	 * The game is created and
-    	 * the game instance is sent to the new frame
-    	 * */
-    	
+   
     	PlaySong.play("ButtonClick");
-    	playGameController = new PlayGameController();
-    	int selected = Integer.parseInt((String) playerCount.getSelectedItem());
-    	KUAlchemistsGame game = playGameController.playGame(selected);
-        new StartGameFrame(game);
-        this.dispose();
+    	
+    	new HostGameFrame();
+    	this.dispose();
+    	
+    }
+    
+    private void joinButtonClicked() {
+    	PlaySong.play("ButtonClick");
+    	new JoinGameFrame();
+    	this.dispose();
+
+
     }
 }
