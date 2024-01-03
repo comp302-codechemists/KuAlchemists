@@ -37,13 +37,27 @@ public class HostGameFrame extends MagicFrame{
 	        
 	    	startGameButton = new JButton("Start Game");
 	    	startGameButton.setBounds(335, 160, 100, 30);
+	    	
+	    	startGameButton.addActionListener(new ActionListener() {
+	            @Override
+	            public void actionPerformed(ActionEvent e) {
+	            	startGameButtonClicked();
+	            }
+	        });
 	    	backgroundPanel.add(startGameButton);
 	     }
 	    
 	    
+	    
+	    
 	 
 	    
-	  
+	    private void startGameButtonClicked() {
+	    	PlaySong.play("ButtonClick");
+
+
+	    }
+	    
 	    
 	    
 	    
