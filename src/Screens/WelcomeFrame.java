@@ -14,10 +14,11 @@ import java.awt.*;
 public class WelcomeFrame extends MagicFrame {
 
 	private PlayGameController playGameController;
-    private JButton hostButton;
-    private JButton joinButton;
+    private JButton onlineButton;
+    private JButton offlineButton;
     private JLabel loadingLabel;
     private JProgressBar progressBar;
+    private JComboBox<String> playerCount;
     public WelcomeFrame()
     {
     	this(null); 
@@ -33,13 +34,14 @@ public class WelcomeFrame extends MagicFrame {
     	this.setLoadingLabel();
     	
     	// set start button
-    	this.setHostButton();
+    	this.setOnlineButton();
     	this.setJoinButton();
     	
     	// set progress bar
     	this.setProgressBar();
     	
-    	
+    	this.setPlayerCount();
+
         
         JLabel introduction = new JLabel("Choose how many player will play and let's get started...");
         introduction.setForeground(Color.WHITE);
@@ -48,52 +50,59 @@ public class WelcomeFrame extends MagicFrame {
         backgroundPanel.add(introduction);
      }
     
- 
+    private void setPlayerCount() {
+    	String[] options = {"2", "3", "4"};
+        playerCount = new JComboBox<String>(options);
+        playerCount.setMaximumRowCount(3);
+        playerCount.setSelectedIndex(0);
+        playerCount.setBounds(320, 273, 100, 30);
+        backgroundPanel.add(playerCount);
+    }
     
-    private void setHostButton()
+    private void setOnlineButton()
     {
-    	hostButton = new JButton("Host Game");
-    	hostButton.setHorizontalTextPosition(SwingConstants.CENTER);
-    	hostButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-    	hostButton.setBackground(Color.green); 
-    	hostButton.setForeground(Color.WHITE); 
-    	hostButton.setFont(new Font("Arial", Font.BOLD, 12)); 
-    	hostButton.setBounds(220, 230, 100, 30);
+    	onlineButton = new JButton("Online");
+    	onlineButton.setHorizontalTextPosition(SwingConstants.CENTER);
+    	onlineButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	onlineButton.setBackground(Color.green); 
+    	onlineButton.setForeground(Color.WHITE); 
+    	onlineButton.setFont(new Font("Arial", Font.BOLD, 12)); 
+    	onlineButton.setBounds(220, 230, 100, 30);
 
 
-    	hostButton.addActionListener(new ActionListener() {
+    	onlineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                hostButtonClicked();
+                onlineButtonClicked();
             }
         });
         
-        backgroundPanel.add(hostButton);
+        backgroundPanel.add(onlineButton);
         
     }
     
     
     private void setJoinButton()
     {
-    	joinButton = new JButton("Join Game");
-    	joinButton.setHorizontalTextPosition(SwingConstants.CENTER);
-    	joinButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-    	joinButton.setBackground(Color.green); 
-    	joinButton.setForeground(Color.WHITE); 
-    	joinButton.setFont(new Font("Arial", Font.BOLD, 12)); 
-    	joinButton.setBounds(420, 230, 100, 30);
+    	offlineButton = new JButton("Offline");
+    	offlineButton.setHorizontalTextPosition(SwingConstants.CENTER);
+    	offlineButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+    	offlineButton.setBackground(Color.green); 
+    	offlineButton.setForeground(Color.WHITE); 
+    	offlineButton.setFont(new Font("Arial", Font.BOLD, 12)); 
+    	offlineButton.setBounds(420, 230, 100, 30);
     	
     	
 
 
-    	joinButton.addActionListener(new ActionListener() {
+    	offlineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	joinButtonClicked();
+            	offlineButtonClicked();
             }
         });
         
-        backgroundPanel.add(joinButton);
+        backgroundPanel.add(offlineButton);
         
     }
     
@@ -120,20 +129,23 @@ public class WelcomeFrame extends MagicFrame {
          backgroundPanel.add(progressBar);
     }
     
-    private void hostButtonClicked() {
+    private void onlineButtonClicked() {
     	
    
     	PlaySong.play("ButtonClick");
     	
-    	new HostGameFrame();
+    	new OnlineOptionFrame();
     	this.dispose();
     	
     }
     
-    private void joinButtonClicked() {
+    private void offlineButtonClicked() {
     	PlaySong.play("ButtonClick");
-    	new JoinGameFrame();
-    	this.dispose();
+    	playGameController = new PlayGameController();
+    	int selected = Integer.parseInt((String) playerCount.getSelectedItem());
+    	KUAlchemistsGame game = playGameController.playGame(selected);
+        new StartGameFrame(game);
+        this.dispose();
 
 
     }
