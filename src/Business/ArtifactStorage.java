@@ -39,10 +39,9 @@ public class ArtifactStorage {
 	public static Artifact getArtifact() {
 
 		//Remove and return top:
-		/*if(artifactList.isEmpty()) return null; // throw exception
-		return artifactList.remove(0);*/
-		return new ElixirOfInsightArtifact("ElixirOfInsightArtifact");
-
+		if(artifactList.isEmpty()) return null; // throw exception
+		return artifactList.remove(0);
+		
 	}
 
 }

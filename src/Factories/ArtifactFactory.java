@@ -40,7 +40,7 @@ public class ArtifactFactory {
 			artifact = new MagicMortarArtifact("MagicMortarArtifact");
 			break;
 			
-		case "ElixirOfInsight":
+		case "ElixirOfInsightArtifact":
 			artifact = new ElixirOfInsightArtifact("ElixirOfInsightArtifact");
 			break;
 

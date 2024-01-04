@@ -75,7 +75,7 @@ public abstract class Artifact {
 		 * implemented
 		 * */
 		
-		Artifact elixirOfInsight = ArtifactFactory.getInstance().getArtifacts("ElixirOfInsight");
+		Artifact elixirOfInsight = ArtifactFactory.getInstance().getArtifacts("ElixirOfInsightArtifact");
 		// elixir of insigt
 		/*
 		 * top3 ingredient card can be seen and
