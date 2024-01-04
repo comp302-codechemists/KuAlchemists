@@ -24,6 +24,7 @@ import Business.Player;
 import Controllers.MakeExperimentController;
 import Controllers.TransmuteController;
 import DesignSystem.ArtisticButton;
+import soundEffects.PlaySong;
 
 public class MakeExperimentFrame extends FunctionalFrame {
 	
@@ -49,6 +50,7 @@ public class MakeExperimentFrame extends FunctionalFrame {
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                PlaySong.play("ButtonClick");
                 new PlayerDashboardFrame(game);
                 MakeExperimentFrame.this.dispose();
             }
@@ -71,12 +73,14 @@ public class MakeExperimentFrame extends FunctionalFrame {
 		testOnStudentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                PlaySong.play("MakePotion");
             	makeExperiment(1);
             }
         });
 		testOnYourselfButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                PlaySong.play("MakePotion");
             	makeExperiment(2);
             }
         });
@@ -137,6 +141,15 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	    	Ingredient ingredient = currentIngredients.get(i);
 	    	
 	        JToggleButton ingredientButton = new JToggleButton(); // Use JToggleButton for radio button behavior
+	        
+	    	ingredientButton.addActionListener(new ActionListener() 
+	    	{
+	            @Override
+	            public void actionPerformed(ActionEvent e) {	            		
+	                	 PlaySong.play("ButtonClick");                      	
+	            }
+	        });
+	        
 	        ingredientButton.setBackground(null);
 	        ingredientButton.setOpaque(false);
 	        ingredientButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));

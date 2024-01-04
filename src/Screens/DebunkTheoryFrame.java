@@ -21,6 +21,7 @@ import Controllers.DebunkTheoryController;
 import Controllers.SellPotionController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
+import soundEffects.PlaySong;
 
 public class DebunkTheoryFrame extends FunctionalFrame{
 
@@ -53,6 +54,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new PlayerDashboardFrame(game);
+                PlaySong.play("ButtonClick");
                 DebunkTheoryFrame.this.dispose();
             }
         });	
@@ -65,21 +67,25 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 		debunkButton.setBounds(550, 500, 100, 30);
     	backgroundPanel.add(debunkButton);
     	
-    	if (selectedAspect != null && selectedTheory != null)
+    	controller = new DebunkTheoryController(game);
+    	System.out.println(selectedTheory);
+   		System.out.println(selectedAspect);
+    		
+    	debunkButton.addActionListener(new ActionListener() 
     	{
-    		try {
-    			//TODO
-    			controller = new DebunkTheoryController(game);
-    			System.out.println(selectedTheory);
-    			System.out.println(selectedAspect);
-
-    			// controller.handleDebunk(selectedTheory, selectedAspect);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    	}
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	if (selectedAspect != null && selectedTheory != null)
+            	{
+            		 controller.handleDebunk(selectedTheory, selectedAspect);
+                	 PlaySong.play("DebunkTheory");
+                  	 new PlayerDashboardFrame(game);
+                  	 DebunkTheoryFrame.this.dispose();	
+            	}
+            }
+        });
+    	
     }
-	
 	
 	private void initializeSelectedAspectLabel()
 	{
@@ -113,7 +119,16 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	    	
 	    	String potion = Potion.potions[i];
 	    		    	
-	        JToggleButton aspectButton = new JToggleButton(); 
+	        JToggleButton aspectButton = new JToggleButton();
+	    	aspectButton.addActionListener(new ActionListener() 
+	    	{
+	            @Override
+	            public void actionPerformed(ActionEvent e) {	            		
+	                	 PlaySong.play("ButtonClick");                      	
+	            }
+	        });
+	        
+	        
 	        aspectButton.setBackground(null);
 	        aspectButton.setOpaque(false);
 	        aspectButton.setContentAreaFilled(false);
@@ -174,6 +189,14 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	    	Theory theory = Theory.getAllTheories().get(i);
 	    	
 	        JToggleButton theoryButton = new JToggleButton(); 
+	    	theoryButton.addActionListener(new ActionListener() 
+	    	{
+	            @Override
+	            public void actionPerformed(ActionEvent e) {	            		
+	                	 PlaySong.play("ButtonClick");                      	
+	            }
+	        });
+	    	
 	        theoryButton.setBackground(null);
 	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/theoryImages/" + theory.getIngredient().getName() + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);

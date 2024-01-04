@@ -41,6 +41,7 @@ import DesignSystem.DashboardLabel;
 import DesignSystem.GameButton;
 import DesignSystem.GameText;
 import artifactScreens.ElixirOfInsightFrame;
+import soundEffects.PlaySong;
 
 import java.awt.FlowLayout;
 
@@ -80,6 +81,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton clearBtn;
 	private JButton removeDeduction;
 	private JPanel deductionPanel;
+	
+	private List<JLabel> labels; // For cross labels
 	
 	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
 	
@@ -234,6 +237,13 @@ public class PlayerDashboardFrame extends GeneralFrame{
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col <= row; col++) {
                 JRadioButton btn = new JRadioButton();
+    	    	btn.addActionListener(new ActionListener() 
+    	    	{
+    	            @Override
+    	            public void actionPerformed(ActionEvent e) {	            		
+    	                	 PlaySong.play("ButtonClick");                      	
+    	            }
+    	        });
                 triangleButtonGroup.add(btn);
                 int x = startX - row * 46 / 2 + col * 46;
                 int y = startY + row * 40;
@@ -323,6 +333,46 @@ public class PlayerDashboardFrame extends GeneralFrame{
         return sequence;
     }
 	
+	private int[] getIndices() {
+		
+		int[] arr = new int[4];
+	    int[][] matrix = new int[][] {
+	    	{1, 7},
+	    	{0, 6},
+	    	{3, 7},
+	    	{2, 6},
+	    	{5, 7},
+	    	{4, 6}
+	    };
+	    
+	    DeductionBoard db = game.currentPlayer.getDeductionBoard();
+	    Map<Integer, Integer> locations = db.getExistingItems();
+	    List<Integer> leftIndex = generateSequenceLeft();
+	    List<Integer> rightIndex = generateSequenceRight();
+	    
+	    for (int i = 0; i < 28; i++) {
+	    	int left = leftIndex.get(i);
+	    	int right = rightIndex.get(i);
+	    	
+	    	Integer value = locations.get(i);
+    	
+	    	if (value == null) {
+	    		continue;
+	    	}
+	    	
+	    	for (int j = 0; j < 8; j++) {
+	    		if (value == j) { 			    		
+		    		arr[0] = left  + 8 * matrix[j][0];	
+		    		arr[1] = right + 8 * matrix[j][0];
+		    		arr[2] = left  + 8 * matrix[j][1];
+		    		arr[3] = right + 8 * matrix[j][1];
+	    		}
+	    	}
+	    }
+		
+		return arr;
+	}
+	
 	private void setBottomCrosses() {
 	    int labelSize = 20;
 	    int gapX = 25;
@@ -330,11 +380,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    int startX = 93;
 	    int startY = 3;
 	    
-	    List<JLabel> labels = new ArrayList<>();
-	    
-    	Image image = new ImageIcon(this.getClass().getResource("/Images/cross.png")).getImage();
-    	Image newImage = image.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-    	ImageIcon icon = new ImageIcon(newImage);
+	    labels = new ArrayList<>();
 	    
 	    for (int row = 0; row < 8; row++) {
 	        for (int col = 0; col < 8; col++) {
@@ -347,57 +393,25 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            bottomBackground.add(cross);
 	        }
 	    }
-	    	    
-	    DeductionBoard db = game.currentPlayer.getDeductionBoard();
-	    Map<Integer, Integer> locations = db.getExistingItems();
-	    List<Integer> leftIndex = generateSequenceLeft();
-	    List<Integer> rightIndex = generateSequenceRight();
-	    
-	    
-	    // Matrix for marking the table
-	    int[][] matrix = new int[][] {
-	    	{1, 7},
-	    	{0, 6},
-	    	{3, 7},
-	    	{2, 6},
-	    	{5, 7},
-	    	{4, 6}
-	    };
+
 
 	    // Marking the table with the indices.
-	    for (int i = 0; i < 28; i++) {
-	    	int left = leftIndex.get(i);
-	    	int right = rightIndex.get(i);
-	    	
-	    	Integer value = locations.get(i);
+    	Image image = new ImageIcon(this.getClass().getResource("/Images/cross.png")).getImage();
+    	Image newImage = image.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+    	ImageIcon icon = new ImageIcon(newImage);
     	
-	    	if (value == null) {
-	    		continue;
-	    	}
-	    	
-	    	for (int j = 0; j < 8; j++) {
-	    		if (value == j) {
-	    			int index1 = left  + 8 * matrix[j][0];
-	    			int index2 = right + 8 * matrix[j][0];
-		    		int index3 = left  + 8 * matrix[j][1];
-		    		int index4 = right + 8 * matrix[j][1];
-		    		
-		    		labels.get(index1).setIcon(icon);
-		    		labels.get(index2).setIcon(icon);
-		    		labels.get(index3).setIcon(icon);
-		    		labels.get(index4).setIcon(icon);
+    	int[] arr = getIndices();
+    	labels.get(arr[0]).setIcon(icon);
+    	labels.get(arr[1]).setIcon(icon);
+    	labels.get(arr[2]).setIcon(icon);
+    	labels.get(arr[3]).setIcon(icon);
+    	
+		System.out.printf("Indicies: %d %d %d %d.\n", arr[0], arr[1], arr[2], arr[3]);
 
-		    		
-		    		System.out.printf("Indicies: %d %d %d %d.\n", index1, index2, index3, index4);
-	    		}	
-	    	}	
-	    }
-	    
-		bottomBackground.revalidate();
-		bottomBackground.repaint();
-	    
-	    
+   
 	}
+	
+	
 	private void setLeftHand() 
 	{
 		leftHandBackground = new JPanel();
@@ -414,6 +428,13 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    	circleLabel.setVisible(true);
 	    	leftHandBackground.add(circleLabel);
         	JRadioButton btn = new JRadioButton();
+	    	btn.addActionListener(new ActionListener() 
+	    	{
+	            @Override
+	            public void actionPerformed(ActionEvent e) {	            		
+	                	 PlaySong.play("ButtonClick");                      	
+	            }
+	        });
         	leftButtonGroup.add(btn);
         	leftHandBackground.add(btn);
         	btn.setBounds(0, i*32, 50, 40);
@@ -442,6 +463,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
         removeDeduction.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+           	 	PlaySong.play("ButtonClick");                      	
+
             	int i = -1;
             	for (i = 0; i < deductionBoardButtons.size(); i++) {
             		if (deductionBoardButtons.get(i).isSelected()) {
@@ -450,8 +473,15 @@ public class PlayerDashboardFrame extends GeneralFrame{
             	}
             	if (i != -1) {
             		deductionBoardButtons.get(i).setIcon(null);
+            		int arr[] = getIndices();
+                	labels.get(arr[0]).setIcon(null);
+                	labels.get(arr[1]).setIcon(null);
+                	labels.get(arr[2]).setIcon(null);
+                	labels.get(arr[3]).setIcon(null);
+            		            		
             		DeductionBoardController controller = new DeductionBoardController(game);
             		controller.removeTokenHandler(i);
+            		
             	}
                 
             }
@@ -472,6 +502,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
         clearBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+           	 	PlaySong.play("ButtonClick");                      	
+
             	leftButtonGroup.clearSelection();
                 triangleButtonGroup.clearSelection();
             }
@@ -488,6 +520,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         submitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+           	 	PlaySong.play("ButtonClick");                      	
             	
             	int selectedLeft = -1;
             	Enumeration<AbstractButton> buttonsLeft = leftButtonGroup.getElements();
@@ -612,6 +645,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        forageIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
+	            	PlaySong.play("ButtonClick");                      	
+
 	                new ForageIngredientFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
@@ -632,6 +667,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        makeExperimentButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
+	            	PlaySong.play("ButtonClick");                      	
+
 	                new MakeExperimentFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
@@ -652,6 +689,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        transmuteIngredientButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
+	            	PlaySong.play("ButtonClick");                      	
+
 	                new TransmuteIngredientFrame(game);
 	                PlayerDashboardFrame.this.dispose();
 	            }
@@ -674,7 +713,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        buyArtifactButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	
+	            	PlaySong.play("ButtonClick");                      	
+
 	            	new BuyArtifactFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	            }
@@ -707,6 +747,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new DebunkTheoryFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
+	            	PlaySong.play("ButtonClick");                      	
+
 	            	new DebunkTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	            }
@@ -739,6 +781,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new SellPotionFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
+	            	PlaySong.play("ButtonClick");                      	
 	            	
 	            	new SellPotionFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
@@ -771,6 +814,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		            	new PublishTheoryFrame(game, player);
 		            	PlayerDashboardFrame.this.dispose();
 	            	}*/
+	            	PlaySong.play("ButtonClick");                      	
+
 	            	new PublishTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
 	

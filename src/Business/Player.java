@@ -360,6 +360,22 @@ public class Player {
 	
 	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) 
 	{
+		//@requires: not null ingredientOne and ingredientTwo; not null and not empty promise
+		
+		//@effects: if ingredientOne, ingredientTwo are not null and promise is not null or empty
+		//makePotion method of Potion class is called which deducts the outcome of the mixation of
+		//these two ingredients based on an algorithm written inside this method. The ingredients are 
+		//removed from the storage of the player and the payment is calculated according to
+		//value of promise and outcome of potion. If promise is equal to outcome 3 gold will be payed,
+		//if outcome is + but promise is - then 1 gold will be payed. Vice versa, 1 gold will be payed.
+		//And for any other circumstances 2 gold will be payed.
+		
+		if(ingredientOne == null || ingredientTwo == null) {
+			throw new IllegalArgumentException("sellPotion cannot be made with null ingredients");
+		}
+		if(promise == null || promise.equals("")) {
+			throw new IllegalArgumentException("sellPotion cannot be made with null or empty promise");
+		}
 		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
 
 		// remove the ingredients from the user's ingredient list
@@ -386,7 +402,7 @@ public class Player {
 		{
 			payment = 2;
 		}
-		setBalance(payment);
+		updateBalance(payment);
 		
 		System.out.println(potion.getSign());
 		System.out.println(promise);
@@ -410,7 +426,7 @@ public class Player {
 		}
 	}
 	
-	public void debunkTheory(String selectedTheory,int selectedAspect) {
+	public void debunkTheory(String selectedTheory, String selectedAspect) {
 		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
 		//Aspect aspect = Aspect.getAspect(selectedAspect);
 		if(theory == null) {

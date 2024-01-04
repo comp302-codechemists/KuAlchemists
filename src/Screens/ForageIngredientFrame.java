@@ -21,6 +21,7 @@ import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.ForageController;
 import DesignSystem.ArtisticButton;
+import soundEffects.PlaySong;
 
 public class ForageIngredientFrame extends FunctionalFrame
 {
@@ -43,6 +44,7 @@ public class ForageIngredientFrame extends FunctionalFrame
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                PlaySong.play("ButtonClick");
                 new PlayerDashboardFrame(game);
                 ForageIngredientFrame.this.dispose();
             }
@@ -63,6 +65,7 @@ public class ForageIngredientFrame extends FunctionalFrame
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			    ForageController controller = new ForageController(game);
+                PlaySong.play("DrawCard");
 			    String takenIngredient = controller.handleForage();
 			    if (takenIngredient != null)
 			    {

@@ -6,6 +6,7 @@ import javax.swing.*;
 import Business.KUAlchemistsGame;
 import Controllers.StartGameController;
 import DesignSystem.GameButton;
+import soundEffects.PlaySong;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -387,6 +388,7 @@ public class StartGameFrame extends GeneralFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	
+            	 PlaySong.play("ButtonClick");
                  p1name = player1UsernameTexfField.getText();
                  p2name = player2UsernameTexfField.getText();
                  p1avatar = getSelectedButtonText(player1avatarButtonGroup);

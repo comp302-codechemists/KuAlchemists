@@ -21,6 +21,7 @@ import Business.Token;
 import Controllers.PublishTheoryController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
+import soundEffects.PlaySong;
 
 public class PublishTheoryFrame extends FunctionalFrame {
 	
@@ -59,6 +60,8 @@ public class PublishTheoryFrame extends FunctionalFrame {
         returnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	PlaySong.play("ButtonClick");                      	
+
                 new PlayerDashboardFrame(game);
                 PublishTheoryFrame.this.dispose();
             }
@@ -67,6 +70,8 @@ public class PublishTheoryFrame extends FunctionalFrame {
 	}
     
     private void handlePublishButton() {
+    	PlaySong.play("PublishTheory");
+    	
     	if (selectedMarker != null && selectedTheory != null)
     	{
     		controller = new PublishTheoryController(game);
@@ -125,6 +130,14 @@ public class PublishTheoryFrame extends FunctionalFrame {
 	    	String markerName = markers[i];
 	    	
 	        JToggleButton markerButton = new JToggleButton(); 
+	    	markerButton.addActionListener(new ActionListener() 
+	    	{
+	            @Override
+	            public void actionPerformed(ActionEvent e) {	            		
+	                	 PlaySong.play("ButtonClick");                      	
+	            }
+	        });
+	        
 	        markerButton.setBackground(null);
 	        markerButton.setContentAreaFilled(false);
 	        markerButton.setBorderPainted(false);
@@ -170,6 +183,15 @@ public class PublishTheoryFrame extends FunctionalFrame {
 		  if (!Theory.getUnavailableIngredients().contains(ingredient.getName()))
 		  {
 		   		JToggleButton theoryButton = new JToggleButton(); 
+		   		
+		    	theoryButton.addActionListener(new ActionListener() 
+		    	{
+		            @Override
+		            public void actionPerformed(ActionEvent e) {	            		
+		                	 PlaySong.play("ButtonClick");                      	
+		            }
+		        });
+		    	
 		   		theoryButton.setBackground(null);
 	    		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/ingredientImages/" + ingredient.getName() + ".png"));
 	    		Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);		    		theoryButton.setIcon(new ImageIcon(image));
