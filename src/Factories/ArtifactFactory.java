@@ -39,17 +39,7 @@ public class ArtifactFactory {
 			artifact = new MagicMortarArtifact("MagicMortarArtifact");
 			break;
 			
-		case "wisdomIdolArtifact":
-			artifact = new WisdomIdolArtifact("wisdomIdolArtifact");
-			break;
-			
-		case "printingPressArtifact":
-			artifact = new PrintingPressArtifact("printingPressArtifact");
-			break;
-			
-		case "magicMortarArtifact":
-			artifact = new MagicMortarArtifact("magicMortarArtifact");
-			break;
+
 
 //		case "ElixirOfInsight":
 //			artifact = new ElixirOfInsightArtifact();

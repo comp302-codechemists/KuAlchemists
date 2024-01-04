@@ -454,6 +454,8 @@ public class Player {
 		this.publishTheoryCharge = publishTheoryCharge;
 	}
 	
+	
+	
 	/*public void removeArtifact(Artifact artifact) throws NotFoundInStorageException {
 		if(getArtifacts().contains(artifact)) {
 			getArtifacts().remove(artifact);
@@ -492,19 +494,15 @@ public class Player {
 		this.removeArtifactListeners = new ArrayList<removeArtifactListener>();
 		
 		Artifact discountArtifact = ArtifactFactory.getInstance().getArtifacts("DiscountArtifact");
-		Artifact goldBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("GoldBoosterArtifact");
-		Artifact potionEffectBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("PotionEffectBooster");
 		Artifact reputationBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ReputationBoosterArtifact");
-		Artifact scorePointBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ScorePointBoosterArtifact");
-		Artifact printingPressArtifact = ArtifactFactory.getInstance().getArtifacts("printingPressArtifact");
-		Artifact wisdomIdolArtifact = ArtifactFactory.getInstance().getArtifacts("wisdomIdolArtifact");
-		Artifact magicMortarArtifact = ArtifactFactory.getInstance().getArtifacts("magicMortarArtifact");
+		Artifact printingPressArtifact = ArtifactFactory.getInstance().getArtifacts("PrintingPressArtifact");
+		Artifact wisdomIdolArtifact = ArtifactFactory.getInstance().getArtifacts("WisdomIdolArtifact");
+		Artifact magicMortarArtifact = ArtifactFactory.getInstance().getArtifacts("MagicMortarArtifact");
 		
 		switch(source) {
 			
 			case "experiment":
 				this.removeArtifactListeners.add((removeArtifactListener) magicMortarArtifact);
-				this.removeArtifactListeners.add((removeArtifactListener) potionEffectBoosterArtifact);
 				break;
 			case "publish":
 				this.removeArtifactListeners.add((removeArtifactListener) printingPressArtifact);

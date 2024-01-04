@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
@@ -31,6 +33,9 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	private MakeExperimentController controller;
 	private ArrayList<String> selectedIngredients = new ArrayList<>();
 	private JButton returnBtn;
+	private JComboBox<String> comboBox = new JComboBox<>();
+	private DefaultComboBoxModel<String> model;
+	boolean haveMagicMortar = (game.currentPlayer.getNumberOfIngreientToBeRemovedWhileExperimenting() == 2 ? false : true);
 	ArtisticButton testOnStudentButton;
 	ArtisticButton testOnYourselfButton;
 	
@@ -40,6 +45,10 @@ public class MakeExperimentFrame extends FunctionalFrame {
 		this.setIngredients();
 		this.setWhereToTestButtons();
 		this.setReturnBtn();
+		this.setIngredientToKeep();
+		String[] initialOption = {"Please select the ingredient to keep"};
+		this.model = new DefaultComboBoxModel<>(initialOption);
+	    comboBox.setModel(model);
 	}
 	
 	private void setReturnBtn() {
@@ -57,16 +66,28 @@ public class MakeExperimentFrame extends FunctionalFrame {
         });	
 		
 	}
+	
+	private void setIngredientToKeep() {
+		
+		controller = new MakeExperimentController(game);
+										        
+		backgroundPanel.add(comboBox);
+		
+		comboBox.setBounds(500, 350, 230, 20);
+		
+		comboBox.setVisible(haveMagicMortar);
+		
+	}
 
 	
 	private void setWhereToTestButtons()
 	{
 		testOnStudentButton = new ArtisticButton("/Images/testOnStudent.png", 200, 200);
 		testOnYourselfButton = new ArtisticButton("/Images/testOnYourself.png", 200, 200);
-		
+				
 		backgroundPanel.add(testOnStudentButton);
 		backgroundPanel.add(testOnYourselfButton);
-		
+						
 		testOnStudentButton.setBounds(360, 420, 200, 200);
 		testOnYourselfButton.setBounds(600, 420, 200, 200);
 	    
@@ -95,29 +116,45 @@ public class MakeExperimentFrame extends FunctionalFrame {
 			JOptionPane.showMessageDialog(null, "", "Please select 2 ingredients", JOptionPane.WARNING_MESSAGE, null);
 			return;
 		}
+		
+		if(haveMagicMortar)
+		{
+			
+			if(comboBox.getSelectedItem().toString().equals("Please select the ingredient to keep")) 
+			{
+				JOptionPane.showMessageDialog(null, "", "Please select ingredient to keep", JOptionPane.WARNING_MESSAGE, null);
+				return;	
+			}
+						
+		}
+						
+				
+		String resultToken;
+		
+		// TODO there should be two handling method
+		if (selection == 1)
+		{
+			resultToken = (haveMagicMortar ?
+							controller.handleExperiment(selectedIngredients, 1, comboBox.getSelectedItem().toString()) :
+								controller.handleExperiment(selectedIngredients, 1));
+		}
 		else
 		{
-			String resultToken;
-			
-			// TODO there should be two handling method
-			if (selection == 1)
-			{
-				resultToken = controller.handleExperiment(selectedIngredients, 1);
-			}
-			else
-			{
-				resultToken = controller.handleExperiment(selectedIngredients, 2);
-			}
-
-		    String imagePath = "/potionImages/" + resultToken + ".png";
-
-		    ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-		    JOptionPane.showMessageDialog(null, "", "Experiment Result", JOptionPane.INFORMATION_MESSAGE, icon);
-		    
-		    // Close the frame
-		    new MainGameFrame(game);
-		    MakeExperimentFrame.this.dispose();
+			resultToken = (haveMagicMortar ?
+							controller.handleExperiment(selectedIngredients, 2, comboBox.getSelectedItem().toString()) :
+								controller.handleExperiment(selectedIngredients, 2));
 		}
+
+	    String imagePath = "/potionImages/" + resultToken + ".png";
+
+	    ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
+	    JOptionPane.showMessageDialog(null, "", "Experiment Result", JOptionPane.INFORMATION_MESSAGE, icon);
+	    
+	    // Close the frame
+	    new MainGameFrame(game);
+	    MakeExperimentFrame.this.dispose();
+			
+		
 	}
 	
 	private void setIngredients() 
@@ -177,10 +214,12 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	    if (selectedButton.isSelected() && !selectedIngredients.contains(selectedButton.getActionCommand())) {
 	        selectedButton.setBorder(new LineBorder(Color.green, 3));
 	        selectedIngredients.add(selectedButton.getActionCommand());
+	        model.addElement(selectedButton.getActionCommand());
 	        System.out.println(selectedButton.getActionCommand());
 	    } else {
 	        selectedButton.setBorder(null);
 	        selectedIngredients.remove(selectedButton.getActionCommand());
+	        model.removeElement(selectedButton.getActionCommand());
 	        System.out.println(selectedButton.getActionCommand() + " unselected");
 	    }
 	}
