@@ -321,7 +321,10 @@ public class Player {
 				int oldBalance = getBalance();
 			    System.out.printf("Old Balance: %d%n",oldBalance);
 			    
-				addArtifact(artifact);
+			    if(!artifact.getName().equals("ElixirOfInsightArtifact")) {
+			    	addArtifact(artifact);
+			    }
+				
 				updateBalance(getGoldtToBePayedToArtifact());
 				applyArtifact(artifact);
 				
@@ -499,8 +502,7 @@ public class Player {
 		Artifact wisdomIdolArtifact = ArtifactFactory.getInstance().getArtifacts("WisdomIdolArtifact");
 		Artifact magicMortarArtifact = ArtifactFactory.getInstance().getArtifacts("MagicMortarArtifact");
 		
-		switch(source) {
-			
+		switch(source) {			
 			case "experiment":
 				this.removeArtifactListeners.add((removeArtifactListener) magicMortarArtifact);
 				break;
