@@ -397,8 +397,8 @@ public class Player {
 	public void publishTheory(String selectedMarker, String selectedTheory) {
 		
 		if (this.getBalance() < 1) {
-			
 			System.out.println("Insufficient balance to publish a theory");
+			throw new IllegalArgumentException();
 		}
 		else {
 			PublicationBoard.getInstance().publishTheory(this, Token.getTokens().get(selectedMarker), Ingredient.getIngredient(selectedTheory));
@@ -467,7 +467,7 @@ public class Player {
 	}
 		
 		
-	private void addArtifact(Artifact artifact) {
+	public void addArtifact(Artifact artifact) {
 		getArtifacts().add(artifact);		
 	}
 	
