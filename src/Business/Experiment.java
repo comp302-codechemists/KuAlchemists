@@ -21,6 +21,14 @@ public class Experiment
 		
 		makeExperiment();
 	}
+	
+	private boolean repOk() {
+	    return owner != null &&
+	           ingredientOne != null &&
+	           ingredientTwo != null &&
+	           (whereToTest == 0 || whereToTest == 1) &&
+	           resultPotion != null;
+	}
 
 	public Player getOwner() {
 		return owner;
