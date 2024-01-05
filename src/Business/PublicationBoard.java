@@ -62,6 +62,7 @@ public class PublicationBoard
 			if (a.toString().contains(selectedAspect))
 			{
 				Theory.getAllTheories().remove(selectedTheory);
+				Theory.getDebunkedTheories().put(selectedTheory, false);
 				comparaison = true;
 			}
 		}
