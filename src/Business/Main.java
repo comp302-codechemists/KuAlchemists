@@ -31,7 +31,7 @@ public class Main {
     	new WelcomeFrame();
     	//Player player = new Player("Simge", "Path", null, null, 10, 0, null);
         //new PlayerDashboardFrame(player);
-
+    	
     }
 
 }

@@ -28,7 +28,7 @@ public class KUAlchemistsGame {
 	int turns = 0;
 
 
-	private KUAlchemistsGame(int numberOfPlayers) {
+	public KUAlchemistsGame(int numberOfPlayers) {
 		
 		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
@@ -99,7 +99,7 @@ public class KUAlchemistsGame {
 		System.out.println("KUAlchemistsGame: Game started. Players are waiting to begin.");
 	}
 
-	private void setPlayers(List<String> nameList, List<String> avatarList) {
+	public void setPlayers(List<String> nameList, List<String> avatarList) {
 
 		for (int i = 0; i < numberOfPlayers; i++) {
 

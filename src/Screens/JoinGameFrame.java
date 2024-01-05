@@ -2,8 +2,10 @@ package Screens;
 import javax.swing.*;
 
 import Business.KUAlchemistsGame;
+import Business.Player;
 import Controllers.PlayGameController;
 import DesignSystem.GameFrame;
+import networking.*;
 import soundEffects.PlaySong;
 import uiHelpers.MagicFrame;
 
@@ -27,6 +29,7 @@ public class JoinGameFrame extends MagicFrame {
 	    	this.IPAdress = new JTextArea();
 	    	IPAdress.setBounds(320, 190, 100, 30);
 	    	IPAdress.setLineWrap(true);
+	    	IPAdress.setText("172.16.126.0");
 	    	IPAdress.setWrapStyleWord(true);
 	    	backgroundPanel.add(IPAdress);
 	    	this.setJoinButton();
@@ -61,11 +64,22 @@ public class JoinGameFrame extends MagicFrame {
 	    }
 	    
 	    private void joinButtonClicked() {
-	    	PlaySong.play("ButtonClick");
+	        PlaySong.play("ButtonClick");
+	        
+	        new Thread(() -> {
+	            try {
+	                Client newClient = new Client("172.16.126.0",this);
+					ClientHandler clientHandler = new ClientHandler(newClient.getSocket());
 
-
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }).start();
+	        Player newPlayer = new Player("zort", "avatar1" );
+	    	System.out.println(Player.players);
+	        joinButton.setEnabled(false);
 	    }
-	    
+
 	    
 	    
 	}

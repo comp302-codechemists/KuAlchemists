@@ -11,7 +11,7 @@ public class ClientHandler implements Runnable{
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
 	private String clientUsername;
-	
+	private static Integer z = 0;
 	public ClientHandler(Socket socket) {
 		try {
 			this.socket = socket;
@@ -19,8 +19,10 @@ public class ClientHandler implements Runnable{
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.clientUsername = bufferedReader.readLine();
 			clientHandlers.add(this);
+			this.clientUsername = Integer.toString(z);
+			z+=1;
 			
-			broadCastMessage("SERVER:  " + clientUsername + "has entered the game!");
+			broadCastMessage("JOIN, zort, avatar1");
 		
 		}
 		catch (IOException e) {
@@ -49,6 +51,7 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void broadCastMessage(String messageToSend) {
+		System.out.println( "ClientHandlers size: " + clientHandlers.size());
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
 				if (!clientHandler.clientUsername.equals(clientUsername)) {

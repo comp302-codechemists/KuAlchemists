@@ -3,21 +3,38 @@ package networking;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import javax.swing.JFrame;
+
+import Business.KUAlchemistsGame;
+import Business.Player;
+import Screens.HostGameFrame;
+import Screens.MainGameFrame;
+import uiHelpers.MagicFrame;
 
 public class Client {
 	private Socket socket;
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
 	private String username;
+	private JFrame view;
 	
-	public Client (Socket socket,String username) {
+	public  <T extends JFrame> Client (String IPAdress,T view) {
 		try {
 			
-			this.socket=socket;
+
+			this.socket=new Socket(IPAdress, 1271);
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.username = username;
+			this.view = view;
+			
+
+			listenForMessage();
+			sendMessage();
 		}
 		catch (IOException e) {
 			closeEverything(socket, bufferedReader, bufferedWriter);
@@ -25,9 +42,25 @@ public class Client {
 	}
 	
 	
+
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+
+
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+
+
+
+
 	public void sendMessage() {
 		try {
-			bufferedWriter.write(username);
+			bufferedWriter.write("hehehehe");
 			bufferedWriter.newLine();
 			bufferedWriter.flush();
 			
@@ -53,6 +86,7 @@ public class Client {
 				while (socket.isConnected()) {
 					try {
 						msgFrom = bufferedReader.readLine();
+						messageProtocol(msgFrom);
 						System.out.println(msgFrom);
 					}
 					catch (IOException e) {
@@ -64,7 +98,32 @@ public class Client {
 			}
 		}).start();
 	}
-	
+	public void messageProtocol(String message) {
+		String[] splitArray = message.split(",");
+		ArrayList<String> msgList = new ArrayList<>(Arrays.asList(splitArray));
+		System.out.println(msgList);
+		if (msgList.get(0).equals("JOIN")) {
+			 if (view instanceof HostGameFrame) {
+		            HostGameFrame magicFrame = (HostGameFrame) view;
+		            magicFrame.updateChat("The player has joined the server!");
+		            Player newPlayer = new Player(msgList.get(1), msgList.get(2));
+		            Player.players.add(newPlayer);
+
+		}
+			 
+			 
+			 
+		if(message.equals("MAINBOARD")) {
+			HostGameFrame magicFrame = (HostGameFrame) view;
+			magicFrame.dispose();
+			new MainGameFrame(KUAlchemistsGame.instance);}
+			 
+			
+		}
+			 
+		
+	}
+		
 	public void closeEverything(Socket socket, BufferedReader buffreader, BufferedWriter buffwriter) {
 		try {
 			if (buffreader != null)
@@ -82,17 +141,18 @@ public class Client {
 		}
 	}
 	
-	public static void main(String[] args) throws  IOException {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter player name: ");
-		String username = scanner.nextLine();
-		Socket socket = new Socket("localhost", 1234);
-		Client client = new Client(socket,username);
-		client.listenForMessage();
-		client.sendMessage();
+	public JFrame getView() {
+		return view;
 	}
+
+
+	public void setView(JFrame view) {
+		this.view = view;
+	}
+
+	
+	
 		
 		
 } 
 	
-

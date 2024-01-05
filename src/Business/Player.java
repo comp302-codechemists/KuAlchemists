@@ -22,6 +22,7 @@ public class Player {
 	private int gainedReputationPointWhilePublishing;
 	private int numberOfIngreientToBeRemovedWhileExperimenting;
 	private List<removeArtifactListener> removeArtifactListeners = new ArrayList<removeArtifactListener>();
+	public static ArrayList<Player> players = new ArrayList<Player>();
 	
 	public Player(String userName, String avatarPath) {
 		
@@ -31,8 +32,10 @@ public class Player {
 		this.publishTheoryCharge = -1;
 		this.gainedReputationPointWhilePublishing = 1;
 		this.numberOfIngreientToBeRemovedWhileExperimenting = 2;
+		
 	}
 	
+
 	public Player(String userName, String avatarPath, List<Ingredient> ingredients, List<Artifact> artifacts,
 		int balance, int reputationPoints, DeductionBoard deductionBoard) {
 		this.userName = userName;
@@ -514,7 +517,13 @@ public class Player {
 
 	
 
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
 
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
 
 	
 	

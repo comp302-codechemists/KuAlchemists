@@ -170,7 +170,7 @@ public class MainGameFrame extends GeneralFrame{
 		
 		for (int i = 0; i < this.game.getNumberOfPlayers(); i++) {
 	        String avatarPath = game.getPlayers().get(i).getAvatarPath();
-	        ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath + ".png"));
+	        ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath.trim() + ".png"));
 	        Image originalImage1 = originalIcon1.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 	        ImageIcon avatar = new ImageIcon(originalImage1);
 			

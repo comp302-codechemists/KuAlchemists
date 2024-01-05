@@ -8,21 +8,24 @@ import java.net.Socket;
 
 public class Server  {
 	private ServerSocket serverSocket;
-	private int numPlayers;
+	public static int playerCount=0;
 
-	public Server(ServerSocket serverSocket) {
+	public Server() throws IOException {
 		
-		this.numPlayers = 0;
-		this.serverSocket = serverSocket;
+		this.serverSocket = new ServerSocket(1271);
+
+		startServer(); 
+
 		
 	}
 	
 	public void startServer() throws IOException {
 		try {
 			
-			while (!serverSocket.isClosed()) {
+			while (!serverSocket.isClosed() && playerCount<5) {
 				Socket socket = serverSocket.accept();
-				System.out.println("A new client has connected!");
+				playerCount+=1;
+				System.out.println("A new player has connected!");
 				ClientHandler clientHandler = new ClientHandler(socket);
 				
 				Thread thread = new Thread(clientHandler);
@@ -43,14 +46,15 @@ public class Server  {
 		catch(IOException e) {
 		}
 	}
-	
-	public static void main(String [] args) throws IOException {
-		ServerSocket serverSocket = new ServerSocket(1234);
-		Server server = new Server(serverSocket);
-	
-		server.startServer(); 
-		
-		
+
+	public int getPlayerCount() {
+		return playerCount;
 	}
+
+	public void setPlayerCount(int maxPlayer) {
+		this.playerCount = maxPlayer;
+	}
+	
+	
 
 }
