@@ -30,19 +30,32 @@ import Business.Player;
 class PublishTheoryTests {
 
 	/**
-	 * Test method for {@link Business.Player#publishTheory(java.lang.String, java.lang.String)}.
-	 */
+	* Test method for {@link Business.Player#publishTheory(java.lang.String, java.lang.String)}.
+	* /**
+	* Updates the balance, reputation points, and the publication board.
+ 	* 
+ 	* Requires: Initializes player, ingredients and aspects. 
+ 	* 
+ 	* Modifies: None
+ 	*   
+ 	* Effects:
+ 	*   Updates the common publication board. Player's reputation point and balance.
+    */
 	
 	@Test
 	void testZeorBalance() {
+		// Arrange
 		Player mockPlayer = new Player("test", "test");
+		
+		//Act
 		mockPlayer.setBalance(0);
 		
+		//Assert
 		assertThrows(IllegalArgumentException.class, ()-> mockPlayer.publishTheory("test", "test"));
 	}
 	@Test
 	void testBalance() {
-		
+		// Arrange
 		Player mockPlayer = new Player("test","test");
 		mockPlayer.setBalance(10);
 		
@@ -57,16 +70,19 @@ class PublishTheoryTests {
 		mockPlayer.addIngredient(ingr1);
 		mockPlayer.addIngredient(ingr2);
 		
+		//Act
 		int initBalance = mockPlayer.getBalance();
 		mockPlayer.publishTheory("Verdant Sprig", "Essence of Stride");
 		int finalBalance = mockPlayer.getBalance();
 		
+		//Assert
 		assertEquals(-1, finalBalance - initBalance);
 		
 	}
 	@Test
 	void testArtifactRemove() {
 		
+		// Arrange
 		Player mockPlayer = new Player("test","test");
 		mockPlayer.setBalance(10);
 		
@@ -84,15 +100,19 @@ class PublishTheoryTests {
 		
 		mockPlayer.addArtifact(printingPressArtifact);
 		
+		//Act
 		int initBalance = mockPlayer.getBalance();
 		mockPlayer.publishTheory("Verdant Sprig", "Essence of Stride");
 		int finalBalance = mockPlayer.getBalance();
 		
+		//Assert
 		assertEquals(0, finalBalance - initBalance);
 
 	}
 	@Test
 	void testBalance2() {
+		
+		// Arrange
 		Player mockPlayer = new Player("test","test");
 		mockPlayer.setBalance(10);
 		
@@ -110,17 +130,21 @@ class PublishTheoryTests {
 		mockPlayer.addIngredient(ingr3);
 		mockPlayer.addIngredient(ingr4);
 		
+		//Act
 		int initBalance = mockPlayer.getBalance();
 		mockPlayer.publishTheory("Verdant Sprig", "Fungal Spore");
 		mockPlayer.publishTheory("Essence of Stride", "Azure Blossom");
 		int finalBalance = mockPlayer.getBalance();
 		
+		//Assert
 		assertEquals(-2, finalBalance - initBalance);
 		
 	}
 	
 	@Test
 	void testDoubleTheories() {
+		
+		// Arrange
 		Player mockPlayer = new Player("test","test");
 		mockPlayer.setBalance(10);
 		
@@ -137,9 +161,11 @@ class PublishTheoryTests {
 		mockPlayer.addIngredient(ingr3);
 		mockPlayer.addIngredient(ingr4);
 		
+		//Act
 		mockPlayer.publishTheory("Verdant Sprig", "Verdant Sprig");
 		mockPlayer.publishTheory("Verdant Sprig", "Verdant Sprig");
 	
+		//Assert
 		assertEquals(mockPlayer.getTheories().size(), 1 );
 		
 	}

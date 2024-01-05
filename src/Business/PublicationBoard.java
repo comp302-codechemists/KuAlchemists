@@ -2,6 +2,17 @@ package Business;
 
 public class PublicationBoard 
 {
+	
+	/*
+	 * Overview: 
+	 * This class represents the publication board of the main game.
+	 * There is only one instance of publication board.
+	 * Users can publish, choose and debunk a theory from the instance of the 
+	 * publication board.
+	 * 
+	 */
+	
+	
 	private static PublicationBoard instance;
 	
 	public static PublicationBoard getInstance() {
