@@ -868,6 +868,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 			            game.currentPlayer.getArtifacts().remove(art);
 			            game.currentPlayer.setReputationPoints(game.currentPlayer.getReputationPoints() + 1);
 			            eachTheory.setValue(true);
+			            this.dispose();
+			            new PlayerDashboardFrame(game);
 			        } else {
 			            eachTheory.setValue(true);
 			        }

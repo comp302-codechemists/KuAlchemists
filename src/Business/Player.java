@@ -429,8 +429,9 @@ public class Player {
 		}
 	}
 	
-	public void debunkTheory(String selectedTheory, String selectedAspect) {
+	public boolean debunkTheory(String selectedTheory, String selectedAspect) {
 		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
+		boolean result = false;
 		//Aspect aspect = Aspect.getAspect(selectedAspect);
 		if(theory == null) {
 			System.out.println("Theory not found");
@@ -439,9 +440,11 @@ public class Player {
 			System.out.println("You cannot debunk your own theory");
 		}
 		else {
-			boolean result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
+			result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
 			GameEvent event = new GameEvent(null, this, GameEvent.EventID.DEBUNK_THEORY);
 		}
+		
+		return result;
 	}
 	
 	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {

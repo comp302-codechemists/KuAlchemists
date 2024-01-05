@@ -63,6 +63,8 @@ public class PublicationBoard
 			{
 				Theory.getAllTheories().remove(selectedTheory);
 				Theory.getDebunkedTheories().put(selectedTheory, false);
+				selectedTheory.getOwner().setReputationPoints(selectedTheory.getOwner().getReputationPoints() - 1);
+
 				comparaison = true;
 			}
 		}

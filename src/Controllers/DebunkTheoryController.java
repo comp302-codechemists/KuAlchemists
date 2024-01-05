@@ -13,6 +13,17 @@ private KUAlchemistsGame game;
 
 	public void handleDebunk(String selectedTheory, String selectedAspect)
 	{
-		game.currentPlayer.debunkTheory(selectedTheory, selectedAspect);
+		boolean result = game.currentPlayer.debunkTheory(selectedTheory, selectedAspect);
+		
+		
+		if(result) {
+			game.currentPlayer.setReputationPoints(game.currentPlayer.getReputationPoints() + 1);
+		}
+		else {
+			game.currentPlayer.setReputationPoints(game.currentPlayer.getReputationPoints() - 1);
+		}
+		System.out.println(result);
+		
+		game.nextPlayer();
 	}
 }
