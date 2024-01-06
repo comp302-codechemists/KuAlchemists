@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import Controllers.PauseController;
+import Screens.EndGameFrame;
 
 public class KUAlchemistsGame {
 
@@ -151,11 +152,13 @@ public class KUAlchemistsGame {
 		this.players.add(player);
 	}
 
-	private void finish() {
+	public void finish() {
 
 		setFinished(true);
 		Player player = showWinner();
 		GameEvent events = new GameEvent(this, player, GameEvent.EventID.FINISH_GAME);
+		//TODO Doesn't follow ui separation ??
+		new EndGameFrame(this, player);
 
 	}
 

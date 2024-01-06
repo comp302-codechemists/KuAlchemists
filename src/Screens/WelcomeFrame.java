@@ -2,6 +2,7 @@ package Screens;
 import javax.swing.*;
 
 import Business.KUAlchemistsGame;
+import Business.Player;
 import Controllers.PlayGameController;
 import DesignSystem.GameFrame;
 import soundEffects.PlaySong;
@@ -113,6 +114,8 @@ public class WelcomeFrame extends MagicFrame {
     	int selected = Integer.parseInt((String) playerCount.getSelectedItem());
     	KUAlchemistsGame game = playGameController.playGame(selected);
         new StartGameFrame(game);
+    	//TODO Change it to debug endgameframe.
+    	//new EndGameFrame(game, new Player("Simge", "avatar1"));
         this.dispose();
     }
 }
