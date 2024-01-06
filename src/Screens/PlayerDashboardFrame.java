@@ -382,7 +382,11 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    int startX = 93;
 	    int startY = 3;
 	    
-	    labels = new ArrayList<>();
+	    List<JLabel> labels = new ArrayList<>();
+	    
+    	Image image = new ImageIcon(this.getClass().getResource("/Images/cross.png")).getImage();
+    	Image newImage = image.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+    	ImageIcon icon = new ImageIcon(newImage);
 	    
 	    for (int row = 0; row < 8; row++) {
 	        for (int col = 0; col < 8; col++) {
@@ -395,22 +399,56 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            bottomBackground.add(cross);
 	        }
 	    }
-
+	    	    
+	    DeductionBoard db = game.currentPlayer.getDeductionBoard();
+	    Map<Integer, Integer> locations = db.getExistingItems();
+	    List<Integer> leftIndex = generateSequenceLeft();
+	    List<Integer> rightIndex = generateSequenceRight();
+	    
+	    
+	    // Matrix for marking the table
+	    int[][] matrix = new int[][] {
+	    	{1, 7},
+	    	{0, 6},
+	    	{3, 7},
+	    	{2, 6},
+	    	{5, 7},
+	    	{4, 6}
+	    };
 
 	    // Marking the table with the indices.
-    	Image image = new ImageIcon(this.getClass().getResource("/Images/cross.png")).getImage();
-    	Image newImage = image.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-    	ImageIcon icon = new ImageIcon(newImage);
+	    for (int i = 0; i < 28; i++) {
+	    	int left = leftIndex.get(i);
+	    	int right = rightIndex.get(i);
+	    	
+	    	Integer value = locations.get(i);
     	
-    	int[] arr = getIndices();
-    	labels.get(arr[0]).setIcon(icon);
-    	labels.get(arr[1]).setIcon(icon);
-    	labels.get(arr[2]).setIcon(icon);
-    	labels.get(arr[3]).setIcon(icon);
-    	
-		System.out.printf("Indicies: %d %d %d %d.\n", arr[0], arr[1], arr[2], arr[3]);
+	    	if (value == null) {
+	    		continue;
+	    	}
+	    	
+	    	for (int j = 0; j < 8; j++) {
+	    		if (value == j) {
+	    			int index1 = left  + 8 * matrix[j][0];
+	    			int index2 = right + 8 * matrix[j][0];
+		    		int index3 = left  + 8 * matrix[j][1];
+		    		int index4 = right + 8 * matrix[j][1];
+		    		
+		    		labels.get(index1).setIcon(icon);
+		    		labels.get(index2).setIcon(icon);
+		    		labels.get(index3).setIcon(icon);
+		    		labels.get(index4).setIcon(icon);
 
-   
+		    		
+		    		System.out.printf("Indicies: %d %d %d %d.\n", index1, index2, index3, index4);
+	    		}	
+	    	}	
+	    }
+	    
+		bottomBackground.revalidate();
+		bottomBackground.repaint();
+	    
+	    
 	}
 	
 	
