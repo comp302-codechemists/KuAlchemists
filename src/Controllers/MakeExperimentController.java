@@ -52,12 +52,6 @@ public class MakeExperimentController {
 		game.nextPlayer();
 		return potion.getName();
 	}
-	
 
-	
-
-	
-	
-	
 	
 }

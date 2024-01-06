@@ -9,6 +9,7 @@ package Business;
 
 public class Potion {
 	
+	
 	public static final String[] potions = {"m-", "m+", "y-",
 			"y+", "k-", "k+", "0"};
 	
@@ -21,6 +22,7 @@ public class Potion {
 	public String getName() {
 		return name;
 	}
+
 
 	public void setName(String name) {
 		this.name = name;
