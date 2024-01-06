@@ -1,11 +1,14 @@
 package Business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Theory {
 	private static List<Theory> allTheories = new ArrayList<>();
 	private static List<String> unavailableIngredients = new ArrayList<>();
+	private static Map<Theory,Boolean> debunkedTheories = new HashMap<>();
 	private Player owner;
 	private Token alchemyMarker;
 	private Ingredient ingredient;
@@ -69,6 +72,14 @@ public class Theory {
 			}
 		}
 		return theory;
+	}
+
+	public static Map<Theory,Boolean> getDebunkedTheories() {
+		return debunkedTheories;
+	}
+
+	public static void setDebunkedTheories(Map<Theory,Boolean> debunkedTheories) {
+		Theory.debunkedTheories = debunkedTheories;
 	}
 	
 	

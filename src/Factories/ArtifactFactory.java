@@ -2,6 +2,7 @@ package Factories;
 
 import Business.Artifact;
 import Business.DiscountArtifact;
+import Business.ElixirOfInsightArtifact;
 import Business.MagicMortarArtifact;
 import Business.ReputationBoosterArtifact;
 import Business.PrintingPressArtifact;
@@ -39,21 +40,9 @@ public class ArtifactFactory {
 			artifact = new MagicMortarArtifact("MagicMortarArtifact");
 			break;
 			
-		case "wisdomIdolArtifact":
-			artifact = new WisdomIdolArtifact("wisdomIdolArtifact");
+		case "ElixirOfInsightArtifact":
+			artifact = new ElixirOfInsightArtifact("ElixirOfInsightArtifact");
 			break;
-			
-		case "printingPressArtifact":
-			artifact = new PrintingPressArtifact("printingPressArtifact");
-			break;
-			
-		case "magicMortarArtifact":
-			artifact = new MagicMortarArtifact("magicMortarArtifact");
-			break;
-
-//		case "ElixirOfInsight":
-//			artifact = new ElixirOfInsightArtifact();
-//			break;
 
 		default:
 			System.out.println("Something went wrong");

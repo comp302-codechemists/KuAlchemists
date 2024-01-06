@@ -1,14 +1,16 @@
 package Business;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import Controllers.PauseController;
 
 public class KUAlchemistsGame {
 
 	public static KUAlchemistsGame instance;
+
 	
 	// player related
 	private List<Player> players = new ArrayList<Player>();
@@ -41,6 +43,7 @@ public class KUAlchemistsGame {
 
 		// set game state
 		this.state = new ResumeState(this);
+
 		System.out.printf("The game started with %d players.\n", numberOfPlayers);
 
 	}

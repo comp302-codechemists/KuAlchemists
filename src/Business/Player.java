@@ -321,7 +321,10 @@ public class Player {
 				int oldBalance = getBalance();
 			    System.out.printf("Old Balance: %d%n",oldBalance);
 			    
-				addArtifact(artifact);
+			    if(!artifact.getName().equals("ElixirOfInsightArtifact")) {
+			    	addArtifact(artifact);
+			    }
+				
 				updateBalance(getGoldtToBePayedToArtifact());
 				applyArtifact(artifact);
 				
@@ -360,6 +363,22 @@ public class Player {
 	
 	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) 
 	{
+		//@requires: not null ingredientOne and ingredientTwo; not null and not empty promise
+		
+		//@effects: if ingredientOne, ingredientTwo are not null and promise is not null or empty
+		//makePotion method of Potion class is called which deducts the outcome of the mixation of
+		//these two ingredients based on an algorithm written inside this method. The ingredients are 
+		//removed from the storage of the player and the payment is calculated according to
+		//value of promise and outcome of potion. If promise is equal to outcome 3 gold will be payed,
+		//if outcome is + but promise is - then 1 gold will be payed. Vice versa, 1 gold will be payed.
+		//And for any other circumstances 2 gold will be payed.
+		
+		if(ingredientOne == null || ingredientTwo == null) {
+			throw new IllegalArgumentException("sellPotion cannot be made with null ingredients");
+		}
+		if(promise == null || promise.equals("")) {
+			throw new IllegalArgumentException("sellPotion cannot be made with null or empty promise");
+		}
 		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
 
 		// remove the ingredients from the user's ingredient list
@@ -386,7 +405,7 @@ public class Player {
 		{
 			payment = 2;
 		}
-		setBalance(payment);
+		updateBalance(payment);
 		
 		System.out.println(potion.getSign());
 		System.out.println(promise);
@@ -410,8 +429,9 @@ public class Player {
 		}
 	}
 	
-	public void debunkTheory(String selectedTheory, String selectedAspect) {
+	public boolean debunkTheory(String selectedTheory, String selectedAspect) {
 		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
+		boolean result = false;
 		//Aspect aspect = Aspect.getAspect(selectedAspect);
 		if(theory == null) {
 			System.out.println("Theory not found");
@@ -420,9 +440,11 @@ public class Player {
 			System.out.println("You cannot debunk your own theory");
 		}
 		else {
-			boolean result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
+			result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
 			GameEvent event = new GameEvent(null, this, GameEvent.EventID.DEBUNK_THEORY);
 		}
+		
+		return result;
 	}
 	
 	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {
@@ -437,6 +459,8 @@ public class Player {
 	public void setPublishTheoryCharge(int publishTheoryCharge) {
 		this.publishTheoryCharge = publishTheoryCharge;
 	}
+	
+	
 	
 	/*public void removeArtifact(Artifact artifact) throws NotFoundInStorageException {
 		if(getArtifacts().contains(artifact)) {
@@ -476,19 +500,14 @@ public class Player {
 		this.removeArtifactListeners = new ArrayList<removeArtifactListener>();
 		
 		Artifact discountArtifact = ArtifactFactory.getInstance().getArtifacts("DiscountArtifact");
-		Artifact goldBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("GoldBoosterArtifact");
-		Artifact potionEffectBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("PotionEffectBooster");
 		Artifact reputationBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ReputationBoosterArtifact");
-		Artifact scorePointBoosterArtifact = ArtifactFactory.getInstance().getArtifacts("ScorePointBoosterArtifact");
-		Artifact printingPressArtifact = ArtifactFactory.getInstance().getArtifacts("printingPressArtifact");
-		Artifact wisdomIdolArtifact = ArtifactFactory.getInstance().getArtifacts("wisdomIdolArtifact");
-		Artifact magicMortarArtifact = ArtifactFactory.getInstance().getArtifacts("magicMortarArtifact");
+		Artifact printingPressArtifact = ArtifactFactory.getInstance().getArtifacts("PrintingPressArtifact");
+		Artifact wisdomIdolArtifact = ArtifactFactory.getInstance().getArtifacts("WisdomIdolArtifact");
+		Artifact magicMortarArtifact = ArtifactFactory.getInstance().getArtifacts("MagicMortarArtifact");
 		
-		switch(source) {
-			
+		switch(source) {			
 			case "experiment":
 				this.removeArtifactListeners.add((removeArtifactListener) magicMortarArtifact);
-				this.removeArtifactListeners.add((removeArtifactListener) potionEffectBoosterArtifact);
 				break;
 			case "publish":
 				this.removeArtifactListeners.add((removeArtifactListener) printingPressArtifact);
