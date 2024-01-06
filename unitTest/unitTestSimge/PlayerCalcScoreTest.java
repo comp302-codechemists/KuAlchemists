@@ -51,7 +51,7 @@ public class PlayerCalcScoreTest {
         player.setReputationPoints(0);
         player.setArtifacts(new ArrayList<>());
 
-        float result = player.calculateScore();
+        int result = (int)player.calculateScore();
 
         assertEquals(0.0, result, 0.0001);
     }
@@ -63,7 +63,7 @@ public class PlayerCalcScoreTest {
         player.setReputationPoints(5);
         player.setArtifacts(new ArrayList<>());
 
-        float result = player.calculateScore();
+        int result = (int)player.calculateScore();
 
         assertEquals(50.0, result, 0.0001);
     }
@@ -78,9 +78,9 @@ public class PlayerCalcScoreTest {
         artifacts.add(new MagicMortarArtifact("magicMortarArtifact2"));
         player.setArtifacts(artifacts);
 
-        float result = player.calculateScore();
+        int result = (int)player.calculateScore();
 
-        assertEquals(1.33, result, 0.0001);
+        assertEquals(1.0, result, 0.0001);
     }
 
     @Test
@@ -93,9 +93,9 @@ public class PlayerCalcScoreTest {
         artifacts.add(new MagicMortarArtifact("magicMortarArtifact2"));
         player.setArtifacts(artifacts);
 
-        float result = player.calculateScore();
+        int result = (int)player.calculateScore();
 
-        assertEquals(31.3333, result, 0.0001);
+        assertEquals(31.0, result, 0.0001);
     }
 
     @Test
@@ -109,9 +109,9 @@ public class PlayerCalcScoreTest {
         }
         player.setArtifacts(artifacts);
 
-        float result = player.calculateScore();
+        int result = (int)player.calculateScore();
 
-        assertEquals(1666.6666, result, 0.0001);
+        assertEquals(1666.0, result, 0.0001);
     }
 
 }

@@ -11,7 +11,7 @@ import Business.PublicationBoard;
 import Business.Theory;
 import Business.Token;
 
-class DebunkTheoryUnitTest {
+class DebunkTheoryTest {
 
 	
 	@Test
