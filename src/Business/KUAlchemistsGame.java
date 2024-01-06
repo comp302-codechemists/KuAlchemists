@@ -26,10 +26,12 @@ public class KUAlchemistsGame {
 	private State state;
 	boolean finished = false;
 	int turns = 0;
+	private boolean isOnline;
 
 
 	public KUAlchemistsGame(int numberOfPlayers) {
 		
+		isOnline = false;
 		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
 
@@ -247,5 +249,16 @@ public class KUAlchemistsGame {
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
+
+
+	public boolean isOnline() {
+		return isOnline;
+	}
+
+
+	public void setOnline(boolean isOnline) {
+		this.isOnline = isOnline;
+	}
+	
 
 }

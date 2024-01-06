@@ -27,7 +27,6 @@ import uiHelpers.MagicFrame;
 public class OnlineOptionFrame extends MagicFrame {
 	private JButton hostButton;
     private JButton joinButton;
-    private JTextArea playerName;
 	 public OnlineOptionFrame()
 	    {
 	    	this(null); 
@@ -39,13 +38,7 @@ public class OnlineOptionFrame extends MagicFrame {
 	    	super(game, GameFrame.welcomeFrameWidth, GameFrame.welcomeFrameHeight);
 	    	setBackground("/BackgroundImages/welcomeBackground.png");
 	    	
-	    	this.playerName = new JTextArea();
-	    	playerName.setBounds(320, 190, 100, 30);
-	    	playerName.setLineWrap(true);
-	    	playerName.setWrapStyleWord(true);
-	    	playerName.setEditable(true);
-	    	playerName.setText("Enter your playername");
-	    	backgroundPanel.add(playerName);
+	    
 	    	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    	this.setHostButton();
 	    	this.setJoinButton();
@@ -107,7 +100,6 @@ public class OnlineOptionFrame extends MagicFrame {
 	    
 	    private void hostButtonClicked() throws IOException {
 
-	    	Player.players.add(new Player("Zort" ,"avatar1"));
 	    	PlaySong.play("ButtonClick");
 	        HostGameFrame hostFrame = new HostGameFrame();
 
@@ -127,10 +119,12 @@ public class OnlineOptionFrame extends MagicFrame {
 	                e.printStackTrace();
 	            }
 	        }).start();
-	        
+	        Player newPlayer = new Player("Player 1", "avatar1");
+	        Player.players.add(newPlayer);
 	        new Thread(() -> {
 	            try {
 	                Client newClient = new Client("172.16.126.0",hostFrame);
+	                ClientHandler newDawg = new ClientHandler(newClient.getSocket(),"Player 1");
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	            }

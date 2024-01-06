@@ -10,19 +10,17 @@ public class ClientHandler implements Runnable{
 	private Socket socket;
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
-	private String clientUsername;
+	public String clientUsername;
 	private static Integer z = 0;
-	public ClientHandler(Socket socket) {
+	public ClientHandler(Socket socket,String username) {
 		try {
 			this.socket = socket;
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			this.clientUsername = bufferedReader.readLine();
+			this.clientUsername = username;
 			clientHandlers.add(this);
-			this.clientUsername = Integer.toString(z);
-			z+=1;
 			
-			broadCastMessage("JOIN, zort, avatar1");
+			
 		
 		}
 		catch (IOException e) {
@@ -71,6 +69,49 @@ public class ClientHandler implements Runnable{
 			
 		
 	}
+	
+	public void broadCastAll(String messageToSend) {
+		
+		for (ClientHandler clientHandler: clientHandlers) {
+			try {
+				
+					
+					clientHandler.bufferedWriter.write(messageToSend);
+					clientHandler.bufferedWriter.newLine();
+					clientHandler.bufferedWriter.flush();
+				
+				
+			}
+			catch (IOException e) {
+				closeEverything(socket, bufferedReader, bufferedWriter);
+				
+			}
+			
+		}
+		
+	}
+	
+	public void singleMessage(String messageToSend, String username) {
+		System.out.println( "ClientHandlers size: " + clientHandlers.size());
+		for (ClientHandler clientHandler: clientHandlers) {
+			try {
+				if (clientHandler.clientUsername.equals(clientUsername)) {
+					
+					clientHandler.bufferedWriter.write(messageToSend);
+					clientHandler.bufferedWriter.newLine();
+					clientHandler.bufferedWriter.flush();
+				}
+				
+			}
+			catch (IOException e) {
+				closeEverything(socket, bufferedReader, bufferedWriter);
+				
+			}
+			
+		}
+		
+	}
+	
 	public void removeClientHandler() {
 		clientHandlers.remove(this);
 		broadCastMessage("SERVER: " + clientUsername + " has left the game!");

@@ -1,5 +1,6 @@
 package Business;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class Player {
 	private int numberOfIngreientToBeRemovedWhileExperimenting;
 	private List<removeArtifactListener> removeArtifactListeners = new ArrayList<removeArtifactListener>();
 	public static ArrayList<Player> players = new ArrayList<Player>();
+	public Socket socket;
 	
 	public Player(String userName, String avatarPath) {
 		
@@ -525,6 +527,16 @@ public class Player {
 		this.players = players;
 	}
 
+
+	public Socket getSocket() {
+		return socket;
+	}
+
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
+	}
+	
 	
 	
 	/*private int enumeratePromises(String promise) {

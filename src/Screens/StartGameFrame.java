@@ -532,6 +532,7 @@ public class StartGameFrame extends GeneralFrame {
     }
     
     private void startGamePressed() {
+    	System.out.println(this.game.getPlayers());
     	new MainGameFrame(this.game);
     	this.dispose();
     }

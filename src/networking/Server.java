@@ -24,9 +24,11 @@ public class Server  {
 			
 			while (!serverSocket.isClosed() && playerCount<5) {
 				Socket socket = serverSocket.accept();
+				
 				playerCount+=1;
+				String username = "Player " + String.valueOf(playerCount);
 				System.out.println("A new player has connected!");
-				ClientHandler clientHandler = new ClientHandler(socket);
+				ClientHandler clientHandler = new ClientHandler(socket,username);
 				
 				Thread thread = new Thread(clientHandler);
 				thread.start();

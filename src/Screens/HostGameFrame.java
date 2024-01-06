@@ -58,9 +58,11 @@ public class HostGameFrame extends MagicFrame{
 	    
 	    private void startGameButtonClicked() {
 	    	PlaySong.play("ButtonClick");
+	    	for (ClientHandler client : ClientHandler.clientHandlers) {
+	    		String avatarPath = "avatar" + client.clientUsername.charAt(client.clientUsername.length() - 1);
+	    		client.broadCastAll("JOIN," + client.clientUsername + "," +  avatarPath  );
+	    	}
 
-	    	
-	    	ClientHandler.clientHandlers.get(0).broadCastMessage("MAINBOARD");
 	    	PlayGameController playGameController = new PlayGameController();
 	    	game = KUAlchemistsGame.getInstance(Server.playerCount);
 	    	
@@ -117,14 +119,20 @@ public class HostGameFrame extends MagicFrame{
 	    	this.game.setPlayers(nameList,avatarList);
 	    	if (Player.players.size() == ClientHandler.clientHandlers.size()) {
 	    	
-	    		
+	    	game.setOnline(true);
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
 	    	main.setVisible(true);
-	    	this.dispose(); }
-	    	else {
-	    		System.out.println("Problem in HostGameFrame");
-	    	}
-	    	 
+	    	this.dispose();
+	    	ClientHandler.clientHandlers.get(0).broadCastMessage("MAINBOARD");
+	    	for (ClientHandler client : ClientHandler.clientHandlers)
+		    	System.out.println(client.clientUsername);
+	    	game.getPlayers().subList(0, Player.players.size()).clear();
+
+	    	System.out.println(game.getPlayers()+ "admin");	
+
+
+}
+	    	
 
 
 	    }

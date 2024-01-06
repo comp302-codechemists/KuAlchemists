@@ -69,15 +69,14 @@ public class JoinGameFrame extends MagicFrame {
 	        new Thread(() -> {
 	            try {
 	                Client newClient = new Client("172.16.126.0",this);
-					ClientHandler clientHandler = new ClientHandler(newClient.getSocket());
+					ClientHandler clientHandler = new ClientHandler(newClient.getSocket(),"lol");
 
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	            }
 	        }).start();
-	        Player newPlayer = new Player("zort", "avatar1" );
-	    	System.out.println(Player.players);
 	        joinButton.setEnabled(false);
+	        
 	    }
 
 	    
