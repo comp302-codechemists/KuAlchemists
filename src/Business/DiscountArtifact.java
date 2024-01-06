@@ -38,14 +38,11 @@ public class DiscountArtifact extends Artifact implements removeArtifactListener
 
 	@Override
 	public void applyArtifact(Player player) {
-		// TODO Auto-generated method stub
 		player.setGoldtToBePayedToArtifact(-2);
 	}
 
 	@Override
-	public void handleRemove(Player player) {
-		// TODO Auto-generated method stub
-		
+	public void handleRemove(Player player) {		
 		player.setGoldtToBePayedToArtifact(-3);
 	}
   
