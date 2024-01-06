@@ -1,5 +1,6 @@
 package Controllers;
 
+import Business.Artifact;
 import Business.KUAlchemistsGame;
 import artifactScreens.ArtifactFrame;
 import artifactScreens.DiscountArtifactFrame;
@@ -37,13 +38,11 @@ public class buyArtifactController {
 			return new WisdomIdolArtifactFrame(game);
 		case "MagicMortarArtifact":
 			return new MagicMortarArtifactFrame(game);
-		case "ElixirOfInsight":
+		case "ElixirOfInsightArtifact":
 			return new ElixirOfInsightFrame(game);
 		default:
 			return null;
-		}
-		
-			
-	}
+		}			
+	}	
 
 }

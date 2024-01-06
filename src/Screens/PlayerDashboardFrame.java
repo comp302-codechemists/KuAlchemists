@@ -16,6 +16,7 @@ import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -32,6 +33,7 @@ import Business.DeductionBoard;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Business.Theory;
 import Controllers.DeductionBoardController;
 import Controllers.ForageController;
 import Controllers.TransmuteController;
@@ -110,8 +112,8 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setPlayerIngredients();
 		setBottomCrosses();
 		setRemoveDeductionButton();
-		
-		testElixir();
+		sendDebunkWarning();
+		//testElixir();
 		
 	}
 	
@@ -839,5 +841,40 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	                PlayerDashboardFrame.this.dispose();
 	            }
 	        });
+		}
+		
+		private void sendDebunkWarning() {
+			
+			Map<Theory, Boolean> debunkedTheories = Theory.getDebunkedTheories();
+			
+			Artifact art = game.currentPlayer.getArtifacts().stream().filter(each -> each.getName().equals("WisdomIdolArtifact")).findFirst().orElse(null);
+			
+			if(art == null) {
+				return;
+			}
+			
+			for(Entry<Theory , Boolean> eachTheory: debunkedTheories.entrySet()) {
+				
+				if(eachTheory.getKey().getOwner().getUserName().equals(game.currentPlayer.getUserName()) && !eachTheory.getValue()) {
+					
+					int result = JOptionPane.showConfirmDialog(
+			                null,
+			                "Your theory was debunked :((( Do you want to use your Wisdom Idol Artifact to keep your reputation points ?",
+			                "Warning",
+			                JOptionPane.YES_NO_OPTION
+			        );
+
+			        if (result == JOptionPane.YES_OPTION) {
+			            game.currentPlayer.getArtifacts().remove(art);
+			            game.currentPlayer.setReputationPoints(game.currentPlayer.getReputationPoints() + 1);
+			            eachTheory.setValue(true);
+			            this.dispose();
+			            new PlayerDashboardFrame(game);
+			        } else {
+			            eachTheory.setValue(true);
+			        }
+					
+				}
+			}
 		}
 }

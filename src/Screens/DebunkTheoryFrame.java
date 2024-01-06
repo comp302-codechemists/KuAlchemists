@@ -78,8 +78,8 @@ public class DebunkTheoryFrame extends FunctionalFrame{
             	if (selectedAspect != null && selectedTheory != null)
             	{
             		 controller.handleDebunk(selectedTheory, selectedAspect);
-                	 PlaySong.play("DebunkTheory");
-                  	 new PlayerDashboardFrame(game);
+                	 //PlaySong.play("DebunkTheory");
+                  	 new MainGameFrame(game);
                   	 DebunkTheoryFrame.this.dispose();	
             	}
             }
