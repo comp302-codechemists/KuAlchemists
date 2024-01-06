@@ -48,14 +48,11 @@ public class PlayerCalcScoreTest {
     public void testCalculateScore_MinimumValues() {
     	setUp();
 
-        // Arrange
         player.setReputationPoints(0);
         player.setArtifacts(new ArrayList<>());
 
-        // Act
         float result = player.calculateScore();
 
-        // Assert
         assertEquals(0.0, result, 0.0001);
     }
 
@@ -63,14 +60,11 @@ public class PlayerCalcScoreTest {
     public void testCalculateScore_OnlyReputationPoints() {
     	setUp();
 
-        // Arrange
         player.setReputationPoints(5);
         player.setArtifacts(new ArrayList<>());
 
-        // Act
         float result = player.calculateScore();
 
-        // Assert
         assertEquals(50.0, result, 0.0001);
     }
 
@@ -78,17 +72,14 @@ public class PlayerCalcScoreTest {
     public void testCalculateScore_OnlyArtifacts() {
     	setUp();
 
-        // Arrange
         player.setReputationPoints(0);
         List<Artifact> artifacts = new ArrayList<>();
         artifacts.add(new PrintingPressArtifact("printingPressArtifact1"));
         artifacts.add(new MagicMortarArtifact("magicMortarArtifact2"));
         player.setArtifacts(artifacts);
 
-        // Act
         float result = player.calculateScore();
 
-        // Assert
         assertEquals(1.33, result, 0.0001);
     }
 
@@ -96,17 +87,14 @@ public class PlayerCalcScoreTest {
     public void testCalculateScore_BothReputationPointsAndArtifacts() {
     	setUp();
 
-        // Arrange
         player.setReputationPoints(3);
         List<Artifact> artifacts = new ArrayList<>();
         artifacts.add(new PrintingPressArtifact("printingPressArtifact1"));
         artifacts.add(new MagicMortarArtifact("magicMortarArtifact2"));
         player.setArtifacts(artifacts);
 
-        // Act
         float result = player.calculateScore();
 
-        // Assert
         assertEquals(31.3333, result, 0.0001);
     }
 
@@ -114,7 +102,6 @@ public class PlayerCalcScoreTest {
     public void testCalculateScore_LargeValues() {
     	setUp();
 
-        // Arrange
         player.setReputationPoints(100);
         List<Artifact> artifacts = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
@@ -122,10 +109,8 @@ public class PlayerCalcScoreTest {
         }
         player.setArtifacts(artifacts);
 
-        // Act
         float result = player.calculateScore();
 
-        // Assert
         assertEquals(1666.6666, result, 0.0001);
     }
 
