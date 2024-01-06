@@ -45,6 +45,19 @@ public class Potion {
 		return "0";
 	}
 	
+	/**
+	 * Calculates the resulting potion depending on the given ingredients.
+	 * 
+	 * Requires:
+	 *   * Two ingredients.
+	 * Modifies:
+	 *   * None.
+	 * Effects:
+	 *   *	  Depending on the size and and the magnitude aspects of the given ingredients
+	 *   A potion is created and returned
+	 *   
+	 */
+	
 	public static Potion makePotion(Ingredient ingredientOne, Ingredient ingredientTwo)
 	{
 		Potion potion = new Potion("0");

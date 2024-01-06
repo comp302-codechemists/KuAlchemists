@@ -25,7 +25,7 @@ import Business.PrintingPressArtifact;
  *   A float will be returned as the calculated score.
  */
 
-public class PlayerCalcScoreUnit {
+public class PlayerCalcScoreTest {
 
 	private Player player;
 
@@ -81,8 +81,8 @@ public class PlayerCalcScoreUnit {
         // Arrange
         player.setReputationPoints(0);
         List<Artifact> artifacts = new ArrayList<>();
-        artifacts.add(new printingPressArtifact("printingPressArtifact1"));
-        artifacts.add(new magicMortarArtifact("magicMortarArtifact2"));
+        artifacts.add(new PrintingPressArtifact("printingPressArtifact1"));
+        artifacts.add(new MagicMortarArtifact("magicMortarArtifact2"));
         player.setArtifacts(artifacts);
 
         // Act
@@ -99,8 +99,8 @@ public class PlayerCalcScoreUnit {
         // Arrange
         player.setReputationPoints(3);
         List<Artifact> artifacts = new ArrayList<>();
-        artifacts.add(new printingPressArtifact("printingPressArtifact1"));
-        artifacts.add(new magicMortarArtifact("magicMortarArtifact2"));
+        artifacts.add(new PrintingPressArtifact("printingPressArtifact1"));
+        artifacts.add(new MagicMortarArtifact("magicMortarArtifact2"));
         player.setArtifacts(artifacts);
 
         // Act
@@ -118,7 +118,7 @@ public class PlayerCalcScoreUnit {
         player.setReputationPoints(100);
         List<Artifact> artifacts = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
-            artifacts.add(new printingPressArtifact("printingPressArtifact" + i));
+            artifacts.add(new PrintingPressArtifact("printingPressArtifact" + i));
         }
         player.setArtifacts(artifacts);
 
