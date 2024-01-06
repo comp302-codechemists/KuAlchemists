@@ -12,6 +12,31 @@ import Business.Player;
 import Business.Potion;
 
 class ClassTest {
+	
+	/*
+	 * Overview:
+	 * The Experiment class represents a scientific experiment 
+	 * conducted by a player in a KuAlchemistGame. It involves 
+	 * combining two ingredients to create a potion and testing 
+	 * its effects on the player's attributes.
+	 * 
+	 * Abstract Function:
+	 * The Experiment class encapsulates the process of conducting 
+	 * an experiment with two ingredients to produce a potion.
+	 * It tracks the player conducting the experiment (owner), 
+	 * the two ingredients used (ingredientOne and ingredientTwo), 
+	 * the type of experiment (whereToTest), and the resulting potion 
+	 * (resultPotion). 
+	 * 
+	 * Representation Invariant: 
+	 * owner must be a non-null instance of the Player class.
+	 * Both ingredientOne and ingredientTwo must be non-null 
+	 * instances of the Ingredient class. 
+	 * whereToTest must be either 1 or 2, indicating the location of the test. 
+	 * resultPotion must be a non-null instance of the Potion class.
+	 */
+
+
 
 	@Test
 	void testOwner() {

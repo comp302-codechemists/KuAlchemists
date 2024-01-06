@@ -26,7 +26,7 @@ public class Experiment
 	    return owner != null &&
 	           ingredientOne != null &&
 	           ingredientTwo != null &&
-	           (whereToTest == 0 || whereToTest == 1) &&
+	           (whereToTest == 1 || whereToTest == 2) &&
 	           resultPotion != null;
 	}
 
