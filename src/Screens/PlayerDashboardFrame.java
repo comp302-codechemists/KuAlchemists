@@ -84,7 +84,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton removeDeduction;
 	private JPanel deductionPanel;
 	
-	private List<JLabel> labels; // For cross labels
+	private List<JLabel> labels = new ArrayList<>(); // For cross labels
 	
 	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
 	
@@ -335,7 +335,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         return sequence;
     }
 	
-	private int[] getIndices() {
+	private int[] getIndices(int index) {
 		
 		int[] arr = new int[4];
 	    int[][] matrix = new int[][] {
@@ -352,25 +352,21 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    List<Integer> leftIndex = generateSequenceLeft();
 	    List<Integer> rightIndex = generateSequenceRight();
 	    
-	    for (int i = 0; i < 28; i++) {
-	    	int left = leftIndex.get(i);
-	    	int right = rightIndex.get(i);
+	    
+	    int left = leftIndex.get(index);
+	    int right = rightIndex.get(index);
 	    	
-	    	Integer value = locations.get(i);
-    	
-	    	if (value == null) {
-	    		continue;
-	    	}
+    	Integer value = locations.get(index);
+
 	    	
-	    	for (int j = 0; j < 8; j++) {
-	    		if (value == j) { 			    		
-		    		arr[0] = left  + 8 * matrix[j][0];	
-		    		arr[1] = right + 8 * matrix[j][0];
-		    		arr[2] = left  + 8 * matrix[j][1];
-		    		arr[3] = right + 8 * matrix[j][1];
-	    		}
-	    	}
-	    }
+    	for (int j = 0; j < 6; j++) {
+    		if (value == j) { 			    		
+	    		arr[0] = left  + 8 * matrix[j][0];	
+	    		arr[1] = right + 8 * matrix[j][0];
+	    		arr[2] = left  + 8 * matrix[j][1];
+	    		arr[3] = right + 8 * matrix[j][1];
+    		}
+    	}    
 		
 		return arr;
 	}
@@ -382,7 +378,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    int startX = 93;
 	    int startY = 3;
 	    
-	    List<JLabel> labels = new ArrayList<>();
 	    
     	Image image = new ImageIcon(this.getClass().getResource("/Images/cross.png")).getImage();
     	Image newImage = image.getScaledInstance(20, 20, Image.SCALE_DEFAULT);
@@ -427,7 +422,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    		continue;
 	    	}
 	    	
-	    	for (int j = 0; j < 8; j++) {
+	    	for (int j = 0; j < 6; j++) {
 	    		if (value == j) {
 	    			int index1 = left  + 8 * matrix[j][0];
 	    			int index2 = right + 8 * matrix[j][0];
@@ -444,11 +439,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	    		}	
 	    	}	
 	    }
-	    
-		bottomBackground.revalidate();
-		bottomBackground.repaint();
-	    
-	    
+	    	    
 	}
 	
 	
@@ -513,7 +504,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
             	}
             	if (i != -1) {
             		deductionBoardButtons.get(i).setIcon(null);
-            		int arr[] = getIndices();
+            		int arr[] = getIndices(i);
                 	labels.get(arr[0]).setIcon(null);
                 	labels.get(arr[1]).setIcon(null);
                 	labels.get(arr[2]).setIcon(null);
