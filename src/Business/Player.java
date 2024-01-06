@@ -250,7 +250,20 @@ public class Player {
 	}
 	
 	
-	// I made it public so that I can use it in KUAlchGame to get the winner. And made it return float.
+	/**
+	 * Calculates the player's score based on reputation points and artifacts.
+	 * 
+	 * Requires:
+	 *   * None.
+	 * Modifies:
+	 *   * None.
+	 * Effects:
+	 *   *	  Player's score will be calculated based on:
+	 *   	  1 artifact -> 2 gold, 3 gold -> 1 score point => 1 artifact -> 2/3 score point.
+	 *        score = (reputationPoints * 10) + (totalArtifacts player has * 2 / 3)
+	 *   A float will be returned as the calculated score.
+	 */
+	
 	public float calculateScore() {
 		int score = 0;
 		score += getReputationPoints() * 10;
@@ -412,6 +425,18 @@ public class Player {
 		return payment;
 		
 	}
+	
+	
+	/**
+	* Updates the balance, reputation points, and the publication board.
+ 	* 
+ 	* Requires: Initializes player, ingredients and aspects. 
+ 	* 
+ 	* Modifies: None
+ 	*   
+ 	* Effects:
+ 	*   Updates the common publication board. Player's reputation point and balance.
+    */
 	
 	public void publishTheory(String selectedMarker, String selectedTheory) {
 		
