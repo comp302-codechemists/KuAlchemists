@@ -4,7 +4,9 @@ package Screens;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import Business.KUAlchemistsGame;
 import Controllers.PauseController;
+import networking.ClientHandler;
 
 public class PauseFrame {
 	
@@ -22,8 +24,14 @@ public class PauseFrame {
 
     	
         if (result == JOptionPane.OK_OPTION) {
+        	
+        	if (KUAlchemistsGame.instance.isOnline()) {
+            	
+            }
+        	
             PauseController controller = new PauseController();
             controller.pauseHandler();
+            
           }
 
     } 

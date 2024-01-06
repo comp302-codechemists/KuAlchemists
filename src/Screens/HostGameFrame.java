@@ -121,13 +121,15 @@ public class HostGameFrame extends MagicFrame{
 	    	
 	    	game.setOnline(true);
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
-	    	main.setVisible(true);
+	    	
 	    	this.dispose();
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage("MAINBOARD");
-	    	for (ClientHandler client : ClientHandler.clientHandlers)
-		    	System.out.println(client.clientUsername);
+	    	
+	    	for (ClientHandler client : ClientHandler.clientHandlers) {
+	    		client.broadCastItself("UPDATENAME," + client.clientUsername);
+	    	}
+	    	main.updatePlayerName("Player 1");
 	    	game.getPlayers().subList(0, Player.players.size()).clear();
-
 	    	System.out.println(game.getPlayers()+ "admin");	
 
 
@@ -138,7 +140,7 @@ public class HostGameFrame extends MagicFrame{
 	    }
 	    
 	    public void updateChat(String message) {
-	        SwingUtilities.invokeLater(() -> {
+	    	SwingUtilities.invokeLater(() -> {
 	            chatTextArea.append(message +"\n");
 	        });
 	    }

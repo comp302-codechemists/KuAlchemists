@@ -65,18 +65,20 @@ public class JoinGameFrame extends MagicFrame {
 	    
 	    private void joinButtonClicked() {
 	        PlaySong.play("ButtonClick");
-	        
+
 	        new Thread(() -> {
 	            try {
-	                Client newClient = new Client("172.16.126.0",this);
-					ClientHandler clientHandler = new ClientHandler(newClient.getSocket(),"lol");
-
+	                Client newClient = new Client("172.16.126.0", this);
+	                ClientHandler clientHandler = new ClientHandler(newClient.getSocket(),"lol");
+	                newClient.sendSpesificMessage("LOBBYJOIN");
+	                // Start a new thread for the ClientHandler
+	                new Thread(clientHandler).start();
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	            }
 	        }).start();
+
 	        joinButton.setEnabled(false);
-	        
 	    }
 
 	    

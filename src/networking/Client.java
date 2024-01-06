@@ -1,5 +1,6 @@
 package networking;
 
+import java.awt.Point;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -8,15 +9,18 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Controllers.PauseController;
 import Controllers.PlayGameController;
 import Controllers.StartGameController;
 import Screens.*;
 import uiHelpers.MagicFrame;
 
 public class Client {
+	public static Client instance;
 	private Socket socket;
 	public static Socket socketStatic;
 	private BufferedReader bufferedReader;
@@ -34,6 +38,7 @@ public class Client {
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.username = username;
 			this.view = view;
+			this.instance = this;
 			
 
 			listenForMessage();
@@ -81,6 +86,13 @@ public class Client {
 		
 		 }
 	
+	public void sendSpesificMessage(String Message) throws IOException {
+		bufferedWriter.write(Message);
+		bufferedWriter.newLine();
+		bufferedWriter.flush();
+
+	}
+	
 	public void listenForMessage() {
 		new Thread (new Runnable() {
 			public void run() {
@@ -104,15 +116,8 @@ public class Client {
 	public void messageProtocol(String message) {
 		String[] splitArray = message.split(",");
 		ArrayList<String> msgList = new ArrayList<>(Arrays.asList(splitArray));
-		System.out.println(msgList);
 		if (msgList.get(0).equals("JOIN")) {
-			 if (view instanceof HostGameFrame) {
-		            HostGameFrame magicFrame = (HostGameFrame) view;
-		            magicFrame.updateChat("The player has joined the server!");
-		            
-		            
-
-		}
+		
 			 
 			 Player newPlayer = new Player(msgList.get(1), msgList.get(2));
 			 boolean doesContain = false;
@@ -185,7 +190,6 @@ public class Client {
 	    	ArrayList<String> avatarList = new ArrayList<>();
 	    	for (int i = 0; i < Player.players.size(); i++) {
 
-	    		System.out.println(i);
 	    	    nameList.add(Player.players.get(i).getUserName());
 	    	    avatarList.add(Player.players.get(i).getAvatarPath());
 	    	} 
@@ -193,12 +197,48 @@ public class Client {
 	    	game.getPlayers().subList(0, Player.players.size()).clear();
 	        
 	    	game.setOnline(true);
-	    	System.out.println(game.getPlayers() + "client");	
+	    	System.out.println(ClientHandler.clientHandlers.size() + "client");	
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
+	    	main.updatePlayerName(message);
+	    	this.view = main;
 	    	main.setVisible(true);
 
 			
 			}
+		
+		if (msgList.get(0).equals("UPDATENAME") && this.view instanceof MainGameFrame ) {
+			((MainGameFrame) this.view).updatePlayerName(msgList.get(1));
+			
+		}
+		
+		if (message.equals("LOBBYJOIN")) {
+			 if (view instanceof HostGameFrame) {
+				 ((HostGameFrame) this.view).updateChat("A player has joined the server!");
+		            
+		            
+		         }
+		}
+		
+		if (msgList.get(0).equals("TAKETURN")) {
+			
+			
+		}
+		
+		if (msgList.get(0).equals("PAUSE")) {
+			if (KUAlchemistsGame.instance.isPaused() == false) {
+				KUAlchemistsGame.instance.pause();
+
+			}
+		}
+		
+		if (msgList.get(0).equals("RESUME")) {
+			if (KUAlchemistsGame.instance.isPaused() == true) {
+				PauseController controller = new PauseController();
+	            controller.pauseHandler();
+
+			} 
+			
+		}
 			 
 			
 		}
@@ -286,6 +326,8 @@ public class Client {
 	public JFrame getView() {
 		return view;
 	}
+	
+	
 
 
 	public void setView(JFrame view) {

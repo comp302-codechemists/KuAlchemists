@@ -18,6 +18,8 @@ import Business.GameEvent;
 import Business.KUAlchemistsGame;
 import DesignSystem.GameButton;
 import DesignSystem.GameText;
+import networking.Client;
+import networking.ClientHandler;
 import soundEffects.PlaySong;
 
 import javax.swing.JLabel;
@@ -51,6 +53,7 @@ public class MainGameFrame extends GeneralFrame{
 	private JButton pauseGameButton;
 	private JButton takeTurnButton;
 	private JTextArea gameLogArea;
+	private JTextArea playerNameDisplayed;
 	
 	public MainGameFrame(KUAlchemistsGame game) 
 	{
@@ -213,6 +216,13 @@ public class MainGameFrame extends GeneralFrame{
 		backgroundPanel.add(round);
 		backgroundPanel.add(turn);
 		
+		playerNameDisplayed = new JTextArea();
+		playerNameDisplayed.setEditable(false);
+		playerNameDisplayed.setBounds(720, 10, 100, 40);
+		playerNameDisplayed.setVisible(true);
+		backgroundPanel.add(playerNameDisplayed);
+
+		
 	}
 	
 	private static class AvatarRenderer extends DefaultTableCellRenderer {
@@ -277,6 +287,11 @@ public class MainGameFrame extends GeneralFrame{
 				KUAlchemistsGame.instance.pause();
 				gameLogArea.revalidate();
 				gameLogArea.repaint();
+				
+				if (KUAlchemistsGame.instance.isOnline()) {
+					// ClientHandler clientHandler = new ClientHandler(Client.socketStatic,"lol","PAUSE");
+				}
+
 			}
 		});
 		backgroundPanel.add(pauseGameButton);
@@ -329,6 +344,11 @@ public class MainGameFrame extends GeneralFrame{
 		
 		takeTurnButton = new GameButton("Take Turn");
 		takeTurnButton.setBounds(650, 330, 150, 30);
+		
+		if (game.isOnline()) {
+			takeTurnButton.setEnabled(false);
+		}
+		
 		backgroundPanel.add(takeTurnButton);
 		takeTurnButton.addActionListener(new ActionListener() {
             @Override
@@ -339,6 +359,19 @@ public class MainGameFrame extends GeneralFrame{
             }
         });
 		
+	}
+	
+	public void enableTurnButton() {
+		takeTurnButton.setEnabled(true);
+	}
+	
+	public void disableTurnButton() {
+		takeTurnButton.setEnabled(false);
+
+	}
+	
+	public void updatePlayerName(String playerName) {
+		playerNameDisplayed.setText(playerName);
 	}
 }
 

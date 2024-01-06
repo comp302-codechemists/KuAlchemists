@@ -28,11 +28,11 @@ public class KUAlchemistsGame {
 	boolean finished = false;
 	int turns = 0;
 	private boolean isOnline;
+	private boolean isPaused;
 
 
 	public KUAlchemistsGame(int numberOfPlayers) {
 		
-		isOnline = false;
 		// set number of players
 		this.numberOfPlayers = numberOfPlayers;
 
@@ -45,6 +45,8 @@ public class KUAlchemistsGame {
 		// set game state
 		this.state = new ResumeState(this);
 		System.out.printf("The game started with %d players.\n", numberOfPlayers);
+		isPaused = false;
+		isOnline = false;
 
 	}
 	
@@ -260,6 +262,17 @@ public class KUAlchemistsGame {
 	public void setOnline(boolean isOnline) {
 		this.isOnline = isOnline;
 	}
+
+
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
+	}
+	
 	
 
 }

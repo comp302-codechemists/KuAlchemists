@@ -30,6 +30,25 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
+	public ClientHandler(Socket socket) {
+		try {
+			this.socket = socket;
+			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			this.clientUsername = bufferedReader.readLine();
+			clientHandlers.add(this);
+			this.clientUsername = Integer.toString(z);
+			z+=1;
+			
+		
+		}
+		catch (IOException e) {
+			
+			closeEverything(socket, bufferedReader, bufferedWriter);
+		}
+		
+	}
+	
 	
 	@Override
 	public void run() {
@@ -49,7 +68,7 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void broadCastMessage(String messageToSend) {
-		System.out.println( "ClientHandlers size: " + clientHandlers.size());
+		System.out.println(messageToSend);
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
 				if (!clientHandler.clientUsername.equals(clientUsername)) {
@@ -80,6 +99,26 @@ public class ClientHandler implements Runnable{
 					clientHandler.bufferedWriter.newLine();
 					clientHandler.bufferedWriter.flush();
 				
+				
+			}
+			catch (IOException e) {
+				closeEverything(socket, bufferedReader, bufferedWriter);
+				
+			}
+			
+		}
+		
+	}
+	
+	public void broadCastItself(String messageToSend) {
+		for (ClientHandler clientHandler: clientHandlers) {
+			try {
+				if (clientHandler.clientUsername.equals(clientUsername)) {
+					
+					clientHandler.bufferedWriter.write(messageToSend);
+					clientHandler.bufferedWriter.newLine();
+					clientHandler.bufferedWriter.flush();
+				}
 				
 			}
 			catch (IOException e) {
