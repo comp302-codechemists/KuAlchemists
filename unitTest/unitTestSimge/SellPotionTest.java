@@ -10,7 +10,7 @@ import Business.Ingredient;
 import Business.Player;
 import Business.Token;
 
-class SellPotionTests {
+class SellPotionTest {
 
 	@Test
 	void example1() {
