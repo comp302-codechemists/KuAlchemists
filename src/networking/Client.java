@@ -11,6 +11,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.PauseController;
@@ -36,7 +37,7 @@ public class Client {
 			this.socketStatic = this.socket;
 			this.socket=socket;
 			this.view = view;
-			
+			this.username = username;
 			
 
 			listenForMessage();
@@ -127,7 +128,6 @@ public class Client {
 	            }
 			 
 			 
-			 
 		if(message.equals("MAINBOARD")) {
 			System.out.println(Player.players + "za");
 			JoinGameFrame magicFrame = (JoinGameFrame) view;
@@ -203,7 +203,7 @@ public class Client {
 			
 		}
 		
-		if (message.equals("LOBBYJOIN2")) {
+		if (message.equals("LOBBYJOIN")) {
 			 if (view instanceof HostGameFrame) {
 				 ((HostGameFrame) this.view).updateChat("A player has joined the server!");
 		            
@@ -214,11 +214,33 @@ public class Client {
 		}
 		
 		if (msgList.get(0).equals("TAKETURN")) {
+			if (view instanceof MainGameFrame) {
+				 ((MainGameFrame) this.view).dispose();
+		            
+		            
+		         }
 			this.view.dispose();
 			this.view = new PlayerDashboardFrame(KUAlchemistsGame.instance);
 			
 			
 			
+		}
+		
+		if(msgList.get(0).equals("FORAGE")) {
+			for (Player player: KUAlchemistsGame.instance.getPlayers()) {
+				if(player.getUserName().equals(msgList.get(1)))
+					player.addIngredient(Ingredient.getIngredient(msgList.get(2)));
+			}
+			this.view.dispose();
+			this.view = new MainGameFrame(KUAlchemistsGame.instance);
+		}
+		
+		if(msgList.get(0).equals("ENDTURN")) {
+			KUAlchemistsGame.instance.nextPlayer();
+			String userName = KUAlchemistsGame.instance.currentPlayer.getUserName();
+        	KUAlchemistsGame.instance.client.sendMessage("SPESIFIC,TAKETURN," + userName);
+        	this.view.dispose();
+			this.view = new MainGameFrame(KUAlchemistsGame.instance);
 		}
 		
 		

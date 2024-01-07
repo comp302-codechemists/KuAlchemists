@@ -43,6 +43,9 @@ public class OnlineOptionFrame extends MagicFrame {
 	    	this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	    	this.setHostButton();
 	    	this.setJoinButton();
+	    	
+	    
+
 	   }
 	    
 	    
@@ -121,6 +124,7 @@ public class OnlineOptionFrame extends MagicFrame {
 	                e.printStackTrace();
 	            }
 	        }).start();
+	        
 	        Player newPlayer = new Player("Player 1", "avatar1");
 	        Player.players.add(newPlayer);
 	        

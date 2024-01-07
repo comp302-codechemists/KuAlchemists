@@ -65,6 +65,10 @@ public class ClientHandler implements Runnable{
 				if(msgList.get(0).equals("SPESIFIC")) {
 					singleMessage(msgList.get(1),msgList.get(2));
 				}
+				else if(msgList.get(0).equals("ALL")) {
+					broadCastAll(msgList.get(1));
+					
+				}
 				broadCastMessage(messageFromClient);
 			}
 			catch (IOException e) {
@@ -76,6 +80,9 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void broadCastMessage(String messageToSend) {
+		
+		
+		
 		System.out.println(messageToSend);
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
@@ -94,6 +101,26 @@ public class ClientHandler implements Runnable{
 			
 		}
 			
+		
+	}
+	
+	public void sendAllTheirNames() {
+		for (ClientHandler clientHandler: clientHandlers) {
+			try {
+				
+					
+					clientHandler.bufferedWriter.write("NAME,"+clientHandler.clientUsername);
+					clientHandler.bufferedWriter.newLine();
+					clientHandler.bufferedWriter.flush();
+				
+				
+			}
+			catch (IOException e) {
+				closeEverything(socket, bufferedReader, bufferedWriter);
+				
+			}
+			
+		}
 		
 	}
 	
@@ -139,7 +166,6 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void singleMessage(String messageToSend, String username) {
-		System.out.println( "ClientHandlers size: " + clientHandlers.size());
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
 				if (clientHandler.clientUsername.equals(clientUsername)) {

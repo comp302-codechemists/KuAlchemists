@@ -35,6 +35,9 @@ public class JoinGameFrame extends MagicFrame {
 	    	IPAdress.setText("172.16.126.0");
 	    	IPAdress.setWrapStyleWord(true);
 	    	backgroundPanel.add(IPAdress);
+	    	
+	    	
+
 	    	this.setJoinButton();
 
 	        
@@ -73,14 +76,13 @@ public class JoinGameFrame extends MagicFrame {
 	    
 	    private void joinButtonClicked() throws UnknownHostException, IOException {
 	        PlaySong.play("ButtonClick");
-
 	        String IP = IPAdress.getText();
 	            
 	                Socket socket = new Socket(IP,1271);
 	                Client newClient = new Client(socket,this);
 	                
 	        KUAlchemistsGame.instance.client = newClient;
-	        KUAlchemistsGame.instance.client.sendMessage("LOBBYJOIN2");
+	        KUAlchemistsGame.instance.client.sendMessage("LOBBYJOIN");
 	        joinButton.setEnabled(false);
 	    }
 

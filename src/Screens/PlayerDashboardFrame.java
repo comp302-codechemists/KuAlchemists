@@ -27,6 +27,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 
 import Business.Artifact;
 import Business.DeductionBoard;
@@ -83,7 +84,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JButton clearBtn;
 	private JButton removeDeduction;
 	private JPanel deductionPanel;
-	
+	private JTextArea playerName;
 	private List<JLabel> labels; // For cross labels
 	
 	public List<JRadioButton> deductionBoardButtons = new ArrayList<JRadioButton>();
@@ -92,7 +93,12 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	{
 		super(game);
 		setBackground("/BackgroundImages/playerDashboardBackground.png");
+		playerName = new JTextArea();
+		playerName.setEditable(false);
+		playerName.setText(KUAlchemistsGame.instance.currentPlayer.getUserName());
+		playerName.setBounds(10, 10, 200, 30);
 		
+		backgroundPanel.add(playerName);
 		setUpperDeductionBoard();
 		setUpperButtons();
 		setBottomDeductionBoard();

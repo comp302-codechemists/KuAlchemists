@@ -375,11 +375,16 @@ public class MainGameFrame extends GeneralFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 PlaySong.play("ButtonClick");
-            	KUAlchemistsGame.instance.client.sendMessage("SPESIFIC,TAKETURN,Player 1");
+                String userName = KUAlchemistsGame.instance.currentPlayer.getUserName();
+            	KUAlchemistsGame.instance.client.sendMessage("SPESIFIC,TAKETURN," + userName);
             }
         });
 
 		
+	}
+	
+	public void disableStartGameButton() {
+		this.startGameButton.setEnabled(false);
 	}
 	
 	public void enableTurnButton() {
