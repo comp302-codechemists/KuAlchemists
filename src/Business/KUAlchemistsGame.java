@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import Controllers.PauseController;
+import networking.*;
 
 public class KUAlchemistsGame {
 
@@ -16,7 +17,7 @@ public class KUAlchemistsGame {
 	private int currentPlayerIndex;
 	public Player currentPlayer;
 	int numberOfPlayers;
-	
+	public static Client client;
 	// each game has an ingredient storage, an artifact storage and a publication board
 	private IngredientStorage ingredientStorage;
 	private ArtifactStorage artifactStorage;

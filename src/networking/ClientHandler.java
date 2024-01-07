@@ -3,6 +3,7 @@ package networking;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ClientHandler implements Runnable{
 
@@ -56,7 +57,14 @@ public class ClientHandler implements Runnable{
 		
 		while (socket.isConnected()) {
 			try {
+				
 				messageFromClient = bufferedReader.readLine();
+				String[] splitArray = messageFromClient.split(",");
+				ArrayList<String> msgList = new ArrayList<>(Arrays.asList(splitArray));
+				
+				if(msgList.get(0).equals("SPESIFIC")) {
+					singleMessage(msgList.get(1),msgList.get(2));
+				}
 				broadCastMessage(messageFromClient);
 			}
 			catch (IOException e) {

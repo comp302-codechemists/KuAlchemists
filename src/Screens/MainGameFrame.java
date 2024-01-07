@@ -54,6 +54,7 @@ public class MainGameFrame extends GeneralFrame{
 	private JButton takeTurnButton;
 	private JTextArea gameLogArea;
 	private JTextArea playerNameDisplayed;
+	private JButton startGameButton;
 	
 	public MainGameFrame(KUAlchemistsGame game) 
 	{
@@ -95,7 +96,13 @@ public class MainGameFrame extends GeneralFrame{
 		directionsLabel.setForeground(Color.white);
 		directionsLabel.setFont(GameText.normalText);
 		directionsLabel.setOpaque(false);
-		setTakeTurnButton();
+		if (game.isOnline() == false) {
+			setTakeTurnButton();
+		}
+		else {
+			setStartGameButton();
+		}
+		
 		backgroundPanel.add(directionsLabel);
 		
 	}
@@ -345,9 +352,7 @@ public class MainGameFrame extends GeneralFrame{
 		takeTurnButton = new GameButton("Take Turn");
 		takeTurnButton.setBounds(650, 330, 150, 30);
 		
-		if (game.isOnline()) {
-			takeTurnButton.setEnabled(false);
-		}
+		
 		
 		backgroundPanel.add(takeTurnButton);
 		takeTurnButton.addActionListener(new ActionListener() {
@@ -358,6 +363,22 @@ public class MainGameFrame extends GeneralFrame{
             	MainGameFrame.this.dispose();
             }
         });
+		
+	}
+	
+	public void setStartGameButton() {
+		startGameButton = new GameButton("Start!");
+		startGameButton.setBounds(650, 330, 150, 30);
+		backgroundPanel.add(startGameButton);
+		
+		startGameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PlaySong.play("ButtonClick");
+            	KUAlchemistsGame.instance.client.sendMessage("SPESIFIC,TAKETURN,Player 1");
+            }
+        });
+
 		
 	}
 	

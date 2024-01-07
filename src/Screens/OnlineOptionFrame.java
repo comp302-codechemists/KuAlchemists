@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -102,6 +103,7 @@ public class OnlineOptionFrame extends MagicFrame {
 
 	    	PlaySong.play("ButtonClick");
 	        HostGameFrame hostFrame = new HostGameFrame();
+	        
 
 	        new Thread(() -> {
 	            try {
@@ -121,14 +123,13 @@ public class OnlineOptionFrame extends MagicFrame {
 	        }).start();
 	        Player newPlayer = new Player("Player 1", "avatar1");
 	        Player.players.add(newPlayer);
-	        new Thread(() -> {
-	            try {
-	                Client newClient = new Client("172.16.126.0",hostFrame);
-	                ClientHandler newDawg = new ClientHandler(newClient.getSocket(),"Player 1");
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        }).start();
+	        
+	        Socket socket = new Socket("localhost",1271);
+            Client newClient = new Client(socket,hostFrame);
+            
+	        KUAlchemistsGame.instance.client = newClient;
+            KUAlchemistsGame.instance.client.sendMessage("LOBBYJOIN2");
+            this.dispose();
 	        
 
 	    }

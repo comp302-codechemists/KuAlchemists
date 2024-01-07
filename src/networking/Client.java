@@ -28,21 +28,18 @@ public class Client {
 	private String username;
 	private JFrame view;
 	
-	public  <T extends JFrame> Client (String IPAdress,T view) {
+	public  <T extends JFrame> Client (Socket socket,T view) {
 		try {
-			
-
-			this.socket=new Socket(IPAdress, 1271);
-			this.socketStatic = this.socket;
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			this.username = username;
+ 
+			this.socketStatic = this.socket;
+			this.socket=socket;
 			this.view = view;
-			this.instance = this;
+			
 			
 
 			listenForMessage();
-			sendMessage();
 		}
 		catch (IOException e) {
 			closeEverything(socket, bufferedReader, bufferedWriter);
@@ -50,7 +47,7 @@ public class Client {
 	}
 	
 	
-
+	
 
 	public Socket getSocket() {
 		return socket;
@@ -66,19 +63,14 @@ public class Client {
 
 
 
-	public void sendMessage() {
+	public void sendMessage(String messageToSend) {
 		try {
-			bufferedWriter.write("");
-			bufferedWriter.newLine();
-			bufferedWriter.flush();
 			
-			Scanner scanner = new Scanner(System.in);
-			while (socket.isConnected()) {
-				String messageToSend = scanner.nextLine();
-				bufferedWriter.write(username + ": " + messageToSend);
+		
+				bufferedWriter.write(messageToSend);
 				bufferedWriter.newLine();
 				bufferedWriter.flush();
-			} }
+			 }
 			catch (IOException e) {
 				closeEverything(socket,bufferedReader,bufferedWriter);
 				
@@ -211,18 +203,25 @@ public class Client {
 			
 		}
 		
-		if (message.equals("LOBBYJOIN")) {
+		if (message.equals("LOBBYJOIN2")) {
 			 if (view instanceof HostGameFrame) {
 				 ((HostGameFrame) this.view).updateChat("A player has joined the server!");
 		            
 		            
 		         }
+			 
+			 
 		}
 		
 		if (msgList.get(0).equals("TAKETURN")) {
+			this.view.dispose();
+			this.view = new PlayerDashboardFrame(KUAlchemistsGame.instance);
+			
 			
 			
 		}
+		
+		
 		
 		if (msgList.get(0).equals("PAUSE")) {
 			if (KUAlchemistsGame.instance.isPaused() == false) {
@@ -339,4 +338,3 @@ public class Client {
 		
 		
 } 
-	

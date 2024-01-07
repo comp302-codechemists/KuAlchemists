@@ -11,6 +11,9 @@ import uiHelpers.MagicFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.awt.*;
 
 public class JoinGameFrame extends MagicFrame {
@@ -49,35 +52,35 @@ public class JoinGameFrame extends MagicFrame {
 	    	joinButton.setFont(new Font("Arial", Font.BOLD, 12)); 
 	    	joinButton.setBounds(320, 230, 100, 30);
 	    	
-	    	
+	        backgroundPanel.add(joinButton);
+
 
 
 	    	joinButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	joinButtonClicked();
+	            	try {
+						joinButtonClicked();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 	            }
 	        });
 	        
-	        backgroundPanel.add(joinButton);
 	        
 	    }
 	    
-	    private void joinButtonClicked() {
+	    private void joinButtonClicked() throws UnknownHostException, IOException {
 	        PlaySong.play("ButtonClick");
 
-	        new Thread(() -> {
-	            try {
-	                Client newClient = new Client("172.16.126.0", this);
-	                ClientHandler clientHandler = new ClientHandler(newClient.getSocket(),"lol");
-	                newClient.sendSpesificMessage("LOBBYJOIN");
-	                // Start a new thread for the ClientHandler
-	                new Thread(clientHandler).start();
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        }).start();
-
+	        String IP = IPAdress.getText();
+	            
+	                Socket socket = new Socket(IP,1271);
+	                Client newClient = new Client(socket,this);
+	                
+	        KUAlchemistsGame.instance.client = newClient;
+	        KUAlchemistsGame.instance.client.sendMessage("LOBBYJOIN2");
 	        joinButton.setEnabled(false);
 	    }
 
