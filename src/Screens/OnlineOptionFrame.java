@@ -111,7 +111,6 @@ public class OnlineOptionFrame extends MagicFrame {
 	        new Thread(() -> {
 	            try {
 	                Server server = new Server();
-	                // Perform any other server-related logic here
 
 	                SwingUtilities.invokeLater(() -> {
 	                    this.dispose();
@@ -125,14 +124,18 @@ public class OnlineOptionFrame extends MagicFrame {
 	            }
 	        }).start();
 	        
-	        Player newPlayer = new Player("Player 1", "avatar1");
-	        Player.players.add(newPlayer);
+	        
 	        
 	        Socket socket = new Socket("localhost",1271);
             Client newClient = new Client(socket,hostFrame);
-            
-	        KUAlchemistsGame.instance.client = newClient;
-            KUAlchemistsGame.instance.client.sendMessage("LOBBYJOIN2");
+			Client.setInstance(newClient);
+
+
+
+	        Player newPlayer = new Player("Player 1", "avatar1");
+	        Player.players.add(newPlayer);
+	        Client.playerOfClient = newPlayer;
+	        
             this.dispose();
 	        
 

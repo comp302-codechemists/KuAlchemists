@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import Business.Player;
+
 
 
 public class Server  {
@@ -27,7 +29,11 @@ public class Server  {
 				
 				playerCount+=1;
 				String username = "Player " + String.valueOf(playerCount);
-				System.out.println("A new player has connected!");
+				System.out.println("SERVER: A new player has connected!");
+				String avatarOf = "avatar" + String.valueOf(playerCount);
+				if (playerCount != 1) {
+				Player.players.add(new Player(username, avatarOf));
+				}
 				ClientHandler clientHandler = new ClientHandler(socket,username);
 				
 				Thread thread = new Thread(clientHandler);

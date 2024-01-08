@@ -23,21 +23,19 @@ import uiHelpers.MagicFrame;
 public class Client {
 	public static Client instance;
 	private Socket socket;
-	public static Socket socketStatic;
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
 	private String username;
 	private JFrame view;
+	public static Player playerOfClient;
 	
 	public  <T extends JFrame> Client (Socket socket,T view) {
 		try {
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
  
-			this.socketStatic = this.socket;
 			this.socket=socket;
 			this.view = view;
-			this.username = username;
 			
 
 			listenForMessage();
@@ -79,12 +77,7 @@ public class Client {
 		
 		 }
 	
-	public void sendSpesificMessage(String Message) throws IOException {
-		bufferedWriter.write(Message);
-		bufferedWriter.newLine();
-		bufferedWriter.flush();
 
-	}
 	
 	public void listenForMessage() {
 		new Thread (new Runnable() {
@@ -95,7 +88,11 @@ public class Client {
 					try {
 						msgFrom = bufferedReader.readLine();
 						messageProtocol(msgFrom);
-						System.out.println(msgFrom);
+						if (username != null)
+							System.out.println(" Client named " + username + " recieved this message: " + msgFrom);
+						else
+							System.out.println("Client recieved this message: " + msgFrom);
+
 					}
 					catch (IOException e) {
 						closeEverything(socket,bufferedReader, bufferedWriter); 
@@ -128,11 +125,24 @@ public class Client {
 	            }
 			 
 			 
-		if(message.equals("MAINBOARD")) {
-			System.out.println(Player.players + "za");
+		if(msgList.get(0).equals("MAINBOARD")) {
+			
+			
+			for (int i = 1; i < ( 1 + Integer.parseInt(msgList.get(1)) ) ; i++) {
+				String playerUsername = "Player " + String.valueOf(i);
+				String avatarOf = "avatar" + String.valueOf(i);
+				Player newPlayer = new Player(playerUsername, avatarOf);
+				Player.players.add(newPlayer);
+				if (this.username.equals(playerUsername)) {
+					this.playerOfClient = newPlayer;
+				}
+
+			}
+			
+			
+			System.out.println("Current playerList of Client named " + this.username + " " +  Player.players + "za");
 			JoinGameFrame magicFrame = (JoinGameFrame) view;
 			magicFrame.dispose();
-			System.out.println(ClientHandler.clientHandlers.size() + "dogru");
 			
 			PlayGameController playGameController = new PlayGameController();
 	    	KUAlchemistsGame game = KUAlchemistsGame.getInstance(Player.players.size());
@@ -189,17 +199,18 @@ public class Client {
 	    	game.getPlayers().subList(0, Player.players.size()).clear();
 	        
 	    	game.setOnline(true);
-	    	System.out.println(ClientHandler.clientHandlers.size() + "client");	
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
-	    	main.updatePlayerName(message);
+	    	main.updatePlayerName(this.username);
 	    	this.view = main;
+	    	System.out.println("ClientName : " + this.username + ", PlayerOfClient name: " + this.playerOfClient.getUserName()  );
 	    	main.setVisible(true);
 
 			
 			}
 		
-		if (msgList.get(0).equals("UPDATENAME") && this.view instanceof MainGameFrame ) {
-			((MainGameFrame) this.view).updatePlayerName(msgList.get(1));
+		if (msgList.get(0).equals("NAME")  ) {
+			this.username = msgList.get(1);
+			
 			
 		}
 		
@@ -355,6 +366,76 @@ public class Client {
 		this.view = view;
 	}
 
+
+
+
+	public static Client getInstance() {
+		return instance;
+	}
+
+
+
+
+	public static void setInstance(Client instance) {
+		Client.instance = instance;
+	}
+
+
+
+
+	public BufferedReader getBufferedReader() {
+		return bufferedReader;
+	}
+
+
+
+
+	public void setBufferedReader(BufferedReader bufferedReader) {
+		this.bufferedReader = bufferedReader;
+	}
+
+
+
+
+	public BufferedWriter getBufferedWriter() {
+		return bufferedWriter;
+	}
+
+
+
+
+	public void setBufferedWriter(BufferedWriter bufferedWriter) {
+		this.bufferedWriter = bufferedWriter;
+	}
+
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+
+
+	public Player getPlayerOfClient() {
+		return playerOfClient;
+	}
+
+
+
+
+	public void setPlayerOfClient(Player playerOfClient) {
+		this.playerOfClient = playerOfClient;
+	}
+	
 	
 	
 		

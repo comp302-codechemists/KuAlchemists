@@ -273,6 +273,16 @@ public class KUAlchemistsGame {
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
 	}
+
+
+	public static Client getClient() {
+		return client;
+	}
+
+
+	public static void setClient(Client client) {
+		KUAlchemistsGame.client = client;
+	}
 	
 	
 

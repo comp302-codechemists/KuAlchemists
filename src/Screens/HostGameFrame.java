@@ -58,16 +58,14 @@ public class HostGameFrame extends MagicFrame{
 	    
 	    private void startGameButtonClicked() {
 	    	PlaySong.play("ButtonClick");
-	    	for (ClientHandler client : ClientHandler.clientHandlers) {
-	    		String avatarPath = "avatar" + client.clientUsername.charAt(client.clientUsername.length() - 1);
-	    		client.broadCastAll("JOIN," + client.clientUsername + "," +  avatarPath  );
-	    	}
-
+	    	
+	      
 	    	PlayGameController playGameController = new PlayGameController();
 	    	game = KUAlchemistsGame.getInstance(Server.playerCount);
-	    	
+	    	KUAlchemistsGame.instance.setClient(Client.instance);
+		    KUAlchemistsGame.instance.setOnline(true);
             StartGameController startGameController = new StartGameController(game);
-            game.setNumberOfPlayers(Server.playerCount);
+           
 
 	    	if (Player.players.size() == 2) {
 	    		String p1name = Player.players.get(0).getUserName();
@@ -123,17 +121,24 @@ public class HostGameFrame extends MagicFrame{
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
 	    	
 	    	this.dispose();
-	    	ClientHandler.clientHandlers.get(0).broadCastMessage("MAINBOARD");
-	    	
 	    	for (ClientHandler client : ClientHandler.clientHandlers) {
 	    		client.broadCastItself("UPDATENAME," + client.clientUsername);
 	    	}
+	    	ClientHandler.clientHandlers.get(0).sendAllTheirNames();
+	    	ClientHandler.clientHandlers.get(0).broadCastMessage("MAINBOARD," + String.valueOf(Server.playerCount));
+	    	
+	    	
 	    	main.updatePlayerName("Player 1");
-	    	game.getPlayers().subList(0, Player.players.size()).clear();
-	    	System.out.println(game.getPlayers()+ "admin");	
+	    	System.out.println("--This is the host--  playerName: " + Client.playerOfClient.getUserName() + " ClientName: " + Client.instance.getUsername());
 
 
 }
+	    	else {
+	    		System.out.println("We have a problem with player and ClientHandler synchronization dawg");
+	    		System.out.println("The ClientHandler size:  " + ClientHandler.clientHandlers.size());
+	    		System.out.println("The PlayerList size:  " + Player.players.size());
+
+	    	}
 	    	
 
 

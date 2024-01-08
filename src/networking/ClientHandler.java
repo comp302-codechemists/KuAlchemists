@@ -38,7 +38,7 @@ public class ClientHandler implements Runnable{
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			this.clientUsername = bufferedReader.readLine();
 			clientHandlers.add(this);
-			this.clientUsername = Integer.toString(z);
+			this.clientUsername = "Player " +  Integer.toString(z);
 			z+=1;
 			
 		
@@ -63,13 +63,29 @@ public class ClientHandler implements Runnable{
 				ArrayList<String> msgList = new ArrayList<>(Arrays.asList(splitArray));
 				
 				if(msgList.get(0).equals("SPESIFIC")) {
-					singleMessage(msgList.get(1),msgList.get(2));
+					int i;
+					String restOfMessage = "";
+					for (i = 2 ; i < msgList.size(); i++ ) {
+						restOfMessage += ",";
+						restOfMessage += msgList.get(i);
+						
+					}
+					toSingleClientMessage(msgList.get(1),restOfMessage);
 				}
 				else if(msgList.get(0).equals("ALL")) {
-					broadCastAll(msgList.get(1));
+					int i;
+					String restOfMessage = "";
+					for (i = 1 ; i < msgList.size(); i++ ) {
+						restOfMessage += ",";
+						restOfMessage += msgList.get(i);
+						
+					}
+					broadCastAll(restOfMessage);
 					
 				}
+				else {
 				broadCastMessage(messageFromClient);
+				}
 			}
 			catch (IOException e) {
 				closeEverything(socket, bufferedReader, bufferedWriter);
@@ -82,8 +98,7 @@ public class ClientHandler implements Runnable{
 	public void broadCastMessage(String messageToSend) {
 		
 		
-		
-		System.out.println(messageToSend);
+		System.out.println("Broadcasting to except itself:" + messageToSend);
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
 				if (!clientHandler.clientUsername.equals(clientUsername)) {
@@ -125,6 +140,7 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void broadCastAll(String messageToSend) {
+		System.out.println("Broadcasting to All: " + messageToSend );
 		
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
@@ -146,9 +162,10 @@ public class ClientHandler implements Runnable{
 	}
 	
 	public void broadCastItself(String messageToSend) {
+		System.out.println(this.clientUsername + " is broadcasting itself: " + messageToSend);
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
-				if (clientHandler.clientUsername.equals(clientUsername)) {
+				if (clientHandler.clientUsername.equals(this.clientUsername)) {
 					
 					clientHandler.bufferedWriter.write(messageToSend);
 					clientHandler.bufferedWriter.newLine();
@@ -165,10 +182,11 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
-	public void singleMessage(String messageToSend, String username) {
+	public void toSingleClientMessage(String username, String messageToSend) {
+		System.out.println("Broadcasting to only " + username + ": " + messageToSend);
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
-				if (clientHandler.clientUsername.equals(clientUsername)) {
+				if (clientHandler.clientUsername.equals(username)) {
 					
 					clientHandler.bufferedWriter.write(messageToSend);
 					clientHandler.bufferedWriter.newLine();
