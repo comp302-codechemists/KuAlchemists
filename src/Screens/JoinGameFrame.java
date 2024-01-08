@@ -80,7 +80,7 @@ public class JoinGameFrame extends MagicFrame {
 	            
 	                Socket socket = new Socket("localhost",1271);
 	                Client newClient = new Client(socket,this);
-	                
+	        Client.instance = newClient;       
 	        KUAlchemistsGame.instance.client = newClient;
 	        KUAlchemistsGame.instance.client.sendMessage("LOBBYJOIN");
 	        joinButton.setEnabled(false);

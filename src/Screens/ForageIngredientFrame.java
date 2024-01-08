@@ -21,6 +21,7 @@ import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.ForageController;
 import DesignSystem.ArtisticButton;
+import networking.Client;
 import soundEffects.PlaySong;
 
 public class ForageIngredientFrame extends FunctionalFrame
@@ -83,9 +84,15 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    	JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.WARNING_MESSAGE);
 			    }
 			    
-			    // Close the frame
+			    if (KUAlchemistsGame.instance.isOnline()) {
+			    	System.out.println("Ingredient Taken: " + takenIngredient);
+			    	System.out.println("After foraging: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
+		
+			    	Client.instance.sendMessage("FORAGE");
+			    }
 			    ForageIngredientFrame.this.dispose();
-			    new MainGameFrame(game);
+			    MainGameFrame newMain = new MainGameFrame(game);
+			    Client.instance.setView(newMain);
 			}
 
 

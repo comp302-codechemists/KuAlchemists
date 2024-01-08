@@ -16,6 +16,7 @@ import Business.Artifact;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Controllers.ForageController;
 import Controllers.PauseController;
 import Controllers.PlayGameController;
 import Controllers.StartGameController;
@@ -138,6 +139,18 @@ public class Client {
 			 
 		}
 		
+		if (message.equals("FORAGE")) {
+			 ForageController controller = new ForageController(KUAlchemistsGame.instance);
+			String takenIngredient =  controller.handleForage();
+			System.out.println(takenIngredient);
+			if(this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
+				this.view.dispose();
+				new PlayerDashboardFrame(KUAlchemistsGame.instance);
+		    	System.out.println("After foraging done by prev player: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
+
+			}
+		}
+		
 		if(msgList.get(0).equals("ARTIFACTSTORAGE")) {
 			List<Artifact> newArtiList = new ArrayList<Artifact>();
 			for(int i =1; i< msgList.size() ; i++) {
@@ -166,21 +179,21 @@ public class Client {
 		
 		
 		
-		if (msgList.get(0).equals("PAUSE")) {
-			if (KUAlchemistsGame.instance.isPaused() == false) {
-				KUAlchemistsGame.instance.pause();
+	//	if (msgList.get(0).equals("PAUSE")) {
+		//	if (KUAlchemistsGame.instance.isPaused() == false) {
+			//	KUAlchemistsGame.instance.pause();
 
-			}
-		}
+		//	}
+	//	}
 		
-		if (msgList.get(0).equals("RESUME")) {
-			if (KUAlchemistsGame.instance.isPaused() == true) {
-				PauseController controller = new PauseController();
-	            controller.pauseHandler();
+//		if (msgList.get(0).equals("RESUME")) {
+	//		if (KUAlchemistsGame.instance.isPaused() == true) {
+		//		PauseController controller = new PauseController();
+	      //      controller.pauseHandler();
 
-			} 
+//			} 
 			
-		}
+	//	}
 		
 		if(msgList.get(0).equals("MAINBOARD")) {
 			
