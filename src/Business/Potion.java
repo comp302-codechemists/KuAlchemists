@@ -9,6 +9,7 @@ package Business;
 
 public class Potion {
 	
+	
 	public static final String[] potions = {"m-", "m+", "y-",
 			"y+", "k-", "k+", "0"};
 	
@@ -21,6 +22,7 @@ public class Potion {
 	public String getName() {
 		return name;
 	}
+
 
 	public void setName(String name) {
 		this.name = name;
@@ -47,18 +49,6 @@ public class Potion {
 	
 	public static Potion makePotion(Ingredient ingredientOne, Ingredient ingredientTwo)
 	{
-		/**
-		 * Calculates the resulting potion depending on the given ingredients.
-		 * 
-		 * Requires:
-		 *   * Two ingredients.
-		 * Modifies:
-		 *   * None.
-		 * Effects:
-		 *   *	  Depending on the size and and the magnitude aspects of the given ingredients
-		 *   A potion is created and returned
-		 *   
-		 */
 		Potion potion = new Potion("0");
 		
 		for (Aspect ingredientOneAspect: ingredientOne.getToken().getTokenAspects())

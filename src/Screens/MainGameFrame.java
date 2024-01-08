@@ -295,9 +295,7 @@ public class MainGameFrame extends GeneralFrame{
 				gameLogArea.revalidate();
 				gameLogArea.repaint();
 				
-				if (KUAlchemistsGame.instance.isOnline()) {
-					// ClientHandler clientHandler = new ClientHandler(Client.socketStatic,"lol","PAUSE");
-				}
+				
 
 			}
 		});

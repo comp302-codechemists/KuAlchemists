@@ -64,7 +64,6 @@ public class ForageIngredientFrame extends FunctionalFrame
 		button.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String actionPlayer = KUAlchemistsGame.instance.currentPlayer.getUserName();
 			    ForageController controller = new ForageController(game);
                 PlaySong.play("DrawCard");
 			    String takenIngredient = controller.handleForage();
@@ -86,18 +85,7 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    
 			    // Close the frame
 			    ForageIngredientFrame.this.dispose();
-			    
-			    
-			    if (KUAlchemistsGame.instance.isOnline()) {
-			    	KUAlchemistsGame.client.sendMessage("FORAGE," + actionPlayer + "," + takenIngredient);
-			    	KUAlchemistsGame.client.sendMessage("ALL,ENDTURN");
-			    	
-			    }
-			    else {
-				    new MainGameFrame(game);
-
-			    	
-			    }
+			    new MainGameFrame(game);
 			}
 
 

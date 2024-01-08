@@ -2,11 +2,19 @@ package Business;
 
 public class Experiment 
 {
+	private enum Exp_ID {
+		NEGATIVE_STUDENT,
+		NEGATIVE_SELF,
+		MADE_SICK,
+		NO_EFFECT
+	}
+	
 	private Player owner;
 	private Ingredient ingredientOne;
 	private Ingredient ingredientTwo;
 	private int whereToTest;
 	private Potion resultPotion;
+	private Exp_ID exp_id;
 	
 	public Potion getResultPotion() {
 		return resultPotion;
@@ -18,6 +26,7 @@ public class Experiment
 		this.ingredientOne = ingredientOne;
 		this.ingredientTwo = ingredientTwo;
 		this.whereToTest = whereToTest;
+	
 		
 		makeExperiment();
 	}
@@ -53,6 +62,12 @@ public class Experiment
 	public void setWhereToTest(int whereToTest) {
 		this.whereToTest = whereToTest;
 	}
+	
+	
+	public Exp_ID getExp_id() {
+		return exp_id;
+	}
+
 
 	public void makeExperiment() {
 
@@ -64,6 +79,33 @@ public class Experiment
 	}
 	
 	public void testExperiment() {
+		
+		if (resultPotion.isPositive()) { // Player tested positive, nothing changes.
+			exp_id = Exp_ID.NO_EFFECT;
+			return;
+		}
+		
+		else {
+			if (whereToTest == 1) { // Player tested negative on student.
+				owner.updateBalance(-1);
+				exp_id = Exp_ID.NEGATIVE_STUDENT;
+			}
+			
+			else if (whereToTest == 2) { // Player tested negative on self.
+				owner.setSicknessLevel(owner.getSicknessLevel() + 1);
+				exp_id = Exp_ID.NEGATIVE_SELF;
+			}
+			else { // WhereToTest other than 1 or 2 was entered.
+				throw new IllegalArgumentException();
+			}
+		}
+		
+		if (owner.getSicknessLevel() == 3) { // Sickness level reached 3 after the experiment.
+			owner.setBalance(0);
+			exp_id = Exp_ID.MADE_SICK;
+		}
+		
+		/*
 		
 		if(!resultPotion.isPositive() && whereToTest == 1) 
 		{
@@ -80,6 +122,7 @@ public class Experiment
 		else {
 			throw new IllegalArgumentException();
 		}
+		*/
 			
 	}
 	
