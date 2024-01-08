@@ -6,17 +6,20 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import Business.Artifact;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.PauseController;
 import Controllers.PlayGameController;
 import Controllers.StartGameController;
+import Factories.ArtifactFactory;
 import Screens.*;
 import uiHelpers.MagicFrame;
 
@@ -106,25 +109,79 @@ public class Client {
 	public void messageProtocol(String message) {
 		String[] splitArray = message.split(",");
 		ArrayList<String> msgList = new ArrayList<>(Arrays.asList(splitArray));
-		if (msgList.get(0).equals("JOIN")) {
-		
-			 
-			 Player newPlayer = new Player(msgList.get(1), msgList.get(2));
-			 boolean doesContain = false;
-			 
-			 for (Player player: Player.players) {
-				 if (player.getUserName().equals(newPlayer.getUserName())) {
-					 doesContain = true;
 					 
-				 }
+		 
 
-			 }
-			 if (doesContain == false) {
-	            Player.players.add(newPlayer);
+		
+		if (msgList.get(0).equals("NAME")  ) {
+			this.username = msgList.get(1);
+			
+			
+		}
+		
+		if(msgList.get(0).equals("COUNTDOWN")) {
+			SwingUtilities.invokeLater(new Runnable() {
+	            @Override
+	            public void run() {
+	                new CountDownFrame().setVisible(true);
 	            }
-	            }
+	        });
+		}
+		
+		if (message.equals("LOBBYJOIN")) {
+			 if (view instanceof HostGameFrame) {
+				 ((HostGameFrame) this.view).updateChat("A player has joined the server!");
+		            
+		            
+		         }
 			 
 			 
+		}
+		
+		if(msgList.get(0).equals("ARTIFACTSTORAGE")) {
+			List<Artifact> newArtiList = new ArrayList<Artifact>();
+			for(int i =1; i< msgList.size() ; i++) {
+				System.out.println("Client artifact loop:" + msgList.get(i));
+
+				newArtiList.add(ArtifactFactory.getInstance().getArtifacts(msgList.get(i)));
+			}
+			KUAlchemistsGame.instance.getArtifactStorage().artifactList = newArtiList;
+	    	System.out.println(this.getUsername() + " " + Client.playerOfClient.getUserName() + " :" +  KUAlchemistsGame.instance.getArtifactStorage().artifactList);
+		}
+		
+		if (msgList.get(0).equals("INGREDIENTSTORAGE")) {
+			List<Ingredient> newIngList = new ArrayList<Ingredient>();
+			for(int i =1; i< msgList.size() ; i++) {
+				System.out.println("Client ingredient loop:" + msgList.get(i));
+				newIngList.add(Ingredient.getIngredient(msgList.get(i)));
+			}
+			KUAlchemistsGame.instance.getIngredientStorage().ingredientList = newIngList;
+	    	System.out.println(this.getUsername() + " " + Client.playerOfClient.getUserName() + " :" +  KUAlchemistsGame.instance.getIngredientStorage().ingredientList);
+
+			
+		}
+		
+
+
+		
+		
+		
+		if (msgList.get(0).equals("PAUSE")) {
+			if (KUAlchemistsGame.instance.isPaused() == false) {
+				KUAlchemistsGame.instance.pause();
+
+			}
+		}
+		
+		if (msgList.get(0).equals("RESUME")) {
+			if (KUAlchemistsGame.instance.isPaused() == true) {
+				PauseController controller = new PauseController();
+	            controller.pauseHandler();
+
+			} 
+			
+		}
+		
 		if(msgList.get(0).equals("MAINBOARD")) {
 			
 			
@@ -202,84 +259,13 @@ public class Client {
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
 	    	main.updatePlayerName(this.username);
 	    	this.view = main;
-	    	System.out.println("ClientName : " + this.username + ", PlayerOfClient name: " + this.playerOfClient.getUserName()  );
+	    	System.out.println("ClientName : " + this.username + ", PlayerOfClient name: " + this.playerOfClient.getUserName());
+	    	
+
 	    	main.setVisible(true);
 
 			
 			}
-		
-		if (msgList.get(0).equals("NAME")  ) {
-			this.username = msgList.get(1);
-			
-			
-		}
-		
-		if(msgList.get(0).equals("COUNTDOWN")) {
-			SwingUtilities.invokeLater(new Runnable() {
-	            @Override
-	            public void run() {
-	                new CountDownFrame().setVisible(true);
-	            }
-	        });
-		}
-		
-		if (message.equals("LOBBYJOIN")) {
-			 if (view instanceof HostGameFrame) {
-				 ((HostGameFrame) this.view).updateChat("A player has joined the server!");
-		            
-		            
-		         }
-			 
-			 
-		}
-		
-		if (msgList.get(0).equals("TAKETURN")) {
-			if (view instanceof MainGameFrame) {
-				 ((MainGameFrame) this.view).dispose();
-		            
-		            
-		         }
-			this.view.dispose();
-			this.view = new PlayerDashboardFrame(KUAlchemistsGame.instance);
-			
-			
-			
-		}
-		
-		if(msgList.get(0).equals("FORAGE")) {
-			for (Player player: KUAlchemistsGame.instance.getPlayers()) {
-				if(player.getUserName().equals(msgList.get(1)))
-					player.addIngredient(Ingredient.getIngredient(msgList.get(2)));
-			}
-			this.view.dispose();
-			this.view = new MainGameFrame(KUAlchemistsGame.instance);
-		}
-		
-		if(msgList.get(0).equals("ENDTURN")) {
-			KUAlchemistsGame.instance.nextPlayer();
-			String userName = KUAlchemistsGame.instance.currentPlayer.getUserName();
-        	KUAlchemistsGame.instance.client.sendMessage("SPESIFIC,TAKETURN," + userName);
-        	this.view.dispose();
-			this.view = new MainGameFrame(KUAlchemistsGame.instance);
-		}
-		
-		
-		
-		if (msgList.get(0).equals("PAUSE")) {
-			if (KUAlchemistsGame.instance.isPaused() == false) {
-				KUAlchemistsGame.instance.pause();
-
-			}
-		}
-		
-		if (msgList.get(0).equals("RESUME")) {
-			if (KUAlchemistsGame.instance.isPaused() == true) {
-				PauseController controller = new PauseController();
-	            controller.pauseHandler();
-
-			} 
-			
-		}
 			 
 			
 		}

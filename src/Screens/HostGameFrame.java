@@ -1,6 +1,8 @@
 package Screens;
 import javax.swing.*;
 
+import Business.Artifact;
+import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.PlayGameController;
@@ -126,10 +128,45 @@ public class HostGameFrame extends MagicFrame{
 	    	}
 	    	ClientHandler.clientHandlers.get(0).sendAllTheirNames();
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage("MAINBOARD," + String.valueOf(Server.playerCount));
+	    	
+	    	
+	    	String ArtifactMessage = "ARTIFACTSTORAGE";
+	    	String IngredientMessage = "INGREDIENTSTORAGE";
+	    	for (Artifact artiz : KUAlchemistsGame.instance.getArtifactStorage().artifactList) {
+	    		 ArtifactMessage += "," + artiz.getName();
+	    	}
+	    	
+	    	for (Ingredient ingredient : KUAlchemistsGame.instance.getIngredientStorage().ingredientList) {
+	    		IngredientMessage += "," ;
+	    		 System.out.println("The ingred: " + ingredient.getName());
+	    		 IngredientMessage += ingredient.getName();
+	    	}
+	    	
+	    	
+	    	ClientHandler.clientHandlers.get(0).broadCastMessage(ArtifactMessage);
+	    	ClientHandler.clientHandlers.get(0).broadCastMessage(IngredientMessage);
+	    	
+	    	
+	    	
+	    	
+	    	
 	    	ClientHandler.clientHandlers.get(0).broadCastAll("COUNTDOWN");
 	    	
+	       	main.updatePlayerName("Player 1");
+	       	
+	    	// try {
+	          //  Thread.sleep(5000);
+	        // } catch (InterruptedException e) {
+	          //  e.printStackTrace();
+	       // }
 	    	
-	    	main.updatePlayerName("Player 1");
+	    	Client.instance.setView(main);
+	    	main.dispose();
+	    	new PlayerDashboardFrame(KUAlchemistsGame.instance);
+	    	
+	    	System.out.println(Client.instance.getUsername() + " " + Client.playerOfClient.getUserName() + " :" +  KUAlchemistsGame.instance.getArtifactStorage().artifactList);
+	    	System.out.println(Client.instance.getUsername() + " " + Client.playerOfClient.getUserName() + " :" +  KUAlchemistsGame.instance.getIngredientStorage().ingredientList);
+
 	    	System.out.println("--This is the host--  playerName: " + Client.playerOfClient.getUserName() + " ClientName: " + Client.instance.getUsername());
 
 
