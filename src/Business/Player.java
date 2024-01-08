@@ -302,7 +302,7 @@ public class Player {
 	public String transmuteIngredient(Ingredient ingredient) {
 		
 		System.out.println("");
-		System.out.println("Previous ingredients");
+		System.out.println("Previous ingredients of " + this.userName);
 		getIngredients().forEach(System.out::println);
 	    System.out.printf("Old Balance: %d%n",getBalance());
 	    
@@ -318,7 +318,7 @@ public class Player {
 		System.out.println("New ingredients");
 		getIngredients().forEach(System.out::println);
 		System.out.printf("New Balance: %d%n",getBalance());
-		System.out.printf("Ingredient %s is removed from the player's storage%n",ingredient.getName());
+		System.out.printf("Ingredient %s is removed from the " +this.userName + "'s storage%n",ingredient.getName());
 		GameEvent events = new GameEvent(null, this, GameEvent.EventID.TRANSMUTE_INGREDIENT);
 		
 		return ingredient.getName();

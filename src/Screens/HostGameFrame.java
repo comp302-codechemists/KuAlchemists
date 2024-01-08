@@ -140,6 +140,48 @@ public class HostGameFrame extends MagicFrame{
 	    		 IngredientMessage += ingredient.getName();
 	    	}
 	    	
+	    	String playerIngredients = "PLAYERINGREDIENTS";
+	    	
+	    	String player1Ingredients = ",Player 1";
+	    	String player2Ingredients = ",Player 2";
+	    	String player3Ingredients = ",Player 3";
+	    	String player4Ingredients = ",Player 4";
+	    	
+	    	for (Ingredient ingre1 : KUAlchemistsGame.instance.getPlayers().get(0).getIngredients()  ) {
+	    		player1Ingredients += ",";
+	    		player1Ingredients += ingre1.getName();
+	    		
+	    	}
+	    	
+	    	for (Ingredient ingre2 : KUAlchemistsGame.instance.getPlayers().get(1).getIngredients()  ) {
+	    		player2Ingredients += ",";
+	    		player2Ingredients += ingre2.getName();
+	    	}
+	    	
+	    	for (Ingredient ingre3 : KUAlchemistsGame.instance.getPlayers().get(2).getIngredients()  ) {
+	    		player3Ingredients += ",";
+	    		player3Ingredients += ingre3.getName();
+	    	}
+	    	
+	    	for (Ingredient ingre4 : KUAlchemistsGame.instance.getPlayers().get(3).getIngredients()  ) {
+	    		player4Ingredients += ",";
+	    		player4Ingredients += ingre4.getName();
+	    	}
+	    	System.out.println("Sending Ingredient List for Player 1: " +  KUAlchemistsGame.instance.getPlayers().get(0).getIngredients());
+	    	System.out.println("Sending Ingredient List for Player 2: " +  KUAlchemistsGame.instance.getPlayers().get(1).getIngredients());
+	    	System.out.println("Sending Ingredient List for Player 3: " +  KUAlchemistsGame.instance.getPlayers().get(2).getIngredients());
+	    	System.out.println("Sending Ingredient List for Player 4: " +  KUAlchemistsGame.instance.getPlayers().get(3).getIngredients());
+
+	    	Client.instance.sendMessage(playerIngredients+player1Ingredients);
+	    	Client.instance.sendMessage(playerIngredients+player2Ingredients);
+	    	Client.instance.sendMessage(playerIngredients+player3Ingredients);
+	    	Client.instance.sendMessage(playerIngredients+player4Ingredients);
+
+
+
+
+	    
+	    	
 	    	
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage(ArtifactMessage);
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage(IngredientMessage);
@@ -149,15 +191,11 @@ public class HostGameFrame extends MagicFrame{
 
 	    	
 	    	
-	    	ClientHandler.clientHandlers.get(0).broadCastAll("COUNTDOWN");
+	    	// ClientHandler.clientHandlers.get(0).broadCastAll("COUNTDOWN");
 	    	
 	       	main.updatePlayerName("Player 1");
 	       	
-	    	// try {
-	          //  Thread.sleep(5000);
-	        // } catch (InterruptedException e) {
-	          //  e.printStackTrace();
-	       // }
+	    
 	    	
 	    	Client.instance.setView(main);
 	    	main.dispose();

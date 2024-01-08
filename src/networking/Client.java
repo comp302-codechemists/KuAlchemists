@@ -20,6 +20,7 @@ import Controllers.ForageController;
 import Controllers.PauseController;
 import Controllers.PlayGameController;
 import Controllers.StartGameController;
+import Controllers.TransmuteController;
 import Factories.ArtifactFactory;
 import Screens.*;
 import uiHelpers.MagicFrame;
@@ -32,6 +33,7 @@ public class Client {
 	private String username;
 	private JFrame view;
 	public static Player playerOfClient;
+	private int numberOfPlayers;
 	
 	public  <T extends JFrame> Client (Socket socket,T view) {
 		try {
@@ -91,13 +93,16 @@ public class Client {
 				while (socket.isConnected()) {
 					try {
 						msgFrom = bufferedReader.readLine();
-						messageProtocol(msgFrom);
-						if (username != null)
-							System.out.println(" Client named " + username + " recieved this message: " + msgFrom);
-						else
+						if (username != null) {
+							System.out.println(" Client named " + username + " recieved this message: " + msgFrom); 
+							}
+						else {
 							System.out.println("Client recieved this message: " + msgFrom);
+						}
+						messageProtocol(msgFrom);
 
 					}
+					
 					catch (IOException e) {
 						closeEverything(socket,bufferedReader, bufferedWriter); 
 					}
@@ -139,26 +144,83 @@ public class Client {
 			 
 		}
 		
-		if (message.equals("FORAGE")) {
-			System.out.println(KUAlchemistsGame.instance.currentPlayer.getUserName() + " did the foraging");
-			ForageController controller = new ForageController(KUAlchemistsGame.instance);
-			String takenIngredient =  controller.handleForage();
-			System.out.println(takenIngredient);
-			this.view.dispose();
+		if (msgList.get(0).equals("TRANSMUTE")) {
+			KUAlchemistsGame game = KUAlchemistsGame.getInstance(this.numberOfPlayers);
+			String theDude = game.currentPlayer.getUserName();
+			String theTransmuted = msgList.get(1);
+			
+			System.out.println(theDude + " before transmute: " + game.currentPlayer.getIngredients());
 
-			if(this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
-				new PlayerDashboardFrame(KUAlchemistsGame.instance);
-		    	System.out.println("After foraging done by prev player: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
-
+			TransmuteController controller = new TransmuteController(game);
+			controller.handleTransmute(msgList.get(1));
+			
+			for (Player pla : KUAlchemistsGame.instance.getPlayers()) {
+				if(pla.getUserName().equals(theDude)) {
+					System.out.println(theDude + " after transmute: " + pla.getIngredients() + " The transmuted: " + theTransmuted);
+					System.out.println(theDude + " balance : " + pla.getBalance());
+				}
 			}
+			System.out.println("Now the player is: " + game.currentPlayer.getUserName());
+			this.view.dispose();
+			if (this.username.equals(game.currentPlayer.getUserName())) {
+				new PlayerDashboardFrame(game);
+				
+				
+			}
+			
 			else {
-				MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
+			
+				MainGameFrame newMain = new MainGameFrame(game);
 				newMain.updatePlayerName(this.username);
 				this.view = newMain;
-				this.view.setVisible(true);
+				
 			}
 		}
-		
+		if (msgList.get(0).equals("PLAYERINGREDIENTS")) {
+			String player = msgList.get(1);
+			
+			List<Ingredient> newIngredients = new ArrayList<Ingredient>();
+			
+			for (int i = 2 ;  i <msgList.size() ; i++) {
+				Ingredient newOne = Ingredient.getIngredient(msgList.get(i));
+				newIngredients.add(newOne);
+			}
+			
+			for(Player dude : KUAlchemistsGame.instance.getPlayers()) {
+				if (dude.getUserName().equals(player)) {
+					System.out.println("Before the update :" + dude.getUserName() + "  " +  dude.getIngredients());
+
+					dude.setIngredients(newIngredients);
+					System.out.println("After the update :" + dude.getUserName() + "  " +  dude.getIngredients());
+
+				}
+			}
+
+		}
+		if (message.equals("FORAGE")) {
+		    System.out.println(KUAlchemistsGame.instance.currentPlayer.getUserName() + " did the foraging");
+
+		    ForageController controller = new ForageController(KUAlchemistsGame.instance);
+		    String takenIngredient =  controller.handleForage();
+		    System.out.println(KUAlchemistsGame.instance.getPlayers().get(0).getUserName());
+
+		    this.view.dispose();
+
+		    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
+		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
+		            newMain.updatePlayerName(this.username);
+		            this.view = newMain;
+		            this.view.setVisible(false);
+		            
+		            this.view.revalidate();
+		            this.view.repaint();
+		            this.view.setVisible(true);
+		    } 
+		    else {
+		    	 new PlayerDashboardFrame(KUAlchemistsGame.instance);
+		            System.out.println("After foraging done by prev player: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
+		      }
+		}
 		if(msgList.get(0).equals("ARTIFACTSTORAGE")) {
 			List<Artifact> newArtiList = new ArrayList<Artifact>();
 			for(int i =1; i< msgList.size() ; i++) {
@@ -203,7 +265,7 @@ public class Client {
 		
 		if(msgList.get(0).equals("MAINBOARD")) {
 			
-			
+			this.numberOfPlayers = Integer.parseInt(msgList.get(1));
 			for (int i = 1; i < ( 1 + Integer.parseInt(msgList.get(1)) ) ; i++) {
 				String playerUsername = "Player " + String.valueOf(i);
 				String avatarOf = "avatar" + String.valueOf(i);

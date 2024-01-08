@@ -83,13 +83,10 @@ public class ForageIngredientFrame extends FunctionalFrame
 				    	System.out.println("After foraging: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
 			
 				    	
-				    	if(ClientHandler.clientHandlers != null) {
-				    		ClientHandler.clientHandlers.get(0).broadCastMessage("FORAGE");
-				    	}
-				    	else {
+				   
 					    	Client.instance.sendMessage("FORAGE");
 
-				    	}
+				    	
 				    }
 				    ForageIngredientFrame.this.dispose();
 				    MainGameFrame newMain = new MainGameFrame(game);

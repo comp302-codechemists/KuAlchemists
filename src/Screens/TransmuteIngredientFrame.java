@@ -21,6 +21,7 @@ import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.TransmuteController;
 import DesignSystem.ArtisticButton;
+import networking.Client;
 
 public class TransmuteIngredientFrame extends FunctionalFrame{
 	
@@ -116,7 +117,11 @@ public class TransmuteIngredientFrame extends FunctionalFrame{
 	    {
 	    	String message = "Ingredient transmuted: " + transmutedIngredient;
 		    JOptionPane.showMessageDialog(null, message, "Ingredient Transmuted", JOptionPane.INFORMATION_MESSAGE);
+		    if (KUAlchemistsGame.instance.isOnline()) {
+		    Client.instance.sendMessage("TRANSMUTE," + transmutedIngredient);}
 	    }
+	    
+	    
 	    else
 	    {
 	    	String message = "Ingredient Storage is empty!";
@@ -124,7 +129,12 @@ public class TransmuteIngredientFrame extends FunctionalFrame{
 	    }
 	    
 	    // Close the frame
-	    new MainGameFrame(game);
+	    MainGameFrame main = new MainGameFrame (game);
+	    
+	    if (KUAlchemistsGame.instance.isOnline()) {
+	    	main.updatePlayerName(Client.instance.getUsername());
+	    	Client.instance.setView(main);
+	    	}
 	    TransmuteIngredientFrame.this.dispose();
 	}
 
