@@ -214,6 +214,15 @@ public class Client {
 			
 		}
 		
+		if(msgList.get(0).equals("COUNTDOWN")) {
+			SwingUtilities.invokeLater(new Runnable() {
+	            @Override
+	            public void run() {
+	                new CountDownFrame().setVisible(true);
+	            }
+	        });
+		}
+		
 		if (message.equals("LOBBYJOIN")) {
 			 if (view instanceof HostGameFrame) {
 				 ((HostGameFrame) this.view).updateChat("A player has joined the server!");

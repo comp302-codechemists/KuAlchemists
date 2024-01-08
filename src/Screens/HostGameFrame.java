@@ -126,6 +126,7 @@ public class HostGameFrame extends MagicFrame{
 	    	}
 	    	ClientHandler.clientHandlers.get(0).sendAllTheirNames();
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage("MAINBOARD," + String.valueOf(Server.playerCount));
+	    	ClientHandler.clientHandlers.get(0).broadCastAll("COUNTDOWN");
 	    	
 	    	
 	    	main.updatePlayerName("Player 1");
