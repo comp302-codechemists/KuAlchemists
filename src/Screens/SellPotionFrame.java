@@ -25,6 +25,7 @@ import Controllers.SellPotionController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
 import Exceptions.IngredientNotFoundException;
+import networking.Client;
 import soundEffects.PlaySong;
 
 public class SellPotionFrame extends FunctionalFrame{
@@ -118,6 +119,13 @@ public class SellPotionFrame extends FunctionalFrame{
         				JOptionPane.showMessageDialog(new JFrame(), "Please select 2 ingredients and give promise!",
         	                    "", JOptionPane.ERROR_MESSAGE);
         			}
+            	
+            	if (KUAlchemistsGame.instance.isOnline()){
+            		String messageToSend = "SELLPOTION," + selectedIngredients.get(0) + "," + selectedIngredients.get(1) + "," + selectedAspect;
+            		
+            		Client.instance.sendMessage(messageToSend);
+    	}
+            	
             	}
             }
         });    		

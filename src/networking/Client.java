@@ -19,8 +19,10 @@ import Business.Player;
 import Controllers.ForageController;
 import Controllers.PauseController;
 import Controllers.PlayGameController;
+import Controllers.SellPotionController;
 import Controllers.StartGameController;
 import Controllers.TransmuteController;
+import Exceptions.IngredientNotFoundException;
 import Factories.ArtifactFactory;
 import Screens.*;
 import uiHelpers.MagicFrame;
@@ -105,6 +107,9 @@ public class Client {
 					
 					catch (IOException e) {
 						closeEverything(socket,bufferedReader, bufferedWriter); 
+					} catch (IngredientNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 					
 					
@@ -112,7 +117,7 @@ public class Client {
 			}
 		}).start();
 	}
-	public void messageProtocol(String message) {
+	public void messageProtocol(String message) throws IngredientNotFoundException {
 		String[] splitArray = message.split(",");
 		ArrayList<String> msgList = new ArrayList<>(Arrays.asList(splitArray));
 					 
@@ -142,6 +147,30 @@ public class Client {
 		         }
 			 
 			 
+		}
+		
+		if (msgList.get(0).equals("SELLPOTION")) {
+			KUAlchemistsGame game = KUAlchemistsGame.getInstance(numberOfPlayers);
+			SellPotionController controller = new SellPotionController(game);
+			String firstIngredient = msgList.get(1);
+			String secondIngredient = msgList.get(2);
+			String promise = msgList.get(3);
+			
+			controller.handleSellPotion(firstIngredient, secondIngredient, promise);
+			this.view.dispose();
+
+			if (this.username.equals(game.currentPlayer.getUserName())) {
+				
+				new PlayerDashboardFrame(game);
+				
+				
+			}
+			else {
+				MainGameFrame newMain = new MainGameFrame(game);
+				newMain.updatePlayerName(this.username);
+				this.view = newMain;
+				
+			}
 		}
 		
 		if (msgList.get(0).equals("TRANSMUTE")) {

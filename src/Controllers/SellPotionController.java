@@ -2,6 +2,7 @@ package Controllers;
 
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
+import Business.Player;
 import Business.Potion;
 import Exceptions.IngredientNotFoundException;
 import Exceptions.NotFoundInStorageException;
@@ -38,6 +39,14 @@ public class SellPotionController {
 		{
 			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "0");
 		}
+		
+		for (Player player : game.getPlayers() ) {
+			if(player.getUserName().equals(game.currentPlayer.getUserName())) {
+				//player = game.currentPlayer;
+				player.setIngredients(game.currentPlayer.getIngredients());
+			}
+		}
+		
 		game.nextPlayer();
 		return payment;
 	}
