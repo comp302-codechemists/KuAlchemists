@@ -72,6 +72,8 @@ public class ClientHandler implements Runnable{
 					}
 					toSingleClientMessage(msgList.get(1),restOfMessage);
 				}
+				
+				
 				else if(msgList.get(0).equals("ALL")) {
 					int i;
 					String restOfMessage = "";
@@ -97,12 +99,12 @@ public class ClientHandler implements Runnable{
 	
 	public void broadCastMessage(String messageToSend) {
 		
-		
-		System.out.println("Broadcasting to except itself:" + messageToSend);
+		System.out.println("Sending message to everyone except " + clientUsername );
+
 		for (ClientHandler clientHandler: clientHandlers) {
 			try {
 				if (!clientHandler.clientUsername.equals(clientUsername)) {
-					
+					System.out.println(clientHandler.clientUsername + " is recieving the message " +  messageToSend );
 					clientHandler.bufferedWriter.write(messageToSend);
 					clientHandler.bufferedWriter.newLine();
 					clientHandler.bufferedWriter.flush();

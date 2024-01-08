@@ -4,6 +4,7 @@ import java.util.List;
 
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
+import Business.Player;
 import Business.IngredientStorage;
 
 public class TransmuteController {
@@ -38,6 +39,13 @@ public class TransmuteController {
 		for(Ingredient ingredient: game.currentPlayer.getIngredients()) {
 			if(ingredient.getName().equals(transmutedIngredientName)) {
 				String transmutedIngredient = game.currentPlayer.transmuteIngredient(ingredient);
+				for (Player player : game.getPlayers() ) {
+					if(player.getUserName().equals(game.currentPlayer.getUserName())) {
+						//player = game.currentPlayer;
+						player.setIngredients(game.currentPlayer.getIngredients());
+					}
+				}
+				
 				found = true;
 				game.nextPlayer();
 				return transmutedIngredient;

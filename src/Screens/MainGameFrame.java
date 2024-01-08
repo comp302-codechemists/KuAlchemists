@@ -165,7 +165,7 @@ public class MainGameFrame extends GeneralFrame{
 	}
 
 
-	private void setPlayersInfoTable()
+	public void setPlayersInfoTable()
 	{
 		playersInfoTable = new JTable();
 		int cols = game.getNumberOfPlayers() + 1;

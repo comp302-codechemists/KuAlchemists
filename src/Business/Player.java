@@ -509,7 +509,7 @@ public class Player {
 		setReputationPoints(getReputationPoints() + amount);
 	}	
 	
-	private void addIngredientCard(Ingredient ingredient) {
+	private synchronized void addIngredientCard(Ingredient ingredient) {
 		getIngredients().add(ingredient);
 	}
 		

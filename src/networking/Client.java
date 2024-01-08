@@ -199,21 +199,21 @@ public class Client {
 		}
 		if (message.equals("FORAGE")) {
 		    System.out.println(KUAlchemistsGame.instance.currentPlayer.getUserName() + " did the foraging");
+		    System.out.println("BEFORE " + KUAlchemistsGame.getInstance(numberOfPlayers).getIngredientStorage().getIngredientList());
 
-		    ForageController controller = new ForageController(KUAlchemistsGame.instance);
+		    ForageController controller = new ForageController(KUAlchemistsGame.getInstance(numberOfPlayers));
 		    String takenIngredient =  controller.handleForage();
-		    System.out.println(KUAlchemistsGame.instance.getPlayers().get(0).getUserName());
-
+		    System.out.println("AFTER " + KUAlchemistsGame.getInstance(numberOfPlayers).getIngredientStorage().getIngredientList());
 		    this.view.dispose();
 
 		    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
 		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
 		            newMain.updatePlayerName(this.username);
+		            newMain.setPlayersInfoTable();
 		            this.view = newMain;
-		            this.view.setVisible(false);
+		   
 		            
-		            this.view.revalidate();
-		            this.view.repaint();
+		           
 		            this.view.setVisible(true);
 		    } 
 		    else {

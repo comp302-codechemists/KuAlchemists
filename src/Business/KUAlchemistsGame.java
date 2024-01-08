@@ -10,10 +10,10 @@ import networking.*;
 
 public class KUAlchemistsGame {
 
-	public static KUAlchemistsGame instance;
+	public static volatile KUAlchemistsGame instance;
 	
 	// player related
-	private List<Player> players = new ArrayList<Player>();
+	private volatile List<Player> players = new ArrayList<Player>();
 	private int currentPlayerIndex;
 	public Player currentPlayer;
 	int numberOfPlayers;
@@ -76,7 +76,11 @@ public class KUAlchemistsGame {
 	
 	public static KUAlchemistsGame getInstance(int numberOfPlayers) {
 		if (instance == null) {
-			instance = new KUAlchemistsGame(numberOfPlayers);
+			synchronized(KUAlchemistsGame.class) {
+				if(instance == null) {
+					instance = new KUAlchemistsGame(numberOfPlayers);
+				}
+			}			
 		}
 		return instance;
 	}
