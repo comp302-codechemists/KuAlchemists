@@ -140,21 +140,28 @@ public class Client {
 		}
 		
 		if (message.equals("FORAGE")) {
-			 ForageController controller = new ForageController(KUAlchemistsGame.instance);
+			System.out.println(KUAlchemistsGame.instance.currentPlayer.getUserName() + " did the foraging");
+			ForageController controller = new ForageController(KUAlchemistsGame.instance);
 			String takenIngredient =  controller.handleForage();
 			System.out.println(takenIngredient);
+			this.view.dispose();
+
 			if(this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
-				this.view.dispose();
 				new PlayerDashboardFrame(KUAlchemistsGame.instance);
 		    	System.out.println("After foraging done by prev player: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
 
+			}
+			else {
+				MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
+				newMain.updatePlayerName(this.username);
+				this.view = newMain;
+				this.view.setVisible(true);
 			}
 		}
 		
 		if(msgList.get(0).equals("ARTIFACTSTORAGE")) {
 			List<Artifact> newArtiList = new ArrayList<Artifact>();
 			for(int i =1; i< msgList.size() ; i++) {
-				System.out.println("Client artifact loop:" + msgList.get(i));
 
 				newArtiList.add(ArtifactFactory.getInstance().getArtifacts(msgList.get(i)));
 			}
@@ -165,7 +172,6 @@ public class Client {
 		if (msgList.get(0).equals("INGREDIENTSTORAGE")) {
 			List<Ingredient> newIngList = new ArrayList<Ingredient>();
 			for(int i =1; i< msgList.size() ; i++) {
-				System.out.println("Client ingredient loop:" + msgList.get(i));
 				newIngList.add(Ingredient.getIngredient(msgList.get(i)));
 			}
 			KUAlchemistsGame.instance.getIngredientStorage().ingredientList = newIngList;

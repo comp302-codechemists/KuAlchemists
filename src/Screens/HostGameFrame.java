@@ -119,8 +119,7 @@ public class HostGameFrame extends MagicFrame{
 	    	this.game.setPlayers(nameList,avatarList);
 	    	if (Player.players.size() == ClientHandler.clientHandlers.size()) {
 	    	
-	    	game.setOnline(true);
-	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
+	    	KUAlchemistsGame.instance.setOnline(true);
 	    	
 	    	this.dispose();
 	    	for (ClientHandler client : ClientHandler.clientHandlers) {
@@ -138,7 +137,6 @@ public class HostGameFrame extends MagicFrame{
 	    	
 	    	for (Ingredient ingredient : KUAlchemistsGame.instance.getIngredientStorage().ingredientList) {
 	    		IngredientMessage += "," ;
-	    		 System.out.println("The ingred: " + ingredient.getName());
 	    		 IngredientMessage += ingredient.getName();
 	    	}
 	    	
@@ -147,7 +145,8 @@ public class HostGameFrame extends MagicFrame{
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage(IngredientMessage);
 	    	
 	    	
-	    	
+	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
+
 	    	
 	    	
 	    	ClientHandler.clientHandlers.get(0).broadCastAll("COUNTDOWN");
@@ -164,8 +163,6 @@ public class HostGameFrame extends MagicFrame{
 	    	main.dispose();
 	    	new PlayerDashboardFrame(KUAlchemistsGame.instance);
 	    	
-	    	System.out.println(Client.instance.getUsername() + " " + Client.playerOfClient.getUserName() + " :" +  KUAlchemistsGame.instance.getArtifactStorage().artifactList);
-	    	System.out.println(Client.instance.getUsername() + " " + Client.playerOfClient.getUserName() + " :" +  KUAlchemistsGame.instance.getIngredientStorage().ingredientList);
 
 	    	System.out.println("--This is the host--  playerName: " + Client.playerOfClient.getUserName() + " ClientName: " + Client.instance.getUsername());
 

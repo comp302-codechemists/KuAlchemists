@@ -22,6 +22,7 @@ import Business.Player;
 import Controllers.ForageController;
 import DesignSystem.ArtisticButton;
 import networking.Client;
+import networking.ClientHandler;
 import soundEffects.PlaySong;
 
 public class ForageIngredientFrame extends FunctionalFrame
@@ -77,6 +78,25 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    	ImageIcon icon = new ImageIcon(newImage);
 				    JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.INFORMATION_MESSAGE, icon);
 				    
+				    if (KUAlchemistsGame.instance.isOnline()) {
+				    	System.out.println("Ingredient Taken: " + takenIngredient);
+				    	System.out.println("After foraging: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
+			
+				    	
+				    	if(ClientHandler.clientHandlers != null) {
+				    		ClientHandler.clientHandlers.get(0).broadCastMessage("FORAGE");
+				    	}
+				    	else {
+					    	Client.instance.sendMessage("FORAGE");
+
+				    	}
+				    }
+				    ForageIngredientFrame.this.dispose();
+				    MainGameFrame newMain = new MainGameFrame(game);
+				    if (KUAlchemistsGame.instance.isOnline()) {
+				    	newMain.updatePlayerName(Client.instance.getUsername());
+				    	Client.instance.setView(newMain);
+				    	}
 			    }
 			    else
 			    {
@@ -84,15 +104,7 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    	JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.WARNING_MESSAGE);
 			    }
 			    
-			    if (KUAlchemistsGame.instance.isOnline()) {
-			    	System.out.println("Ingredient Taken: " + takenIngredient);
-			    	System.out.println("After foraging: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
-		
-			    	Client.instance.sendMessage("FORAGE");
-			    }
-			    ForageIngredientFrame.this.dispose();
-			    MainGameFrame newMain = new MainGameFrame(game);
-			    Client.instance.setView(newMain);
+			   
 			}
 
 
