@@ -78,7 +78,7 @@ public class JoinGameFrame extends MagicFrame {
 	        PlaySong.play("ButtonClick");
 	        String IP = IPAdress.getText();
 	            
-	                Socket socket = new Socket(IP,1271);
+	                Socket socket = new Socket("localhost",1271);
 	                Client newClient = new Client(socket,this);
 	        Client.instance = newClient;       
 	        KUAlchemistsGame.instance.client = newClient;

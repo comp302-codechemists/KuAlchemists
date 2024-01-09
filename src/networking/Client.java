@@ -9,7 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 import Business.Artifact;
@@ -17,6 +19,7 @@ import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.ForageController;
+import Controllers.MakeExperimentController;
 import Controllers.PauseController;
 import Controllers.PlayGameController;
 import Controllers.SellPotionController;
@@ -227,13 +230,14 @@ public class Client {
 
 		}
 		if (message.equals("FORAGE")) {
+		    this.view.dispose();
+
 		    System.out.println(KUAlchemistsGame.instance.currentPlayer.getUserName() + " did the foraging");
 		    System.out.println("BEFORE " + KUAlchemistsGame.getInstance(numberOfPlayers).getIngredientStorage().getIngredientList());
 
 		    ForageController controller = new ForageController(KUAlchemistsGame.getInstance(numberOfPlayers));
 		    String takenIngredient =  controller.handleForage();
 		    System.out.println("AFTER " + KUAlchemistsGame.getInstance(numberOfPlayers).getIngredientStorage().getIngredientList());
-		    this.view.dispose();
 
 		    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
 		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
@@ -250,6 +254,77 @@ public class Client {
 		            System.out.println("After foraging done by prev player: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
 		      }
 		}
+		
+		if (msgList.get(0).equals("MAKEEXPERIMENT")){
+			String theResponsiblePlayer = KUAlchemistsGame.instance.getCurrentPlayer().getUserName();
+			MakeExperimentController controller = new MakeExperimentController(KUAlchemistsGame.instance);
+			List<String> selectedIngredients = new ArrayList<String>();
+		    this.view.dispose();
+
+			String resultToken = "";
+;			String keptIngredient = "";
+			boolean haveMagicMortar;
+			if(msgList.get(1).equals("YES")) {
+				haveMagicMortar = true;
+				 keptIngredient = msgList.get(5);
+			}
+			else {
+				haveMagicMortar = false;
+			}
+		
+			selectedIngredients.add(msgList.get(2));
+			selectedIngredients.add(msgList.get(3));
+
+			int selection = Integer.parseInt(msgList.get(4)); 
+			
+			
+			if (selection == 1)
+			{
+				resultToken = (haveMagicMortar ?
+								controller.handleExperiment(selectedIngredients, 1, keptIngredient) :
+									controller.handleExperiment(selectedIngredients, 1));
+			}
+			else
+			{
+				resultToken = (haveMagicMortar ?
+								controller.handleExperiment(selectedIngredients, 2, keptIngredient) :
+									controller.handleExperiment(selectedIngredients, 2));
+			}
+			
+			String imagePath = "/potionImages/" + resultToken + ".png";
+
+		    ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
+		    // JOptionPane.showMessageDialog(null, "", "Experiment Result of Player " + theResponsiblePlayer, JOptionPane.INFORMATION_MESSAGE, icon);
+
+		    
+		    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
+		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
+		            newMain.updatePlayerName(this.username);
+		            newMain.setPlayersInfoTable();
+		            this.view = newMain;
+		           
+		   
+		            
+		           
+		            this.view.setVisible(true);
+		    } 
+		    
+		    else {
+		    	 new PlayerDashboardFrame(KUAlchemistsGame.instance);
+		    	
+		    }
+		    
+	    	 System.out.println("I am client: " + this.username + " Make experiment by previous player: " + theResponsiblePlayer + " The resultToken: " + resultToken);
+
+		}
+		
+
+		
+		
+		
+		
+		
+		
 		if(msgList.get(0).equals("ARTIFACTSTORAGE")) {
 			List<Artifact> newArtiList = new ArrayList<Artifact>();
 			for(int i =1; i< msgList.size() ; i++) {

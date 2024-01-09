@@ -367,7 +367,6 @@ public class MainGameFrame extends GeneralFrame{
 	public void setStartGameButton() {
 		startGameButton = new GameButton("Start!");
 		startGameButton.setBounds(650, 330, 150, 30);
-		backgroundPanel.add(startGameButton);
 		
 		startGameButton.addActionListener(new ActionListener() {
             @Override

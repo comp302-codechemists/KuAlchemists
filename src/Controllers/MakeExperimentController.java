@@ -6,6 +6,7 @@ import java.util.List;
 import Business.Experiment;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
+import Business.Player;
 import Business.Potion;
 
 public class MakeExperimentController {
@@ -37,6 +38,13 @@ public class MakeExperimentController {
 	{
 		Potion potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest); 
 		System.out.println("Potion: " + potion.getName());
+		
+		for (Player player : game.getPlayers() ) {
+			if(player.getUserName().equals(game.currentPlayer.getUserName())) {
+				//player = game.currentPlayer;
+				player.setIngredients(game.currentPlayer.getIngredients());
+			}
+		}
 		game.nextPlayer();
 		return potion.getName();
 	}
@@ -49,6 +57,13 @@ public class MakeExperimentController {
 	{
 		Potion potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest, keptIngredient); 
 		System.out.println("Potion: " + potion.getName());
+		
+		for (Player player : game.getPlayers() ) {
+			if(player.getUserName().equals(game.currentPlayer.getUserName())) {
+				//player = game.currentPlayer;
+				player.setIngredients(game.currentPlayer.getIngredients());
+			}
+		}
 		game.nextPlayer();
 		return potion.getName();
 	}
