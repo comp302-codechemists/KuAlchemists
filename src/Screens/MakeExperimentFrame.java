@@ -167,7 +167,11 @@ public class MakeExperimentFrame extends FunctionalFrame {
 			Client.instance.sendMessage(messageToSend);
 		}
 
-		new MainGameFrame(game);
+		MainGameFrame main = new MainGameFrame(game);
+		if (KUAlchemistsGame.instance.isOnline()) {
+			main.updatePlayerName(Client.instance.getUsername());
+	    	Client.instance.setView(main);
+	    	}
 		MakeExperimentFrame.this.dispose();
 
 	}

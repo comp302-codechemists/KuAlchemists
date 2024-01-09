@@ -230,14 +230,13 @@ public class Client {
 
 		}
 		if (message.equals("FORAGE")) {
-		    this.view.dispose();
-
 		    System.out.println(KUAlchemistsGame.instance.currentPlayer.getUserName() + " did the foraging");
 		    System.out.println("BEFORE " + KUAlchemistsGame.getInstance(numberOfPlayers).getIngredientStorage().getIngredientList());
 
 		    ForageController controller = new ForageController(KUAlchemistsGame.getInstance(numberOfPlayers));
 		    String takenIngredient =  controller.handleForage();
 		    System.out.println("AFTER " + KUAlchemistsGame.getInstance(numberOfPlayers).getIngredientStorage().getIngredientList());
+		    this.view.dispose();
 
 		    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
 		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
@@ -266,7 +265,7 @@ public class Client {
 			boolean haveMagicMortar;
 			if(msgList.get(1).equals("YES")) {
 				haveMagicMortar = true;
-				 keptIngredient = msgList.get(5);
+				keptIngredient = msgList.get(5);
 			}
 			else {
 				haveMagicMortar = false;
@@ -305,9 +304,7 @@ public class Client {
 		           
 		   
 		            
-		           
-		            this.view.setVisible(true);
-		    } 
+		           		    } 
 		    
 		    else {
 		    	 new PlayerDashboardFrame(KUAlchemistsGame.instance);
