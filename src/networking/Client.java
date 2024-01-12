@@ -182,6 +182,16 @@ public class Client {
 			
 		}
 		
+		if(msgList.get(0).equals("RESUME")) {
+			KUAlchemistsGame.instance.resume();
+
+		}
+		
+		if(msgList.get(0).equals("PAUSE")) {
+			KUAlchemistsGame.instance.pause();
+			
+		}
+		
 		if (msgList.get(0).equals("DEBUNK")) {
 			KUAlchemistsGame game = KUAlchemistsGame.getInstance(numberOfPlayers);
 			DebunkTheoryController controller = new DebunkTheoryController(game);

@@ -292,6 +292,10 @@ public class MainGameFrame extends GeneralFrame{
 	        public void actionPerformed(ActionEvent e) {
                 PlaySong.play("ButtonClick");
 				KUAlchemistsGame.instance.pause();
+				
+				if (KUAlchemistsGame.instance.isOnline()) {
+					Client.instance.sendMessage("PAUSE");
+				}
 				gameLogArea.revalidate();
 				gameLogArea.repaint();
 				
