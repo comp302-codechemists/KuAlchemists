@@ -21,6 +21,7 @@ import Business.Token;
 import Controllers.PublishTheoryController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
+import networking.Client;
 import soundEffects.PlaySong;
 
 public class PublishTheoryFrame extends FunctionalFrame {
@@ -76,8 +77,20 @@ public class PublishTheoryFrame extends FunctionalFrame {
     	{
     		controller = new PublishTheoryController(game);
     		controller.handlePublish(selectedMarker,selectedTheory);
-    		new MainGameFrame(game);
+    		MainGameFrame newMain = new MainGameFrame(game);
     	    PublishTheoryFrame.this.dispose();
+    	    
+    	  //  if (KUAlchemistsGame.instance.isOnline()) {
+		    //	newMain.updatePlayerName(Client.instance.getUsername());
+		    	// Client.instance.setView(newMain);
+		    	//}
+    	    
+    	    if(game.isOnline()) {
+    	    	String messageToSend = "PUBLISH," + selectedMarker + "," + selectedTheory;
+    	    	Client.instance.sendMessage(messageToSend);
+    	    	newMain.updatePlayerName(Client.instance.getUsername());
+    	    	Client.instance.setView(newMain);
+    	    } 
     	}
     }
     private void initializeSelectedMarkerLabel() 

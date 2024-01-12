@@ -22,6 +22,7 @@ import Controllers.ForageController;
 import Controllers.MakeExperimentController;
 import Controllers.PauseController;
 import Controllers.PlayGameController;
+import Controllers.PublishTheoryController;
 import Controllers.SellPotionController;
 import Controllers.StartGameController;
 import Controllers.TransmuteController;
@@ -152,8 +153,37 @@ public class Client {
 			 
 		}
 		
+		if (msgList.get(0).equals("PUBLISH")) {
+			KUAlchemistsGame game = KUAlchemistsGame.getInstance(numberOfPlayers);
+
+			String selectedMarker = msgList.get(1);
+			String selectedTheory = msgList.get(2);
+			PublishTheoryController controller = new PublishTheoryController(game);
+		
+    		controller.handlePublish(selectedMarker,selectedTheory);
+			this.view.dispose();
+
+			if (this.username.equals(game.currentPlayer.getUserName())) {
+				this.view.dispose();
+				new PlayerDashboardFrame(game);
+				
+				
+			}
+			
+			else {
+				this.view.dispose();
+				MainGameFrame newMain = new MainGameFrame(game);
+				newMain.updatePlayerName(this.username);
+				this.view = newMain;
+				
+			}
+    		
+			
+		}
+		
 		if (msgList.get(0).equals("SELLPOTION")) {
 			KUAlchemistsGame game = KUAlchemistsGame.getInstance(numberOfPlayers);
+
 			SellPotionController controller = new SellPotionController(game);
 			String firstIngredient = msgList.get(1);
 			String secondIngredient = msgList.get(2);
@@ -302,11 +332,8 @@ public class Client {
 		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
 		            newMain.updatePlayerName(this.username);
 		            newMain.setPlayersInfoTable();
-		            this.view = newMain;
-		           
-		   
-		            
-		           		    } 
+		            this.view = newMain;		       		   	            
+		  } 	
 		    
 		    else {
 		    	 new PlayerDashboardFrame(KUAlchemistsGame.instance);
@@ -319,11 +346,6 @@ public class Client {
 		
 
 		
-		
-		
-		
-		
-		
 		if(msgList.get(0).equals("ARTIFACTSTORAGE")) {
 			List<Artifact> newArtiList = new ArrayList<Artifact>();
 			for(int i =1; i< msgList.size() ; i++) {
@@ -333,6 +355,7 @@ public class Client {
 			KUAlchemistsGame.instance.getArtifactStorage().artifactList = newArtiList;
 	    	System.out.println(this.getUsername() + " " + Client.playerOfClient.getUserName() + " :" +  KUAlchemistsGame.instance.getArtifactStorage().artifactList);
 		}
+		
 		
 		if (msgList.get(0).equals("INGREDIENTSTORAGE")) {
 			List<Ingredient> newIngList = new ArrayList<Ingredient>();
@@ -346,26 +369,6 @@ public class Client {
 		}
 		
 
-
-		
-		
-		
-	//	if (msgList.get(0).equals("PAUSE")) {
-		//	if (KUAlchemistsGame.instance.isPaused() == false) {
-			//	KUAlchemistsGame.instance.pause();
-
-		//	}
-	//	}
-		
-//		if (msgList.get(0).equals("RESUME")) {
-	//		if (KUAlchemistsGame.instance.isPaused() == true) {
-		//		PauseController controller = new PauseController();
-	      //      controller.pauseHandler();
-
-//			} 
-			
-	//	}
-		
 		if(msgList.get(0).equals("MAINBOARD")) {
 			
 			this.numberOfPlayers = Integer.parseInt(msgList.get(1));
@@ -439,8 +442,6 @@ public class Client {
 	    	
 	    	KUAlchemistsGame.instance.setOnline(true);
 	    	
-
-	    	
 	        
 	    	game.setOnline(true);
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
@@ -482,7 +483,6 @@ public class Client {
 	
 	
 
-
 	public void setView(JFrame view) {
 		this.view = view;
 		if (view instanceof MainGameFrame) {
@@ -490,8 +490,7 @@ public class Client {
 	            
 	            
 	         }
-		
-
+	
 		
 	}
 
