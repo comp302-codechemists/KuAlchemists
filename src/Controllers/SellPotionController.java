@@ -40,12 +40,6 @@ public class SellPotionController {
 			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "0");
 		}
 		
-		for (Player player : game.getPlayers() ) {
-			if(player.getUserName().equals(game.currentPlayer.getUserName())) {
-				//player = game.currentPlayer;
-				player.setIngredients(game.currentPlayer.getIngredients());
-			}
-		}
 		
 		game.nextPlayer();
 		return payment;

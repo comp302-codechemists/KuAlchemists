@@ -60,16 +60,17 @@ public class HostGameFrame extends MagicFrame{
 	    
 	    private void startGameButtonClicked() {
 	    	PlaySong.play("ButtonClick");
-	    	
-	      
 	    	PlayGameController playGameController = new PlayGameController();
+	    	int selected = Server.playerCount;
+	    	KUAlchemistsGame game = playGameController.playGame(selected);
+	      
 	    	game = KUAlchemistsGame.getInstance(Server.playerCount);
 	    	KUAlchemistsGame.instance.setClient(Client.instance);
 		    KUAlchemistsGame.instance.setOnline(true);
             StartGameController startGameController = new StartGameController(game);
            
 
-	    	if (Player.players.size() == 2) {
+	    	if (Server.playerCount == 2) {
 	    		String p1name = Player.players.get(0).getUserName();
 	    		String p1avatar = Player.players.get(0).getAvatarPath();
 	    	
@@ -79,7 +80,7 @@ public class HostGameFrame extends MagicFrame{
 
 	    	}
 	    	
-	    	else if (Player.players.size() == 3) {
+	    	else if (Server.playerCount == 3) {
 	    		String p1name = Player.players.get(0).getUserName();
 	    		String p1avatar = Player.players.get(0).getAvatarPath();
 	    		
@@ -93,7 +94,7 @@ public class HostGameFrame extends MagicFrame{
 	    	}
 	    	
 	    	
-	    	else if (Player.players.size() == 4) {
+	    	else if (Server.playerCount == 4) {
 	    		String p1name = Player.players.get(0).getUserName();
 	    		String p1avatar = Player.players.get(0).getAvatarPath();
 	    		
@@ -108,20 +109,16 @@ public class HostGameFrame extends MagicFrame{
                 startGameController.handleStartGame(p1name, p2name, p3name, p4name, p1avatar, p2avatar, p3avatar, p4avatar);
 
 	    	}
-	    	ArrayList<String> nameList = new ArrayList<>();
-	    	ArrayList<String> avatarList = new ArrayList<>();
-	    	for (int i = 0; i < Player.players.size(); i++) {
-
-
-	    	    nameList.add(Player.players.get(i).getUserName());
-	    	    avatarList.add(Player.players.get(i).getAvatarPath());
-	    	} 
-	    	this.game.setPlayers(nameList,avatarList);
-	    	if (Player.players.size() == ClientHandler.clientHandlers.size()) {
+	    	
+	    
+	    	if (ClientHandler.clientHandlers.size() == KUAlchemistsGame.instance.getNumberOfPlayers()) {
 	    	
 	    	KUAlchemistsGame.instance.setOnline(true);
 	    	
 	    	this.dispose();
+	    	
+	    	
+	    	
 	    	for (ClientHandler client : ClientHandler.clientHandlers) {
 	    		client.broadCastItself("UPDATENAME," + client.clientUsername);
 	    	}
@@ -152,37 +149,38 @@ public class HostGameFrame extends MagicFrame{
 	    		player1Ingredients += ingre1.getName();
 	    		
 	    	}
+	    	System.out.println("Sending Ingredient List for Player 1: " +  KUAlchemistsGame.instance.getPlayers().get(0).getIngredients());
+	    	Client.instance.sendMessage(playerIngredients+player1Ingredients);
+
 	    	
 	    	for (Ingredient ingre2 : KUAlchemistsGame.instance.getPlayers().get(1).getIngredients()  ) {
 	    		player2Ingredients += ",";
 	    		player2Ingredients += ingre2.getName();
 	    	}
-	    	
+	    	System.out.println("Sending Ingredient List for Player 2: " +  KUAlchemistsGame.instance.getPlayers().get(1).getIngredients());
+	    	Client.instance.sendMessage(playerIngredients+player2Ingredients);
+
+	    	if (KUAlchemistsGame.instance.getNumberOfPlayers() != 2) {
+	    		
 	    	for (Ingredient ingre3 : KUAlchemistsGame.instance.getPlayers().get(2).getIngredients()  ) {
 	    		player3Ingredients += ",";
 	    		player3Ingredients += ingre3.getName();
 	    	}
+	    	System.out.println("Sending Ingredient List for Player 3: " +  KUAlchemistsGame.instance.getPlayers().get(2).getIngredients());
+	    	Client.instance.sendMessage(playerIngredients+player3Ingredients);
+
+	    	}
 	    	
+	    	if (KUAlchemistsGame.instance.getNumberOfPlayers() == 4) { 
 	    	for (Ingredient ingre4 : KUAlchemistsGame.instance.getPlayers().get(3).getIngredients()  ) {
 	    		player4Ingredients += ",";
 	    		player4Ingredients += ingre4.getName();
 	    	}
-	    	System.out.println("Sending Ingredient List for Player 1: " +  KUAlchemistsGame.instance.getPlayers().get(0).getIngredients());
-	    	System.out.println("Sending Ingredient List for Player 2: " +  KUAlchemistsGame.instance.getPlayers().get(1).getIngredients());
-	    	System.out.println("Sending Ingredient List for Player 3: " +  KUAlchemistsGame.instance.getPlayers().get(2).getIngredients());
-	    	System.out.println("Sending Ingredient List for Player 4: " +  KUAlchemistsGame.instance.getPlayers().get(3).getIngredients());
+	       	System.out.println("Sending Ingredient List for Player 4: " +  KUAlchemistsGame.instance.getPlayers().get(3).getIngredients());
 
-	    	Client.instance.sendMessage(playerIngredients+player1Ingredients);
-	    	Client.instance.sendMessage(playerIngredients+player2Ingredients);
-	    	Client.instance.sendMessage(playerIngredients+player3Ingredients);
 	    	Client.instance.sendMessage(playerIngredients+player4Ingredients);
+	    }
 
-
-
-
-	    
-	    	
-	    	
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage(ArtifactMessage);
 	    	ClientHandler.clientHandlers.get(0).broadCastMessage(IngredientMessage);
 	    	

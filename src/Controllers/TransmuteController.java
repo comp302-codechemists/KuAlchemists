@@ -39,12 +39,7 @@ public class TransmuteController {
 		for(Ingredient ingredient: game.currentPlayer.getIngredients()) {
 			if(ingredient.getName().equals(transmutedIngredientName)) {
 				String transmutedIngredient = game.currentPlayer.transmuteIngredient(ingredient);
-				for (Player player : game.getPlayers() ) {
-					if(player.getUserName().equals(game.currentPlayer.getUserName())) {
-						//player = game.currentPlayer;
-						player.setIngredients(game.currentPlayer.getIngredients());
-					}
-				}
+				
 				
 				found = true;
 				game.nextPlayer();

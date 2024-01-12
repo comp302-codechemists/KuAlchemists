@@ -39,12 +39,7 @@ public class MakeExperimentController {
 		Potion potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest); 
 		System.out.println("Potion: " + potion.getName());
 		
-		for (Player player : game.getPlayers() ) {
-			if(player.getUserName().equals(game.currentPlayer.getUserName())) {
-				//player = game.currentPlayer;
-				player.setIngredients(game.currentPlayer.getIngredients());
-			}
-		}
+		
 		game.nextPlayer();
 		return potion.getName();
 	}

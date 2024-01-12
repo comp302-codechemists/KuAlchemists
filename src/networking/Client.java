@@ -380,15 +380,21 @@ public class Client {
 
 			}
 			
+	    	PlayGameController playGameController = new PlayGameController();
+	    	int selected = this.numberOfPlayers;
+	    	KUAlchemistsGame game = playGameController.playGame(selected);
+	      
+	    	game = KUAlchemistsGame.getInstance(this.numberOfPlayers);
+	    	KUAlchemistsGame.instance.setClient(Client.instance);
+		    KUAlchemistsGame.instance.setOnline(true);
+            StartGameController startGameController = new StartGameController(game);
+			
 			
 			System.out.println("Current playerList of Client named " + this.username + " " +  Player.players + "za");
 			JoinGameFrame magicFrame = (JoinGameFrame) view;
 			magicFrame.dispose();
 			
-			PlayGameController playGameController = new PlayGameController();
-	    	KUAlchemistsGame game = KUAlchemistsGame.getInstance(Player.players.size());
-	    	
-            StartGameController startGameController = new StartGameController(game);
+
 
 	    	if (Player.players.size() == 2) {
 	    		String p1name = Player.players.get(0).getUserName();
@@ -429,15 +435,12 @@ public class Client {
                 startGameController.handleStartGame(p1name, p2name, p3name, p4name, p1avatar, p2avatar, p3avatar, p4avatar);
 
 	    	}
-	    	ArrayList<String> nameList = new ArrayList<>();
-	    	ArrayList<String> avatarList = new ArrayList<>();
-	    	for (int i = 0; i < Player.players.size(); i++) {
+	    	
+	    	
+	    	KUAlchemistsGame.instance.setOnline(true);
+	    	
 
-	    	    nameList.add(Player.players.get(i).getUserName());
-	    	    avatarList.add(Player.players.get(i).getAvatarPath());
-	    	} 
-	    	game.setPlayers(nameList,avatarList);
-	    	game.getPlayers().subList(0, Player.players.size()).clear();
+	    	
 	        
 	    	game.setOnline(true);
 	    	MainGameFrame main = new MainGameFrame(KUAlchemistsGame.instance);
@@ -454,68 +457,7 @@ public class Client {
 			
 		}
 			 
-	public void setUpGame() {
-		
-		ArrayList<String> nameList = new ArrayList<>();
-    	ArrayList<String> avatarList = new ArrayList<>();
-    	for (int i = 0; i < Player.players.size(); i++) {
 
-
-    	    nameList.add(Player.players.get(i).getUserName());
-    	    avatarList.add(Player.players.get(i).getAvatarPath());
-    	} 
-		
-		PlayGameController playGameController = new PlayGameController();
-    	KUAlchemistsGame game = playGameController.playGame(ClientHandler.clientHandlers.size());
-        game.setNumberOfPlayers(Server.playerCount);
-
-
-    	
-        StartGameController startGameController = new StartGameController(game);
-
-    	if (Player.players.size() == 2) {
-    		String p1name = Player.players.get(0).getUserName();
-    		String p1avatar = Player.players.get(0).getAvatarPath();
-    	
-        	String p2name = Player.players.get(1).getUserName();
-        	String p2avatar = Player.players.get(1).getAvatarPath();
-            startGameController.handleStartGame(p1name, p2name, p1avatar, p2avatar);
-
-    	}
-    	
-    	else if (Player.players.size() == 3) {
-    		String p1name = Player.players.get(0).getUserName();
-    		String p1avatar = Player.players.get(0).getAvatarPath();
-    		
-        	String p2name = Player.players.get(1).getUserName();
-        	String p2avatar = Player.players.get(1).getAvatarPath();
-        	
-        	String p3name = Player.players.get(2).getUserName();
-        	String p3avatar = Player.players.get(2).getAvatarPath();
-            startGameController.handleStartGame(p1name, p2name, p3name, p1avatar, p2avatar, p3avatar);
-
-    	}
-    	
-    	
-    	else if (Player.players.size() == 4) {
-    		String p1name = Player.players.get(0).getUserName();
-    		String p1avatar = Player.players.get(0).getAvatarPath();
-    		
-        	String p2name = Player.players.get(1).getUserName();
-        	String p2avatar = Player.players.get(1).getAvatarPath();
-        	
-        	String p3name = Player.players.get(2).getUserName();
-        	String p3avatar = Player.players.get(2).getAvatarPath();
-        	
-        	String p4name = Player.players.get(3).getUserName();
-        	String p4avatar = Player.players.get(3).getAvatarPath();
-            startGameController.handleStartGame(p1name, p2name, p3name, p4name, p1avatar, p2avatar, p3avatar, p4avatar);
-
-    	}
-    
-		
-	}
-	
 		
 	public void closeEverything(Socket socket, BufferedReader buffreader, BufferedWriter buffwriter) {
 		try {
