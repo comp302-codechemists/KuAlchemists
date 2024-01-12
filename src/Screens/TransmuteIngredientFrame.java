@@ -117,8 +117,10 @@ public class TransmuteIngredientFrame extends FunctionalFrame{
 	    {
 	    	String message = "Ingredient transmuted: " + transmutedIngredient;
 		    JOptionPane.showMessageDialog(null, message, "Ingredient Transmuted", JOptionPane.INFORMATION_MESSAGE);
+		    
 		    if (KUAlchemistsGame.instance.isOnline()) {
-		    Client.instance.sendMessage("TRANSMUTE," + transmutedIngredient);}
+		    Client.instance.sendMessage("TRANSMUTE," + transmutedIngredient);
+		    }
 	    }
 	    
 	    

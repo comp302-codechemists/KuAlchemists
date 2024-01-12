@@ -161,14 +161,16 @@ public class Client {
 			
 			controller.handleSellPotion(firstIngredient, secondIngredient, promise);
 			this.view.dispose();
+		
 
 			if (this.username.equals(game.currentPlayer.getUserName())) {
-				
+				this.view.dispose();
 				new PlayerDashboardFrame(game);
 				
 				
 			}
 			else {
+				this.view.dispose();
 				MainGameFrame newMain = new MainGameFrame(game);
 				newMain.updatePlayerName(this.username);
 				this.view = newMain;
@@ -292,7 +294,7 @@ public class Client {
 			
 			String imagePath = "/potionImages/" + resultToken + ".png";
 
-		    ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
+		    // ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
 		    // JOptionPane.showMessageDialog(null, "", "Experiment Result of Player " + theResponsiblePlayer, JOptionPane.INFORMATION_MESSAGE, icon);
 
 		    
@@ -541,6 +543,14 @@ public class Client {
 
 	public void setView(JFrame view) {
 		this.view = view;
+		if (view instanceof MainGameFrame) {
+			 ((MainGameFrame) this.view).updatePlayerName(this.username);
+	            
+	            
+	         }
+		
+
+		
 	}
 
 

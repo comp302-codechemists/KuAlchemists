@@ -92,7 +92,6 @@ public class SellPotionFrame extends FunctionalFrame{
         					JOptionPane.showMessageDialog(new JFrame(), "Correct",
         		                    "", JOptionPane.ERROR_MESSAGE, icon);
         					 // Close the frame
-        				    new MainGameFrame(game);
         				    SellPotionFrame.this.dispose();
         				}
         				else if (payment == 2)
@@ -101,7 +100,6 @@ public class SellPotionFrame extends FunctionalFrame{
         					JOptionPane.showMessageDialog(new JFrame(), "Neutral",
         		                    "", JOptionPane.ERROR_MESSAGE, icon);
         					 // Close the frame
-        				    new MainGameFrame(game);
         				    SellPotionFrame.this.dispose();
         				}
         				else // payment == 1
@@ -110,7 +108,6 @@ public class SellPotionFrame extends FunctionalFrame{
         					JOptionPane.showMessageDialog(new JFrame(), "Incorrect",
         		                    "", JOptionPane.ERROR_MESSAGE, icon);
         					 // Close the frame
-        				    new MainGameFrame(game);
         				    SellPotionFrame.this.dispose();
         				}
         			} 
@@ -119,10 +116,11 @@ public class SellPotionFrame extends FunctionalFrame{
         				JOptionPane.showMessageDialog(new JFrame(), "Please select 2 ingredients and give promise!",
         	                    "", JOptionPane.ERROR_MESSAGE);
         			}
-            	
+				    MainGameFrame main = new MainGameFrame(game);
+
             	if (KUAlchemistsGame.instance.isOnline()){
             		String messageToSend = "SELLPOTION," + selectedIngredients.get(0) + "," + selectedIngredients.get(1) + "," + selectedAspect;
-            		
+            		Client.instance.setView(main);
             		Client.instance.sendMessage(messageToSend);
     	}
             	
