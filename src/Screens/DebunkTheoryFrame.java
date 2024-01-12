@@ -21,6 +21,7 @@ import Controllers.DebunkTheoryController;
 import Controllers.SellPotionController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
+import networking.Client;
 import soundEffects.PlaySong;
 
 public class DebunkTheoryFrame extends FunctionalFrame{
@@ -79,8 +80,15 @@ public class DebunkTheoryFrame extends FunctionalFrame{
             	{
             		 controller.handleDebunk(selectedTheory, selectedAspect);
                 	 //PlaySong.play("DebunkTheory");
-                  	 new MainGameFrame(game);
-                  	 DebunkTheoryFrame.this.dispose();	
+            		 MainGameFrame newMain =  new MainGameFrame(game);
+                  	 DebunkTheoryFrame.this.dispose();
+                  	 
+                  	 if (game.isOnline()) {
+                  		String messageToSend = "DEBUNK," + selectedTheory + "," + selectedAspect;
+            	    	Client.instance.sendMessage(messageToSend);
+            	    	newMain.updatePlayerName(Client.instance.getUsername());
+            	    	Client.instance.setView(newMain);
+                  	 }
             	}
             }
         });

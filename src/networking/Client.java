@@ -18,6 +18,7 @@ import Business.Artifact;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Controllers.DebunkTheoryController;
 import Controllers.ForageController;
 import Controllers.MakeExperimentController;
 import Controllers.PauseController;
@@ -179,6 +180,36 @@ public class Client {
 			}
     		
 			
+		}
+		
+		if (msgList.get(0).equals("DEBUNK")) {
+			KUAlchemistsGame game = KUAlchemistsGame.getInstance(numberOfPlayers);
+			DebunkTheoryController controller = new DebunkTheoryController(game);
+			
+			String selectedTheory = msgList.get(1);
+			String selectedAspect = msgList.get(2);
+			
+			
+			System.out.println("I am " + this.username + " replicating prev DEBUNK Theory is : " +selectedTheory);
+			System.out.println("I am " + this.username + " replicating prev DEBUNK Aspect is : " +selectedAspect);
+   		 	controller.handleDebunk(selectedTheory, selectedAspect);
+			this.view.dispose();
+			
+			if (this.username.equals(game.currentPlayer.getUserName())) {
+				this.view.dispose();
+				new PlayerDashboardFrame(game);
+				
+				
+			}
+			
+			else {
+				this.view.dispose();
+				MainGameFrame newMain = new MainGameFrame(game);
+				newMain.updatePlayerName(this.username);
+				this.view = newMain;
+				
+			}
+
 		}
 		
 		if (msgList.get(0).equals("SELLPOTION")) {
