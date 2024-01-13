@@ -201,12 +201,28 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/theoryImages/" + theory.getIngredient().getName() + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
 	        theoryButton.setIcon(new ImageIcon(image));
+	        
+	        ImageIcon markerIco = new ImageIcon(getClass().getResource("/alchemyMarkerImages/" + 
+	        				theory.getAlchemyMarker() + ".png"));
+	        Image markerImg = markerIco.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_SMOOTH);
+	        
+	        theoryButton.setIcon(new ImageIcon(image));
+	        
+	        
 
 	        int xPosition = (buttonWidth + xOffset) * (i % 8);
 	        int yPosition = (buttonHeight + yOffset) * (i / 8);
 
 	        theoryButton.setBounds(xPosition, yPosition, buttonWidth, buttonHeight);
+	        
+	        JLabel markerLabel = new JLabel();
+	        markerLabel.setIcon(new ImageIcon(markerImg));
+	        //TODO Add marker label on top of the button too.
+	        
+	        
+	        
 	        theoryPanel.add(theoryButton);
+	        
 
 	        theoryGroup.add(theoryButton);
 	        theoryButton.setActionCommand(String.valueOf(theory.getIngredient().getName())); 
@@ -216,6 +232,9 @@ public class DebunkTheoryFrame extends FunctionalFrame{
 	    backgroundPanel.setLayout(null);
 	    backgroundPanel.add(theoryPanel);
 	}
+	
+	
+	
 	
 	private void handleTheorySelection(String selectedTheory)
 	{
