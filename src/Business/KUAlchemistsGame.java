@@ -22,7 +22,6 @@ public class KUAlchemistsGame {
 	// each game has an ingredient storage, an artifact storage and a publication board
 	private IngredientStorage ingredientStorage;
 	private ArtifactStorage artifactStorage;
-	private PublicationBoard publicationBoard;
 	
 	// game situation
 	int round = 1;

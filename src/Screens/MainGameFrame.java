@@ -15,7 +15,9 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 
 import Business.GameEvent;
+import Business.Ingredient;
 import Business.KUAlchemistsGame;
+import Business.Theory;
 import DesignSystem.GameButton;
 import DesignSystem.GameText;
 import soundEffects.PlaySong;
@@ -33,6 +35,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -61,6 +66,8 @@ public class MainGameFrame extends GeneralFrame{
 		this.setTheoriesPanel();
 		this.setGameLog();
 		this.setDirections();
+	
+		setExistingTheories();
 		
 	}
 	
@@ -133,10 +140,10 @@ public class MainGameFrame extends GeneralFrame{
 
 	private void setTheoriesPanel() {
 	    
-		JPanel theoryPanel = new JPanel();
-		theoryPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
-		theoryPanel.setBounds(10, 42, 485, 698);
-	    theoryPanel.setOpaque(false);
+		JPanel initheoryPanel = new JPanel();
+		initheoryPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
+		initheoryPanel.setBounds(10, 42, 485, 698);
+	    initheoryPanel.setOpaque(false);
 
 	    // Create an EmptyBorder with desired spacing
 	    Border spacingBorder = BorderFactory.createEmptyBorder(1,1,1,1);
@@ -148,10 +155,50 @@ public class MainGameFrame extends GeneralFrame{
 	        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/theory" + (i + 1) + ".png"));
 	        Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
 	        theoryLabel.setIcon(new ImageIcon(image));
+	        initheoryPanel.add(theoryLabel);
+	       
+	              
+	    }
+
+	    backgroundPanel.add(initheoryPanel);
+	}
+
+	private void setExistingTheories() {
+		JPanel theoryPanel = new JPanel();
+		theoryPanel.setLayout(new GridLayout(4, 2, 5, 5)); 
+		theoryPanel.setBounds(35, 65, 485, 698);
+	    theoryPanel.setOpaque(false);
+
+	    // Create an EmptyBorder with desired spacing
+	    Border spacingBorder = BorderFactory.createEmptyBorder(1,1,1,100);
+	    List<Theory> allTheories = Theory.getAllTheories();
+	    List<JLabel> labels = new ArrayList<>();
+	    
+	    for (int i = 0; i < 8; i++) {
+	        JLabel theoryLabel = new JLabel();
+	        theoryLabel.setPreferredSize(new Dimension(60, 70));
+	        theoryLabel.setBorder(spacingBorder); 
+	        labels.add(theoryLabel);
 	        theoryPanel.add(theoryLabel);
+	       
+	    }
+	    
+	    for (Theory theory : allTheories) {
+	    	int i = Ingredient.getIngredientIndex(theory.getIngredient().getName());
+	    	JLabel toSet = labels.get(i-1); // i-1th label will be set with the token.
+	    	String toke = theory.getAlchemyMarker().getName();
+	    	System.out.printf("Ingredient index: %d, token: %s\n", i-1, toke);
+	    	ImageIcon imageIcon = new ImageIcon(getClass().getResource("/alchemyMarkerImages/" + toke + ".png"));
+	        Image image = imageIcon.getImage().getScaledInstance(60, 70, Image.SCALE_SMOOTH);
+	        toSet.setIcon(new ImageIcon(image));
+	    	
 	    }
 
 	    backgroundPanel.add(theoryPanel);
+	    backgroundPanel.setComponentZOrder(theoryPanel, 0);
+        
+       
+		
 	}
 
 
