@@ -5,6 +5,7 @@ import Business.IngredientStorage;
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Screens.MainGameFrame;
+import networking.Client;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -144,9 +145,16 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
                         ingredientList.set(Integer.parseInt(selectedOrder3) - 1, ing3);
                         game.getIngredientStorage().setIngredientList(ingredientList);
                         ElixirOfInsightFrame.this.dispose();
+                        
+                        if(game.isOnline()) {
                         MainGameFrame mf = new MainGameFrame(game);
+                        mf.updatePlayerName(Client.instance.getUsername());
+                        Client.instance.setView(mf);
+                        System.out.println("Did Elixir  as " + Client.instance.getUsername() + " newIngreList: " + game.getIngredientStorage().ingredientList);;
 
-                     
+                        Client.instance.sendMessage("ELIXIR," + selectedOrder1 + "," + selectedOrder2 + "," + selectedOrder3);
+                       
+                        }
                     } else {
                         // Display an error message or handle the case where the selected items are the same
                         JOptionPane.showMessageDialog(null, "Please select different index for each ingredient.",

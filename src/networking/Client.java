@@ -27,6 +27,7 @@ import Controllers.PublishTheoryController;
 import Controllers.SellPotionController;
 import Controllers.StartGameController;
 import Controllers.TransmuteController;
+import Controllers.buyArtifactController;
 import Exceptions.IngredientNotFoundException;
 import Factories.ArtifactFactory;
 import Screens.*;
@@ -326,6 +327,49 @@ public class Client {
 		            System.out.println("After foraging done by prev player: " + KUAlchemistsGame.instance.getIngredientStorage().getIngredientList());
 		      }
 		}
+		
+		if(msgList.get(0).equals("BUYARTIFACT")) {
+			buyArtifactController controller = new buyArtifactController(KUAlchemistsGame.instance);
+            String boughtArtifact = controller.buyArtifactHandler();
+		    this.view.dispose();
+		    
+		    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
+		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
+		            newMain.updatePlayerName(this.username);
+		            newMain.setPlayersInfoTable();
+		            this.view = newMain;
+		            this.view.setVisible(true);
+		    }
+		    
+		    else {
+		    	 new PlayerDashboardFrame(KUAlchemistsGame.instance);
+		      }
+
+            
+		}
+		if(msgList.get(0).equals("ELIXIR")) {
+			KUAlchemistsGame game = KUAlchemistsGame.getInstance(numberOfPlayers);
+			
+			List<Ingredient> ingList = game.getIngredientStorage().getIngredientList();
+			Ingredient ing1 = ingList.get(0);
+			Ingredient ing2 = ingList.get(1);
+			Ingredient ing3 = ingList.get(2);
+			
+			String selectedOrder1 = msgList.get(1);
+			String selectedOrder2 = msgList.get(2);
+			String selectedOrder3 = msgList.get(3);
+
+
+			
+			ingList.set(Integer.parseInt(selectedOrder1) - 1, ing1);
+			ingList.set(Integer.parseInt(selectedOrder2) - 1, ing2);
+			ingList.set(Integer.parseInt(selectedOrder3) - 1, ing3);
+            game.getIngredientStorage().setIngredientList(ingList);
+            
+            System.out.println("Recieved Elixir msg as " + this.username + " newIngreList: " + game.getIngredientStorage().ingredientList);;
+		}
+		
+		
 		
 		if (msgList.get(0).equals("MAKEEXPERIMENT")){
 			String theResponsiblePlayer = KUAlchemistsGame.instance.getCurrentPlayer().getUserName();

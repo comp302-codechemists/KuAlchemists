@@ -79,11 +79,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
     		controller.handlePublish(selectedMarker,selectedTheory);
     		MainGameFrame newMain = new MainGameFrame(game);
     	    PublishTheoryFrame.this.dispose();
-    	    
-    	  //  if (KUAlchemistsGame.instance.isOnline()) {
-		    //	newMain.updatePlayerName(Client.instance.getUsername());
-		    	// Client.instance.setView(newMain);
-		    	//}
+
     	    
     	    if(game.isOnline()) {
     	    	String messageToSend = "PUBLISH," + selectedMarker + "," + selectedTheory;

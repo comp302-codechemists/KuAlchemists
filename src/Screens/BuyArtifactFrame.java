@@ -23,6 +23,7 @@ import Business.Player;
 import Controllers.buyArtifactController;
 import DesignSystem.ArtisticButton;
 import artifactScreens.ArtifactFrame;
+import networking.Client;
 import soundEffects.PlaySong;
 
 import javax.swing.JLabel;
@@ -73,6 +74,14 @@ public class BuyArtifactFrame extends FunctionalFrame{
                 
 			    if (boughtArtifact != null)
 			    {
+			    	
+			    	if(game.isOnline()) {
+				    	Client.instance.sendMessage("BUYARTIFACT");
+
+						}
+						
+			    	
+			    	
 			    	ArtifactFrame artifactFrame = controller.getArtifactFrame(boughtArtifact);
 
 			    	artifactFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set close operation
@@ -85,8 +94,17 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    	        artifactFrame.setVisible(false); // Hide the frame
 			    	        // Close the frame
 						    BuyArtifactFrame.this.dispose();
-						    new MainGameFrame(game);
-			    	    }
+						    MainGameFrame newMain = new MainGameFrame(game);
+						    
+						    
+							if(game.isOnline()) {
+						    newMain.updatePlayerName(Client.instance.getUsername());
+			    	    	Client.instance.setView(newMain);
+
+							}
+							
+							
+						}
 			    	});
 
 			    	SwingUtilities.invokeLater(() -> {
