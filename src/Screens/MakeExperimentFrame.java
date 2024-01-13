@@ -148,7 +148,36 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	    String imagePath = "/potionImages/" + resultToken + ".png";
 
 	    ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-	    JOptionPane.showMessageDialog(null, "", "Experiment Result", JOptionPane.INFORMATION_MESSAGE, icon);
+	    String notify = "";
+	    
+	    if (resultToken.contains("-")) {
+	    	notify = "Upsy, you created a negative potion.\n";
+		    if (selection == 2) {
+		    	notify += "You poisioned yourself! \n";
+		    	int sick = game.getCurrentPlayer().getSicknessLevel() + 1;
+		    	notify += "Your sickness level: " + sick + ".\n";
+		    	
+		    	if (sick == 3) {
+		    		notify += "You got sick, pay all of your money to hospital to get cured.\n";
+		    		notify += "Anything for health...";
+		    	}
+		    	
+		    	
+		    }
+		    
+		    else {
+		    	notify += "You poisioned your student! \nYou need to pay for your student's hospital expenses. \nPoor kid...";
+		    	int balan = game.currentPlayer.getBalance() - 1;
+		    	notify += "New balance: " + balan + ".";
+		    }
+	    }
+	    else {
+	    	notify = "Yay! You didn't create a negative potion!";
+	    }
+	    
+
+	    
+	    JOptionPane.showMessageDialog(null, notify, "Experiment Result", JOptionPane.INFORMATION_MESSAGE, icon);
 	    
 	    // Close the frame
 	    new MainGameFrame(game);
