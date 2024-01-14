@@ -4,6 +4,7 @@ import Business.Ingredient;
 import Business.IngredientStorage;
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Screens.BuyArtifactFrame;
 import Screens.MainGameFrame;
 
 import javax.swing.ImageIcon;
@@ -35,13 +36,16 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
 	private Ingredient ing2;
 	private Ingredient ing3;
 	
+	private JFrame frame;
 	
-	public ElixirOfInsightFrame(KUAlchemistsGame game) {
+	
+	public ElixirOfInsightFrame(KUAlchemistsGame game, JFrame frame) {
 		super(game);
 		setBackground("/artifactBackgrounds/ElixirOfInsightArtifact.png");
 		setIngredientImages();
 		setReorderingLogic();
 		setButton();
+		this.frame = frame;
 	}
 	
 	private void setIngredientImages() {
@@ -144,6 +148,7 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
                         ingredientList.set(Integer.parseInt(selectedOrder3) - 1, ing3);
                         game.getIngredientStorage().setIngredientList(ingredientList);
                         ElixirOfInsightFrame.this.dispose();
+                        frame.dispose();
                         MainGameFrame mf = new MainGameFrame(game);
 
                      

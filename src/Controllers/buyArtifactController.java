@@ -1,5 +1,7 @@
 package Controllers;
 
+import javax.swing.JFrame;
+
 import Business.Artifact;
 import Business.KUAlchemistsGame;
 import artifactScreens.ArtifactFrame;
@@ -38,11 +40,13 @@ public class buyArtifactController {
 			return new WisdomIdolArtifactFrame(game);
 		case "MagicMortarArtifact":
 			return new MagicMortarArtifactFrame(game);
-		case "ElixirOfInsightArtifact":
-			return new ElixirOfInsightFrame(game);
 		default:
 			return null;
 		}			
 	}	
+	// Specail controller for elixir of insight.
+	public ArtifactFrame getArtifactFrame(String artifactName, JFrame frame) {
+		return new ElixirOfInsightFrame(game, frame);
+	}
 
 }
