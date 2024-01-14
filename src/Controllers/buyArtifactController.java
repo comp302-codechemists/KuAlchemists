@@ -1,6 +1,4 @@
 package Controllers;
-
-import Business.Artifact;
 import Business.KUAlchemistsGame;
 import Exceptions.ArtifactStorageIsEmptyException;
 import Exceptions.InsufficientBalanceException;

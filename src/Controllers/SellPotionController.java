@@ -1,9 +1,14 @@
 package Controllers;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
 import Business.Potion;
 import Exceptions.IngredientNotFoundException;
+import Exceptions.InsufficientIngredientException;
+import Exceptions.NoPromiseException;
 import Exceptions.NotFoundInStorageException;
 
 public class SellPotionController {
@@ -14,31 +19,52 @@ public class SellPotionController {
 		this.game = game;
 	}
 	
-	public int handleSellPotion(String firstIngredientName, String secondIngredientName, String promise ) throws IngredientNotFoundException 
+	public int handleSellPotion(String firstIngredientName, String secondIngredientName, String promise ) 
 	{
 		Ingredient ingredientOne = Ingredient.getIngredient(firstIngredientName);
 		Ingredient ingredientTwo = Ingredient.getIngredient(secondIngredientName);
 		
-		if (ingredientOne == null || ingredientTwo == null)
-		{
-			throw new IngredientNotFoundException();
-		}
 		int payment;
 		
 		if (promise.contains("+"))
 		{
-			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "+");
+			try {
+				payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "+");
+			} catch (InsufficientIngredientException | NoPromiseException e) {
+				String notify = e.getMessage();
+				JOptionPane.showMessageDialog(new JFrame(), notify, "Invalid",
+	                    JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				payment = 0;
+			}
 
 		}
 		else if (promise.contains("-"))
 		{
-			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "-");
+			try {
+				payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "-");
+			} catch (InsufficientIngredientException | NoPromiseException e) {
+				String notify = e.getMessage();
+				JOptionPane.showMessageDialog(new JFrame(), notify, "Invalid",
+	                    JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				payment = 0;
+			}
 		}
 		else
 		{
-			payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "0");
+			try {
+				payment = game.currentPlayer.sellPotion(ingredientOne, ingredientTwo, "0");
+			} catch (InsufficientIngredientException | NoPromiseException e) {
+				String notify = e.getMessage();
+				JOptionPane.showMessageDialog(new JFrame(), notify, "Invalid",
+	                    JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				payment = 0;
+			}
 		}
 		game.nextPlayer();
+		
 		return payment;
 	}
 

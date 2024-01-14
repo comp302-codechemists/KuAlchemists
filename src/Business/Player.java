@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import Exceptions.ArtifactStorageIsEmptyException;
 import Exceptions.InsufficientBalanceException;
+import Exceptions.InsufficientIngredientException;
+import Exceptions.NoPromiseException;
 import Exceptions.PlayerDoesNotHaveSuchIngredientException;
 import Factories.ArtifactFactory;
 
@@ -365,7 +367,7 @@ public class Player {
 		artifact.applyArtifact(this);
 	}
 	
-	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) 
+	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) throws InsufficientIngredientException, NoPromiseException 
 	{
 		//@requires: not null ingredientOne and ingredientTwo; not null and not empty promise
 		
@@ -378,10 +380,10 @@ public class Player {
 		//And for any other circumstances 2 gold will be payed.
 		
 		if(ingredientOne == null || ingredientTwo == null) {
-			throw new IllegalArgumentException("sellPotion cannot be made with null ingredients");
+			throw new InsufficientIngredientException();
 		}
 		if(promise == null || promise.equals("")) {
-			throw new IllegalArgumentException("sellPotion cannot be made with null or empty promise");
+			throw new NoPromiseException();
 		}
 		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
 
