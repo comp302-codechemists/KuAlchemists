@@ -2,6 +2,8 @@ package Controllers;
 
 import Business.Artifact;
 import Business.KUAlchemistsGame;
+import Exceptions.ArtifactStorageIsEmptyException;
+import Exceptions.InsufficientBalanceException;
 import artifactScreens.ArtifactFrame;
 import artifactScreens.DiscountArtifactFrame;
 import artifactScreens.ElixirOfInsightFrame;
@@ -19,8 +21,16 @@ public class buyArtifactController {
 		this.game = game;
 	}
 	
-	public String buyArtifactHandler() {
-		String boughtArtifact = game.currentPlayer.buyArtifact();
+	public String buyArtifactHandler() 
+	{
+		String boughtArtifact;
+		try {
+			boughtArtifact = game.currentPlayer.buyArtifact();
+		} catch (ArtifactStorageIsEmptyException | InsufficientBalanceException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+		
 		game.nextPlayer();
 		return boughtArtifact;
 	}

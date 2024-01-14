@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import Exceptions.ArtifactStorageIsEmptyException;
+import Exceptions.InsufficientBalanceException;
 import Exceptions.PlayerDoesNotHaveSuchIngredientException;
 import Factories.ArtifactFactory;
 
@@ -287,7 +289,7 @@ public class Player {
 		}
 	}
 	
-	public String transmuteIngredient(Ingredient ingredient) {
+	public String transmuteIngredient(Ingredient ingredient) throws PlayerDoesNotHaveSuchIngredientException {
 		
 		System.out.println("");
 		System.out.println("Previous ingredients");
@@ -300,7 +302,7 @@ public class Player {
 						
 		}
 		else {
-			throw new IllegalArgumentException();
+			throw new PlayerDoesNotHaveSuchIngredientException(String.format("Player does not have ingredient %s\n", ingredient.getName()));
 		}
 		
 		System.out.println("New ingredients");
@@ -312,7 +314,7 @@ public class Player {
 		return ingredient.getName();
 	}
 	
-	public String buyArtifact() {
+	public String buyArtifact() throws ArtifactStorageIsEmptyException, InsufficientBalanceException {
 		
 		if(getBalance() >= -getGoldtToBePayedToArtifact()) {
 			
@@ -350,14 +352,12 @@ public class Player {
 				return artifact.getName();
 			}
 			else {
-				System.out.println("Artifact Storage is empty!");
+				throw new ArtifactStorageIsEmptyException();
 			}
 		}
 		else {
-			System.out.println("Balance is unsufficient, come back when you have more gold :D");
+			throw new InsufficientBalanceException();
 		}
-		
-		return null;
 	}
 	
 
