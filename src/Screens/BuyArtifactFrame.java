@@ -70,10 +70,19 @@ public class BuyArtifactFrame extends FunctionalFrame{
 				buyArtifactController controller = new buyArtifactController(game);
                 String boughtArtifact = controller.buyArtifactHandler();
                 PlaySong.play("DrawCard");
+                ArtifactFrame artifactFrame;
                 
 			    if (boughtArtifact != null)
 			    {
-			    	ArtifactFrame artifactFrame = controller.getArtifactFrame(boughtArtifact);
+			    	
+			    	if (boughtArtifact.equals("ElixirOfInsightArtifact")) {
+			    		artifactFrame = controller.getArtifactFrame(boughtArtifact, BuyArtifactFrame.this);
+			    	}
+			    	else {
+			    		artifactFrame = controller.getArtifactFrame(boughtArtifact);	
+			    	}
+			    	
+			
 
 			    	artifactFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set close operation
 
