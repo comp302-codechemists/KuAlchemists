@@ -113,7 +113,7 @@ public class KUAlchemistsGame {
 			// set new player's balance
 			newPlayer.setBalance(+10);
 
-			// deal 5 ingredientCards to newPlayer
+			// deal 2 ingredientCards to newPlayer
 			for (int j = 0; j < 2; j++) {
 				giveRandomIngredientCardToPlayer(newPlayer);
 				

@@ -36,7 +36,7 @@ public class Token {
 		tokenDictionary.put("ky-bk-km+", new Token(Aspect.getAspect("ky-"),
 				Aspect.getAspect("bk-"),Aspect.getAspect("km+")));
 		tokenDictionary.put("ky-kk+bm+", new Token(Aspect.getAspect("ky-"),
-				Aspect.getAspect("kk-"),Aspect.getAspect("bm+")));
+				Aspect.getAspect("kk+"),Aspect.getAspect("bm+")));
 	}
 	private final Aspect tokenAspects[] = new Aspect[3];
 	
