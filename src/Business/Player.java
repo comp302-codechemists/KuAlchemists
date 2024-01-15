@@ -7,8 +7,10 @@ import java.util.Optional;
 import Exceptions.ArtifactStorageIsEmptyException;
 import Exceptions.InsufficientBalanceException;
 import Exceptions.InsufficientIngredientException;
+import Exceptions.InvalidTheoryDebunkException;
 import Exceptions.NoPromiseException;
 import Exceptions.PlayerDoesNotHaveSuchIngredientException;
+import Exceptions.TheoryNotFoundException;
 import Factories.ArtifactFactory;
 
 public class Player {
@@ -447,15 +449,15 @@ public class Player {
 		}
 	}
 	
-	public boolean debunkTheory(String selectedTheory, String selectedAspect) {
+	public boolean debunkTheory(String selectedTheory, String selectedAspect) throws TheoryNotFoundException, InvalidTheoryDebunkException {
 		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
 		boolean result = false;
 		//Aspect aspect = Aspect.getAspect(selectedAspect);
 		if(theory == null) {
-			System.out.println("Theory not found");
+			throw new TheoryNotFoundException();
 		}
 		else if(theory.getOwner().getUserName().equals(this.getUserName())) {
-			System.out.println("You cannot debunk your own theory");
+			throw new InvalidTheoryDebunkException("You cannot debunk your own theory");
 		}
 		else {
 			result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
