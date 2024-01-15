@@ -4,10 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import Exceptions.NotFoundInStorageException;
+import Exceptions.ArtifactStorageIsEmptyException;
+import Exceptions.InsufficientBalanceException;
+import Exceptions.InsufficientIngredientException;
+import Exceptions.NoPromiseException;
+import Exceptions.PlayerDoesNotHaveSuchIngredientException;
 import Factories.ArtifactFactory;
 
 public class Player {
+	
+	//================================================================================
+    // Properties
+    //================================================================================
+
 	private String userName;
 	private String avatarPath;
 	private List<Ingredient> ingredients = new ArrayList<Ingredient>();
@@ -23,6 +32,10 @@ public class Player {
 	private int numberOfIngreientToBeRemovedWhileExperimenting;
 	private List<removeArtifactListener> removeArtifactListeners = new ArrayList<removeArtifactListener>();
 	
+	//================================================================================
+    // Constructors
+    //================================================================================
+
 	public Player(String userName, String avatarPath) {
 		
 		this.userName = userName;
@@ -48,116 +61,69 @@ public class Player {
 		this.numberOfIngreientToBeRemovedWhileExperimenting = 2;
 	}
 	
-	public void addIngredient(Ingredient ingredient)
-	{
-		ingredients.add(ingredient);
-	}
+	//================================================================================
+    // Accessors
+    //================================================================================
+
 	
-
-
 	public String getUserName() {
 		return userName;
 	}
-
-
-
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-
-
-
 	public String getAvatarPath() {
 		return avatarPath;
 	}
-
-
-
 
 	public void setAvatarPath(String avatarPath) {
 		this.avatarPath = avatarPath;
 	}
 
-
-
-
 	public List<Ingredient> getIngredients() {
 		return ingredients;
 	}
-
-
-
-
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-
-
-
 
 	public List<Artifact> getArtifacts() {
 		return artifacts;
 	}
 
-
-
-
 	public void setArtifacts(List<Artifact> artifacts) {
 		this.artifacts = artifacts;
 	}
-
-
-
 
 	public int getBalance() {
 		return balance;
 	}
 
-
-
-
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
-
-
-
 
 	public int getReputationPoints() {
 		return reputationPoints;
 	}
 
-
-
-
 	public void setReputationPoints(int reputationPoints) {
 		this.reputationPoints = reputationPoints;
 	}
-
-
-
-
 	public DeductionBoard getDeductionBoard() {
 		return deductionBoard;
 	}
-
-
-
 
 	public void setDeductionBoard(DeductionBoard deductionBoard) {
 		this.deductionBoard = deductionBoard;
 	}
 	
-	
-	
 	public int getSicknessLevel() {
 		return sicknessLevel;
 	}
 
-	
-	
 	public void setSicknessLevel(int sicknessLevel) {
 		this.sicknessLevel = sicknessLevel;
 	}
@@ -173,7 +139,6 @@ public class Player {
 	public List<Theory> getTheories() {
 		return theories;
 	}
-
 
 	public void setTheories(List<Theory> theories) {
 		this.theories = theories;
@@ -195,15 +160,49 @@ public class Player {
 		this.numberOfIngreientToBeRemovedWhileExperimenting = numberOfIngreientToBeRemovedWhileExperimenting;
 	}
 	
+	//================================================================================
+    // Methods
+    //================================================================================
 
-	public Potion makeExperiment(List<String> ingredientList, int whereToTest) {
+	public void addIngredient(Ingredient ingredient)
+	{
+		ingredients.add(ingredient);
+	}
+	
+	/**
+	 * Makes the experiment, removes the used ingredients from the user's ingredient list
+	 * 
+	 * Requires:
+	 *   * 2 ingredients which exist in user's ingredient list.
+	 *   * whereToTest information
+	 * Modifies:
+	 *   * User's ingredients list.
+	 * Effects:
+	 *   * The experiment will be conducted, the user's ingredients list
+	 *   * will change, the details will be handled in Experiment class.	
+	 *   * A poiton will be returned to be displayed.
+	 * @throws PlayerDoesNotHaveSuchIngredientException 
+	 */
+
+	public Potion makeExperiment(List<String> ingredientList, int whereToTest) throws PlayerDoesNotHaveSuchIngredientException {
 
 		Ingredient ingredientOne = Ingredient.getIngredient(ingredientList.get(0));
 		Ingredient ingredientTwo = Ingredient.getIngredient(ingredientList.get(1));
 
+		
+		if (!this.ingredients.contains(ingredientOne))
+		{
+			throw new PlayerDoesNotHaveSuchIngredientException( String.format("Player does not have ingredient %s\n",  ingredientOne.getName()));
+		}
+		if (!this.ingredients.contains(ingredientTwo))
+		{
+			throw new PlayerDoesNotHaveSuchIngredientException( String.format("Player does not have ingredient %s\n",  ingredientTwo.getName()));
+		}
+		
 		// remove the ingredients from the user's ingredient list
 		removeIngredient(ingredientOne);
 		removeIngredient(ingredientTwo);
+		
 		
 		// create an experiment, conduct it, test it
 		Experiment experiment = new Experiment(this, ingredientOne, 
@@ -214,8 +213,7 @@ public class Player {
 		
 		populateArtifactListeners("experiment");
 		handleRemove();
-		
-
+	
 		return potion;
 
 	}
@@ -243,12 +241,9 @@ public class Player {
 
 	}
 	
-	
-	
 	public void updateBalance(int amount) {
 		setBalance(getBalance() + amount);
 	}
-	
 	
 	/**
 	 * Calculates the player's score based on reputation points and artifacts.
@@ -296,7 +291,7 @@ public class Player {
 		}
 	}
 	
-	public String transmuteIngredient(Ingredient ingredient) {
+	public String transmuteIngredient(Ingredient ingredient) throws PlayerDoesNotHaveSuchIngredientException {
 		
 		System.out.println("");
 		System.out.println("Previous ingredients");
@@ -309,7 +304,7 @@ public class Player {
 						
 		}
 		else {
-			throw new IllegalArgumentException();
+			throw new PlayerDoesNotHaveSuchIngredientException(String.format("Player does not have ingredient %s\n", ingredient.getName()));
 		}
 		
 		System.out.println("New ingredients");
@@ -321,7 +316,7 @@ public class Player {
 		return ingredient.getName();
 	}
 	
-	public String buyArtifact() {
+	public String buyArtifact() throws ArtifactStorageIsEmptyException, InsufficientBalanceException {
 		
 		if(getBalance() >= -getGoldtToBePayedToArtifact()) {
 			
@@ -359,14 +354,12 @@ public class Player {
 				return artifact.getName();
 			}
 			else {
-				System.out.println("Artifact Storage is empty!");
+				throw new ArtifactStorageIsEmptyException();
 			}
 		}
 		else {
-			System.out.println("Balance is unsufficient, come back when you have more gold :D");
+			throw new InsufficientBalanceException();
 		}
-		
-		return null;
 	}
 	
 
@@ -374,7 +367,7 @@ public class Player {
 		artifact.applyArtifact(this);
 	}
 	
-	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) 
+	public int sellPotion(Ingredient ingredientOne, Ingredient ingredientTwo, String promise) throws InsufficientIngredientException, NoPromiseException 
 	{
 		//@requires: not null ingredientOne and ingredientTwo; not null and not empty promise
 		
@@ -387,10 +380,10 @@ public class Player {
 		//And for any other circumstances 2 gold will be payed.
 		
 		if(ingredientOne == null || ingredientTwo == null) {
-			throw new IllegalArgumentException("sellPotion cannot be made with null ingredients");
+			throw new InsufficientIngredientException();
 		}
 		if(promise == null || promise.equals("")) {
-			throw new IllegalArgumentException("sellPotion cannot be made with null or empty promise");
+			throw new NoPromiseException();
 		}
 		Potion potion = Potion.makePotion(ingredientOne, ingredientTwo);
 
@@ -436,13 +429,13 @@ public class Player {
  	*   
  	* Effects:
  	*   Updates the common publication board. Player's reputation point and balance.
+	 * @throws InsufficientBalanceException 
     */
 	
-	public void publishTheory(String selectedMarker, String selectedTheory) {
+	public void publishTheory(String selectedMarker, String selectedTheory) throws InsufficientBalanceException {
 		
 		if (this.getBalance() < 1) {
-			
-			System.out.println("Insufficient balance to publish a theory");
+			throw new InsufficientBalanceException("Insufficient balance to publish a theory");
 		}
 		else {
 			PublicationBoard.getInstance().publishTheory(this, Token.getTokens().get(selectedMarker), Ingredient.getIngredient(selectedTheory));
@@ -555,72 +548,6 @@ public class Player {
 
 		}
 	}
-
-	
-
-
-
-	
-	
-	/*private int enumeratePromises(String promise) {
-		int return_val = 0;
-		
-		switch(promise) {
-		case "+":
-			return_val = 3;
-			break;
-		case "+ or 0":
-			return_val = 2;
-			break;
-		case "Nothing":
-			return_val = 1;
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-		
-		return return_val;
-	}
-	
-	private int enumeratePotionResult(Potion potion) {
-		int return_val = 0;
-		
-		switch(potion.getDominantAspect().getSign()) {
-		case "positive":
-			return_val = 3;
-			break;
-		case "neutral":
-			return_val = 2;
-			break;
-		case "negative":
-			return_val = 1;
-			break;
-		default:
-			throw new IllegalArgumentException();
-		}
-		
-		return return_val;
-	}
-	*/
-	
-		
-	
-		
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-
-	
-	
-	
 
 
 }
