@@ -429,13 +429,13 @@ public class Player {
  	*   
  	* Effects:
  	*   Updates the common publication board. Player's reputation point and balance.
+	 * @throws InsufficientBalanceException 
     */
 	
-	public void publishTheory(String selectedMarker, String selectedTheory) {
+	public void publishTheory(String selectedMarker, String selectedTheory) throws InsufficientBalanceException {
 		
 		if (this.getBalance() < 1) {
-			
-			System.out.println("Insufficient balance to publish a theory");
+			throw new InsufficientBalanceException("Insufficient balance to publish a theory");
 		}
 		else {
 			PublicationBoard.getInstance().publishTheory(this, Token.getTokens().get(selectedMarker), Ingredient.getIngredient(selectedTheory));
