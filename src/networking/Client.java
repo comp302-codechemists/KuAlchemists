@@ -459,10 +459,10 @@ public class Client {
 								controller.handleExperiment(selectedIngredients, 2));
 		}
 		
+		// For displaying the result to other players
 		String imagePath = "/potionImages/" + resultToken + ".png";
-
-	    // ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-	    // JOptionPane.showMessageDialog(null, "", "Experiment Result of Player " + theResponsiblePlayer, JOptionPane.INFORMATION_MESSAGE, icon);
+	    ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
+	    JOptionPane.showMessageDialog(null, "", "Experiment Result of " + theResponsiblePlayer, JOptionPane.INFORMATION_MESSAGE, icon);
 
 	    
 	    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
