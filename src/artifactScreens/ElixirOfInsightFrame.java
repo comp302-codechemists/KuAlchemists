@@ -150,14 +150,15 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
                         ingredientList.set(Integer.parseInt(selectedOrder3) - 1, ing3);
                         game.getIngredientStorage().setIngredientList(ingredientList);
                         ElixirOfInsightFrame.this.dispose();
+                        MainGameFrame mf = new MainGameFrame(game);
                         
                         if(game.isOnline()) {
-                        MainGameFrame mf = new MainGameFrame(game);
-                        mf.updatePlayerName(Client.instance.getUsername());
-                        Client.instance.setView(mf);
-                        System.out.println("Did Elixir  as " + Client.instance.getUsername() + " newIngreList: " + game.getIngredientStorage().ingredientList);;
 
-                        Client.instance.sendMessage("ELIXIR," + selectedOrder1 + "," + selectedOrder2 + "," + selectedOrder3);
+                        	mf.updatePlayerName(Client.instance.getUsername());
+                        	Client.instance.setView(mf);
+                        	System.out.println("Did Elixir  as " + Client.instance.getUsername() + " newIngreList: " + game.getIngredientStorage().ingredientList);;
+
+                        	Client.instance.sendMessage("ELIXIR," + selectedOrder1 + "," + selectedOrder2 + "," + selectedOrder3);
                        
                         }
                     } else {
