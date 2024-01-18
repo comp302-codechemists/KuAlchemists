@@ -127,7 +127,7 @@ public class SellPotionFrame extends FunctionalFrame{
                 		String messageToSend = "SELLPOTION," + selectedIngredients.get(0) + "," + selectedIngredients.get(1) + "," + selectedAspect;
                 		Client.instance.setView(main);
                 		Client.instance.sendMessage(messageToSend);
-        	}
+    				}
                 	
                 	}
 

@@ -2,6 +2,9 @@ package Screens;
 import javax.swing.*;
 
 import Business.KUAlchemistsGame;
+import Business.MainAdapter;
+import Business.OfflineAdapter;
+import Business.OnlineAdapter;
 import Controllers.PlayGameController;
 import DesignSystem.GameFrame;
 import soundEffects.PlaySong;
@@ -19,6 +22,8 @@ public class WelcomeFrame extends MagicFrame {
     private JLabel loadingLabel;
     private JProgressBar progressBar;
     private JComboBox<String> playerCount;
+    private MainAdapter adapter;
+    
     public WelcomeFrame()
     {
     	this(null); 
@@ -73,7 +78,8 @@ public class WelcomeFrame extends MagicFrame {
     	onlineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                onlineButtonClicked();
+            	WelcomeFrame.this.setAdapter(new OnlineAdapter());
+                ButtonClicked();
             }
         });
         
@@ -98,7 +104,8 @@ public class WelcomeFrame extends MagicFrame {
     	offlineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	offlineButtonClicked();
+            	WelcomeFrame.this.setAdapter(new OfflineAdapter(Integer.parseInt((String) playerCount.getSelectedItem())));
+            	ButtonClicked();
             }
         });
         
@@ -128,25 +135,21 @@ public class WelcomeFrame extends MagicFrame {
          progressBar.setVisible(false);
          backgroundPanel.add(progressBar);
     }
+        
     
-    private void onlineButtonClicked() {
-    	
-   
-    	PlaySong.play("ButtonClick");
-    	
-    	new OnlineOptionFrame();
+    
+    private void ButtonClicked() {
+    	this.getAdapter().start(); 
     	this.dispose();
-    	
     }
-    
-    private void offlineButtonClicked() {
-    	PlaySong.play("ButtonClick");
-    	playGameController = new PlayGameController();
-    	int selected = Integer.parseInt((String) playerCount.getSelectedItem());
-    	KUAlchemistsGame game = playGameController.playGame(selected);
-        new StartGameFrame(game);
-        this.dispose();
 
 
-    }
+	public MainAdapter getAdapter() {
+		return adapter;
+	}
+
+
+	public void setAdapter(MainAdapter adapter) {
+		this.adapter = adapter;
+	}
 }

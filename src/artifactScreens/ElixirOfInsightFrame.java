@@ -153,6 +153,7 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
                         frame.dispose();
                         MainGameFrame mf = new MainGameFrame(game);
                         
+                        
                         if(game.isOnline()) {
 
                         	mf.updatePlayerName(Client.instance.getUsername());
@@ -162,6 +163,7 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
                         	Client.instance.sendMessage("ELIXIR," + selectedOrder1 + "," + selectedOrder2 + "," + selectedOrder3);
                        
                         }
+                        
                     } else {
                         // Display an error message or handle the case where the selected items are the same
                         JOptionPane.showMessageDialog(null, "Please select different index for each ingredient.",
