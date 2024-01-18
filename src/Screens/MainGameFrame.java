@@ -169,8 +169,7 @@ public class MainGameFrame extends GeneralFrame{
 	        Image image = imageIcon.getImage().getScaledInstance(200, 150, Image.SCALE_SMOOTH);
 	        theoryLabel.setIcon(new ImageIcon(image));
 	        initheoryPanel.add(theoryLabel);
-	       
-	              
+	       	              
 	    }
 
 	    backgroundPanel.add(initheoryPanel);
@@ -274,7 +273,7 @@ public class MainGameFrame extends GeneralFrame{
 		playerNameDisplayed = new JTextArea();
 		playerNameDisplayed.setEditable(false);
 		playerNameDisplayed.setBounds(720, 10, 100, 40);
-		playerNameDisplayed.setVisible(true);
+		playerNameDisplayed.setVisible(game.isOnline());
 		backgroundPanel.add(playerNameDisplayed);
 
 		backgroundPanel.add(round);
