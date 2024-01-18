@@ -150,6 +150,7 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
                         ingredientList.set(Integer.parseInt(selectedOrder3) - 1, ing3);
                         game.getIngredientStorage().setIngredientList(ingredientList);
                         ElixirOfInsightFrame.this.dispose();
+                        frame.dispose();
                         MainGameFrame mf = new MainGameFrame(game);
                         
                         if(game.isOnline()) {
