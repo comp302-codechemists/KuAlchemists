@@ -346,8 +346,8 @@ public class MainGameFrame extends GeneralFrame{
 				}
 
 				KUAlchemistsGame.instance.pause();
-				gameLogArea.revalidate();
-				gameLogArea.repaint();
+				/*gameLogArea.revalidate();
+				gameLogArea.repaint();*/
 			}
 		});
 		backgroundPanel.add(pauseGameButton);
