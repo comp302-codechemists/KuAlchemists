@@ -156,7 +156,7 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	    	notify = "Upsy, you created a negative potion.\n";
 		    if (selection == 2) {
 		    	notify += "You poisioned yourself! \n";
-		    	int sick = currPlay.getSicknessLevel() + 1;
+		    	int sick = currPlay.getSicknessLevel();
 		    	notify += "Your sickness level: " + sick + ".\n";
 		    	
 		    	if (sick == 3) {
