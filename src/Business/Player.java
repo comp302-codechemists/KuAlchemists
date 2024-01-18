@@ -1,5 +1,5 @@
-
 package Business;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -144,7 +144,7 @@ public class Player {
 	public List<Theory> getTheories() {
 		return theories;
 	}
-
+	
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
@@ -162,6 +162,7 @@ public class Player {
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
+
 
 	public void setTheories(List<Theory> theories) {
 		this.theories = theories;

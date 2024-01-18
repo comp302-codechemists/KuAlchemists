@@ -11,4 +11,5 @@ public class ArtifactStorageIsEmptyException extends Exception {
 	public ArtifactStorageIsEmptyException(String message) {
 		super(message);
 	}
+
 }

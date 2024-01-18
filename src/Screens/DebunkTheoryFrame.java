@@ -24,7 +24,6 @@ import DesignSystem.GameButton;
 import soundEffects.PlaySong;
 import networking.Client;
 
-
 public class DebunkTheoryFrame extends FunctionalFrame{
 
 	private DebunkTheoryController controller;
@@ -90,7 +89,7 @@ public class DebunkTheoryFrame extends FunctionalFrame{
             	    	newMain.updatePlayerName(Client.instance.getUsername());
             	    	Client.instance.setView(newMain);
                   	 }
-
+	
             	}
             }
         });

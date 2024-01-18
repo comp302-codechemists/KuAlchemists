@@ -25,8 +25,8 @@ import Controllers.SellPotionController;
 import DesignSystem.ArtisticButton;
 import DesignSystem.GameButton;
 import Exceptions.IngredientNotFoundException;
-import networking.Client;
 import soundEffects.PlaySong;
+import networking.Client;
 
 public class SellPotionFrame extends FunctionalFrame{
 
@@ -95,7 +95,7 @@ public class SellPotionFrame extends FunctionalFrame{
     					JOptionPane.showMessageDialog(new JFrame(), notify, "Correct",
     		                    JOptionPane.ERROR_MESSAGE, icon);
     					 // Close the frame
-    					
+    				 
     				}
     				else if (payment == 2)
     				{
@@ -106,7 +106,7 @@ public class SellPotionFrame extends FunctionalFrame{
        					JOptionPane.showMessageDialog(new JFrame(), notify, "Neutral",
     		                    JOptionPane.ERROR_MESSAGE, icon);
     					 // Close the frame
-    					
+    				    
     				}
     				else // payment == 1
     				{
@@ -117,7 +117,7 @@ public class SellPotionFrame extends FunctionalFrame{
     					JOptionPane.showMessageDialog(new JFrame(), notify, "Incorrect",
     		                    JOptionPane.ERROR_MESSAGE, icon);
     					 // Close the frame
-    					
+    				    
     				}
     				
     				MainGameFrame main = new MainGameFrame(game);
@@ -127,12 +127,10 @@ public class SellPotionFrame extends FunctionalFrame{
                 		String messageToSend = "SELLPOTION," + selectedIngredients.get(0) + "," + selectedIngredients.get(1) + "," + selectedAspect;
                 		Client.instance.setView(main);
                 		Client.instance.sendMessage(messageToSend);
-    				}
-                	
-                	}
 
             	}
-            
+            	}
+            }
         });    		
     }
 	

@@ -75,12 +75,10 @@ public class BuyArtifactFrame extends FunctionalFrame{
                 
 			    if (boughtArtifact != null)
 			    {
-			    	
 			    	if(game.isOnline()) {
 				    	Client.instance.sendMessage("BUYARTIFACT");
 
 						}
-			    
 
 			    	
 			    	if (boughtArtifact.equals("ElixirOfInsightArtifact")) {
@@ -120,15 +118,11 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    	 // Close the frame
 				    BuyArtifactFrame.this.dispose();
 				    MainGameFrame newMain = new MainGameFrame(game);
-				    
-				    
-					if(game.isOnline()) {
-				    newMain.updatePlayerName(Client.instance.getUsername());
-	    	    	Client.instance.setView(newMain);
+				    if(game.isOnline()) {
+					    newMain.updatePlayerName(Client.instance.getUsername());
+		    	    	Client.instance.setView(newMain);
 
-					}
-					
-					
+						}
 
 			    }
 			}
@@ -162,3 +156,4 @@ public class BuyArtifactFrame extends FunctionalFrame{
 		backgroundPanel.add(button);
 	}
 }
+

@@ -177,7 +177,6 @@ public class MakeExperimentFrame extends FunctionalFrame {
 	    	notify = "Yay! You didn't create a negative potion!";
 	    }
 	    
-
 		// Networking handling
 		if (KUAlchemistsGame.instance.isOnline()) {
 			String messageToSend = "MAKEEXPERIMENT,";
@@ -207,6 +206,8 @@ public class MakeExperimentFrame extends FunctionalFrame {
 			main.updatePlayerName(Client.instance.getUsername());
 	    	Client.instance.setView(main);
 	    	}
+
+	    
 
 	    
 	    JOptionPane.showMessageDialog(null, notify, "Experiment Result", JOptionPane.INFORMATION_MESSAGE, icon);

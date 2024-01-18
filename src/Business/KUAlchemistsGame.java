@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import Screens.EndGameFrame;
+
 import Controllers.PauseController;
+import Screens.EndGameFrame;
 import networking.*;
 
 public class KUAlchemistsGame {
-
 	
 	//================================================================================
     // Properties
     //================================================================================
 
-	public static volatile KUAlchemistsGame instance;
-	
+	public static KUAlchemistsGame instance;
+
 	// player related
-	private volatile List<Player> players = new ArrayList<Player>();
+	private List<Player> players = new ArrayList<Player>();
 	private int currentPlayerIndex;
 	public Player currentPlayer;
 	int numberOfPlayers;
@@ -26,7 +26,6 @@ public class KUAlchemistsGame {
 	// each game has an ingredient storage, an artifact storage and a publication board
 	private IngredientStorage ingredientStorage;
 	private ArtifactStorage artifactStorage;
-	private PublicationBoard publicationBoard;
 	
 	// game situation
 	int round = 1;
@@ -36,7 +35,6 @@ public class KUAlchemistsGame {
 	private boolean isOnline;
 	private boolean isPaused;
 
-	
 	//================================================================================
     // Constructors
     //================================================================================
@@ -55,12 +53,12 @@ public class KUAlchemistsGame {
 
 		// set game state
 		this.state = new ResumeState(this);
+
 		System.out.printf("The game started with %d players.\n", numberOfPlayers);
 		isPaused = false;
 		isOnline = false;
 
 	}
-	
 	
 	//================================================================================
     // Accessors
@@ -132,8 +130,6 @@ public class KUAlchemistsGame {
     // Methods
     //================================================================================
 	
-
-	
 	
 	public void nextPlayer()
 	{
@@ -159,11 +155,7 @@ public class KUAlchemistsGame {
 	
 	public static KUAlchemistsGame getInstance(int numberOfPlayers) {
 		if (instance == null) {
-			synchronized(KUAlchemistsGame.class) {
-				if(instance == null) {
-					instance = new KUAlchemistsGame(numberOfPlayers);
-				}
-			}			
+			instance = new KUAlchemistsGame(numberOfPlayers);
 		}
 		return instance;
 	}
@@ -203,7 +195,7 @@ public class KUAlchemistsGame {
 			// set new player's balance
 			newPlayer.setBalance(+10);
 
-			// deal 5 ingredientCards to newPlayer
+			// deal 2 ingredientCards to newPlayer
 			for (int j = 0; j < 2; j++) {
 				giveRandomIngredientCardToPlayer(newPlayer);
 				
@@ -251,7 +243,6 @@ public class KUAlchemistsGame {
 
 	}
 
-
 	private Player showWinner() {
 		/*
 		 * This method will return the winner
@@ -281,6 +272,7 @@ public class KUAlchemistsGame {
 	{
 		state.resume();
 	}
+
 
 	
 

@@ -17,3 +17,4 @@ public class ElixirOfInsightArtifact extends Artifact implements removeArtifactL
 	}
 
 }
+

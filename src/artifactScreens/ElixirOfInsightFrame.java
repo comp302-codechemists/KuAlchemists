@@ -4,6 +4,7 @@ import Business.Ingredient;
 import Business.IngredientStorage;
 import Business.KUAlchemistsGame;
 import Business.Player;
+import Screens.BuyArtifactFrame;
 import Screens.MainGameFrame;
 import networking.Client;
 import Screens.BuyArtifactFrame;
