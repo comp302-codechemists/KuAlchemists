@@ -23,8 +23,8 @@ import Business.Player;
 import Controllers.buyArtifactController;
 import DesignSystem.ArtisticButton;
 import artifactScreens.ArtifactFrame;
-import networking.Client;
 import soundEffects.PlaySong;
+import networking.Client;
 
 import javax.swing.JLabel;
 
@@ -71,6 +71,7 @@ public class BuyArtifactFrame extends FunctionalFrame{
 				buyArtifactController controller = new buyArtifactController(game);
                 String boughtArtifact = controller.buyArtifactHandler();
                 PlaySong.play("DrawCard");
+                ArtifactFrame artifactFrame;
                 
 			    if (boughtArtifact != null)
 			    {
@@ -79,10 +80,17 @@ public class BuyArtifactFrame extends FunctionalFrame{
 				    	Client.instance.sendMessage("BUYARTIFACT");
 
 						}
-						
+			    
+
 			    	
+			    	if (boughtArtifact.equals("ElixirOfInsightArtifact")) {
+			    		artifactFrame = controller.getArtifactFrame(boughtArtifact, BuyArtifactFrame.this);
+			    	}
+			    	else {
+			    		artifactFrame = controller.getArtifactFrame(boughtArtifact);	
+			    	}
 			    	
-			    	ArtifactFrame artifactFrame = controller.getArtifactFrame(boughtArtifact);
+			
 
 			    	artifactFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Set close operation
 
@@ -94,17 +102,8 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    	        artifactFrame.setVisible(false); // Hide the frame
 			    	        // Close the frame
 						    BuyArtifactFrame.this.dispose();
-						    MainGameFrame newMain = new MainGameFrame(game);
-						    
-						    
-							if(game.isOnline()) {
-						    newMain.updatePlayerName(Client.instance.getUsername());
-			    	    	Client.instance.setView(newMain);
-
-							}
-							
-							
-						}
+						    new MainGameFrame(game);
+			    	    }
 			    	});
 
 			    	SwingUtilities.invokeLater(() -> {
@@ -120,7 +119,17 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    	JOptionPane.showMessageDialog(null, message, "Unsufficient Balance", JOptionPane.WARNING_MESSAGE);
 			    	 // Close the frame
 				    BuyArtifactFrame.this.dispose();
-				    new MainGameFrame(game);
+				    MainGameFrame newMain = new MainGameFrame(game);
+				    
+				    
+					if(game.isOnline()) {
+				    newMain.updatePlayerName(Client.instance.getUsername());
+	    	    	Client.instance.setView(newMain);
+
+					}
+					
+					
+
 			    }
 			}
 

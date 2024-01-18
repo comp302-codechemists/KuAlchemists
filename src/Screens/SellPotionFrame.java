@@ -84,48 +84,55 @@ public class SellPotionFrame extends FunctionalFrame{
             	{
             		PlaySong.play("MakePotion");
             		controller = new SellPotionController(game);
-        			try {
-        				int payment = controller.handleSellPotion(selectedIngredients.get(0), selectedIngredients.get(1), selectedAspect);
-        				if (payment == 3)
-        				{
-        					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/correct.png"));				    
-        					JOptionPane.showMessageDialog(new JFrame(), "Correct",
-        		                    "", JOptionPane.ERROR_MESSAGE, icon);
-        					 // Close the frame
-        				    SellPotionFrame.this.dispose();
-        				}
-        				else if (payment == 2)
-        				{
-        					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/0.png"));				    
-        					JOptionPane.showMessageDialog(new JFrame(), "Neutral",
-        		                    "", JOptionPane.ERROR_MESSAGE, icon);
-        					 // Close the frame
-        				    SellPotionFrame.this.dispose();
-        				}
-        				else // payment == 1
-        				{
-        					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/incorrect.png"));				    
-        					JOptionPane.showMessageDialog(new JFrame(), "Incorrect",
-        		                    "", JOptionPane.ERROR_MESSAGE, icon);
-        					 // Close the frame
-        				    SellPotionFrame.this.dispose();
-        				}
-        			} 
-        			catch (IngredientNotFoundException x) 
-        			{
-        				JOptionPane.showMessageDialog(new JFrame(), "Please select 2 ingredients and give promise!",
-        	                    "", JOptionPane.ERROR_MESSAGE);
-        			}
-				    MainGameFrame main = new MainGameFrame(game);
+            		int balan = game.getCurrentPlayer().getBalance();
+    				int payment = controller.handleSellPotion(selectedIngredients.get(0), selectedIngredients.get(1), selectedAspect);	
+    				if (payment == 3)
+    				{
+    					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/correct.png"));
+    					balan += 3;
+    					String notify = "You matched your promise and earned 3 golds.\n"
+    							+ "New balance: " + balan + ".";
+    					JOptionPane.showMessageDialog(new JFrame(), notify, "Correct",
+    		                    JOptionPane.ERROR_MESSAGE, icon);
+    					 // Close the frame
+    					
+    				}
+    				else if (payment == 2)
+    				{
+    					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/0.png"));	
+    					balan += 2;
+    					String notify = "Your potion is neutral.\n"
+    							+ "New balance: " + balan + ".";
+       					JOptionPane.showMessageDialog(new JFrame(), notify, "Neutral",
+    		                    JOptionPane.ERROR_MESSAGE, icon);
+    					 // Close the frame
+    					
+    				}
+    				else // payment == 1
+    				{
+    					ImageIcon icon = new ImageIcon(getClass().getResource("/potionImages/incorrect.png"));	
+    					balan += 1;
+    					String notify = "Your potion is neutral.\n"
+    							+ "New balance: " + balan + ".";
+    					JOptionPane.showMessageDialog(new JFrame(), notify, "Incorrect",
+    		                    JOptionPane.ERROR_MESSAGE, icon);
+    					 // Close the frame
+    					
+    				}
+    				
+    				MainGameFrame main = new MainGameFrame(game);
+				    SellPotionFrame.this.dispose();
+    				
+    				if (KUAlchemistsGame.instance.isOnline()){
+                		String messageToSend = "SELLPOTION," + selectedIngredients.get(0) + "," + selectedIngredients.get(1) + "," + selectedAspect;
+                		Client.instance.setView(main);
+                		Client.instance.sendMessage(messageToSend);
+        	}
+                	
+                	}
 
-            	if (KUAlchemistsGame.instance.isOnline()){
-            		String messageToSend = "SELLPOTION," + selectedIngredients.get(0) + "," + selectedIngredients.get(1) + "," + selectedAspect;
-            		Client.instance.setView(main);
-            		Client.instance.sendMessage(messageToSend);
-    	}
-            	
             	}
-            }
+            
         });    		
     }
 	

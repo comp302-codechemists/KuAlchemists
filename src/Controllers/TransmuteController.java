@@ -4,7 +4,7 @@ import java.util.List;
 
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
-import Business.Player;
+import Exceptions.PlayerDoesNotHaveSuchIngredientException;
 import Business.IngredientStorage;
 
 public class TransmuteController {
@@ -36,13 +36,21 @@ public class TransmuteController {
 		
 		boolean found = false;
 	
-		for(Ingredient ingredient: game.currentPlayer.getIngredients()) {
-			if(ingredient.getName().equals(transmutedIngredientName)) {
-				String transmutedIngredient = game.currentPlayer.transmuteIngredient(ingredient);
-				
+		for(Ingredient ingredient: game.currentPlayer.getIngredients()) 
+		{
+			if(ingredient.getName().equals(transmutedIngredientName)) 
+			{
+				String transmutedIngredient;
+				try {
+					transmutedIngredient = game.currentPlayer.transmuteIngredient(ingredient);
+				} catch (PlayerDoesNotHaveSuchIngredientException e) {
+					e.printStackTrace();
+					return e.getMessage();
+				}
 				
 				found = true;
 				game.nextPlayer();
+				
 				return transmutedIngredient;
 			}
 		}

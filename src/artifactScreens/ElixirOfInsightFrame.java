@@ -6,7 +6,7 @@ import Business.KUAlchemistsGame;
 import Business.Player;
 import Screens.MainGameFrame;
 import networking.Client;
-
+import Screens.BuyArtifactFrame;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,7 +26,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 public class ElixirOfInsightFrame extends ArtifactFrame {
-		
+	
 	private JComboBox<String> order1;
 	private JComboBox<String> order2;
 	private JComboBox<String> order3;
@@ -36,14 +36,19 @@ public class ElixirOfInsightFrame extends ArtifactFrame {
 	private Ingredient ing2;
 	private Ingredient ing3;
 	
+	private JFrame frame;
 	
-	public ElixirOfInsightFrame(KUAlchemistsGame game) {
+	
+	public ElixirOfInsightFrame(KUAlchemistsGame game, JFrame frame) {
 		super(game);
 		setBackground("/artifactBackgrounds/ElixirOfInsightArtifact.png");
 		setIngredientImages();
 		setReorderingLogic();
 		setButton();
+		this.frame = frame;
 	}
+	
+
 	
 	private void setIngredientImages() {
 		

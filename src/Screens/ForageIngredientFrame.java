@@ -16,13 +16,13 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import networking.Client;
+import networking.ClientHandler;
 
 import Business.KUAlchemistsGame;
 import Business.Player;
 import Controllers.ForageController;
 import DesignSystem.ArtisticButton;
-import networking.Client;
-import networking.ClientHandler;
 import soundEffects.PlaySong;
 
 public class ForageIngredientFrame extends FunctionalFrame
@@ -77,6 +77,8 @@ public class ForageIngredientFrame extends FunctionalFrame
 			    	Image newImage = image.getScaledInstance(60, 100, Image.SCALE_DEFAULT);
 			    	ImageIcon icon = new ImageIcon(newImage);
 				    JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.INFORMATION_MESSAGE, icon);
+				  
+				    
 				    
 				    if (KUAlchemistsGame.instance.isOnline()) {
 				    	System.out.println("Ingredient Taken: " + takenIngredient);
@@ -84,24 +86,27 @@ public class ForageIngredientFrame extends FunctionalFrame
 			
 				    	
 				   
-					    	Client.instance.sendMessage("FORAGE");
+					   Client.instance.sendMessage("FORAGE");
 
 				    	
 				    }
-				    ForageIngredientFrame.this.dispose();
-				    MainGameFrame newMain = new MainGameFrame(game);
-				    if (KUAlchemistsGame.instance.isOnline()) {
-				    	newMain.updatePlayerName(Client.instance.getUsername());
-				    	Client.instance.setView(newMain);
-				    	}
+				    
+
 			    }
 			    else
 			    {
 			    	String message = "Ingredient Storage is empty!";
 			    	JOptionPane.showMessageDialog(null, message, "Ingredient Taken", JOptionPane.WARNING_MESSAGE);
+			    	
 			    }
 			    
-			   
+			    // Close the frame
+			    ForageIngredientFrame.this.dispose();
+			    MainGameFrame newMain = new MainGameFrame(game);
+			    if (KUAlchemistsGame.instance.isOnline()) {
+			    	newMain.updatePlayerName(Client.instance.getUsername());
+			    	Client.instance.setView(newMain);
+			    	}
 			}
 
 

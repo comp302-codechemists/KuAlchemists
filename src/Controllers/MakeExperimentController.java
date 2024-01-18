@@ -6,8 +6,8 @@ import java.util.List;
 import Business.Experiment;
 import Business.Ingredient;
 import Business.KUAlchemistsGame;
-import Business.Player;
 import Business.Potion;
+import Exceptions.PlayerDoesNotHaveSuchIngredientException;
 
 public class MakeExperimentController {
 	
@@ -36,12 +36,17 @@ public class MakeExperimentController {
 	
 	public String handleExperiment(List<String> ingredientList, int whereToTest) 
 	{
-		Potion potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest); 
-		System.out.println("Potion: " + potion.getName());
+		Potion potion;
+		try {
+			potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest);
+			System.out.println("Potion: " + potion.getName());
+			game.nextPlayer();
+			return potion.getName();
+		} catch (PlayerDoesNotHaveSuchIngredientException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		} 
 		
-		
-		game.nextPlayer();
-		return potion.getName();
 	}
 	
 	public int getNumberOfIngredientsToBeRemoved() {
@@ -52,13 +57,6 @@ public class MakeExperimentController {
 	{
 		Potion potion = game.currentPlayer.makeExperiment(ingredientList, whereToTest, keptIngredient); 
 		System.out.println("Potion: " + potion.getName());
-		
-		for (Player player : game.getPlayers() ) {
-			if(player.getUserName().equals(game.currentPlayer.getUserName())) {
-				//player = game.currentPlayer;
-				player.setIngredients(game.currentPlayer.getIngredients());
-			}
-		}
 		game.nextPlayer();
 		return potion.getName();
 	}

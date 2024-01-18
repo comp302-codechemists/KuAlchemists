@@ -1,7 +1,6 @@
 package Controllers;
 
 import Business.KUAlchemistsGame;
-import Business.Player;
 
 public class ForageController {
 	
@@ -14,7 +13,6 @@ public class ForageController {
 
 	public String handleForage() {
 		String foragedIngredient = game.currentPlayer.forageForIngredient();
-	
 		game.nextPlayer();
 		return foragedIngredient;
 	}

@@ -113,7 +113,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 		setBottomCrosses();
 		setRemoveDeductionButton();
 		sendDebunkWarning();
-		//testElixir();
 		
 	}
 	
@@ -858,19 +857,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        backgroundPanel.add(label);
 		}
 		
-		private void testElixir() {
-	        testElixir = new JButton("Test Elixir of Insight");
-	        testElixir.setBounds(1210, 560, 123, 30);
-	        backgroundPanel.add(testElixir);
-	        
-	        testElixir.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(ActionEvent e) {
-	                new ElixirOfInsightFrame(game);
-	                PlayerDashboardFrame.this.dispose();
-	            }
-	        });
-		}
+
 		
 		private void sendDebunkWarning() {
 			

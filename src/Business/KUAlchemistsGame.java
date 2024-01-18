@@ -10,6 +10,11 @@ import networking.*;
 
 public class KUAlchemistsGame {
 
+	
+	//================================================================================
+    // Properties
+    //================================================================================
+
 	public static volatile KUAlchemistsGame instance;
 	
 	// player related
@@ -31,6 +36,11 @@ public class KUAlchemistsGame {
 	private boolean isOnline;
 	private boolean isPaused;
 
+	
+	//================================================================================
+    // Constructors
+    //================================================================================
+
 
 	public KUAlchemistsGame(int numberOfPlayers) {
 		
@@ -50,6 +60,79 @@ public class KUAlchemistsGame {
 		isOnline = false;
 
 	}
+	
+	
+	//================================================================================
+    // Accessors
+    //================================================================================
+	
+	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+
+	public void setNumberOfPlayers(int numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
+	}
+
+	public IngredientStorage getIngredientStorage() {
+		return ingredientStorage;
+	}
+
+	public void setIngredientStorage(IngredientStorage ingredientStorage) {
+		this.ingredientStorage = ingredientStorage;
+	}
+
+	public ArtifactStorage getArtifactStorage() {
+		return artifactStorage;
+	}
+
+	public void setArtifactStorage(ArtifactStorage artifactStorage) {
+		this.artifactStorage = artifactStorage;
+	}
+
+	public List<Player> getPlayers() {
+		return this.players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public int getRound() {
+		return round;
+	}
+
+	public void setRound(int round) {
+		this.round = round;
+	}
+	
+	public void setState(State state) {
+        this.state = state;
+    }
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
+	}
+	
+	
+	//================================================================================
+    // Methods
+    //================================================================================
+	
+
 	
 	
 	public void nextPlayer()
@@ -199,67 +282,7 @@ public class KUAlchemistsGame {
 		state.resume();
 	}
 
-	// Getters and setters:
-
-	public Player getCurrentPlayer() {
-		return currentPlayer;
-	}
-
-	public void setCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
-	}
-
-	public int getNumberOfPlayers() {
-		return numberOfPlayers;
-	}
-
-	public void setNumberOfPlayers(int numberOfPlayers) {
-		this.numberOfPlayers = numberOfPlayers;
-	}
-
-	public IngredientStorage getIngredientStorage() {
-		return ingredientStorage;
-	}
-
-	public void setIngredientStorage(IngredientStorage ingredientStorage) {
-		this.ingredientStorage = ingredientStorage;
-	}
-
-	public ArtifactStorage getArtifactStorage() {
-		return artifactStorage;
-	}
-
-	public void setArtifactStorage(ArtifactStorage artifactStorage) {
-		this.artifactStorage = artifactStorage;
-	}
-
-	public List<Player> getPlayers() {
-		return this.players;
-	}
-
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
-
-	public int getRound() {
-		return round;
-	}
-
-	public void setRound(int round) {
-		this.round = round;
-	}
 	
-	public void setState(State state) {
-        this.state = state;
-    }
-
-	public boolean isFinished() {
-		return finished;
-	}
-
-	public void setFinished(boolean finished) {
-		this.finished = finished;
-	}
 
 
 	public boolean isOnline() {

@@ -369,7 +369,6 @@ public class Client {
 		    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
 		    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
 		            newMain.updatePlayerName(this.username);
-		            newMain.setPlayersInfoTable();
 		            this.view = newMain;
 		   
 		            
@@ -391,7 +390,6 @@ public class Client {
 	    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
 	    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
 	            newMain.updatePlayerName(this.username);
-	            newMain.setPlayersInfoTable();
 	            this.view = newMain;
 	            this.view.setVisible(true);
 	    }
@@ -470,7 +468,6 @@ public class Client {
 	    if (!this.username.equals(KUAlchemistsGame.instance.currentPlayer.getUserName())) {
 	    	 MainGameFrame newMain = new MainGameFrame(KUAlchemistsGame.instance);
 	            newMain.updatePlayerName(this.username);
-	            newMain.setPlayersInfoTable();
 	            this.view = newMain;		       		   	            
 	  } 	
 	    

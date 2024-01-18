@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import Factories.ArtifactFactory;
+
 
 public class ArtifactStorage {
 	
@@ -40,7 +42,8 @@ public class ArtifactStorage {
 
 		//Remove and return top:
 		if(artifactList.isEmpty()) return null; // throw exception
-		return artifactList.remove(0);
+		return ArtifactFactory.getInstance().getArtifacts("ElixirOfInsightArtifact");
+		//return artifactList.remove(0);
 
 		
 	}
