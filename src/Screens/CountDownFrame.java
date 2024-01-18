@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class CountDownFrame extends JFrame {
     private JLabel countdownLabel;
-    private int count = 3;
+    private int count = 5;
 
     public CountDownFrame() {
         // Set up the JFrame

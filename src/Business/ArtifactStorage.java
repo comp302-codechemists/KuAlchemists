@@ -43,8 +43,7 @@ public class ArtifactStorage {
 		//Remove and return top:
 
 		if(artifactList.isEmpty()) return null; // throw exception
-		return ArtifactFactory.getInstance().getArtifacts("ElixirOfInsightArtifact");
-		//return artifactList.remove(0);
+		return artifactList.remove(0);
 
 		
 	}
