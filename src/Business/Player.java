@@ -471,15 +471,13 @@ public class Player {
 		}
 	}
 	
-	public boolean debunkTheory(String selectedTheory, String selectedAspect) throws TheoryNotFoundException, InvalidTheoryDebunkException {
+	public boolean debunkTheory(String selectedTheory, String selectedAspect)  {
 		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);
 		boolean result = false;
 		//Aspect aspect = Aspect.getAspect(selectedAspect);
 		if(theory == null) {
-			throw new TheoryNotFoundException();
-		}
-		else if(theory.getOwner().getUserName().equals(this.getUserName())) {
-			throw new InvalidTheoryDebunkException("You cannot debunk your own theory");
+			System.out.println("Invalid theory");
+			return false;
 		}
 		else {
 			result = PublicationBoard.getInstance().debunkTheory(theory, selectedAspect);
@@ -487,6 +485,13 @@ public class Player {
 		}
 		
 		return result;
+	}
+	
+	public boolean isSuccesfullDebunk(String selectedTheory) {
+				
+		Theory theory = PublicationBoard.getInstance().chooseTheory(selectedTheory);				
+		
+		return !theory.getOwner().getUserName().equals(this.getUserName());
 	}
 	
 	public void putTokenToResultsTriangle(int selectedTriangle,String name, int selectedLeft) {

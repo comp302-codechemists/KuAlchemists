@@ -9,6 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -80,7 +81,11 @@ public class DebunkTheoryFrame extends FunctionalFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
             	if (selectedAspect != null && selectedTheory != null)
-            	{
+            	{           		 
+            		 if(!controller.isSuccesful(selectedTheory)) {
+            			 JOptionPane.showMessageDialog(null, "", "You cannot debunk your own theory", JOptionPane.WARNING_MESSAGE, null);
+            			 return;
+            		 }
             		 controller.handleDebunk(selectedTheory, selectedAspect);
                 	 //PlaySong.play("DebunkTheory");
             		 MainGameFrame newMain =  new MainGameFrame(game);
