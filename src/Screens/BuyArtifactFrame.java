@@ -100,7 +100,12 @@ public class BuyArtifactFrame extends FunctionalFrame{
 			    	        artifactFrame.setVisible(false); // Hide the frame
 			    	        // Close the frame
 						    BuyArtifactFrame.this.dispose();
-						    new MainGameFrame(game);
+						    MainGameFrame newMain = new MainGameFrame(game);
+						    if(game.isOnline()) {
+							    newMain.updatePlayerName(Client.instance.getUsername());
+				    	    	Client.instance.setView(newMain);
+
+								}
 			    	    }
 			    	});
 
