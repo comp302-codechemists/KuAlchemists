@@ -34,11 +34,11 @@ public class EndGameFrame extends GeneralFrame {
 		this.player = player;
 		
 		
-		
+	    PlaySong.play("Winner");
+
 		setWindow();
 		setShowWinner();
 		
-	    //PlaySong.play("Winner");
 	}
 	
 	private void setWindow() {
