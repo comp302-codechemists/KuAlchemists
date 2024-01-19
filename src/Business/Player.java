@@ -237,7 +237,9 @@ public class Player {
 		
 		populateArtifactListeners("experiment");
 		handleRemove();
-	
+			
+		GameEvent events = new GameEvent(null, this, GameEvent.EventID.MAKE_EXPERIMENT);
+		
 		return potion;
 
 	}
@@ -260,6 +262,7 @@ public class Player {
 		populateArtifactListeners("experiment");
 		handleRemove();
 		
+		GameEvent events = new GameEvent(null, this, GameEvent.EventID.MAKE_EXPERIMENT);
 
 		return potion;
 

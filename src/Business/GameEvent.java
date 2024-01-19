@@ -125,7 +125,7 @@ public class GameEvent {
 				break;
 				
 			case DEBUNK_THEORY:
-				s = String.format("%s: %s debunked a theory.", eventTime, player.getUserName());
+				s = String.format("%s: %s tried to debunk a theory.", eventTime, player.getUserName());
 				break;
 				
 			default:
