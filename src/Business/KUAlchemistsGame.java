@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import Controllers.EndGameController;
 import Controllers.PauseController;
 import Screens.EndGameFrame;
 import networking.*;
@@ -238,12 +239,13 @@ public class KUAlchemistsGame {
 		setFinished(true);
 		Player player = showWinner();
 		GameEvent events = new GameEvent(this, player, GameEvent.EventID.FINISH_GAME);
-		//TODO Doesn't follow ui separation ??
-		new EndGameFrame(this, player);
+		
+		EndGameController controller = new EndGameController(this, player);
+		controller.handleEndGame();
 
 	}
 
-	private Player showWinner() {
+	public Player showWinner() {
 		/*
 		 * This method will return the winner
 		 */
@@ -261,6 +263,7 @@ public class KUAlchemistsGame {
 			}
 		}
 		return winner;
+		
 	}
 
 	public void pause() 

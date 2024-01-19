@@ -44,7 +44,7 @@ public class PublishTheoryFrame extends FunctionalFrame {
         setPublishButton();
         setReturnBtn();
     }
-    //TODO
+    
     private void setPublishButton()
     {
     	publishButton = new GameButton("Publish");

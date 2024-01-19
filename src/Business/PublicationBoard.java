@@ -60,6 +60,7 @@ public class PublicationBoard
 		if (!actualToken.contains(selectedAspect)) {
 			comparaison = true;
 			Theory.getAllTheories().remove(selectedTheory);
+			Theory.getUnavailableIngredients().remove(selectedTheory.getIngredient().getName());
 			Theory.getDebunkedTheories().put(selectedTheory, false);
 			selectedTheory.getOwner().setReputationPoints(selectedTheory.getOwner().getReputationPoints() - 1);
 		}

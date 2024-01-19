@@ -28,6 +28,8 @@ import Controllers.MakeExperimentController;
 import Controllers.TransmuteController;
 import DesignSystem.ArtisticButton;
 import soundEffects.PlaySong;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
 
 public class MakeExperimentFrame extends FunctionalFrame {
 	
@@ -47,9 +49,21 @@ public class MakeExperimentFrame extends FunctionalFrame {
 		this.setWhereToTestButtons();
 		this.setReturnBtn();
 		this.setIngredientToKeep();
+		this.setAnimation();
 		String[] initialOption = {"Please select the ingredient to keep"};
 		this.model = new DefaultComboBoxModel<>(initialOption);
-	    comboBox.setModel(model);
+		
+
+	}
+	
+	private void setAnimation() {
+		
+		JPanel animationPanel = new JPanel();
+		getContentPane().add(animationPanel, BorderLayout.SOUTH);
+		animationPanel.setLayout(null);
+	    
+	    
+		
 	}
 	
 	private void setReturnBtn() {
@@ -133,7 +147,6 @@ public class MakeExperimentFrame extends FunctionalFrame {
 				
 		String resultToken;
 		
-		// TODO there should be two handling method
 		if (selection == 1)
 		{
 			resultToken = (haveMagicMortar ?

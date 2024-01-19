@@ -5,6 +5,7 @@ import Business.KUAlchemistsGame;
 import Business.MainAdapter;
 import Business.OfflineAdapter;
 import Business.OnlineAdapter;
+import Business.Player;
 import Controllers.PlayGameController;
 import DesignSystem.GameFrame;
 import soundEffects.PlaySong;
@@ -136,10 +137,11 @@ public class WelcomeFrame extends MagicFrame {
          backgroundPanel.add(progressBar);
     }
         
-    
+    //TODO
     
     private void ButtonClicked() {
     	this.getAdapter().start(); 
+    	//new EndGameFrame(game, new Player("simge", "avatar1")); 
     	this.dispose();
     }
 
