@@ -32,7 +32,7 @@ public class JoinGameFrame extends MagicFrame {
 	    	this.IPAdress = new JTextArea();
 	    	IPAdress.setBounds(320, 190, 100, 30);
 	    	IPAdress.setLineWrap(true);
-	    	IPAdress.setText("172.16.126.0");
+	    	//IPAdress.setText("172.16.126.0");
 	    	IPAdress.setWrapStyleWord(true);
 	    	backgroundPanel.add(IPAdress);
 	    	
@@ -65,7 +65,7 @@ public class JoinGameFrame extends MagicFrame {
 	            	try {
 						joinButtonClicked();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+						
 						e1.printStackTrace();
 					}
 	            }
@@ -78,7 +78,7 @@ public class JoinGameFrame extends MagicFrame {
 	        PlaySong.play("ButtonClick");
 	        String IP = IPAdress.getText();
 	            
-	                Socket socket = new Socket("localhost",1271);
+	                Socket socket = new Socket(IP, 1271);
 	                Client newClient = new Client(socket,this);
 	        Client.instance = newClient;       
 	        KUAlchemistsGame.instance.client = newClient;

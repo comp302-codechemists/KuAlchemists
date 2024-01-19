@@ -766,20 +766,21 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        debunkTheoryButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	/*if (game.getRound() < 2) {
+	            	if (game.getRound() < 2) {
 	                  	 JOptionPane.showMessageDialog(new JFrame(), "You can debunk theories after the third round. "
 	                  	 		+ "Please wait for round 3 for this action.",
 	                             "Action Denied", JOptionPane.ERROR_MESSAGE);
 	            	}
 	            	
 	            	else {
-		            	new DebunkTheoryFrame(game, player);
+		            	new DebunkTheoryFrame(game);
 		            	PlayerDashboardFrame.this.dispose();
-	            	}*/
+	            	}
 	            	PlaySong.play("ButtonClick");                      	
-
+	            	/*
 	            	new DebunkTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
+	            	*/
 	            }
 	        });
 	        
@@ -801,20 +802,20 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
 
-	            	/*if (game.getRound() < 2) {
+	            	if (game.getRound() < 2) {
 	                  	 JOptionPane.showMessageDialog(new JFrame(), "You can sell potions after the second round. "
 	                  	 		+ "Please wait for round 2 for this action.",
 	                             "Action Denied", JOptionPane.ERROR_MESSAGE);
 	            	}
 	            	else {
-		            	new SellPotionFrame(game, player);
+		            	new SellPotionFrame(game);
 		            	PlayerDashboardFrame.this.dispose();
-	            	}*/
+	            	}
 	            	PlaySong.play("ButtonClick");                      	
-	            	
+	            	/*
 	            	new SellPotionFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
-
+					*/
 	            }
 	        });
 	        
@@ -834,20 +835,20 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	        publishTheoryButton.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) {
-	            	/*if (game.getRound() < 2) {
+	            	if (game.getRound() < 2) {
 	                  	 JOptionPane.showMessageDialog(new JFrame(), "You can publish theories after the second round. "
 	                  	 		+ "Please wait for round 2 for this action.",
 	                             "Action Denied", JOptionPane.ERROR_MESSAGE);
 	            	}
 	            	else {
-		            	new PublishTheoryFrame(game, player);
+		            	new PublishTheoryFrame(game);
 		            	PlayerDashboardFrame.this.dispose();
-	            	}*/
+	            	}
 	            	PlaySong.play("ButtonClick");                      	
-
+	            	/*
 	            	new PublishTheoryFrame(game);
 	            	PlayerDashboardFrame.this.dispose();
-	
+					*/
 	            }
 	        });
 	        
