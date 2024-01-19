@@ -47,8 +47,8 @@ public class Ingredient {
 		map.put("Verdant Sprig", 1);
 		map.put("Essence of Stride", 2);
 		map.put("Fungal Spore", 3);
-		map.put("Azure Blossom", 4);
-		map.put("Terror Root", 5);
+		map.put("Terror Root", 4);
+		map.put("Azure Blossom", 5);		
 		map.put("Venomous Stinger", 6);
 		map.put("Amphibian Essence", 7);
 		map.put("Avian Quill", 8);
