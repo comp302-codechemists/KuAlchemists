@@ -52,7 +52,7 @@ public class MakeExperimentFrame extends FunctionalFrame {
 		this.setAnimation();
 		String[] initialOption = {"Please select the ingredient to keep"};
 		this.model = new DefaultComboBoxModel<>(initialOption);
-		
+		comboBox.setModel(model);
 
 	}
 	
