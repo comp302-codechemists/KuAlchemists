@@ -19,7 +19,7 @@ public class GameButton extends JButton{
 		setFont(GameText.normalText);
 		setBorder(new LineBorder(Color.white, 2));
 		setOpaque(false);
-		
+		/*
 		addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -50,6 +50,7 @@ public class GameButton extends JButton{
             	setForeground(Color.white);
             }
 		});
+		*/
 	}
 
 }

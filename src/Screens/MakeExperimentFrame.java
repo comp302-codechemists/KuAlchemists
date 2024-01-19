@@ -61,7 +61,20 @@ public class MakeExperimentFrame extends FunctionalFrame {
 		JPanel animationPanel = new JPanel();
 		getContentPane().add(animationPanel, BorderLayout.SOUTH);
 		animationPanel.setLayout(null);
+		animationPanel.setBounds(0, 500, 1200, 320);
+		animationPanel.setOpaque(false);
+		
+		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/Images/bubbles.gif"));
+	    Image image = imageIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+	    JLabel bubble1 = new JLabel(new ImageIcon(image));
+	    JLabel bubble2 = new JLabel(new ImageIcon(image));
+	    JLabel bubble3 = new JLabel(new ImageIcon(image));
+	    JLabel bubble4 = new JLabel(new ImageIcon(image));
+	    bubble1.setBounds(0, 0, 100, 100);
 	    
+	    
+	    animationPanel.add(bubble1);
+	    backgroundPanel.add(animationPanel);
 	    
 		
 	}

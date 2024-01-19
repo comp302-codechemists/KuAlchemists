@@ -59,7 +59,7 @@ public class BuyArtifactFrame extends FunctionalFrame{
 	{
 		button = new JButton();
 		button.setText("Buy");
-		button.setBounds(500, 500, 150, 30);
+		button.setBounds(500, 300, 150, 30);
 		button.setForeground(Color.white);
 		button.setFont(new Font("Tahoma", Font.ITALIC, 15));
 		button.setOpaque(false);

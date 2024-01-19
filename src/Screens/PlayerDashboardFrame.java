@@ -79,7 +79,6 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private JLabel balanceLabel;
 	private JLabel sickInfo;
 	private JLabel sickLabel;
-	private JButton testElixir;
 	private JButton clearBtn;
 	private JButton removeDeduction;
 	private JPanel deductionPanel;
@@ -122,17 +121,17 @@ public class PlayerDashboardFrame extends GeneralFrame{
         userAvatar = new JLabel();
         String avatarPath = game.currentPlayer.getAvatarPath();
         ImageIcon originalIcon1 = new ImageIcon(getClass().getResource("/Images/" + avatarPath + ".png"));
-        Image originalImage1 = originalIcon1.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+        Image originalImage1 = originalIcon1.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         ImageIcon avatar = new ImageIcon(originalImage1);
         userAvatar.setIcon(avatar);
-        userAvatar.setBounds(70, 70, 200, 200);
+        userAvatar.setBounds(70, 70, 150, 150);
         backgroundPanel.add(userAvatar);
         
         // username
         System.out.println(game.currentPlayer.getUserName());
 		JLabel userNameLabel = new JLabel(game.currentPlayer.getUserName());
         userNameLabel.setForeground(Color.WHITE);
-        userNameLabel.setBounds(300, 150, 187, 30); 
+        userNameLabel.setBounds(70, 250, 187, 50); 
         userNameLabel.setOpaque(false); 
         userNameLabel.setFont(new Font("Tahoma", Font.ITALIC, 35));
         backgroundPanel.add(userNameLabel);
@@ -615,7 +614,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private void setPlayerIngredients() {
 		
         ingredientPannel = new JPanel();
-        ingredientPannel.setBounds(70, 500, 653, 123);
+        ingredientPannel.setBounds(70, 650, 653, 123);
         ingredientPannel.setOpaque(false);
         backgroundPanel.add(ingredientPannel);
         ingredientPannel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
@@ -623,7 +622,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         JLabel ingredientsLabel = new JLabel("Ingredients:");
         ingredientsLabel.setForeground(Color.WHITE);
         ingredientsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-        ingredientsLabel.setBounds(70, 480, 85, 13);
+        ingredientsLabel.setBounds(70, 630, 85, 13);
         backgroundPanel.add(ingredientsLabel);
         
         for (Ingredient ingredient : game.currentPlayer.getIngredients()) {
@@ -642,7 +641,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
 	private void setPlayerArtifacts() {
 		
         artifactPannel = new JPanel();
-        artifactPannel.setBounds(70, 650, 653, 123);
+        artifactPannel.setBounds(70, 500, 653, 123);
         backgroundPanel.add(artifactPannel);
         artifactPannel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
         artifactPannel.setOpaque(false);
@@ -650,7 +649,7 @@ public class PlayerDashboardFrame extends GeneralFrame{
         JLabel artifactsLabel = new JLabel("Artifacts:");
         artifactsLabel.setForeground(Color.WHITE);
         artifactsLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
-        artifactsLabel.setBounds(70, 630, 85, 13);
+        artifactsLabel.setBounds(70, 480, 85, 13);
         backgroundPanel.add(artifactsLabel);
         
         for (Artifact artifact : game.currentPlayer.getArtifacts()) {
