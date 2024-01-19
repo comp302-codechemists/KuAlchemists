@@ -11,7 +11,7 @@ public class Main {
     	InetAddress address = InetAddress.getLocalHost();         
     	System.out.println("IP address: " + address.getHostAddress());
     	new WelcomeFrame();
-
+	// Buralarda biriken anilari kim sildiyse, ayip etmistir.
     }
 
 }
